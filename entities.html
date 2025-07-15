@@ -4,85 +4,177 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Wikidata Entity Viewer</title>
-  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --background: #121212;
+      --text: #E0E0E0;
+      --neon: #00FF00;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      background-color: var(--background);
+      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
       max-width: 800px;
-      margin: 20px auto;
-      padding: 0 20px;
+      margin: 0 auto;
+      padding: 20px;
     }
+
+    .header {
+      background-color: #222;
+      padding: 10px;
+      text-align: center;
+      border-bottom: 2px solid var(--neon);
+    }
+
+    .header h2 {
+      color: var(--neon);
+      text-shadow: 0 0 10px var(--neon);
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    main {
+      padding: 20px;
+    }
+
     h1 {
-      color: #333;
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px var(--neon);
+      color: var(--neon);
+      margin-bottom: 10px;
     }
+
     p {
-      color: #666;
+      font-size: 1.2rem;
       line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .language-switcher select {
+      background-color: #333;
+      color: var(--text);
+      border: 2px solid var(--neon);
+      padding: 5px;
+      font-family: 'Orbitron', sans-serif;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    select option {
+      background-color: #333;
+      color: var(--text);
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
   <div id="root"></div>
-
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
   <script type="text/babel">
     function EntityPage() {
       const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
-      const [label, setLabel] = React.useState('');
-      const [description, setDescription] = React.useState('');
+      const [labels, setLabels] = React.useState({});
+      const [descriptions, setDescriptions] = React.useState({});
+      const [availableLanguages, setAvailableLanguages] = React.useState([]);
+      const [selectedLanguage, setSelectedLanguage] = React.useState('');
+      const [isLoading, setIsLoading] = React.useState(true);
 
       // Handle hash changes for navigation
       React.useEffect(() => {
         const handleHashChange = () => {
           setEntityId(window.location.hash.slice(1) || 'Q35120');
+          setIsLoading(true);
         };
         window.addEventListener('hashchange', handleHashChange);
-        return () => {
-          window.removeEventListener('hashchange', handleHashChange);
-        };
+        return () => window.removeEventListener('hashchange', handleHashChange);
       }, []);
 
-      // Fetch entity data from Wikidata API
+      // Fetch entity data from Wikidata
       React.useEffect(() => {
+        const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
         const preferredLanguages = navigator.languages.map(lang => lang.split('-')[0]);
-        const languages = [...new Set([...preferredLanguages, 'en'])].join('|');
+        const allLanguages = [...new Set([...preferredLanguages, ...commonLanguages, 'en'])];
+        const languages = allLanguages.join('|');
         const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=labels|descriptions&languages=${languages}&format=json&origin=*`;
 
+        setIsLoading(true);
         fetch(url)
           .then(response => response.json())
           .then(data => {
             const entity = data.entities[entityId];
             if (entity) {
-              const labels = entity.labels;
-              const descriptions = entity.descriptions;
-              const labelLang = preferredLanguages.find(lang => labels[lang]) || 'en';
-              const label = labels[labelLang] ? labels[labelLang].value : 'No label found';
-              const descLang = preferredLanguages.find(lang => descriptions[lang]) || 'en';
-              const description = descriptions[descLang] ? descriptions[descLang].value : 'No description found';
-              setLabel(label);
-              setDescription(description);
+              const labels = entity.labels || {};
+              const descriptions = entity.descriptions || {};
+              const langSet = new Set([...Object.keys(labels), ...Object.keys(descriptions)]);
+              const availableLangs = Array.from(langSet).sort();
+              setAvailableLanguages(availableLangs);
+              setLabels(labels);
+              setDescriptions(descriptions);
+              const initialLang = preferredLanguages.find(lang => langSet.has(lang)) || 'en';
+              setSelectedLanguage(initialLang);
             } else {
-              setLabel('Entity not found');
-              setDescription('');
+              setAvailableLanguages([]);
+              setLabels({});
+              setDescriptions({});
+              setSelectedLanguage('');
             }
+            setIsLoading(false);
           })
           .catch(error => {
             console.error('Error fetching data:', error);
-            setLabel('Error fetching data');
-            setDescription('');
+            setAvailableLanguages([]);
+            setLabels({});
+            setDescriptions({});
+            setSelectedLanguage('');
+            setIsLoading(false);
           });
       }, [entityId]);
 
+      if (isLoading) {
+        return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
+      }
+
+      if (availableLanguages.length === 0) {
+        return <div style={{ textAlign: 'center', marginTop: '50px' }}>No data available for this entity.</div>;
+      }
+
+      const currentLabel = labels[selectedLanguage] ? labels[selectedLanguage].value : 'No label available';
+      const currentDescription = descriptions[selectedLanguage] ? descriptions[selectedLanguage].value : 'No description available';
+      const languageNames = new Intl.DisplayNames([navigator.language], { type: 'language' });
+
       return (
         <div>
-          <h1>{label}</h1>
-          <p>{description}</p>
+          <header className="header">
+            <h2>Entity: {entityId}</h2>
+          </header>
+          <main>
+            <h1>{currentLabel}</h1>
+            <p>{currentDescription}</p>
+            <div className="language-switcher">
+              <select value={selectedLanguage} onChange={e => setSelectedLanguage(e.target.value)}>
+                {availableLanguages.map(lang => (
+                  <option key={lang} value={lang}>{lang} - {languageNames.of(lang) || lang}</option>
+                ))}
+              </select>
+            </div>
+          </main>
         </div>
       );
     }
 
-    // Render the component
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<EntityPage />);
   </script>
