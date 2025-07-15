@@ -10,71 +10,160 @@
       --background: #121212;
       --text: #E0E0E0;
       --neon: #00FF00;
+      --neon-selected: #00FFFF;
+      --header-bg: #222;
+      --description-text: #A0A0A0;
+      --watermark-color: #E0E0E0;
+    }
+
+    [data-theme="light"] {
+      --background: #FFFFFF;
+      --text: #333333;
+      --neon: #FF00FF;
+      --neon-selected: #FF007F;
+      --header-bg: #F0F0F0;
+      --description-text: #666666;
+      --watermark-color: #333333;
+    }
+
+    html, body {
+      background-color: var(--background);
+      height: 100%;
     }
 
     body {
-      background-color: var(--background);
       color: var(--text);
       font-family: 'Orbitron', sans-serif;
       max-width: 800px;
       margin: 0 auto;
       padding: 20px;
+      position: relative;
     }
 
-    .header {
-      background-color: #222;
-      padding: 10px;
-      text-align: center;
-      border-bottom: 2px solid var(--neon);
-    }
-
-    .header h2 {
-      color: var(--neon);
-      text-shadow: 0 0 10px var(--neon);
-      font-size: 1.5rem;
-      margin: 0;
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      font-size: 6rem;
+      color: var(--watermark-color);
+      opacity: 0.1;
+      pointer-events: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      z-index: 0; /* Changed from -1 to 0 */
     }
 
     main {
       padding: 20px;
     }
 
-    h1 {
+    h1, h2 {
       font-size: 2.5rem;
       text-shadow: 0 0 10px var(--neon);
       color: var(--neon);
-      margin-bottom: 10px;
+      margin-bottom: 30px;
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--text);
     }
 
     p {
       font-size: 1.2rem;
       line-height: 1.5;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
+      color: var(--description-text);
     }
 
-    .language-switcher select {
-      background-color: #333;
+    .entity-info {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      font-size: 1rem;
       color: var(--text);
+      z-index: 10;
+      padding: 8px;
+      margin: 0 8px;
+    }
+
+    .entity-info a {
+      color: var(--neon);
+      text-decoration: none;
+    }
+
+    .entity-info a:hover {
+      text-decoration: underline;
+    }
+
+    .language-switcher {
+      position: fixed;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      padding: 8px;
+      text-align: center;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .language-switcher button {
+      background-color: transparent;
+      border: 1px solid var(--header-bg);
+      color: var(--text);
+      font-size: 1.2rem;
+      padding: 8px;
+      margin: 0 8px;
+      cursor: pointer;
+    }
+
+    .language-switcher button.selected {
+      color: var(--neon-selected);
+      border: 1px solid var(--neon-selected);
+      border-radius: 4px;
+    }
+
+    .language-switcher button.preferred:not(.selected) {
+      text-decoration: underline;
+      text-decoration-color: var(--neon);
+      text-decoration-thickness: 1px;
+    }
+
+    .language-switcher button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
       border: 2px solid var(--neon);
-      padding: 5px;
-      font-family: 'Orbitron', sans-serif;
-      width: 100%;
-      max-width: 300px;
-    }
-
-    select option {
-      background-color: #333;
       color: var(--text);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 8px;
+      margin: 0 8px;
     }
 
     @media (max-width: 600px) {
-      h1 {
-        font-size: 2rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
+      h1 { font-size: 2rem; }
+      h2 { margin-bottom: 25px; font-size: 1.2rem; }
+      p { font-size: 1rem; margin-bottom: 30px; }
+      .language-switcher { left: 10px; right: 10px; padding: 6px; }
+      .language-switcher button { font-size: 1rem; padding: 6px; margin: 0 4px; }
+      .theme-toggle { top: 10px; right: 10px; width: 30px; height: 30px; font-size: 1.2rem; padding: 6px; margin: 0 4px; }
+      .watermark { font-size: 4rem; left: 10px; bottom: 10px; }
+      .entity-info { font-size: 0.9rem; bottom: 70px; right: 10px; padding: 6px; margin: 0 4px; }
     }
   </style>
 </head>
@@ -82,17 +171,50 @@
   <div id="root"></div>
   <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
   <script type="text/babel">
+    const flagMap = {
+      'en': '🇬🇧',
+      'es': '🇪🇸',
+      'fr': '🇫🇷',
+      'de': '🇩🇪',
+      'it': '🇮🇹',
+      'ru': '🇷🇺',
+      'zh': '🇨🇳',
+      'ja': '🇯🇵',
+      'ko': '🇰🇷',
+      'ar': '🇸🇦',
+      'hi': '🇮🇳',
+      'pt': '🇵🇹',
+      'bn': '🇧🇩',
+      'ta': '🇮🇳',
+      'te': '🇮🇳',
+      'ml': '🇮🇳',
+      'ur': '🇵🇰',
+      'fa': '🇮🇷',
+      'tr': '🇹🇷',
+      'vi': '🇻🇳'
+    };
+
     function EntityPage() {
       const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
       const [labels, setLabels] = React.useState({});
       const [descriptions, setDescriptions] = React.useState({});
+      const [preferredLanguages, setPreferredLanguages] = React.useState([]);
       const [availableLanguages, setAvailableLanguages] = React.useState([]);
       const [selectedLanguage, setSelectedLanguage] = React.useState('');
       const [isLoading, setIsLoading] = React.useState(true);
+      const [theme, setTheme] = React.useState('dark');
 
-      // Handle hash changes for navigation
+      React.useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+      }, [theme]);
+
+      React.useEffect(() => {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        setTheme(systemTheme);
+      }, []);
+
       React.useEffect(() => {
         const handleHashChange = () => {
           setEntityId(window.location.hash.slice(1) || 'Q35120');
@@ -102,75 +224,99 @@
         return () => window.removeEventListener('hashchange', handleHashChange);
       }, []);
 
-      // Fetch entity data from Wikidata
       React.useEffect(() => {
+        const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
+        const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
+        setPreferredLanguages(uniquePreferredLangs);
         const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
-        const preferredLanguages = navigator.languages.map(lang => lang.split('-')[0]);
-        const allLanguages = [...new Set([...preferredLanguages, ...commonLanguages, 'en'])];
+        const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
         const languages = allLanguages.join('|');
         const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=labels|descriptions&languages=${languages}&format=json&origin=*`;
 
         setIsLoading(true);
         fetch(url)
-          .then(response => response.json())
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
           .then(data => {
             const entity = data.entities[entityId];
             if (entity) {
-              const labels = entity.labels || {};
-              const descriptions = entity.descriptions || {};
-              const langSet = new Set([...Object.keys(labels), ...Object.keys(descriptions)]);
-              const availableLangs = Array.from(langSet).sort();
-              setAvailableLanguages(availableLangs);
-              setLabels(labels);
-              setDescriptions(descriptions);
-              const initialLang = preferredLanguages.find(lang => langSet.has(lang)) || 'en';
+              setLabels(entity.labels || {});
+              setDescriptions(entity.descriptions || {});
+              const langSet = new Set([...Object.keys(entity.labels || {}), ...Object.keys(entity.descriptions || {})]);
+              setAvailableLanguages(Array.from(langSet).sort());
+              const initialLang = uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
               setSelectedLanguage(initialLang);
             } else {
-              setAvailableLanguages([]);
               setLabels({});
               setDescriptions({});
-              setSelectedLanguage('');
+              setAvailableLanguages([]);
+              setSelectedLanguage(uniquePreferredLangs[0] || 'en');
             }
             setIsLoading(false);
           })
           .catch(error => {
             console.error('Error fetching data:', error);
-            setAvailableLanguages([]);
             setLabels({});
             setDescriptions({});
-            setSelectedLanguage('');
+            setAvailableLanguages([]);
+            setSelectedLanguage(uniquePreferredLangs[0] || 'en');
             setIsLoading(false);
           });
       }, [entityId]);
+
+      const toggleTheme = () => {
+        setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+      };
 
       if (isLoading) {
         return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
       }
 
-      if (availableLanguages.length === 0) {
-        return <div style={{ textAlign: 'center', marginTop: '50px' }}>No data available for this entity.</div>;
-      }
-
-      const currentLabel = labels[selectedLanguage] ? labels[selectedLanguage].value : 'No label available';
-      const currentDescription = descriptions[selectedLanguage] ? descriptions[selectedLanguage].value : 'No description available';
-      const languageNames = new Intl.DisplayNames([navigator.language], { type: 'language' });
+      const currentLabel = labels[selectedLanguage]?.value || 'No label available';
+      const otherLabels = preferredLanguages.filter(lang => lang !== selectedLanguage && labels[lang]);
+      const sortedLanguages = [selectedLanguage, ...otherLabels];
+      const descriptionsList = sortedLanguages.map(lang => descriptions[lang]?.value).filter(desc => desc);
 
       return (
         <div>
-          <header className="header">
-            <h2>Entity: {entityId}</h2>
-          </header>
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
           <main>
             <h1>{currentLabel}</h1>
-            <p>{currentDescription}</p>
-            <div className="language-switcher">
-              <select value={selectedLanguage} onChange={e => setSelectedLanguage(e.target.value)}>
-                {availableLanguages.map(lang => (
-                  <option key={lang} value={lang}>{lang} - {languageNames.of(lang) || lang}</option>
-                ))}
-              </select>
-            </div>
+            {otherLabels.map(lang => (
+              <h2 key={lang}>{labels[lang]?.value || 'No label available'}</h2>
+            ))}
+            {descriptionsList.length > 0 ? (
+              descriptionsList.map((desc, index) => (
+                <p key={index}>{desc}</p>
+              ))
+            ) : (
+              <p>No description available</p>
+            )}
           </main>
+          <div className="entity-info">
+            <span>Data source: </span>
+            <a href={`https://www.wikidata.org/wiki/${entityId}`} target="_blank" rel="noopener noreferrer">{entityId}</a>
+          </div>
+          <div className="language-switcher">
+            {availableLanguages.map(lang => (
+              <button
+                key={lang}
+                className={`${lang === selectedLanguage ? 'selected' : ''} ${
+                  preferredLanguages.includes(lang) && lang !== selectedLanguage ? 'preferred' : ''
+                }`}
+                onClick={() => setSelectedLanguage(lang)}
+              >
+                {flagMap[lang] || lang}
+              </button>
+            ))}
+          </div>
+          <div className="watermark">entity</div>
         </div>
       );
     }
