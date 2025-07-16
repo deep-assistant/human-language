@@ -34,16 +34,23 @@
     body {
       color: var(--text);
       font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    .app-wrapper {
       max-width: 800px;
       margin: 0 auto;
       padding: 20px;
       position: relative;
+      min-height: 100vh;
     }
 
     .watermark {
       position: fixed;
       bottom: 20px;
-      left: 20px;
+      left: 30px;
       font-size: 6rem;
       color: var(--watermark-color);
       opacity: 0.1;
@@ -51,6 +58,7 @@
       text-transform: uppercase;
       font-weight: 700;
       z-index: -1; /* Set to -1 to ensure it's behind all content */
+      max-width: 800px;
     }
 
     main {
@@ -605,7 +613,7 @@
       const descriptionsList = sortedLanguages.map(lang => descriptions[lang]?.value).filter(desc => desc);
 
       return (
-        <div>
+        <div className="app-wrapper">
           <button className="theme-toggle" onClick={toggleTheme}>
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
