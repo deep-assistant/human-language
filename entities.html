@@ -431,13 +431,8 @@
               
               const propertyLink = (
                 <a 
-                  href={`#${propertyId}`} 
+                  href={`properties.html#${propertyId}`} 
                   style={{ color: 'var(--neon)', textDecoration: 'none' }}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    // For now, just show the property ID since we don't have a properties page
-                    alert(`Property: ${propertyId} - ${propertyLabel}`);
-                  }}
                 >
                   {propertyLabel}
                 </a>
