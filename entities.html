@@ -113,9 +113,23 @@
       color: var(--neon);
       text-decoration: none;
       pointer-events: auto;
+      transition: color 0.3s ease;
     }
 
     .entity-info a:hover {
+      color: var(--neon-selected);
+      text-decoration: underline;
+    }
+
+    /* Statement link hover effects */
+    .statement-link {
+      color: var(--neon);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .statement-link:hover {
+      color: var(--neon-selected);
       text-decoration: underline;
     }
 
@@ -587,7 +601,7 @@
               const entityLink = (
                 <a 
                   href={`#${entityId}`} 
-                  style={{ color: 'var(--neon)', textDecoration: 'none' }}
+                  className="statement-link"
                   onClick={(e) => {
                     e.preventDefault();
                     window.location.hash = entityId;
@@ -600,7 +614,7 @@
               const propertyLink = (
                 <a 
                   href={`properties.html#${propertyId}`} 
-                  style={{ color: 'var(--neon)', textDecoration: 'none' }}
+                  className="statement-link"
                 >
                   {propertyLabel}
                 </a>
@@ -613,7 +627,7 @@
                 valueElement = (
                   <a 
                     href={`#${valueEntityId}`} 
-                    style={{ color: 'var(--neon)', textDecoration: 'none' }}
+                    className="statement-link"
                     onClick={(e) => {
                       e.preventDefault();
                       window.location.hash = valueEntityId;
