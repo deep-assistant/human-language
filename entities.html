@@ -200,7 +200,7 @@
       const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
       const [labels, setLabels] = React.useState({});
       const [descriptions, setDescriptions] = React.useState({});
-      const [facts, setFacts] = React.useState([]);
+      const [statements, setStatements] = React.useState([]);
       const [preferredLanguages, setPreferredLanguages] = React.useState([]);
       const [availableLanguages, setAvailableLanguages] = React.useState([]);
       const [selectedLanguage, setSelectedLanguage] = React.useState('');
@@ -247,7 +247,7 @@
             if (entity) {
               setLabels(entity.labels || {});
               setDescriptions(entity.descriptions || {});
-              setFacts(entity.claims || {});
+              setStatements(entity.claims || {});
               const langSet = new Set([...Object.keys(entity.labels || {}), ...Object.keys(entity.descriptions || {})]);
               setAvailableLanguages(Array.from(langSet).sort());
               const initialLang = uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
@@ -255,7 +255,7 @@
             } else {
               setLabels({});
               setDescriptions({});
-              setFacts({});
+              setStatements({});
               setAvailableLanguages([]);
               setSelectedLanguage(uniquePreferredLangs[0] || 'en');
             }
@@ -265,7 +265,7 @@
             console.error('Error fetching data:', error);
             setLabels({});
             setDescriptions({});
-            setFacts({});
+            setStatements({});
             setAvailableLanguages([]);
             setSelectedLanguage(uniquePreferredLangs[0] || 'en');
             setIsLoading(false);
@@ -299,9 +299,9 @@
         return 'No value';
       };
 
-      const renderFacts = () => {
+      const renderStatements = () => {
         const factElements = [];
-        for (const [propertyId, claims] of Object.entries(facts)) {
+        for (const [propertyId, claims] of Object.entries(statements)) {
           if (Array.isArray(claims)) {
             claims.forEach((claim, index) => {
               const value = formatFactValue(claim);
@@ -349,13 +349,13 @@
               <p>No description available</p>
             )}
             
-            <h2>Facts</h2>
-            {Object.keys(facts).length > 0 ? (
+            <h2>Statements</h2>
+            {Object.keys(statements).length > 0 ? (
               <div style={{ marginTop: '20px' }}>
-                {renderFacts()}
+                {renderStatements()}
               </div>
             ) : (
-              <p>No facts available</p>
+              <p>No statements available</p>
             )}
           </main>
           <div className="entity-info">
