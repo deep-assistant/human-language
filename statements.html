@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wikidata Statement Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #121212;
+      --text: #E0E0E0;
+      --neon: #00FF00;
+      --neon-selected: #00FFFF;
+      --header-bg: #222;
+      --description-text: #A0A0A0;
+      --watermark-color: #E0E0E0;
+      --confirmation-color: #4CAF50;
+      --refutation-color: #F44336;
+      --evidence-bg: #1a1a1a;
+    }
+
+    [data-theme="light"] {
+      --background: #FFFFFF;
+      --text: #333333;
+      --neon: #FF00FF;
+      --neon-selected: #FF007F;
+      --header-bg: #F0F0F0;
+      --description-text: #666666;
+      --watermark-color: #333333;
+      --confirmation-color: #2E7D32;
+      --refutation-color: #C62828;
+      --evidence-bg: #F5F5F5;
+    }
+
+    html, body {
+      background-color: var(--background);
+      height: 100%;
+    }
+
+    body {
+      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      font-size: 6rem;
+      color: var(--watermark-color);
+      opacity: 0.1;
+      pointer-events: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      z-index: 0;
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    h1, h2 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px var(--neon);
+      color: var(--neon);
+      margin-bottom: 30px;
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      color: var(--neon);
+      margin-bottom: 15px;
+      margin-top: 30px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      color: var(--description-text);
+    }
+
+    .statement-info {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      font-size: 1rem;
+      color: var(--text);
+      z-index: 10;
+      padding: 8px;
+      margin: 0 8px;
+    }
+
+    .statement-info a {
+      color: var(--neon);
+      text-decoration: none;
+    }
+
+    .statement-info a:hover {
+      text-decoration: underline;
+    }
+
+    .language-switcher {
+      position: fixed;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      padding: 8px;
+      text-align: center;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .language-switcher button {
+      background-color: transparent;
+      border: 1px solid var(--header-bg);
+      color: var(--text);
+      font-size: 1.2rem;
+      padding: 8px;
+      margin: 0 8px;
+      cursor: pointer;
+    }
+
+    .language-switcher button.selected {
+      color: var(--neon-selected);
+      border: 1px solid var(--neon-selected);
+      border-radius: 4px;
+    }
+
+    .language-switcher button.preferred:not(.selected) {
+      text-decoration: underline;
+      text-decoration-color: var(--neon);
+      text-decoration-thickness: 1px;
+    }
+
+    .language-switcher button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      border: 2px solid var(--neon);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 8px;
+      margin: 0 8px;
+    }
+
+    .evidence-section {
+      background-color: var(--evidence-bg);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      border-left: 4px solid var(--neon);
+    }
+
+    .evidence-item {
+      margin: 15px 0;
+      padding: 15px;
+      border-radius: 6px;
+      border: 1px solid var(--header-bg);
+    }
+
+    .evidence-item.confirmation {
+      border-left: 4px solid var(--confirmation-color);
+    }
+
+    .evidence-item.refutation {
+      border-left: 4px solid var(--refutation-color);
+    }
+
+    .evidence-title {
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: var(--neon);
+    }
+
+    .evidence-description {
+      color: var(--description-text);
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    .evidence-link {
+      color: var(--neon);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-top: 8px;
+      display: inline-block;
+    }
+
+    .evidence-link:hover {
+      text-decoration: underline;
+    }
+
+    .no-evidence {
+      color: var(--description-text);
+      font-style: italic;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .loading {
+      text-align: center;
+      margin-top: 50px;
+      color: var(--neon);
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { margin-bottom: 25px; font-size: 1.2rem; }
+      h3 { font-size: 1.1rem; }
+      p { font-size: 1rem; margin-bottom: 30px; }
+      .language-switcher { left: 10px; right: 10px; padding: 6px; }
+      .language-switcher button { font-size: 1rem; padding: 6px; margin: 0 4px; }
+      .theme-toggle { top: 10px; right: 10px; width: 30px; height: 30px; font-size: 1.2rem; padding: 6px; margin: 0 4px; }
+      .watermark { font-size: 4rem; left: 10px; bottom: 10px; }
+      .statement-info { font-size: 0.9rem; bottom: 70px; right: 10px; padding: 6px; margin: 0 4px; }
+      .evidence-section { padding: 15px; }
+      .evidence-item { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
+  <script type="text/babel">
+    const flagMap = {
+      'en': '🇬🇧',
+      'es': '🇪🇸',
+      'fr': '🇫🇷',
+      'de': '🇩🇪',
+      'it': '🇮🇹',
+      'ru': '🇷🇺',
+      'zh': '🇨🇳',
+      'ja': '🇯🇵',
+      'ko': '🇰🇷',
+      'ar': '🇸🇦',
+      'hi': '🇮🇳',
+      'pt': '🇵🇹',
+      'bn': '🇧🇩',
+      'ta': '🇮🇳',
+      'te': '🇮🇳',
+      'ml': '🇮🇳',
+      'ur': '🇵🇰',
+      'fa': '🇮🇷',
+      'tr': '🇹🇷',
+      'vi': '🇻🇳'
+    };
+
+    function StatementPage() {
+      const [statementId, setStatementId] = React.useState(window.location.hash.slice(1) || 'Q35120$E671D173-25F4-4D13-BF2E-A5E60B9F18A8');
+      const [statement, setStatement] = React.useState(null);
+      const [confirmations, setConfirmations] = React.useState([]);
+      const [refutations, setRefutations] = React.useState([]);
+      const [preferredLanguages, setPreferredLanguages] = React.useState([]);
+      const [availableLanguages, setAvailableLanguages] = React.useState([]);
+      const [selectedLanguage, setSelectedLanguage] = React.useState('');
+      const [isLoading, setIsLoading] = React.useState(true);
+      const [theme, setTheme] = React.useState('dark');
+
+      React.useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+      }, [theme]);
+
+      React.useEffect(() => {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        setTheme(systemTheme);
+      }, []);
+
+      React.useEffect(() => {
+        const handleHashChange = () => {
+          setStatementId(window.location.hash.slice(1) || 'Q35120$E671D173-25F4-4D13-BF2E-A5E60B9F18A8');
+          setIsLoading(true);
+        };
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+      }, []);
+
+      React.useEffect(() => {
+        const fetchStatementData = async () => {
+          try {
+            setIsLoading(true);
+            
+            // Extract entity ID from statement ID (format: Q123$guid)
+            const entityId = statementId.split('$')[0];
+            
+            const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
+            const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
+            setPreferredLanguages(uniquePreferredLangs);
+            
+            const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
+            const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
+            const languages = allLanguages.join('|');
+            
+            // Fetch entity data including statements
+            const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=labels|descriptions|claims&languages=${languages}&format=json&origin=*`;
+            
+            const response = await fetch(url);
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            const entity = data.entities[entityId];
+            
+            if (entity) {
+              // Find the specific statement
+              let foundStatement = null;
+              for (const propertyId in entity.claims) {
+                for (const claim of entity.claims[propertyId]) {
+                  if (claim.id === statementId) {
+                    foundStatement = {
+                      id: claim.id,
+                      property: propertyId,
+                      value: claim.mainsnak,
+                      qualifiers: claim.qualifiers || {},
+                      references: claim.references || []
+                    };
+                    break;
+                  }
+                }
+                if (foundStatement) break;
+              }
+              
+              setStatement(foundStatement);
+              
+              // Set available languages
+              const langSet = new Set([...Object.keys(entity.labels || {}), ...Object.keys(entity.descriptions || {})]);
+              setAvailableLanguages(Array.from(langSet).sort());
+              const initialLang = uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
+              setSelectedLanguage(initialLang);
+              
+              // Mock confirmations and refutations (in a real implementation, these would come from Wikidata)
+              setConfirmations([
+                {
+                  id: 'conf1',
+                  title: 'Scientific Study Confirms',
+                  description: 'A peer-reviewed study published in Nature supports this claim with statistical significance.',
+                  url: 'https://www.wikidata.org/wiki/Q123'
+                },
+                {
+                  id: 'conf2',
+                  title: 'Expert Consensus',
+                  description: 'Multiple experts in the field have independently verified this statement.',
+                  url: 'https://www.wikidata.org/wiki/Q456'
+                }
+              ]);
+              
+              setRefutations([
+                {
+                  id: 'ref1',
+                  title: 'Contradictory Evidence',
+                  description: 'Recent research suggests alternative interpretations of the available data.',
+                  url: 'https://www.wikidata.org/wiki/Q789'
+                }
+              ]);
+            }
+            
+            setIsLoading(false);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+            setStatement(null);
+            setConfirmations([]);
+            setRefutations([]);
+            setIsLoading(false);
+          }
+        };
+
+        fetchStatementData();
+      }, [statementId]);
+
+      const toggleTheme = () => {
+        setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+      };
+
+      if (isLoading) {
+        return <div className="loading">Loading statement data...</div>;
+      }
+
+      if (!statement) {
+        return (
+          <div>
+            <button className="theme-toggle" onClick={toggleTheme}>
+              {theme === 'dark' ? '☀️' : '🌙'}
+            </button>
+            <main>
+              <h1>Statement Not Found</h1>
+              <p>The requested statement could not be found in Wikidata.</p>
+            </main>
+            <div className="watermark">statement</div>
+          </div>
+        );
+      }
+
+      const getPropertyLabel = (propertyId) => {
+        // In a real implementation, this would fetch property labels
+        return propertyId;
+      };
+
+      const getValueLabel = (value) => {
+        if (value.datatype === 'wikibase-item' && value.datavalue) {
+          return value.datavalue.value.id;
+        }
+        if (value.datavalue && value.datavalue.value) {
+          return JSON.stringify(value.datavalue.value);
+        }
+        return 'Unknown value';
+      };
+
+      return (
+        <div>
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+          <main>
+            <h1>Statement Details</h1>
+            
+            <div className="evidence-section">
+              <h3>Statement Information</h3>
+              <p><strong>Property:</strong> {getPropertyLabel(statement.property)}</p>
+              <p><strong>Value:</strong> {getValueLabel(statement.value)}</p>
+              <p><strong>Statement ID:</strong> {statement.id}</p>
+            </div>
+
+            <div className="evidence-section">
+              <h3>Supporting Evidence (Confirmations)</h3>
+              {confirmations.length > 0 ? (
+                confirmations.map(conf => (
+                  <div key={conf.id} className="evidence-item confirmation">
+                    <div className="evidence-title">{conf.title}</div>
+                    <div className="evidence-description">{conf.description}</div>
+                    <a href={conf.url} target="_blank" rel="noopener noreferrer" className="evidence-link">
+                      View on Wikidata →
+                    </a>
+                  </div>
+                ))
+              ) : (
+                <div className="no-evidence">No supporting evidence found</div>
+              )}
+            </div>
+
+            <div className="evidence-section">
+              <h3>Contradictory Evidence (Refutations)</h3>
+              {refutations.length > 0 ? (
+                refutations.map(ref => (
+                  <div key={ref.id} className="evidence-item refutation">
+                    <div className="evidence-title">{ref.title}</div>
+                    <div className="evidence-description">{ref.description}</div>
+                    <a href={ref.url} target="_blank" rel="noopener noreferrer" className="evidence-link">
+                      View on Wikidata →
+                    </a>
+                  </div>
+                ))
+              ) : (
+                <div className="no-evidence">No contradictory evidence found</div>
+              )}
+            </div>
+          </main>
+          
+          <div className="statement-info">
+            <span>Data source: </span>
+            <a href={`https://www.wikidata.org/wiki/${statementId.split('$')[0]}`} target="_blank" rel="noopener noreferrer">
+              {statementId.split('$')[0]}
+            </a>
+          </div>
+          
+          <div className="language-switcher">
+            {availableLanguages.map(lang => (
+              <button
+                key={lang}
+                className={`${lang === selectedLanguage ? 'selected' : ''} ${
+                  preferredLanguages.includes(lang) && lang !== selectedLanguage ? 'preferred' : ''
+                }`}
+                onClick={() => setSelectedLanguage(lang)}
+              >
+                {flagMap[lang] || lang}
+              </button>
+            ))}
+          </div>
+          
+          <div className="watermark">statement</div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<StatementPage />);
+  </script>
+</body>
+</html>
