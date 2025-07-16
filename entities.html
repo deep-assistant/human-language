@@ -91,15 +91,13 @@
     }
 
     .entity-info {
-      position: fixed;
-      bottom: 90px;
-      right: 20px;
+      position: relative;
       font-size: 1rem;
       color: var(--text);
-      z-index: 10;
       padding: 8px;
-      margin: 0 8px;
-      pointer-events: none;
+      margin: 20px 0;
+      text-align: right;
+      padding-top: 20px;
     }
 
     .entity-info a {
@@ -671,11 +669,12 @@
             ) : (
               <p>No statements available</p>
             )}
+            
+            <div className="entity-info">
+              <span>Data source: </span>
+              <a href={`https://www.wikidata.org/wiki/${entityId}`} target="_blank" rel="noopener noreferrer">{entityId}</a>
+            </div>
           </main>
-          <div className="entity-info">
-            <span>Data source: </span>
-            <a href={`https://www.wikidata.org/wiki/${entityId}`} target="_blank" rel="noopener noreferrer">{entityId}</a>
-          </div>
           <div className="language-switcher">
             {availableLanguages.map(lang => (
               <button
