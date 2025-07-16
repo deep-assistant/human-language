@@ -273,8 +273,12 @@
       'vi': '🇻🇳'
     };
 
+    // const DEFAULT_STATEMENT_ID = 'Q35120$E671D173-25F4-4D13-BF2E-A5E60B9F18A8';
+    // Q35120\$1A2B3C4D-5E6F-7A8B-9C0D-EF1234567890
+    const DEFAULT_STATEMENT_ID = 'Q35120$1A2B3C4D-5E6F-7A8B-9C0D-EF1234567890';
+
     function StatementPage() {
-      const [statementId, setStatementId] = React.useState(window.location.hash.slice(1) || 'Q35120$E671D173-25F4-4D13-BF2E-A5E60B9F18A8');
+      const [statementId, setStatementId] = React.useState(window.location.hash.slice(1) || DEFAULT_STATEMENT_ID);
       const [statement, setStatement] = React.useState(null);
       const [confirmations, setConfirmations] = React.useState([]);
       const [refutations, setRefutations] = React.useState([]);
@@ -295,7 +299,7 @@
 
       React.useEffect(() => {
         const handleHashChange = () => {
-          setStatementId(window.location.hash.slice(1) || 'Q35120$E671D173-25F4-4D13-BF2E-A5E60B9F18A8');
+          setStatementId(window.location.hash.slice(1) || DEFAULT_STATEMENT_ID);
           setIsLoading(true);
         };
         window.addEventListener('hashchange', handleHashChange);
