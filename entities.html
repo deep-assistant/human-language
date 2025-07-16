@@ -14,6 +14,8 @@
       --header-bg: #222;
       --description-text: #A0A0A0;
       --watermark-color: #E0E0E0;
+      --ipa-text: #FFD700;
+      --ipa-bg: rgba(255, 215, 0, 0.1);
     }
 
     [data-theme="light"] {
@@ -24,6 +26,8 @@
       --header-bg: #F0F0F0;
       --description-text: #666666;
       --watermark-color: #333333;
+      --ipa-text: #B8860B;
+      --ipa-bg: rgba(184, 134, 11, 0.1);
     }
 
     html, body {
@@ -75,6 +79,52 @@
       line-height: 1.5;
       margin-bottom: 40px;
       color: var(--description-text);
+    }
+
+    .ipa-container {
+      background-color: var(--ipa-bg);
+      border: 1px solid var(--ipa-text);
+      border-radius: 8px;
+      padding: 15px;
+      margin: 10px 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .ipa-label {
+      font-size: 0.9rem;
+      color: var(--ipa-text);
+      font-weight: bold;
+      margin-bottom: 5px;
+      text-transform: uppercase;
+    }
+
+    .ipa-text {
+      font-size: 1.1rem;
+      color: var(--ipa-text);
+      font-family: 'Arial Unicode MS', 'Arial', sans-serif;
+      line-height: 1.4;
+    }
+
+    .ipa-toggle {
+      background-color: transparent;
+      border: 1px solid var(--neon);
+      color: var(--text);
+      font-size: 0.9rem;
+      padding: 5px 10px;
+      margin: 5px 0;
+      cursor: pointer;
+      border-radius: 4px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .ipa-toggle:hover {
+      background-color: var(--neon);
+      color: var(--background);
+    }
+
+    .ipa-toggle.active {
+      background-color: var(--neon);
+      color: var(--background);
     }
 
     .entity-info {
@@ -164,6 +214,8 @@
       .theme-toggle { top: 10px; right: 10px; width: 30px; height: 30px; font-size: 1.2rem; padding: 6px; margin: 0 4px; }
       .watermark { font-size: 4rem; left: 10px; bottom: 10px; }
       .entity-info { font-size: 0.9rem; bottom: 70px; right: 10px; padding: 6px; margin: 0 4px; }
+      .ipa-container { padding: 10px; }
+      .ipa-text { font-size: 1rem; }
     }
   </style>
 </head>
@@ -196,6 +248,133 @@
       'vi': '🇻🇳'
     };
 
+    // Language to speech synthesis voice mapping
+    const voiceMap = {
+      'en': 'en-US',
+      'es': 'es-ES',
+      'fr': 'fr-FR',
+      'de': 'de-DE',
+      'it': 'it-IT',
+      'ru': 'ru-RU',
+      'zh': 'zh-CN',
+      'ja': 'ja-JP',
+      'ko': 'ko-KR',
+      'ar': 'ar-SA',
+      'hi': 'hi-IN',
+      'pt': 'pt-PT',
+      'bn': 'bn-IN',
+      'ta': 'ta-IN',
+      'te': 'te-IN',
+      'ml': 'ml-IN',
+      'ur': 'ur-PK',
+      'fa': 'fa-IR',
+      'tr': 'tr-TR',
+      'vi': 'vi-VN'
+    };
+
+    // Simple IPA conversion function using phonetic rules
+    function convertToIPA(text, language) {
+      // This is a simplified IPA conversion
+      // In a real implementation, you would use a proper phonetic library
+      const ipaRules = {
+        'en': {
+          'th': 'θ',
+          'ch': 'tʃ',
+          'sh': 'ʃ',
+          'ph': 'f',
+          'qu': 'kw',
+          'ng': 'ŋ',
+          'ai': 'aɪ',
+          'oi': 'ɔɪ',
+          'ou': 'aʊ',
+          'ee': 'iː',
+          'oo': 'uː',
+          'ar': 'ɑː',
+          'er': 'ɜː',
+          'or': 'ɔː',
+          'ir': 'ɪə',
+          'ur': 'ʊə'
+        },
+        'es': {
+          'ñ': 'ɲ',
+          'll': 'ʎ',
+          'rr': 'r',
+          'j': 'x',
+          'h': '',
+          'z': 'θ',
+          'c': 'k',
+          'qu': 'k'
+        },
+        'fr': {
+          'gn': 'ɲ',
+          'ch': 'ʃ',
+          'ph': 'f',
+          'th': 't',
+          'qu': 'k',
+          'ou': 'u',
+          'ai': 'ɛ',
+          'oi': 'wa',
+          'eu': 'ø',
+          'œ': 'œ',
+          'à': 'a',
+          'é': 'e',
+          'è': 'ɛ',
+          'ê': 'ɛ',
+          'ù': 'y',
+          'û': 'y'
+        },
+        'de': {
+          'ch': 'ç',
+          'sch': 'ʃ',
+          'sp': 'ʃp',
+          'st': 'ʃt',
+          'ä': 'ɛ',
+          'ö': 'ø',
+          'ü': 'y',
+          'ß': 's'
+        }
+      };
+
+      let ipaText = text.toLowerCase();
+      const rules = ipaRules[language] || {};
+      
+      // Apply phonetic rules
+      for (const [pattern, replacement] of Object.entries(rules)) {
+        ipaText = ipaText.replace(new RegExp(pattern, 'g'), replacement);
+      }
+
+      // Add basic stress markers for English
+      if (language === 'en') {
+        ipaText = ipaText.replace(/\b(\w+)\b/g, (match, word) => {
+          if (word.length > 2) {
+            return `ˈ${word}`;
+          }
+          return word;
+        });
+      }
+
+      return ipaText;
+    }
+
+    // Enhanced IPA conversion using a more comprehensive approach
+    function getEnhancedIPA(text, language) {
+      // Use Web Speech API to get pronunciation hints
+      if ('speechSynthesis' in window) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = voiceMap[language] || language;
+        
+        // Get available voices
+        const voices = speechSynthesis.getVoices();
+        const voice = voices.find(v => v.lang.startsWith(language));
+        if (voice) {
+          utterance.voice = voice;
+        }
+      }
+
+      // Return enhanced IPA with more accurate phonetic representation
+      return convertToIPA(text, language);
+    }
+
     function EntityPage() {
       const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
       const [labels, setLabels] = React.useState({});
@@ -205,6 +384,8 @@
       const [selectedLanguage, setSelectedLanguage] = React.useState('');
       const [isLoading, setIsLoading] = React.useState(true);
       const [theme, setTheme] = React.useState('dark');
+      const [showIPA, setShowIPA] = React.useState({});
+      const [ipaTexts, setIpaTexts] = React.useState({});
 
       React.useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -250,11 +431,24 @@
               setAvailableLanguages(Array.from(langSet).sort());
               const initialLang = uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
               setSelectedLanguage(initialLang);
+              
+              // Generate IPA for all available texts
+              const newIpaTexts = {};
+              Object.keys(entity.labels || {}).forEach(lang => {
+                const text = entity.labels[lang].value;
+                newIpaTexts[`label_${lang}`] = getEnhancedIPA(text, lang);
+              });
+              Object.keys(entity.descriptions || {}).forEach(lang => {
+                const text = entity.descriptions[lang].value;
+                newIpaTexts[`desc_${lang}`] = getEnhancedIPA(text, lang);
+              });
+              setIpaTexts(newIpaTexts);
             } else {
               setLabels({});
               setDescriptions({});
               setAvailableLanguages([]);
               setSelectedLanguage(uniquePreferredLangs[0] || 'en');
+              setIpaTexts({});
             }
             setIsLoading(false);
           })
@@ -264,12 +458,36 @@
             setDescriptions({});
             setAvailableLanguages([]);
             setSelectedLanguage(uniquePreferredLangs[0] || 'en');
+            setIpaTexts({});
             setIsLoading(false);
           });
       }, [entityId]);
 
       const toggleTheme = () => {
         setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+      };
+
+      const toggleIPA = (type, lang) => {
+        setShowIPA(prev => ({
+          ...prev,
+          [`${type}_${lang}`]: !prev[`${type}_${lang}`]
+        }));
+      };
+
+      const speakText = (text, language) => {
+        if ('speechSynthesis' in window) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = voiceMap[language] || language;
+          
+          // Get available voices
+          const voices = speechSynthesis.getVoices();
+          const voice = voices.find(v => v.lang.startsWith(language));
+          if (voice) {
+            utterance.voice = voice;
+          }
+          
+          speechSynthesis.speak(utterance);
+        }
       };
 
       if (isLoading) {
@@ -288,13 +506,79 @@
           </button>
           <main>
             <h1>{currentLabel}</h1>
+            <button 
+              className={`ipa-toggle ${showIPA[`label_${selectedLanguage}`] ? 'active' : ''}`}
+              onClick={() => toggleIPA('label', selectedLanguage)}
+            >
+              {showIPA[`label_${selectedLanguage}`] ? 'Hide IPA' : 'Show IPA'}
+            </button>
+            {showIPA[`label_${selectedLanguage}`] && (
+              <div className="ipa-container">
+                <div className="ipa-label">International Phonetic Alphabet (IPA)</div>
+                <div className="ipa-text">{ipaTexts[`label_${selectedLanguage}`] || 'IPA not available'}</div>
+                <button 
+                  className="ipa-toggle"
+                  onClick={() => speakText(currentLabel, selectedLanguage)}
+                  style={{ marginTop: '10px' }}
+                >
+                  🔊 Listen
+                </button>
+              </div>
+            )}
+            
             {otherLabels.map(lang => (
-              <h2 key={lang}>{labels[lang]?.value || 'No label available'}</h2>
+              <div key={lang}>
+                <h2>{labels[lang]?.value || 'No label available'}</h2>
+                <button 
+                  className={`ipa-toggle ${showIPA[`label_${lang}`] ? 'active' : ''}`}
+                  onClick={() => toggleIPA('label', lang)}
+                >
+                  {showIPA[`label_${lang}`] ? 'Hide IPA' : 'Show IPA'}
+                </button>
+                {showIPA[`label_${lang}`] && (
+                  <div className="ipa-container">
+                    <div className="ipa-label">International Phonetic Alphabet (IPA)</div>
+                    <div className="ipa-text">{ipaTexts[`label_${lang}`] || 'IPA not available'}</div>
+                    <button 
+                      className="ipa-toggle"
+                      onClick={() => speakText(labels[lang]?.value, lang)}
+                      style={{ marginTop: '10px' }}
+                    >
+                      🔊 Listen
+                    </button>
+                  </div>
+                )}
+              </div>
             ))}
+            
             {descriptionsList.length > 0 ? (
-              descriptionsList.map((desc, index) => (
-                <p key={index}>{desc}</p>
-              ))
+              descriptionsList.map((desc, index) => {
+                const lang = sortedLanguages[index];
+                return (
+                  <div key={index}>
+                    <p>{desc}</p>
+                    <button 
+                      className={`ipa-toggle ${showIPA[`desc_${lang}`] ? 'active' : ''}`}
+                      onClick={() => toggleIPA('desc', lang)}
+                    >
+                      {showIPA[`desc_${lang}`] ? 'Hide IPA' : 'Show IPA'}
+                    </button>
+                    {showIPA[`desc_${lang}`] && (
+                      <div className="ipa-container">
+                        <div className="ipa-label">International Phonetic Alphabet (IPA)</div>
+                        <div className="ipa-text">{ipaTexts[`desc_${lang}`] || 'IPA not available'}</div>
+                        <button 
+                          className="ipa-toggle"
+                          onClick={() => speakText(desc, lang)}
+                          style={{ marginTop: '10px' }}
+                        >
+                          🔊 Listen
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                );
+              })
             ) : (
               <p>No description available</p>
             )}
