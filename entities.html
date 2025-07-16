@@ -200,6 +200,7 @@
       const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
       const [labels, setLabels] = React.useState({});
       const [descriptions, setDescriptions] = React.useState({});
+      const [facts, setFacts] = React.useState([]);
       const [preferredLanguages, setPreferredLanguages] = React.useState([]);
       const [availableLanguages, setAvailableLanguages] = React.useState([]);
       const [selectedLanguage, setSelectedLanguage] = React.useState('');
@@ -231,7 +232,7 @@
         const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
         const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
         const languages = allLanguages.join('|');
-        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=labels|descriptions&languages=${languages}&format=json&origin=*`;
+        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=labels|descriptions|claims&languages=${languages}&format=json&origin=*`;
 
         setIsLoading(true);
         fetch(url)
@@ -246,6 +247,7 @@
             if (entity) {
               setLabels(entity.labels || {});
               setDescriptions(entity.descriptions || {});
+              setFacts(entity.claims || {});
               const langSet = new Set([...Object.keys(entity.labels || {}), ...Object.keys(entity.descriptions || {})]);
               setAvailableLanguages(Array.from(langSet).sort());
               const initialLang = uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
@@ -253,6 +255,7 @@
             } else {
               setLabels({});
               setDescriptions({});
+              setFacts({});
               setAvailableLanguages([]);
               setSelectedLanguage(uniquePreferredLangs[0] || 'en');
             }
@@ -262,6 +265,7 @@
             console.error('Error fetching data:', error);
             setLabels({});
             setDescriptions({});
+            setFacts({});
             setAvailableLanguages([]);
             setSelectedLanguage(uniquePreferredLangs[0] || 'en');
             setIsLoading(false);
@@ -270,6 +274,52 @@
 
       const toggleTheme = () => {
         setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+      };
+
+      const formatFactValue = (claim) => {
+        if (claim.mainsnak.datavalue) {
+          const value = claim.mainsnak.datavalue.value;
+          if (claim.mainsnak.datatype === 'wikibase-item') {
+            return `Q${value.id}`;
+          } else if (claim.mainsnak.datatype === 'time') {
+            return value.time;
+          } else if (claim.mainsnak.datatype === 'quantity') {
+            return value.amount;
+          } else if (claim.mainsnak.datatype === 'string') {
+            return value;
+          } else if (claim.mainsnak.datatype === 'url') {
+            return value;
+          } else if (claim.mainsnak.datatype === 'monolingualtext') {
+            return value.text;
+          } else if (claim.mainsnak.datatype === 'globecoordinate') {
+            return `${value.latitude}, ${value.longitude}`;
+          }
+          return JSON.stringify(value);
+        }
+        return 'No value';
+      };
+
+      const renderFacts = () => {
+        const factElements = [];
+        for (const [propertyId, claims] of Object.entries(facts)) {
+          if (Array.isArray(claims)) {
+            claims.forEach((claim, index) => {
+              const value = formatFactValue(claim);
+              factElements.push(
+                <div key={`${propertyId}-${index}`} style={{ 
+                  marginBottom: '10px', 
+                  padding: '10px', 
+                  border: '1px solid var(--neon)', 
+                  borderRadius: '4px',
+                  backgroundColor: 'rgba(0, 255, 0, 0.05)'
+                }}>
+                  <strong style={{ color: 'var(--neon)' }}>{propertyId}:</strong> {value}
+                </div>
+              );
+            });
+          }
+        }
+        return factElements;
       };
 
       if (isLoading) {
@@ -297,6 +347,15 @@
               ))
             ) : (
               <p>No description available</p>
+            )}
+            
+            <h2>Facts</h2>
+            {Object.keys(facts).length > 0 ? (
+              <div style={{ marginTop: '20px' }}>
+                {renderFacts()}
+              </div>
+            ) : (
+              <p>No facts available</p>
             )}
           </main>
           <div className="entity-info">
