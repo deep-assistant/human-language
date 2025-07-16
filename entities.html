@@ -205,7 +205,10 @@
       const [availableLanguages, setAvailableLanguages] = React.useState([]);
       const [selectedLanguage, setSelectedLanguage] = React.useState('');
       const [isLoading, setIsLoading] = React.useState(true);
+      const [isLoadingLabels, setIsLoadingLabels] = React.useState(false);
       const [theme, setTheme] = React.useState('dark');
+      const [propertyLabels, setPropertyLabels] = React.useState({});
+      const [entityLabels, setEntityLabels] = React.useState({});
 
       React.useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -220,6 +223,8 @@
         const handleHashChange = () => {
           setEntityId(window.location.hash.slice(1) || 'Q35120');
           setIsLoading(true);
+          setPropertyLabels({});
+          setEntityLabels({});
         };
         window.addEventListener('hashchange', handleHashChange);
         return () => window.removeEventListener('hashchange', handleHashChange);
@@ -252,13 +257,74 @@
               setAvailableLanguages(Array.from(langSet).sort());
               const initialLang = uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
               setSelectedLanguage(initialLang);
+              
+              // Extract property and entity IDs from statements
+              const propertyIds = new Set();
+              const entityIds = new Set();
+              
+              Object.values(entity.claims || {}).forEach(claims => {
+                if (Array.isArray(claims)) {
+                  claims.forEach(claim => {
+                    if (claim.mainsnak && claim.mainsnak.property) {
+                      propertyIds.add(claim.mainsnak.property);
+                    }
+                    if (claim.mainsnak && claim.mainsnak.datavalue && claim.mainsnak.datavalue.value) {
+                      const value = claim.mainsnak.datavalue.value;
+                      if (claim.mainsnak.datatype === 'wikibase-item' && value.id) {
+                        entityIds.add(value.id);
+                      }
+                    }
+                  });
+                }
+              });
+              
+              // Fetch labels for properties and entities
+              const allIds = [...propertyIds, ...entityIds];
+              if (allIds.length > 0) {
+                setIsLoadingLabels(true);
+                const idsParam = allIds.join('|');
+                const labelsUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${idsParam}&props=labels&languages=${languages}&format=json&origin=*`;
+                
+                return fetch(labelsUrl);
+              } else {
+                setIsLoading(false);
+              }
             } else {
               setLabels({});
               setDescriptions({});
               setStatements({});
               setAvailableLanguages([]);
               setSelectedLanguage(uniquePreferredLangs[0] || 'en');
+              setIsLoading(false);
             }
+          })
+          .then(response => {
+            if (response) {
+              return response.json();
+            }
+          })
+          .then(data => {
+            if (data && data.entities) {
+              const newPropertyLabels = {};
+              const newEntityLabels = {};
+              
+              console.log('Fetched labels data:', data.entities);
+              
+              Object.entries(data.entities).forEach(([id, entity]) => {
+                if (id.startsWith('P')) {
+                  newPropertyLabels[id] = entity.labels || {};
+                } else if (id.startsWith('Q')) {
+                  newEntityLabels[id] = entity.labels || {};
+                }
+              });
+              
+              console.log('Processed property labels:', newPropertyLabels);
+              console.log('Processed entity labels:', newEntityLabels);
+              
+              setPropertyLabels(newPropertyLabels);
+              setEntityLabels(newEntityLabels);
+            }
+            setIsLoadingLabels(false);
             setIsLoading(false);
           })
           .catch(error => {
@@ -268,6 +334,7 @@
             setStatements({});
             setAvailableLanguages([]);
             setSelectedLanguage(uniquePreferredLangs[0] || 'en');
+            setIsLoadingLabels(false);
             setIsLoading(false);
           });
       }, [entityId]);
@@ -276,11 +343,47 @@
         setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
       };
 
+      const getPropertyLabel = (propertyId) => {
+        const labels = propertyLabels[propertyId];
+        console.log('Getting property label for', propertyId, 'labels:', labels);
+        if (labels && labels[selectedLanguage]) {
+          return labels[selectedLanguage].value;
+        }
+        // Fallback to English
+        if (labels && labels.en) {
+          return labels.en.value;
+        }
+        // Fallback to any available language
+        if (labels) {
+          const firstLang = Object.keys(labels)[0];
+          return labels[firstLang].value;
+        }
+        return propertyId;
+      };
+
+      const getEntityLabel = (entityId) => {
+        const labels = entityLabels[entityId];
+        console.log('Getting entity label for', entityId, 'labels:', labels);
+        if (labels && labels[selectedLanguage]) {
+          return labels[selectedLanguage].value;
+        }
+        // Fallback to English
+        if (labels && labels.en) {
+          return labels.en.value;
+        }
+        // Fallback to any available language
+        if (labels) {
+          const firstLang = Object.keys(labels)[0];
+          return labels[firstLang].value;
+        }
+        return entityId;
+      };
+
       const formatFactValue = (claim) => {
         if (claim.mainsnak.datavalue) {
           const value = claim.mainsnak.datavalue.value;
           if (claim.mainsnak.datatype === 'wikibase-item') {
-            return `Q${value.id}`;
+            return getEntityLabel(value.id);
           } else if (claim.mainsnak.datatype === 'time') {
             return value.time;
           } else if (claim.mainsnak.datatype === 'quantity') {
@@ -301,10 +404,63 @@
 
       const renderStatements = () => {
         const factElements = [];
+        const currentEntityLabel = labels[selectedLanguage]?.value || entityId;
+        
+        console.log('Rendering statements with propertyLabels:', propertyLabels);
+        console.log('Rendering statements with entityLabels:', entityLabels);
+        
         for (const [propertyId, claims] of Object.entries(statements)) {
           if (Array.isArray(claims)) {
             claims.forEach((claim, index) => {
+              const propertyLabel = getPropertyLabel(propertyId);
               const value = formatFactValue(claim);
+              
+              // Create clickable links for entities
+              const entityLink = (
+                <a 
+                  href={`#${entityId}`} 
+                  style={{ color: 'var(--neon)', textDecoration: 'none' }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    window.location.hash = entityId;
+                  }}
+                >
+                  {currentEntityLabel}
+                </a>
+              );
+              
+              const propertyLink = (
+                <a 
+                  href={`#${propertyId}`} 
+                  style={{ color: 'var(--neon)', textDecoration: 'none' }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    // For now, just show the property ID since we don't have a properties page
+                    alert(`Property: ${propertyId} - ${propertyLabel}`);
+                  }}
+                >
+                  {propertyLabel}
+                </a>
+              );
+              
+              // Create value link if it's an entity
+              let valueElement = value;
+              if (claim.mainsnak.datatype === 'wikibase-item' && claim.mainsnak.datavalue?.value?.id) {
+                const valueEntityId = claim.mainsnak.datavalue.value.id;
+                valueElement = (
+                  <a 
+                    href={`#${valueEntityId}`} 
+                    style={{ color: 'var(--neon)', textDecoration: 'none' }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      window.location.hash = valueEntityId;
+                    }}
+                  >
+                    {value}
+                  </a>
+                );
+              }
+              
               factElements.push(
                 <div key={`${propertyId}-${index}`} style={{ 
                   marginBottom: '10px', 
@@ -313,7 +469,7 @@
                   borderRadius: '4px',
                   backgroundColor: 'rgba(0, 255, 0, 0.05)'
                 }}>
-                  <strong style={{ color: 'var(--neon)' }}>{propertyId}:</strong> {value}
+                  {entityLink} {propertyLink} {valueElement}
                 </div>
               );
             });
@@ -322,8 +478,8 @@
         return factElements;
       };
 
-      if (isLoading) {
-        return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
+      if (isLoading || isLoadingLabels) {
+        return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading... {isLoadingLabels ? '(Loading labels)' : ''}</div>;
       }
 
       const currentLabel = labels[selectedLanguage]?.value || 'No label available';
