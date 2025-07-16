@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wikidata Property Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #121212;
+      --text: #E0E0E0;
+      --neon: #00FF00;
+      --neon-selected: #00FFFF;
+      --header-bg: #222;
+      --description-text: #A0A0A0;
+      --watermark-color: #E0E0E0;
+    }
+
+    [data-theme="light"] {
+      --background: #FFFFFF;
+      --text: #333333;
+      --neon: #FF00FF;
+      --neon-selected: #FF007F;
+      --header-bg: #F0F0F0;
+      --description-text: #666666;
+      --watermark-color: #333333;
+    }
+
+    html, body {
+      background-color: var(--background);
+      height: 100%;
+    }
+
+    body {
+      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      font-size: 6rem;
+      color: var(--watermark-color);
+      opacity: 0.1;
+      pointer-events: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      z-index: 0; /* Changed from -1 to 0 */
+    }
+
+    main {
+      padding: 20px;
+    }
+
+    h1, h2 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px var(--neon);
+      color: var(--neon);
+      margin-bottom: 30px;
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      color: var(--description-text);
+    }
+
+    .property-info {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      font-size: 1rem;
+      color: var(--text);
+      z-index: 10;
+      padding: 8px;
+      margin: 0 8px;
+    }
+
+    .property-info a {
+      color: var(--neon);
+      text-decoration: none;
+    }
+
+    .property-info a:hover {
+      text-decoration: underline;
+    }
+
+    .language-switcher {
+      position: fixed;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      padding: 8px;
+      text-align: center;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .language-switcher button {
+      background-color: transparent;
+      border: 1px solid var(--header-bg);
+      color: var(--text);
+      font-size: 1.2rem;
+      padding: 8px;
+      margin: 0 8px;
+      cursor: pointer;
+    }
+
+    .language-switcher button.selected {
+      color: var(--neon-selected);
+      border: 1px solid var(--neon-selected);
+      border-radius: 4px;
+    }
+
+    .language-switcher button.preferred:not(.selected) {
+      text-decoration: underline;
+      text-decoration-color: var(--neon);
+      text-decoration-thickness: 1px;
+    }
+
+    .language-switcher button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      border: 2px solid var(--neon);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 8px;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { margin-bottom: 25px; font-size: 1.2rem; }
+      p { font-size: 1rem; margin-bottom: 30px; }
+      .language-switcher { left: 10px; right: 10px; padding: 6px; }
+      .language-switcher button { font-size: 1rem; padding: 6px; margin: 0 4px; }
+      .theme-toggle { top: 10px; right: 10px; width: 30px; height: 30px; font-size: 1.2rem; padding: 6px; margin: 0 4px; }
+      .watermark { font-size: 4rem; left: 10px; bottom: 10px; }
+      .property-info { font-size: 0.9rem; bottom: 70px; right: 10px; padding: 6px; margin: 0 4px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
+  <script type="text/babel">
+    const flagMap = {
+      'en': '🇬🇧',
+      'es': '🇪🇸',
+      'fr': '🇫🇷',
+      'de': '🇩🇪',
+      'it': '🇮🇹',
+      'ru': '🇷🇺',
+      'zh': '🇨🇳',
+      'ja': '🇯🇵',
+      'ko': '🇰🇷',
+      'ar': '🇸🇦',
+      'hi': '🇮🇳',
+      'pt': '🇵🇹',
+      'bn': '🇧🇩',
+      'ta': '🇮🇳',
+      'te': '🇮🇳',
+      'ml': '🇮🇳',
+      'ur': '🇵🇰',
+      'fa': '🇮🇷',
+      'tr': '🇹🇷',
+      'vi': '🇻🇳'
+    };
+
+    function PropertyPage() {
+      const [propertyId, setPropertyId] = React.useState(window.location.hash.slice(1) || 'P31');
+      const [labels, setLabels] = React.useState({});
+      const [descriptions, setDescriptions] = React.useState({});
+      const [preferredLanguages, setPreferredLanguages] = React.useState([]);
+      const [availableLanguages, setAvailableLanguages] = React.useState([]);
+      const [selectedLanguage, setSelectedLanguage] = React.useState('');
+      const [isLoading, setIsLoading] = React.useState(true);
+      const [theme, setTheme] = React.useState('dark');
+
+      React.useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+      }, [theme]);
+
+      React.useEffect(() => {
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        setTheme(systemTheme);
+      }, []);
+
+      React.useEffect(() => {
+        const handleHashChange = () => {
+          setPropertyId(window.location.hash.slice(1) || 'P31');
+          setIsLoading(true);
+        };
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+      }, []);
+
+      React.useEffect(() => {
+        const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
+        const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
+        setPreferredLanguages(uniquePreferredLangs);
+        const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
+        const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
+        const languages = allLanguages.join('|');
+        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${propertyId}&props=labels|descriptions&languages=${languages}&format=json&origin=*`;
+
+        setIsLoading(true);
+        fetch(url)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            const property = data.entities[propertyId];
+            if (property) {
+              setLabels(property.labels || {});
+              setDescriptions(property.descriptions || {});
+              const langSet = new Set([...Object.keys(property.labels || {}), ...Object.keys(property.descriptions || {})]);
+              setAvailableLanguages(Array.from(langSet).sort());
+              const initialLang = uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
+              setSelectedLanguage(initialLang);
+            } else {
+              setLabels({});
+              setDescriptions({});
+              setAvailableLanguages([]);
+              setSelectedLanguage(uniquePreferredLangs[0] || 'en');
+            }
+            setIsLoading(false);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+            setLabels({});
+            setDescriptions({});
+            setAvailableLanguages([]);
+            setSelectedLanguage(uniquePreferredLangs[0] || 'en');
+            setIsLoading(false);
+          });
+      }, [propertyId]);
+
+      const toggleTheme = () => {
+        setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+      };
+
+      if (isLoading) {
+        return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
+      }
+
+      const currentLabel = labels[selectedLanguage]?.value || 'No label available';
+      const otherLabels = preferredLanguages.filter(lang => lang !== selectedLanguage && labels[lang]);
+      const sortedLanguages = [selectedLanguage, ...otherLabels];
+      const descriptionsList = sortedLanguages.map(lang => descriptions[lang]?.value).filter(desc => desc);
+
+      return (
+        <div>
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+          <main>
+            <h1>{currentLabel}</h1>
+            {otherLabels.map(lang => (
+              <h2 key={lang}>{labels[lang]?.value || 'No label available'}</h2>
+            ))}
+            {descriptionsList.length > 0 ? (
+              descriptionsList.map((desc, index) => (
+                <p key={index}>{desc}</p>
+              ))
+            ) : (
+              <p>No description available</p>
+            )}
+          </main>
+          <div className="property-info">
+            <span>Data source: </span>
+            <a href={`https://www.wikidata.org/wiki/${propertyId}`} target="_blank" rel="noopener noreferrer">{propertyId}</a>
+          </div>
+          <div className="language-switcher">
+            {availableLanguages.map(lang => (
+              <button
+                key={lang}
+                className={`${lang === selectedLanguage ? 'selected' : ''} ${
+                  preferredLanguages.includes(lang) && lang !== selectedLanguage ? 'preferred' : ''
+                }`}
+                onClick={() => setSelectedLanguage(lang)}
+              >
+                {flagMap[lang] || lang}
+              </button>
+            ))}
+          </div>
+          <div className="watermark">property</div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<PropertyPage />);
+  </script>
+</body>
+</html>
