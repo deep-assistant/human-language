@@ -172,29 +172,8 @@
   <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
+  <script src="settings.js"></script>
   <script type="text/babel">
-    const flagMap = {
-      'en': '🇬🇧',
-      'es': '🇪🇸',
-      'fr': '🇫🇷',
-      'de': '🇩🇪',
-      'it': '🇮🇹',
-      'ru': '🇷🇺',
-      'zh': '🇨🇳',
-      'ja': '🇯🇵',
-      'ko': '🇰🇷',
-      'ar': '🇸🇦',
-      'hi': '🇮🇳',
-      'pt': '🇵🇹',
-      'bn': '🇧🇩',
-      'ta': '🇮🇳',
-      'te': '🇮🇳',
-      'ml': '🇮🇳',
-      'ur': '🇵🇰',
-      'fa': '🇮🇷',
-      'tr': '🇹🇷',
-      'vi': '🇻🇳'
-    };
 
     function PropertyPage() {
       const [propertyId, setPropertyId] = React.useState(window.location.hash.slice(1) || 'P31');
@@ -204,15 +183,24 @@
       const [availableLanguages, setAvailableLanguages] = React.useState([]);
       const [selectedLanguage, setSelectedLanguage] = React.useState('');
       const [isLoading, setIsLoading] = React.useState(true);
-      const [theme, setTheme] = React.useState('dark');
+      const [theme, setTheme] = React.useState(() => {
+        const savedTheme = loadFromLocalStorage(STORAGE_KEYS.THEME, 'dark');
+        return savedTheme;
+      });
 
       React.useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
       }, [theme]);
 
       React.useEffect(() => {
-        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        setTheme(systemTheme);
+        // Load saved theme or use system preference
+        const savedTheme = loadFromLocalStorage(STORAGE_KEYS.THEME, null);
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          setTheme(systemTheme);
+        }
       }, []);
 
       React.useEffect(() => {
@@ -248,13 +236,18 @@
               setDescriptions(property.descriptions || {});
               const langSet = new Set([...Object.keys(property.labels || {}), ...Object.keys(property.descriptions || {})]);
               setAvailableLanguages(Array.from(langSet).sort());
-              const initialLang = uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
+              // Load saved language or use preferred language
+              const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+              const initialLang = savedLanguage && langSet.has(savedLanguage) 
+                ? savedLanguage 
+                : uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
               setSelectedLanguage(initialLang);
             } else {
               setLabels({});
               setDescriptions({});
               setAvailableLanguages([]);
-              setSelectedLanguage(uniquePreferredLangs[0] || 'en');
+              const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+              setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
             }
             setIsLoading(false);
           })
@@ -263,13 +256,18 @@
             setLabels({});
             setDescriptions({});
             setAvailableLanguages([]);
-            setSelectedLanguage(uniquePreferredLangs[0] || 'en');
+            const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+            setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
             setIsLoading(false);
           });
       }, [propertyId]);
 
       const toggleTheme = () => {
-        setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+        setTheme(prevTheme => {
+          const newTheme = prevTheme === 'dark' ? 'light' : 'dark';
+          saveToLocalStorage(STORAGE_KEYS.THEME, newTheme);
+          return newTheme;
+        });
       };
 
       if (isLoading) {
@@ -310,7 +308,10 @@
                 className={`${lang === selectedLanguage ? 'selected' : ''} ${
                   preferredLanguages.includes(lang) && lang !== selectedLanguage ? 'preferred' : ''
                 }`}
-                onClick={() => setSelectedLanguage(lang)}
+                onClick={() => {
+                  setSelectedLanguage(lang);
+                  saveToLocalStorage(STORAGE_KEYS.LANGUAGE, lang);
+                }}
               >
                 {flagMap[lang] || lang}
               </button>
