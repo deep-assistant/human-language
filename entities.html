@@ -196,6 +196,92 @@
       'vi': '🇻🇳'
     };
 
+    // IndexedDB setup
+    const dbName = 'WikidataCache';
+    const dbVersion = 1;
+    const entityStore = 'entities';
+    const propertyStore = 'properties';
+
+    function openDB() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open(dbName, dbVersion);
+        
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve(request.result);
+        
+        request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          
+          // Create entity store
+          if (!db.objectStoreNames.contains(entityStore)) {
+            const entityObjectStore = db.createObjectStore(entityStore, { keyPath: 'id' });
+            entityObjectStore.createIndex('timestamp', 'timestamp', { unique: false });
+          }
+          
+          // Create property store
+          if (!db.objectStoreNames.contains(propertyStore)) {
+            const propertyObjectStore = db.createObjectStore(propertyStore, { keyPath: 'id' });
+            propertyObjectStore.createIndex('timestamp', 'timestamp', { unique: false });
+          }
+        };
+      });
+    }
+
+    async function getFromCache(storeName, id) {
+      try {
+        const db = await openDB();
+        const transaction = db.transaction([storeName], 'readonly');
+        const store = transaction.objectStore(storeName);
+        const request = store.get(id);
+        
+        return new Promise((resolve, reject) => {
+          request.onsuccess = () => {
+            const data = request.result;
+            if (data && data.timestamp) {
+              // Check if cache is still valid (24 hours)
+              const now = Date.now();
+              const cacheAge = now - data.timestamp;
+              const maxAge = 24 * 60 * 60 * 1000; // 24 hours
+              
+              if (cacheAge < maxAge) {
+                resolve(data.data);
+              } else {
+                // Cache expired, remove it
+                const deleteTransaction = db.transaction([storeName], 'readwrite');
+                const deleteStore = deleteTransaction.objectStore(storeName);
+                deleteStore.delete(id);
+                resolve(null);
+              }
+            } else {
+              resolve(null);
+            }
+          };
+          request.onerror = () => reject(request.error);
+        });
+      } catch (error) {
+        console.error('Error reading from cache:', error);
+        return null;
+      }
+    }
+
+    async function saveToCache(storeName, id, data) {
+      try {
+        const db = await openDB();
+        const transaction = db.transaction([storeName], 'readwrite');
+        const store = transaction.objectStore(storeName);
+        
+        const cacheEntry = {
+          id,
+          data,
+          timestamp: Date.now()
+        };
+        
+        store.put(cacheEntry);
+      } catch (error) {
+        console.error('Error saving to cache:', error);
+      }
+    }
+
     function EntityPage() {
       const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
       const [labels, setLabels] = React.useState({});
@@ -231,29 +317,43 @@
       }, []);
 
       React.useEffect(() => {
-        const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
-        const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
-        setPreferredLanguages(uniquePreferredLangs);
-        const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
-        const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
-        const languages = allLanguages.join('|');
-        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=labels|descriptions|claims&languages=${languages}&format=json&origin=*`;
+        const loadEntityData = async () => {
+          const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
+          const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
+          setPreferredLanguages(uniquePreferredLangs);
+          const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
+          const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
+          const languages = allLanguages.join('|');
 
-        setIsLoading(true);
-        fetch(url)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
+          setIsLoading(true);
+
+          try {
+            // Try to get entity data from cache first
+            let entityData = await getFromCache(entityStore, entityId);
+            
+            if (!entityData) {
+              // Cache miss, fetch from API
+              const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=labels|descriptions|claims&languages=${languages}&format=json&origin=*`;
+              const response = await fetch(url);
+              
+              if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              
+              const data = await response.json();
+              entityData = data.entities[entityId];
+              
+              // Save to cache
+              if (entityData) {
+                await saveToCache(entityStore, entityId, entityData);
+              }
             }
-            return response.json();
-          })
-          .then(data => {
-            const entity = data.entities[entityId];
-            if (entity) {
-              setLabels(entity.labels || {});
-              setDescriptions(entity.descriptions || {});
-              setStatements(entity.claims || {});
-              const langSet = new Set([...Object.keys(entity.labels || {}), ...Object.keys(entity.descriptions || {})]);
+
+            if (entityData) {
+              setLabels(entityData.labels || {});
+              setDescriptions(entityData.descriptions || {});
+              setStatements(entityData.claims || {});
+              const langSet = new Set([...Object.keys(entityData.labels || {}), ...Object.keys(entityData.descriptions || {})]);
               setAvailableLanguages(Array.from(langSet).sort());
               const initialLang = uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
               setSelectedLanguage(initialLang);
@@ -262,7 +362,7 @@
               const propertyIds = new Set();
               const entityIds = new Set();
               
-              Object.values(entity.claims || {}).forEach(claims => {
+              Object.values(entityData.claims || {}).forEach(claims => {
                 if (Array.isArray(claims)) {
                   claims.forEach(claim => {
                     if (claim.mainsnak && claim.mainsnak.property) {
@@ -278,14 +378,11 @@
                 }
               });
               
-              // Fetch labels for properties and entities
+              // Load labels for properties and entities with caching
               const allIds = [...propertyIds, ...entityIds];
               if (allIds.length > 0) {
                 setIsLoadingLabels(true);
-                const idsParam = allIds.join('|');
-                const labelsUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${idsParam}&props=labels&languages=${languages}&format=json&origin=*`;
-                
-                return fetch(labelsUrl);
+                await loadLabelsWithCache(allIds, languages);
               } else {
                 setIsLoading(false);
               }
@@ -297,37 +394,7 @@
               setSelectedLanguage(uniquePreferredLangs[0] || 'en');
               setIsLoading(false);
             }
-          })
-          .then(response => {
-            if (response) {
-              return response.json();
-            }
-          })
-          .then(data => {
-            if (data && data.entities) {
-              const newPropertyLabels = {};
-              const newEntityLabels = {};
-              
-              console.log('Fetched labels data:', data.entities);
-              
-              Object.entries(data.entities).forEach(([id, entity]) => {
-                if (id.startsWith('P')) {
-                  newPropertyLabels[id] = entity.labels || {};
-                } else if (id.startsWith('Q')) {
-                  newEntityLabels[id] = entity.labels || {};
-                }
-              });
-              
-              console.log('Processed property labels:', newPropertyLabels);
-              console.log('Processed entity labels:', newEntityLabels);
-              
-              setPropertyLabels(newPropertyLabels);
-              setEntityLabels(newEntityLabels);
-            }
-            setIsLoadingLabels(false);
-            setIsLoading(false);
-          })
-          .catch(error => {
+          } catch (error) {
             console.error('Error fetching data:', error);
             setLabels({});
             setDescriptions({});
@@ -336,7 +403,61 @@
             setSelectedLanguage(uniquePreferredLangs[0] || 'en');
             setIsLoadingLabels(false);
             setIsLoading(false);
-          });
+          }
+        };
+
+        const loadLabelsWithCache = async (ids, languages) => {
+          const newPropertyLabels = {};
+          const newEntityLabels = {};
+          const uncachedIds = [];
+
+          // Check cache for each ID
+          for (const id of ids) {
+            const cachedData = await getFromCache(id.startsWith('P') ? propertyStore : entityStore, id);
+            if (cachedData) {
+              if (id.startsWith('P')) {
+                newPropertyLabels[id] = cachedData.labels || {};
+              } else {
+                newEntityLabels[id] = cachedData.labels || {};
+              }
+            } else {
+              uncachedIds.push(id);
+            }
+          }
+
+          // Fetch uncached IDs from API
+          if (uncachedIds.length > 0) {
+            const idsParam = uncachedIds.join('|');
+            const labelsUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${idsParam}&props=labels&languages=${languages}&format=json&origin=*`;
+            
+            try {
+              const response = await fetch(labelsUrl);
+              if (response.ok) {
+                const data = await response.json();
+                
+                Object.entries(data.entities || {}).forEach(([id, entity]) => {
+                  // Save to cache
+                  saveToCache(id.startsWith('P') ? propertyStore : entityStore, id, entity);
+                  
+                  if (id.startsWith('P')) {
+                    newPropertyLabels[id] = entity.labels || {};
+                  } else if (id.startsWith('Q')) {
+                    newEntityLabels[id] = entity.labels || {};
+                  }
+                });
+              }
+            } catch (error) {
+              console.error('Error fetching labels:', error);
+            }
+          }
+
+          setPropertyLabels(newPropertyLabels);
+          setEntityLabels(newEntityLabels);
+          setIsLoadingLabels(false);
+          setIsLoading(false);
+        };
+
+        loadEntityData();
       }, [entityId]);
 
       const toggleTheme = () => {
