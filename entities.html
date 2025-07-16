@@ -307,7 +307,6 @@
       const [availableLanguages, setAvailableLanguages] = React.useState([]);
       const [selectedLanguage, setSelectedLanguage] = React.useState('');
       const [isLoading, setIsLoading] = React.useState(true);
-      const [isLoadingLabels, setIsLoadingLabels] = React.useState(false);
       const [theme, setTheme] = React.useState('dark');
       const [propertyLabels, setPropertyLabels] = React.useState({});
       const [entityLabels, setEntityLabels] = React.useState({});
@@ -323,10 +322,16 @@
 
       React.useEffect(() => {
         const handleHashChange = () => {
-          setEntityId(window.location.hash.slice(1) || 'Q35120');
+          const newEntityId = window.location.hash.slice(1) || 'Q35120';
+          console.log('Hash changed to:', newEntityId);
+          setEntityId(newEntityId);
           setIsLoading(true);
           setPropertyLabels({});
           setEntityLabels({});
+          setStatements({});
+          setLabels({});
+          setDescriptions({});
+          setAvailableLanguages([]);
         };
         window.addEventListener('hashchange', handleHashChange);
         return () => window.removeEventListener('hashchange', handleHashChange);
@@ -346,9 +351,17 @@
           try {
             // Try to get entity data from cache first
             let entityData = await getFromCache(entityStore, entityId);
+            console.log('Cached entity data for:', entityId, entityData);
             
-            if (!entityData) {
-              // Cache miss, fetch from API
+            // Check if cached data is complete (has labels, descriptions, and claims)
+            const isCachedDataComplete = entityData && 
+              entityData.labels && 
+              entityData.descriptions && 
+              entityData.claims;
+            
+            if (!entityData || !isCachedDataComplete) {
+              // Cache miss or incomplete data, fetch from API
+              console.log('Fetching fresh data for entity:', entityId);
               const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=labels|descriptions|claims&languages=${languages}&format=json&origin=*`;
               const response = await fetch(url);
               
@@ -357,15 +370,22 @@
               }
               
               const data = await response.json();
+              console.log('API response for entity:', entityId, data);
               entityData = data.entities[entityId];
               
               // Save to cache
               if (entityData) {
                 await saveToCache(entityStore, entityId, entityData);
               }
+            } else {
+              console.log('Using cached data for entity:', entityId);
             }
 
             if (entityData) {
+              console.log('Setting entity data for:', entityId, entityData);
+              console.log('Claims count:', Object.keys(entityData.claims || {}).length);
+              console.log('Entity data keys:', Object.keys(entityData));
+              console.log('Claims object:', entityData.claims);
               setLabels(entityData.labels || {});
               setDescriptions(entityData.descriptions || {});
               setStatements(entityData.claims || {});
@@ -394,22 +414,21 @@
                 }
               });
               
-              // Load labels for properties and entities with caching
+              // Load all labels in one go
               const allIds = [...propertyIds, ...entityIds];
               if (allIds.length > 0) {
-                setIsLoadingLabels(true);
-                await loadLabelsWithCache(allIds, languages);
-              } else {
-                setIsLoading(false);
+                await loadAllLabels(allIds, languages);
               }
             } else {
+              console.log('No entity data found for:', entityId);
               setLabels({});
               setDescriptions({});
               setStatements({});
               setAvailableLanguages([]);
               setSelectedLanguage(uniquePreferredLangs[0] || 'en');
-              setIsLoading(false);
             }
+            
+            setIsLoading(false);
           } catch (error) {
             console.error('Error fetching data:', error);
             setLabels({});
@@ -417,12 +436,12 @@
             setStatements({});
             setAvailableLanguages([]);
             setSelectedLanguage(uniquePreferredLangs[0] || 'en');
-            setIsLoadingLabels(false);
             setIsLoading(false);
           }
         };
 
-        const loadLabelsWithCache = async (ids, languages) => {
+        const loadAllLabels = async (ids, languages) => {
+          console.log('Loading all labels for IDs:', ids);
           const newPropertyLabels = {};
           const newEntityLabels = {};
           const uncachedIds = [];
@@ -441,36 +460,42 @@
             }
           }
 
-          // Fetch uncached IDs from API
+          // Fetch uncached IDs from API in batches
           if (uncachedIds.length > 0) {
-            const idsParam = uncachedIds.join('|');
-            const labelsUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${idsParam}&props=labels&languages=${languages}&format=json&origin=*`;
-            
-            try {
-              const response = await fetch(labelsUrl);
-              if (response.ok) {
-                const data = await response.json();
-                
-                Object.entries(data.entities || {}).forEach(([id, entity]) => {
-                  // Save to cache
-                  saveToCache(id.startsWith('P') ? propertyStore : entityStore, id, entity);
-                  
-                  if (id.startsWith('P')) {
-                    newPropertyLabels[id] = entity.labels || {};
-                  } else if (id.startsWith('Q')) {
-                    newEntityLabels[id] = entity.labels || {};
+            const BATCH_SIZE = 50;
+            for (let i = 0; i < uncachedIds.length; i += BATCH_SIZE) {
+              const batchIds = uncachedIds.slice(i, i + BATCH_SIZE);
+              const idsParam = batchIds.join('|');
+              const labelsUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${idsParam}&props=labels&languages=${languages}&format=json&origin=*`;
+              try {
+                const response = await fetch(labelsUrl);
+                if (response.ok) {
+                  const data = await response.json();
+                  if (!data.entities || Object.keys(data.entities).length === 0) {
+                    console.error('No entities returned for label fetch:', batchIds);
                   }
-                });
+                  Object.entries(data.entities || {}).forEach(([id, entity]) => {
+                    // Save to cache
+                    saveToCache(id.startsWith('P') ? propertyStore : entityStore, id, entity);
+                    if (id.startsWith('P')) {
+                      newPropertyLabels[id] = entity.labels || {};
+                    } else if (id.startsWith('Q')) {
+                      newEntityLabels[id] = entity.labels || {};
+                    }
+                  });
+                } else {
+                  console.error('Label fetch failed:', response.status, response.statusText);
+                }
+              } catch (error) {
+                console.error('Error fetching labels:', error);
               }
-            } catch (error) {
-              console.error('Error fetching labels:', error);
             }
           }
 
+          console.log('Setting property labels:', newPropertyLabels);
+          console.log('Setting entity labels:', newEntityLabels);
           setPropertyLabels(newPropertyLabels);
           setEntityLabels(newEntityLabels);
-          setIsLoadingLabels(false);
-          setIsLoading(false);
         };
 
         loadEntityData();
@@ -610,8 +635,9 @@
         return factElements;
       };
 
-      if (isLoading || isLoadingLabels) {
-        return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading... {isLoadingLabels ? '(Loading labels)' : ''}</div>;
+      console.log('Loading state:', { isLoading, propertyLabelsCount: Object.keys(propertyLabels).length, entityLabelsCount: Object.keys(entityLabels).length, statementsCount: Object.keys(statements).length });
+      if (isLoading) {
+        return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
       }
 
       const currentLabel = labels[selectedLanguage]?.value || 'No label available';
