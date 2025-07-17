@@ -173,6 +173,7 @@
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
   <script src="settings.js"></script>
+  <script src="cache.js"></script>
   <script type="text/babel">
 
     function PropertyPage() {
@@ -213,24 +214,20 @@
       }, []);
 
       React.useEffect(() => {
-        const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
-        const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
-        setPreferredLanguages(uniquePreferredLangs);
-        const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
-        const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
-        const languages = allLanguages.join('|');
-        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${propertyId}&props=labels|descriptions&languages=${languages}&format=json&origin=*`;
+        const loadPropertyData = async () => {
+          const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
+          const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
+          setPreferredLanguages(uniquePreferredLangs);
+          const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
+          const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
+          const languages = allLanguages.join('|');
 
-        setIsLoading(true);
-        fetch(url)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-          })
-          .then(data => {
-            const property = data.entities[propertyId];
+          setIsLoading(true);
+
+          try {
+            // Use cached property data fetching
+            const property = await WikidataCache.fetchPropertyData(propertyId, languages);
+            
             if (property) {
               setLabels(property.labels || {});
               setDescriptions(property.descriptions || {});
@@ -249,17 +246,19 @@
               const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
               setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
             }
-            setIsLoading(false);
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
+          } catch (error) {
+            console.error('Error fetching property data:', error);
             setLabels({});
             setDescriptions({});
             setAvailableLanguages([]);
             const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
             setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
+          } finally {
             setIsLoading(false);
-          });
+          }
+        };
+
+        loadPropertyData();
       }, [propertyId]);
 
       const toggleTheme = () => {
