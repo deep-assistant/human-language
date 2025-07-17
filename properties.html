@@ -435,7 +435,7 @@
             
             <StatementsSection
               statements={statements}
-              entityId={propertyId}
+              subjectId={propertyId}
               currentEntityLabel={labels[selectedLanguage]?.value || propertyId}
               getPropertyLabel={getPropertyLabel}
               getEntityLabel={getEntityLabel}
@@ -445,6 +445,7 @@
               onPropertyClick={(propertyId) => {
                 window.location.hash = propertyId;
               }}
+              selectedLanguage={selectedLanguage}
             />
           </main>
           <div className="property-info">

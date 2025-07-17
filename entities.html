@@ -479,7 +479,7 @@
             
             <StatementsSection
               statements={statements}
-              entityId={entityId}
+              subjectId={entityId}
               currentEntityLabel={labels[selectedLanguage]?.value || entityId}
               getPropertyLabel={getPropertyLabel}
               getEntityLabel={getEntityLabel}
@@ -489,6 +489,7 @@
               onPropertyClick={(propertyId) => {
                 window.location.href = `properties.html#${propertyId}`;
               }}
+              selectedLanguage={selectedLanguage}
             />
             
             <div className="entity-info">
