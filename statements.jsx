@@ -13,8 +13,7 @@ if (typeof React === 'undefined') {
  */
 function Statement({
   items,
-  getEntityLabel,
-  getPropertyLabel,
+  getLabel,
   onEntityClick,
   onPropertyClick,
   selectedLanguage
@@ -36,7 +35,7 @@ function Statement({
             }
           }}
         >
-          {getEntityLabel(item)}
+          {getLabel(item)}
         </a>
       );
     } else if (item.startsWith('P')) {
@@ -52,7 +51,7 @@ function Statement({
             }
           }}
         >
-          {getPropertyLabel(item)}
+          {getLabel(item)}
         </a>
       );
     } else {
@@ -90,8 +89,7 @@ function Statement({
 function StatementsList({
   statements,
   subjectId,
-  getPropertyLabel,
-  getEntityLabel,
+  getLabel,
   onEntityClick,
   onPropertyClick,
   selectedLanguage
@@ -150,8 +148,7 @@ function StatementsList({
           <Statement
             key={`${propertyId}-${index}`}
             items={items}
-            getEntityLabel={getEntityLabel}
-            getPropertyLabel={getPropertyLabel}
+            getLabel={getLabel}
             onEntityClick={onEntityClick}
             onPropertyClick={onPropertyClick}
             selectedLanguage={selectedLanguage}
@@ -171,8 +168,7 @@ function StatementsList({
 function StatementsSection({
   statements,
   subjectId,
-  getPropertyLabel,
-  getEntityLabel,
+  getLabel,
   onEntityClick,
   onPropertyClick,
   selectedLanguage
@@ -195,8 +191,7 @@ function StatementsSection({
         <StatementsList
           statements={statements}
           subjectId={subjectId}
-          getPropertyLabel={getPropertyLabel}
-          getEntityLabel={getEntityLabel}
+          getLabel={getLabel}
           onEntityClick={onEntityClick}
           onPropertyClick={onPropertyClick}
           selectedLanguage={selectedLanguage}

@@ -391,28 +391,17 @@
         });
       };
 
-      const getPropertyLabel = (id) => {
-        // If this is the current property (subject), use the main labels state
+      const getLabel = (id) => {
         if (id === propertyId) {
-          console.log('Getting current property label for', id, 'labels:', labels);
           return dataProcessor.getLabel(labels, selectedLanguage, id);
         }
-        // Otherwise use the propertyLabels state for referenced properties
-        const propertyLabelsData = propertyLabels[id];
-        console.log('Getting property label for', id, 'labels:', propertyLabelsData);
-        return dataProcessor.getLabel(propertyLabelsData, selectedLanguage, id);
-      };
-
-      const getEntityLabel = (id) => {
-        // If this is the current property (subject), use the main labels state
-        if (id === propertyId) {
-          console.log('Getting current entity label for', id, 'labels:', labels);
-          return dataProcessor.getLabel(labels, selectedLanguage, id);
+        if (entityLabels[id]) {
+          return dataProcessor.getLabel(entityLabels[id], selectedLanguage, id);
         }
-        // Otherwise use the entityLabels state for referenced entities
-        const entityLabelsData = entityLabels[id];
-        console.log('Getting entity label for', id, 'labels:', entityLabelsData);
-        return dataProcessor.getLabel(entityLabelsData, selectedLanguage, id);
+        if (propertyLabels[id]) {
+          return dataProcessor.getLabel(propertyLabels[id], selectedLanguage, id);
+        }
+        return id;
       };
 
       // Use statement components from external module
@@ -448,8 +437,7 @@
             <StatementsSection
               statements={statements}
               subjectId={propertyId}
-              getPropertyLabel={getPropertyLabel}
-              getEntityLabel={getEntityLabel}
+              getLabel={getLabel}
               onEntityClick={(entityId) => {
                 window.location.href = `entities.html#${entityId}`;
               }}
