@@ -49,8 +49,16 @@ function MyComponent({ name }) {
 
 ## Dependencies
 
-- React 18 (loaded via CDN)
-- React DOM 18 (loaded via CDN)
-- Babel Standalone (loaded via CDN)
+- React 19 (loaded via ESM.sh CDN) - Latest stable version
+- React DOM 19 (loaded via ESM.sh CDN) - Latest stable version
+- Babel Standalone (loaded via unpkg CDN) - Latest stable version
+
+## CDN Strategy
+
+The project uses a hybrid CDN approach for React 19:
+- **ESM.sh CDN**: For React 19 and React DOM 19 (ES modules format)
+- **unpkg CDN**: For Babel Standalone (UMD format)
+
+The setup uses ES module imports to load React 19 and makes it available globally for Babel transformation, ensuring access to the latest React features.
 
 No npm installation required!

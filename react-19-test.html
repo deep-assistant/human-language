@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React 19 CDN Test</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="module">
+    // Import React and ReactDOM as ES Modules
+    import React from 'https://esm.sh/react@19';
+    import ReactDOM from 'https://esm.sh/react-dom@19/client';
+
+    // Make React and ReactDOM available globally for the text/babel script
+    window.React = React;
+    window.ReactDOM = ReactDOM;
+  </script>
+  <script type="text/babel">
+    // JSX code processed by Babel
+    const App = () => {
+      const [count, setCount] = React.useState(0);
+      return (
+        <div>
+          <h1>React 19 Test</h1>
+          <p>Count: {count}</p>
+          <button onClick={() => setCount(count + 1)}>Increment</button>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
