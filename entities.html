@@ -209,94 +209,12 @@
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
   <script src="settings.js"></script>
+  <script src="wikidata-api.js"></script>
   <script type="text/babel">
 
 
-    // IndexedDB setup
-    const dbName = 'WikidataCache';
-    const dbVersion = 1;
-    const entityStore = 'entities';
-    const propertyStore = 'properties';
-
-    function openDB() {
-      return new Promise((resolve, reject) => {
-        const request = indexedDB.open(dbName, dbVersion);
-        
-        request.onerror = () => reject(request.error);
-        request.onsuccess = () => resolve(request.result);
-        
-        request.onupgradeneeded = (event) => {
-          const db = event.target.result;
-          
-          // Create entity store
-          if (!db.objectStoreNames.contains(entityStore)) {
-            const entityObjectStore = db.createObjectStore(entityStore, { keyPath: 'id' });
-            entityObjectStore.createIndex('timestamp', 'timestamp', { unique: false });
-          }
-          
-          // Create property store
-          if (!db.objectStoreNames.contains(propertyStore)) {
-            const propertyObjectStore = db.createObjectStore(propertyStore, { keyPath: 'id' });
-            propertyObjectStore.createIndex('timestamp', 'timestamp', { unique: false });
-          }
-        };
-      });
-    }
-
-    async function getFromCache(storeName, id) {
-      try {
-        const db = await openDB();
-        const transaction = db.transaction([storeName], 'readonly');
-        const store = transaction.objectStore(storeName);
-        const request = store.get(id);
-        
-        return new Promise((resolve, reject) => {
-          request.onsuccess = () => {
-            const data = request.result;
-            if (data && data.timestamp) {
-              // Check if cache is still valid (24 hours)
-              const now = Date.now();
-              const cacheAge = now - data.timestamp;
-              const maxAge = 24 * 60 * 60 * 1000; // 24 hours
-              
-              if (cacheAge < maxAge) {
-                resolve(data.data);
-              } else {
-                // Cache expired, remove it
-                const deleteTransaction = db.transaction([storeName], 'readwrite');
-                const deleteStore = deleteTransaction.objectStore(storeName);
-                deleteStore.delete(id);
-                resolve(null);
-              }
-            } else {
-              resolve(null);
-            }
-          };
-          request.onerror = () => reject(request.error);
-        });
-      } catch (error) {
-        console.error('Error reading from cache:', error);
-        return null;
-      }
-    }
-
-    async function saveToCache(storeName, id, data) {
-      try {
-        const db = await openDB();
-        const transaction = db.transaction([storeName], 'readwrite');
-        const store = transaction.objectStore(storeName);
-        
-        const cacheEntry = {
-          id,
-          data,
-          timestamp: Date.now()
-        };
-        
-        store.put(cacheEntry);
-      } catch (error) {
-        console.error('Error saving to cache:', error);
-      }
-    }
+    // Use Wikidata API utilities
+    const { client: apiClient, cache: cacheManager, processor: dataProcessor } = window.WikidataAPI;
 
     function EntityPage() {
       const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
@@ -359,35 +277,25 @@
 
           try {
             // Try to get entity data from cache first
-            let entityData = await getFromCache(entityStore, entityId);
-            console.log('Cached entity data for:', entityId, entityData);
+            let cachedEntityData = await cacheManager.getFromCache(cacheManager.stores.ENTITIES, entityId);
+            console.log('Cached entity data for:', entityId, cachedEntityData);
             
-            // Check if cached data is complete (has labels, descriptions, and claims)
-            const isCachedDataComplete = entityData && 
-              entityData.labels && 
-              entityData.descriptions && 
-              entityData.claims;
+            // Check if cached data is complete
+            const isCachedDataComplete = cacheManager.isCachedDataComplete(cachedEntityData, languages);
             
-            if (!entityData || !isCachedDataComplete) {
+            let entityData;
+            if (!cachedEntityData || !isCachedDataComplete) {
               // Cache miss or incomplete data, fetch from API
               console.log('Fetching fresh data for entity:', entityId);
-              const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${entityId}&props=labels|descriptions|claims&languages=${languages}&format=json&origin=*`;
-              const response = await fetch(url);
-              
-              if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-              }
-              
-              const data = await response.json();
-              console.log('API response for entity:', entityId, data);
-              entityData = data.entities[entityId];
+              entityData = await apiClient.fetchEntity(entityId, languages);
               
               // Save to cache
               if (entityData) {
-                await saveToCache(entityStore, entityId, entityData);
+                await cacheManager.saveToCache(cacheManager.stores.ENTITIES, entityId, entityData);
               }
             } else {
               console.log('Using cached data for entity:', entityId);
+              entityData = cachedEntityData.data;
             }
 
             if (entityData) {
@@ -463,12 +371,13 @@
 
           // Check cache for each ID
           for (const id of ids) {
-            const cachedData = await getFromCache(id.startsWith('P') ? propertyStore : entityStore, id);
-            if (cachedData) {
+            const storeName = id.startsWith('P') ? cacheManager.stores.PROPERTIES : cacheManager.stores.ENTITIES;
+            const cachedData = await cacheManager.getFromCache(storeName, id);
+            if (cachedData && cachedData.data) {
               if (id.startsWith('P')) {
-                newPropertyLabels[id] = cachedData.labels || {};
+                newPropertyLabels[id] = cachedData.data.labels || {};
               } else {
-                newEntityLabels[id] = cachedData.labels || {};
+                newEntityLabels[id] = cachedData.data.labels || {};
               }
             } else {
               uncachedIds.push(id);
@@ -480,27 +389,21 @@
             const BATCH_SIZE = 50;
             for (let i = 0; i < uncachedIds.length; i += BATCH_SIZE) {
               const batchIds = uncachedIds.slice(i, i + BATCH_SIZE);
-              const idsParam = batchIds.join('|');
-              const labelsUrl = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${idsParam}&props=labels&languages=${languages}&format=json&origin=*`;
               try {
-                const response = await fetch(labelsUrl);
-                if (response.ok) {
-                  const data = await response.json();
-                  if (!data.entities || Object.keys(data.entities).length === 0) {
-                    console.error('No entities returned for label fetch:', batchIds);
-                  }
-                  Object.entries(data.entities || {}).forEach(([id, entity]) => {
-                    // Save to cache
-                    saveToCache(id.startsWith('P') ? propertyStore : entityStore, id, entity);
-                    if (id.startsWith('P')) {
-                      newPropertyLabels[id] = entity.labels || {};
-                    } else if (id.startsWith('Q')) {
-                      newEntityLabels[id] = entity.labels || {};
-                    }
-                  });
-                } else {
-                  console.error('Label fetch failed:', response.status, response.statusText);
+                const entities = await apiClient.fetchLabels(batchIds, languages);
+                if (!entities || Object.keys(entities).length === 0) {
+                  console.error('No entities returned for label fetch:', batchIds);
                 }
+                Object.entries(entities || {}).forEach(([id, entity]) => {
+                  // Save to cache
+                  const storeName = id.startsWith('P') ? cacheManager.stores.PROPERTIES : cacheManager.stores.ENTITIES;
+                  cacheManager.saveToCache(storeName, id, entity);
+                  if (id.startsWith('P')) {
+                    newPropertyLabels[id] = entity.labels || {};
+                  } else if (id.startsWith('Q')) {
+                    newEntityLabels[id] = entity.labels || {};
+                  }
+                });
               } catch (error) {
                 console.error('Error fetching labels:', error);
               }
@@ -524,60 +427,17 @@
       const getPropertyLabel = (propertyId) => {
         const labels = propertyLabels[propertyId];
         console.log('Getting property label for', propertyId, 'labels:', labels);
-        if (labels && labels[selectedLanguage]) {
-          return labels[selectedLanguage].value;
-        }
-        // Fallback to English
-        if (labels && labels.en) {
-          return labels.en.value;
-        }
-        // Fallback to any available language
-        if (labels) {
-          const firstLang = Object.keys(labels)[0];
-          return labels[firstLang].value;
-        }
-        return propertyId;
+        return dataProcessor.getLabel(labels, selectedLanguage, propertyId);
       };
 
       const getEntityLabel = (entityId) => {
         const labels = entityLabels[entityId];
         console.log('Getting entity label for', entityId, 'labels:', labels);
-        if (labels && labels[selectedLanguage]) {
-          return labels[selectedLanguage].value;
-        }
-        // Fallback to English
-        if (labels && labels.en) {
-          return labels.en.value;
-        }
-        // Fallback to any available language
-        if (labels) {
-          const firstLang = Object.keys(labels)[0];
-          return labels[firstLang].value;
-        }
-        return entityId;
+        return dataProcessor.getLabel(labels, selectedLanguage, entityId);
       };
 
       const formatFactValue = (claim) => {
-        if (claim.mainsnak.datavalue) {
-          const value = claim.mainsnak.datavalue.value;
-          if (claim.mainsnak.datatype === 'wikibase-item') {
-            return getEntityLabel(value.id);
-          } else if (claim.mainsnak.datatype === 'time') {
-            return value.time;
-          } else if (claim.mainsnak.datatype === 'quantity') {
-            return value.amount;
-          } else if (claim.mainsnak.datatype === 'string') {
-            return value;
-          } else if (claim.mainsnak.datatype === 'url') {
-            return value;
-          } else if (claim.mainsnak.datatype === 'monolingualtext') {
-            return value.text;
-          } else if (claim.mainsnak.datatype === 'globecoordinate') {
-            return `${value.latitude}, ${value.longitude}`;
-          }
-          return JSON.stringify(value);
-        }
-        return 'No value';
+        return dataProcessor.formatFactValue(claim, getEntityLabel);
       };
 
       const renderStatements = () => {

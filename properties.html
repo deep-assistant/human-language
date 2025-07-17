@@ -173,7 +173,11 @@
   <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.development.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
   <script src="settings.js"></script>
+  <script src="wikidata-api.js"></script>
   <script type="text/babel">
+
+    // Use Wikidata API utilities
+    const { client: apiClient, cache: cacheManager, processor: dataProcessor } = window.WikidataAPI;
 
     function PropertyPage() {
       const [propertyId, setPropertyId] = React.useState(window.location.hash.slice(1) || 'P31');
@@ -219,19 +223,29 @@
         const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
         const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
         const languages = allLanguages.join('|');
-        const url = `https://www.wikidata.org/w/api.php?action=wbgetentities&ids=${propertyId}&props=labels|descriptions&languages=${languages}&format=json&origin=*`;
 
         setIsLoading(true);
-        fetch(url)
-          .then(response => {
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
+        
+        // Try to get property data from cache first
+        let cachedData = null;
+        cacheManager.getFromCache(cacheManager.stores.PROPERTIES, propertyId)
+          .then(cached => {
+            cachedData = cached;
+            if (cached && cacheManager.isCachedDataComplete(cached, languages)) {
+              console.log('Using cached property data for:', propertyId);
+              return cached.data;
+            } else {
+              console.log('Fetching fresh property data for:', propertyId);
+              return apiClient.fetchProperty(propertyId, languages);
             }
-            return response.json();
           })
-          .then(data => {
-            const property = data.entities[propertyId];
+          .then(property => {
             if (property) {
+              // Save to cache if it's fresh data
+              if (!cachedData || !cacheManager.isCachedDataComplete(cachedData, languages)) {
+                cacheManager.saveToCache(cacheManager.stores.PROPERTIES, propertyId, property);
+              }
+              
               setLabels(property.labels || {});
               setDescriptions(property.descriptions || {});
               const langSet = new Set([...Object.keys(property.labels || {}), ...Object.keys(property.descriptions || {})]);
