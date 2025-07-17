@@ -210,11 +210,15 @@
   <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.24.0/babel.min.js"></script>
   <script src="settings.js"></script>
   <script src="wikidata-api.js"></script>
+  <script src="statements.js"></script>
   <script type="text/babel">
 
 
     // Use Wikidata API utilities
     const { client: apiClient, cache: cacheManager, processor: dataProcessor } = window.WikidataAPI;
+
+    // Use statement components from external module
+    const { StatementsSection } = window.StatementComponents;
 
     function EntityPage() {
       const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
@@ -436,80 +440,7 @@
         return dataProcessor.getLabel(labels, selectedLanguage, entityId);
       };
 
-      const formatFactValue = (claim) => {
-        return dataProcessor.formatFactValue(claim, getEntityLabel);
-      };
-
-      const renderStatements = () => {
-        const factElements = [];
-        const currentEntityLabel = labels[selectedLanguage]?.value || entityId;
-        
-        console.log('Rendering statements with propertyLabels:', propertyLabels);
-        console.log('Rendering statements with entityLabels:', entityLabels);
-        
-        for (const [propertyId, claims] of Object.entries(statements)) {
-          if (Array.isArray(claims)) {
-            claims.forEach((claim, index) => {
-              const propertyLabel = getPropertyLabel(propertyId);
-              const value = formatFactValue(claim);
-              
-              // Create clickable links for entities
-              const entityLink = (
-                <a 
-                  href={`#${entityId}`} 
-                  className="statement-link"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    window.location.hash = entityId;
-                  }}
-                >
-                  {currentEntityLabel}
-                </a>
-              );
-              
-              const propertyLink = (
-                <a 
-                  href={`properties.html#${propertyId}`} 
-                  className="statement-link"
-                >
-                  {propertyLabel}
-                </a>
-              );
-              
-              // Create value link if it's an entity
-              let valueElement = value;
-              if (claim.mainsnak.datatype === 'wikibase-item' && claim.mainsnak.datavalue?.value?.id) {
-                const valueEntityId = claim.mainsnak.datavalue.value.id;
-                valueElement = (
-                  <a 
-                    href={`#${valueEntityId}`} 
-                    className="statement-link"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      window.location.hash = valueEntityId;
-                    }}
-                  >
-                    {value}
-                  </a>
-                );
-              }
-              
-              factElements.push(
-                <div key={`${propertyId}-${index}`} style={{ 
-                  marginBottom: '10px', 
-                  padding: '10px', 
-                  border: '1px solid var(--neon)', 
-                  borderRadius: '4px',
-                  backgroundColor: 'rgba(0, 255, 0, 0.05)'
-                }}>
-                  {entityLink} {propertyLink} {valueElement}
-                </div>
-              );
-            });
-          }
-        }
-        return factElements;
-      };
+      // Use local statement components
 
       console.log('Loading state:', { isLoading, propertyLabelsCount: Object.keys(propertyLabels).length, entityLabelsCount: Object.keys(entityLabels).length, statementsCount: Object.keys(statements).length });
       if (isLoading) {
@@ -539,14 +470,19 @@
               <p>No description available</p>
             )}
             
-            <h2>Statements</h2>
-            {Object.keys(statements).length > 0 ? (
-              <div style={{ marginTop: '20px' }}>
-                {renderStatements()}
-              </div>
-            ) : (
-              <p>No statements available</p>
-            )}
+            <StatementsSection
+              statements={statements}
+              entityId={entityId}
+              currentEntityLabel={labels[selectedLanguage]?.value || entityId}
+              getPropertyLabel={getPropertyLabel}
+              getEntityLabel={getEntityLabel}
+              onEntityClick={(entityId) => {
+                window.location.hash = entityId;
+              }}
+              onPropertyClick={(propertyId) => {
+                window.location.href = `properties.html#${propertyId}`;
+              }}
+            />
             
             <div className="entity-info">
               <span>Data source: </span>
