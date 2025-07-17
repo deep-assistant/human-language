@@ -10,6 +10,7 @@ if (typeof React === 'undefined') {
  * Loading Component
  * Displays a centered loading message with a transparent overlay
  * The overlay allows content to be visible underneath while showing the loading state
+ * Includes a delay and smooth fade-in animation to prevent blinking
  */
 function LoadingComponent() {
   return (
@@ -20,12 +21,13 @@ function LoadingComponent() {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(18, 18, 18, 0.7)', // Semi-transparent dark background
+        backgroundColor: 'rgba(18, 18, 18, 1)', // Semi-transparent dark background
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 1000,
         backdropFilter: 'blur(2px)', // Subtle blur effect
+        animation: 'fadeIn 0.05s ease-in-out'
       }}
     >
       <div
@@ -39,7 +41,7 @@ function LoadingComponent() {
           border: '2px solid var(--neon)',
           boxShadow: '0 0 30px rgba(0, 255, 0, 0.4)',
           backdropFilter: 'blur(10px)',
-          animation: 'pulse 2s infinite'
+          animation: 'pulse 2s infinite, fadeInScale 1s ease-out'
         }}
       >
         Loading...
@@ -48,7 +50,7 @@ function LoadingComponent() {
   );
 }
 
-// Add CSS animation for pulse effect
+// Add CSS animations for pulse effect and fade-in
 const style = document.createElement('style');
 style.textContent = `
   @keyframes pulse {
@@ -60,6 +62,26 @@ style.textContent = `
     }
     100% {
       box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 `;

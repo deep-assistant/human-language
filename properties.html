@@ -333,6 +333,11 @@
       const sortedLanguages = [selectedLanguage, ...otherLabels];
       const descriptionsList = sortedLanguages.map(lang => descriptions[lang]?.value).filter(desc => desc);
 
+
+      if (isLoading) {
+        return <LoadingComponent />;
+      }
+
       return (
         <div>
           <button className="theme-toggle" onClick={toggleTheme}>
@@ -385,7 +390,6 @@
             ))}
           </div>
           <div className="watermark">property</div>
-          {isLoading && <LoadingComponent />}
         </div>
       );
     }
