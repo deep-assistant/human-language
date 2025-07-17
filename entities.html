@@ -435,16 +435,28 @@
         saveToLocalStorage(STORAGE_KEYS.THEME, prevTheme === 'dark' ? 'light' : 'dark');
       };
 
-      const getPropertyLabel = (propertyId) => {
-        const labels = propertyLabels[propertyId];
-        console.log('Getting property label for', propertyId, 'labels:', labels);
-        return dataProcessor.getLabel(labels, selectedLanguage, propertyId);
+      const getPropertyLabel = (id) => {
+        // If this is the current property (subject), use the main labels state
+        if (id === entityId) {
+          console.log('Getting current property label for', id, 'labels:', labels);
+          return dataProcessor.getLabel(labels, selectedLanguage, id);
+        }
+        // Otherwise use the propertyLabels state for referenced properties
+        const propertyLabelsData = propertyLabels[id];
+        console.log('Getting property label for', id, 'labels:', propertyLabelsData);
+        return dataProcessor.getLabel(propertyLabelsData, selectedLanguage, id);
       };
 
-      const getEntityLabel = (entityId) => {
-        const labels = entityLabels[entityId];
-        console.log('Getting entity label for', entityId, 'labels:', labels);
-        return dataProcessor.getLabel(labels, selectedLanguage, entityId);
+      const getEntityLabel = (id) => {
+        // If this is the current entity, use the main labels state
+        if (id === entityId) {
+          console.log('Getting current entity label for', id, 'labels:', labels);
+          return dataProcessor.getLabel(labels, selectedLanguage, id);
+        }
+        // Otherwise use the entityLabels state for referenced entities
+        const entityLabelsData = entityLabels[id];
+        console.log('Getting entity label for', id, 'labels:', entityLabelsData);
+        return dataProcessor.getLabel(entityLabelsData, selectedLanguage, id);
       };
 
       // Use local statement components
