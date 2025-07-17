@@ -11,8 +11,8 @@ if (typeof React === 'undefined') {
  * Renders individual Wikidata statements with proper formatting and links
  * Receives an array of items: entities (Q), properties (P), and values (V)
  */
-function Statement({ 
-  items, 
+function Statement({
+  items,
   getEntityLabel,
   getPropertyLabel,
   onEntityClick,
@@ -56,39 +56,19 @@ function Statement({
         </a>
       );
     } else {
-      if (item.startsWith('Q')) {
-        return (
-          <a
-            key={`item-${index}`}
-            href={`entities.html#${item}`}
-            className="statement-link"
-            onClick={(e) => {
-              e.preventDefault();
-              if (onEntityClick) {
-                onEntityClick(item);
-              } else {
-                window.location.href = `entities.html#${item}`;
-              }
-            }}
-          >
-            {getEntityLabel(item)}
-          </a>
-        );
-      } else {
-        return (
-          <React.Fragment key={`item-${index}`}>
-            {quotes.open}{item}{quotes.close}
-          </React.Fragment>
-        );
-      }
+      return (
+        <React.Fragment key={`item-${index}`}>
+          {quotes.open}{item}{quotes.close}
+        </React.Fragment>
+      );
     }
   };
   return (
     <div
-      style={{ 
-        marginBottom: '10px', 
-        padding: '10px', 
-        border: '1px solid var(--neon)', 
+      style={{
+        marginBottom: '10px',
+        padding: '10px',
+        border: '1px solid var(--neon)',
         borderRadius: '4px',
         backgroundColor: 'rgba(0, 255, 0, 0.05)'
       }}
@@ -107,33 +87,33 @@ function Statement({
  * Statements List Component
  * Renders a list of all statements for an entity
  */
-function StatementsList({ 
-  statements, 
-  subjectId, 
-  currentEntityLabel, 
-  getPropertyLabel, 
+function StatementsList({
+  statements,
+  subjectId,
+  currentEntityLabel,
+  getPropertyLabel,
   getEntityLabel,
   onEntityClick,
   onPropertyClick,
   selectedLanguage
 }) {
   const statementElements = [];
-  
+
   console.log('Rendering statements with subjectId:', subjectId);
   console.log('Rendering statements with currentEntityLabel:', currentEntityLabel);
-  
+
   for (const [propertyId, claims] of Object.entries(statements)) {
     if (Array.isArray(claims)) {
       claims.forEach((claim, index) => {
         // Create array of items for this statement
         const items = [];
-        
+
         // Add entity (Q) or property (P)
         items.push(subjectId);
-        
+
         // Add property (P)
         items.push(propertyId);
-        
+
         // Add value (V) - could be entity ID or plain text
         if (claim.mainsnak.datavalue) {
           const value = claim.mainsnak.datavalue.value;
@@ -167,7 +147,7 @@ function StatementsList({
         } else {
           items.push('No value');
         }
-        
+
         statementElements.push(
           <Statement
             key={`${propertyId}-${index}`}
@@ -182,7 +162,7 @@ function StatementsList({
       });
     }
   }
-  
+
   return statementElements;
 }
 
@@ -190,18 +170,18 @@ function StatementsList({
  * Statements Section Component
  * Renders the complete statements section with title and conditional rendering
  */
-function StatementsSection({ 
-  statements, 
-  subjectId, 
-  currentEntityLabel, 
-  getPropertyLabel, 
+function StatementsSection({
+  statements,
+  subjectId,
+  currentEntityLabel,
+  getPropertyLabel,
   getEntityLabel,
   onEntityClick,
   onPropertyClick,
   selectedLanguage
 }) {
   const hasStatements = Object.keys(statements).length > 0;
-  
+
   if (!hasStatements) {
     return (
       <div>
@@ -210,7 +190,7 @@ function StatementsSection({
       </div>
     );
   }
-  
+
   return (
     <div>
       <h2>Statements</h2>
