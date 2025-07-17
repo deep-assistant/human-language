@@ -195,6 +195,7 @@
   <script src="settings.js"></script>
   <script src="wikidata-api.js"></script>
   <script type="text/babel" src="statements.jsx"></script>
+  <script type="text/babel" src="loading.jsx"></script>
   <script type="text/babel">
 
     // Use Wikidata API utilities
@@ -325,10 +326,7 @@
 
       // Use statement components from external module
       const { StatementsSection } = window.StatementComponents;
-
-      if (isLoading) {
-        return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
-      }
+      const { LoadingComponent } = window.LoadingComponents;
 
       const currentLabel = labels[selectedLanguage]?.value || 'No label available';
       const otherLabels = preferredLanguages.filter(lang => lang !== selectedLanguage && labels[lang]);
@@ -387,6 +385,7 @@
             ))}
           </div>
           <div className="watermark">property</div>
+          {isLoading && <LoadingComponent />}
         </div>
       );
     }

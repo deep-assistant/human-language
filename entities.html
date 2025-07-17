@@ -218,6 +218,7 @@
   <script src="settings.js"></script>
   <script src="wikidata-api.js"></script>
   <script type="text/babel" src="statements.jsx"></script>
+  <script type="text/babel" src="loading.jsx"></script>
   <script type="text/babel">
 
 
@@ -226,6 +227,7 @@
 
     // Use statement components from external module
     const { StatementsSection } = window.StatementComponents;
+    const { LoadingComponent } = window.LoadingComponents;
 
     function EntityPage() {
       const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
@@ -365,10 +367,7 @@
       const getLabel = labelManager.createGetLabelFunction(entityId, labels, entityLabels, propertyLabels, selectedLanguage);
 
       console.log('Loading state:', { isLoading, propertyLabelsCount: Object.keys(propertyLabels).length, entityLabelsCount: Object.keys(entityLabels).length, statementsCount: Object.keys(statements).length });
-      if (isLoading) {
-        return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
-      }
-
+      
       const currentLabel = labels[selectedLanguage]?.value || 'No label available';
       const otherLabels = preferredLanguages.filter(lang => lang !== selectedLanguage && labels[lang]);
       const sortedLanguages = [selectedLanguage, ...otherLabels];
@@ -427,6 +426,7 @@
             ))}
           </div>
           <div className="watermark">entity</div>
+          {isLoading && <LoadingComponent />}
         </div>
       );
     }
