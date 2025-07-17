@@ -90,7 +90,7 @@ class WikidataAPIClient {
    * @returns {Promise<Object>} - Property data
    */
   async fetchProperty(propertyId, languages = 'en') {
-    const data = await this.fetchEntities(propertyId, 'labels|descriptions', languages);
+    const data = await this.fetchEntities(propertyId, 'labels|descriptions|claims', languages);
     return data.entities[propertyId];
   }
 }
@@ -193,7 +193,10 @@ class WikidataCacheManager {
     const hasLabels = data.labels && Object.keys(data.labels).length > 0;
     const hasDescriptions = data.descriptions && Object.keys(data.descriptions).length > 0;
     
-    return hasLabels && hasDescriptions;
+    // For properties, we also want to check if we have claims data
+    const hasClaims = data.claims && Object.keys(data.claims).length > 0;
+    
+    return hasLabels && hasDescriptions && hasClaims;
   }
 }
 

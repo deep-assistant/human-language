@@ -55,6 +55,7 @@
 
     main {
       padding: 20px;
+      padding-bottom: 130px; /* Add extra bottom padding to avoid content being hidden behind language switcher */
     }
 
     h1, h2 {
@@ -94,6 +95,18 @@
     }
 
     .property-info a:hover {
+      text-decoration: underline;
+    }
+
+    /* Statement link hover effects */
+    .statement-link {
+      color: var(--neon);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .statement-link:hover {
+      color: var(--neon-selected);
       text-decoration: underline;
     }
 
@@ -181,6 +194,7 @@
   </script>
   <script src="settings.js"></script>
   <script src="wikidata-api.js"></script>
+  <script type="text/babel" src="statements.jsx"></script>
   <script type="text/babel">
 
     // Use Wikidata API utilities
@@ -198,6 +212,9 @@
         const savedTheme = loadFromLocalStorage(STORAGE_KEYS.THEME, 'dark');
         return savedTheme;
       });
+      const [statements, setStatements] = React.useState({});
+      const [propertyLabels, setPropertyLabels] = React.useState({});
+      const [entityLabels, setEntityLabels] = React.useState({});
 
       React.useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);
@@ -255,6 +272,8 @@
               
               setLabels(property.labels || {});
               setDescriptions(property.descriptions || {});
+              setStatements(property.claims || {});
+              console.log('Property claims loaded:', property.claims);
               const langSet = new Set([...Object.keys(property.labels || {}), ...Object.keys(property.descriptions || {})]);
               setAvailableLanguages(Array.from(langSet).sort());
               // Load saved language or use preferred language
@@ -263,9 +282,36 @@
                 ? savedLanguage 
                 : uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
               setSelectedLanguage(initialLang);
+              
+              // Extract property and entity IDs from statements
+              const propertyIds = new Set();
+              const entityIds = new Set();
+              
+              Object.values(property.claims || {}).forEach(claims => {
+                if (Array.isArray(claims)) {
+                  claims.forEach(claim => {
+                    if (claim.mainsnak && claim.mainsnak.property) {
+                      propertyIds.add(claim.mainsnak.property);
+                    }
+                    if (claim.mainsnak && claim.mainsnak.datavalue && claim.mainsnak.datavalue.value) {
+                      const value = claim.mainsnak.datavalue.value;
+                      if (claim.mainsnak.datatype === 'wikibase-item' && value.id) {
+                        entityIds.add(value.id);
+                      }
+                    }
+                  });
+                }
+              });
+              
+              // Load all labels in one go
+              const allIds = [...propertyIds, ...entityIds];
+              if (allIds.length > 0) {
+                loadAllLabels(allIds, languages);
+              }
             } else {
               setLabels({});
               setDescriptions({});
+              setStatements({});
               setAvailableLanguages([]);
               const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
               setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
@@ -276,12 +322,66 @@
             console.error('Error fetching data:', error);
             setLabels({});
             setDescriptions({});
+            setStatements({});
             setAvailableLanguages([]);
             const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
             setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
             setIsLoading(false);
           });
       }, [propertyId]);
+
+      const loadAllLabels = async (ids, languages) => {
+        console.log('Loading all labels for IDs:', ids);
+        const newPropertyLabels = {};
+        const newEntityLabels = {};
+        const uncachedIds = [];
+
+        // Check cache for each ID
+        for (const id of ids) {
+          const storeName = id.startsWith('P') ? cacheManager.stores.PROPERTIES : cacheManager.stores.ENTITIES;
+          const cachedData = await cacheManager.getFromCache(storeName, id);
+          if (cachedData && cachedData.data) {
+            if (id.startsWith('P')) {
+              newPropertyLabels[id] = cachedData.data.labels || {};
+            } else {
+              newEntityLabels[id] = cachedData.data.labels || {};
+            }
+          } else {
+            uncachedIds.push(id);
+          }
+        }
+
+        // Fetch uncached IDs from API in batches
+        if (uncachedIds.length > 0) {
+          const BATCH_SIZE = 50;
+          for (let i = 0; i < uncachedIds.length; i += BATCH_SIZE) {
+            const batchIds = uncachedIds.slice(i, i + BATCH_SIZE);
+            try {
+              const entities = await apiClient.fetchLabels(batchIds, languages);
+              if (!entities || Object.keys(entities).length === 0) {
+                console.error('No entities returned for label fetch:', batchIds);
+              }
+              Object.entries(entities || {}).forEach(([id, entity]) => {
+                // Save to cache
+                const storeName = id.startsWith('P') ? cacheManager.stores.PROPERTIES : cacheManager.stores.ENTITIES;
+                cacheManager.saveToCache(storeName, id, entity);
+                if (id.startsWith('P')) {
+                  newPropertyLabels[id] = entity.labels || {};
+                } else if (id.startsWith('Q')) {
+                  newEntityLabels[id] = entity.labels || {};
+                }
+              });
+            } catch (error) {
+              console.error('Error fetching labels:', error);
+            }
+          }
+        }
+
+        console.log('Setting property labels:', newPropertyLabels);
+        console.log('Setting entity labels:', newEntityLabels);
+        setPropertyLabels(newPropertyLabels);
+        setEntityLabels(newEntityLabels);
+      };
 
       const toggleTheme = () => {
         setTheme(prevTheme => {
@@ -290,6 +390,21 @@
           return newTheme;
         });
       };
+
+      const getPropertyLabel = (propertyId) => {
+        const labels = propertyLabels[propertyId];
+        console.log('Getting property label for', propertyId, 'labels:', labels);
+        return dataProcessor.getLabel(labels, selectedLanguage, propertyId);
+      };
+
+      const getEntityLabel = (entityId) => {
+        const labels = entityLabels[entityId];
+        console.log('Getting entity label for', entityId, 'labels:', labels);
+        return dataProcessor.getLabel(labels, selectedLanguage, entityId);
+      };
+
+      // Use statement components from external module
+      const { StatementsSection } = window.StatementComponents;
 
       if (isLoading) {
         return <div style={{ textAlign: 'center', marginTop: '50px' }}>Loading...</div>;
@@ -317,6 +432,20 @@
             ) : (
               <p>No description available</p>
             )}
+            
+            <StatementsSection
+              statements={statements}
+              entityId={propertyId}
+              currentEntityLabel={labels[selectedLanguage]?.value || propertyId}
+              getPropertyLabel={getPropertyLabel}
+              getEntityLabel={getEntityLabel}
+              onEntityClick={(entityId) => {
+                window.location.href = `entities.html#${entityId}`;
+              }}
+              onPropertyClick={(propertyId) => {
+                window.location.hash = propertyId;
+              }}
+            />
           </main>
           <div className="property-info">
             <span>Data source: </span>
