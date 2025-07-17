@@ -295,14 +295,128 @@ class WikidataDataProcessor {
   }
 }
 
+/**
+ * Label Manager for Wikidata entities and properties
+ * Handles loading and caching of labels for entities and properties referenced in statements
+ */
+class WikidataLabelManager {
+  constructor(apiClient, cacheManager, dataProcessor) {
+    this.apiClient = apiClient;
+    this.cacheManager = cacheManager;
+    this.dataProcessor = dataProcessor;
+  }
+
+  /**
+   * Load all labels for entities and properties referenced in statements
+   * @param {Object} claims - Claims object from Wikidata
+   * @param {string} languages - Languages to fetch
+   * @returns {Promise<Object>} - Object with propertyLabels and entityLabels
+   */
+  async loadAllLabels(claims, languages) {
+    console.log('Loading all labels for claims:', claims);
+    
+    // Extract IDs from claims
+    const { propertyIds, entityIds } = this.dataProcessor.extractIdsFromClaims(claims);
+    const allIds = [...propertyIds, ...entityIds];
+    
+    if (allIds.length === 0) {
+      console.log('No IDs found in claims');
+      return { propertyLabels: {}, entityLabels: {} };
+    }
+
+    const newPropertyLabels = {};
+    const newEntityLabels = {};
+    const uncachedIds = [];
+
+    // Check cache for each ID
+    for (const id of allIds) {
+      const storeName = id.startsWith('P') ? this.cacheManager.stores.PROPERTIES : this.cacheManager.stores.ENTITIES;
+      const cachedData = await this.cacheManager.getFromCache(storeName, id);
+      if (cachedData && cachedData.data) {
+        if (id.startsWith('P')) {
+          newPropertyLabels[id] = cachedData.data.labels || {};
+        } else {
+          newEntityLabels[id] = cachedData.data.labels || {};
+        }
+      } else {
+        uncachedIds.push(id);
+      }
+    }
+
+    // Fetch uncached IDs from API in batches
+    if (uncachedIds.length > 0) {
+      const BATCH_SIZE = 50;
+      for (let i = 0; i < uncachedIds.length; i += BATCH_SIZE) {
+        const batchIds = uncachedIds.slice(i, i + BATCH_SIZE);
+        try {
+          const entities = await this.apiClient.fetchLabels(batchIds, languages);
+          if (!entities || Object.keys(entities).length === 0) {
+            console.error('No entities returned for label fetch:', batchIds);
+          }
+          Object.entries(entities || {}).forEach(([id, entity]) => {
+            // Save to cache
+            const storeName = id.startsWith('P') ? this.cacheManager.stores.PROPERTIES : this.cacheManager.stores.ENTITIES;
+            this.cacheManager.saveToCache(storeName, id, entity);
+            if (id.startsWith('P')) {
+              newPropertyLabels[id] = entity.labels || {};
+            } else if (id.startsWith('Q')) {
+              newEntityLabels[id] = entity.labels || {};
+            }
+          });
+        } catch (error) {
+          console.error('Error fetching labels:', error);
+        }
+      }
+    }
+
+    console.log('Setting property labels:', newPropertyLabels);
+    console.log('Setting entity labels:', newEntityLabels);
+    
+    return {
+      propertyLabels: newPropertyLabels,
+      entityLabels: newEntityLabels
+    };
+  }
+
+  /**
+   * Create a unified getLabel function that handles current subject and referenced entities/properties
+   * @param {string} subjectId - Current subject ID (entity or property)
+   * @param {Object} mainLabels - Main labels for the current subject
+   * @param {Object} entityLabels - Labels for referenced entities
+   * @param {Object} propertyLabels - Labels for referenced properties
+   * @param {string} selectedLanguage - Selected language
+   * @returns {Function} - getLabel function
+   */
+  createGetLabelFunction(subjectId, mainLabels, entityLabels, propertyLabels, selectedLanguage) {
+    return (id) => {
+      // If this is the current subject, use the main labels
+      if (id === subjectId) {
+        return this.dataProcessor.getLabel(mainLabels, selectedLanguage, id);
+      }
+      // Check entity labels
+      if (entityLabels[id]) {
+        return this.dataProcessor.getLabel(entityLabels[id], selectedLanguage, id);
+      }
+      // Check property labels
+      if (propertyLabels[id]) {
+        return this.dataProcessor.getLabel(propertyLabels[id], selectedLanguage, id);
+      }
+      // Fallback to ID
+      return id;
+    };
+  }
+}
+
 // Create global instances
 const apiClientInstance = new WikidataAPIClient();
 const cacheManagerInstance = new WikidataCacheManager();
 const dataProcessorInstance = new WikidataDataProcessor();
+const labelManagerInstance = new WikidataLabelManager(apiClientInstance, cacheManagerInstance, dataProcessorInstance);
 
 // Export for use in other files
 window.WikidataAPI = {
   client: apiClientInstance,
   cache: cacheManagerInstance,
-  processor: dataProcessorInstance
+  processor: dataProcessorInstance,
+  labelManager: labelManagerInstance
 }; 

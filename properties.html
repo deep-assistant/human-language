@@ -198,7 +198,7 @@
   <script type="text/babel">
 
     // Use Wikidata API utilities
-    const { client: apiClient, cache: cacheManager, processor: dataProcessor } = window.WikidataAPI;
+    const { client: apiClient, cache: cacheManager, processor: dataProcessor, labelManager } = window.WikidataAPI;
 
     function PropertyPage() {
       const [propertyId, setPropertyId] = React.useState(window.location.hash.slice(1) || 'P31');
@@ -283,31 +283,8 @@
                 : uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
               setSelectedLanguage(initialLang);
               
-              // Extract property and entity IDs from statements
-              const propertyIds = new Set();
-              const entityIds = new Set();
-              
-              Object.values(property.claims || {}).forEach(claims => {
-                if (Array.isArray(claims)) {
-                  claims.forEach(claim => {
-                    if (claim.mainsnak && claim.mainsnak.property) {
-                      propertyIds.add(claim.mainsnak.property);
-                    }
-                    if (claim.mainsnak && claim.mainsnak.datavalue && claim.mainsnak.datavalue.value) {
-                      const value = claim.mainsnak.datavalue.value;
-                      if (claim.mainsnak.datatype === 'wikibase-item' && value.id) {
-                        entityIds.add(value.id);
-                      }
-                    }
-                  });
-                }
-              });
-              
-              // Load all labels in one go
-              const allIds = [...propertyIds, ...entityIds];
-              if (allIds.length > 0) {
-                loadAllLabels(allIds, languages);
-              }
+              // Load all labels using the centralized label manager
+              return labelManager.loadAllLabels(property.claims, languages);
             } else {
               setLabels({});
               setDescriptions({});
@@ -315,7 +292,12 @@
               setAvailableLanguages([]);
               const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
               setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
+              return { propertyLabels: {}, entityLabels: {} };
             }
+          })
+          .then(({ propertyLabels: newPropertyLabels, entityLabels: newEntityLabels }) => {
+            setPropertyLabels(newPropertyLabels);
+            setEntityLabels(newEntityLabels);
             setIsLoading(false);
           })
           .catch(error => {
@@ -330,59 +312,6 @@
           });
       }, [propertyId]);
 
-      const loadAllLabels = async (ids, languages) => {
-        console.log('Loading all labels for IDs:', ids);
-        const newPropertyLabels = {};
-        const newEntityLabels = {};
-        const uncachedIds = [];
-
-        // Check cache for each ID
-        for (const id of ids) {
-          const storeName = id.startsWith('P') ? cacheManager.stores.PROPERTIES : cacheManager.stores.ENTITIES;
-          const cachedData = await cacheManager.getFromCache(storeName, id);
-          if (cachedData && cachedData.data) {
-            if (id.startsWith('P')) {
-              newPropertyLabels[id] = cachedData.data.labels || {};
-            } else {
-              newEntityLabels[id] = cachedData.data.labels || {};
-            }
-          } else {
-            uncachedIds.push(id);
-          }
-        }
-
-        // Fetch uncached IDs from API in batches
-        if (uncachedIds.length > 0) {
-          const BATCH_SIZE = 50;
-          for (let i = 0; i < uncachedIds.length; i += BATCH_SIZE) {
-            const batchIds = uncachedIds.slice(i, i + BATCH_SIZE);
-            try {
-              const entities = await apiClient.fetchLabels(batchIds, languages);
-              if (!entities || Object.keys(entities).length === 0) {
-                console.error('No entities returned for label fetch:', batchIds);
-              }
-              Object.entries(entities || {}).forEach(([id, entity]) => {
-                // Save to cache
-                const storeName = id.startsWith('P') ? cacheManager.stores.PROPERTIES : cacheManager.stores.ENTITIES;
-                cacheManager.saveToCache(storeName, id, entity);
-                if (id.startsWith('P')) {
-                  newPropertyLabels[id] = entity.labels || {};
-                } else if (id.startsWith('Q')) {
-                  newEntityLabels[id] = entity.labels || {};
-                }
-              });
-            } catch (error) {
-              console.error('Error fetching labels:', error);
-            }
-          }
-        }
-
-        console.log('Setting property labels:', newPropertyLabels);
-        console.log('Setting entity labels:', newEntityLabels);
-        setPropertyLabels(newPropertyLabels);
-        setEntityLabels(newEntityLabels);
-      };
-
       const toggleTheme = () => {
         setTheme(prevTheme => {
           const newTheme = prevTheme === 'dark' ? 'light' : 'dark';
@@ -391,18 +320,8 @@
         });
       };
 
-      const getLabel = (id) => {
-        if (id === propertyId) {
-          return dataProcessor.getLabel(labels, selectedLanguage, id);
-        }
-        if (entityLabels[id]) {
-          return dataProcessor.getLabel(entityLabels[id], selectedLanguage, id);
-        }
-        if (propertyLabels[id]) {
-          return dataProcessor.getLabel(propertyLabels[id], selectedLanguage, id);
-        }
-        return id;
-      };
+      // Create unified getLabel function using the label manager
+      const getLabel = labelManager.createGetLabelFunction(propertyId, labels, entityLabels, propertyLabels, selectedLanguage);
 
       // Use statement components from external module
       const { StatementsSection } = window.StatementComponents;
