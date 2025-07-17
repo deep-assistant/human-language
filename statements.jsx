@@ -90,7 +90,6 @@ function Statement({
 function StatementsList({
   statements,
   subjectId,
-  currentEntityLabel,
   getPropertyLabel,
   getEntityLabel,
   onEntityClick,
@@ -100,7 +99,6 @@ function StatementsList({
   const statementElements = [];
 
   console.log('Rendering statements with subjectId:', subjectId);
-  console.log('Rendering statements with currentEntityLabel:', currentEntityLabel);
 
   for (const [propertyId, claims] of Object.entries(statements)) {
     if (Array.isArray(claims)) {
@@ -173,7 +171,6 @@ function StatementsList({
 function StatementsSection({
   statements,
   subjectId,
-  currentEntityLabel,
   getPropertyLabel,
   getEntityLabel,
   onEntityClick,
@@ -198,7 +195,6 @@ function StatementsSection({
         <StatementsList
           statements={statements}
           subjectId={subjectId}
-          currentEntityLabel={currentEntityLabel}
           getPropertyLabel={getPropertyLabel}
           getEntityLabel={getEntityLabel}
           onEntityClick={onEntityClick}
