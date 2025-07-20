@@ -413,10 +413,14 @@ const cacheManagerInstance = new WikidataCacheManager();
 const dataProcessorInstance = new WikidataDataProcessor();
 const labelManagerInstance = new WikidataLabelManager(apiClientInstance, cacheManagerInstance, dataProcessorInstance);
 
-// Export for use in other files
-window.WikidataAPI = {
-  client: apiClientInstance,
-  cache: cacheManagerInstance,
-  processor: dataProcessorInstance,
-  labelManager: labelManagerInstance
+// Export classes and instances
+export {
+  WikidataAPIClient,
+  WikidataCacheManager,
+  WikidataDataProcessor,
+  WikidataLabelManager,
+  apiClientInstance as client,
+  cacheManagerInstance as cache,
+  dataProcessorInstance as processor,
+  labelManagerInstance as labelManager
 }; 

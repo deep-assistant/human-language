@@ -103,3 +103,13 @@ const flagMap = {
   // Fallback for unsupported languages
   'und': '🌐', 'mul': '🌐', 'zxx': '🌐'
 };
+
+// Export all functions and constants
+export {
+  STORAGE_KEYS,
+  saveToLocalStorage,
+  loadFromLocalStorage,
+  localeQuotes,
+  getQuotesForLanguage,
+  flagMap
+};

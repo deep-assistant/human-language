@@ -192,14 +192,34 @@
     window.React = React;
     window.ReactDOM = ReactDOM;
   </script>
-  <script src="settings.js"></script>
-  <script src="wikidata-api.js"></script>
+  <script type="module">
+    // Import settings and Wikidata API utilities
+    import { STORAGE_KEYS, saveToLocalStorage, loadFromLocalStorage, flagMap } from './settings.js';
+    import { client as apiClient, cache as cacheManager, processor as dataProcessor, labelManager } from './wikidata-api.js';
+
+    // Make them available globally for the text/babel script
+    window.STORAGE_KEYS = STORAGE_KEYS;
+    window.saveToLocalStorage = saveToLocalStorage;
+    window.loadFromLocalStorage = loadFromLocalStorage;
+    window.flagMap = flagMap;
+    window.apiClient = apiClient;
+    window.cacheManager = cacheManager;
+    window.dataProcessor = dataProcessor;
+    window.labelManager = labelManager;
+  </script>
   <script type="text/babel" src="statements.jsx"></script>
   <script type="text/babel" src="loading.jsx"></script>
   <script type="text/babel">
 
-    // Use Wikidata API utilities
-    const { client: apiClient, cache: cacheManager, processor: dataProcessor, labelManager } = window.WikidataAPI;
+    // Use Wikidata API utilities from global window object
+    const { 
+      apiClient,
+      cacheManager,
+      dataProcessor,
+      labelManager,
+      loadFromLocalStorage,
+      STORAGE_KEYS,
+    } = window;
 
     function PropertyPage() {
       const [propertyId, setPropertyId] = React.useState(window.location.hash.slice(1) || 'P31');
