@@ -93,6 +93,128 @@ class WikidataAPIClient {
     const data = await this.fetchEntities(propertyId, 'labels|descriptions|claims', languages);
     return data.entities[propertyId];
   }
+
+  /**
+   * Search for entities and properties that match an exact word sequence
+   * @param {string} query - Exact word sequence to search for
+   * @param {string} languages - Languages to search in (default: 'en')
+   * @param {number} limit - Maximum number of results (default: 50)
+   * @param {string} type - Type to search for: 'item', 'property', or 'both' (default: 'both')
+   * @returns {Promise<Object>} - Search results with entities and properties
+   */
+  async searchExactMatch(query, languages = 'en', limit = 50, type = 'both') {
+    const results = {
+      entities: [],
+      properties: [],
+      total: 0
+    };
+
+    try {
+      // Search for entities (items)
+      if (type === 'both' || type === 'item') {
+        const entityUrl = this.buildApiUrl({
+          action: 'wbsearchentities',
+          search: query,
+          language: languages,
+          type: 'item',
+          limit: Math.floor(limit / 2),
+          format: 'json'
+        });
+
+        const entityResponse = await fetch(entityUrl);
+        if (entityResponse.ok) {
+          const entityData = await entityResponse.json();
+          results.entities = entityData.search || [];
+        }
+      }
+
+      // Search for properties
+      if (type === 'both' || type === 'property') {
+        const propertyUrl = this.buildApiUrl({
+          action: 'wbsearchentities',
+          search: query,
+          language: languages,
+          type: 'property',
+          limit: Math.floor(limit / 2),
+          format: 'json'
+        });
+
+        const propertyResponse = await fetch(propertyUrl);
+        if (propertyResponse.ok) {
+          const propertyData = await propertyResponse.json();
+          results.properties = propertyData.search || [];
+        }
+      }
+
+      results.total = results.entities.length + results.properties.length;
+      return results;
+
+    } catch (error) {
+      console.error('Error searching for exact match:', error);
+      throw new Error(`Search failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Search for entities and properties with fuzzy matching
+   * @param {string} query - Query string to search for
+   * @param {string} languages - Languages to search in (default: 'en')
+   * @param {number} limit - Maximum number of results (default: 50)
+   * @param {string} type - Type to search for: 'item', 'property', or 'both' (default: 'both')
+   * @returns {Promise<Object>} - Search results with entities and properties
+   */
+  async searchFuzzy(query, languages = 'en', limit = 50, type = 'both') {
+    const results = {
+      entities: [],
+      properties: [],
+      total: 0
+    };
+
+    try {
+      // Search for entities (items)
+      if (type === 'both' || type === 'item') {
+        const entityUrl = this.buildApiUrl({
+          action: 'wbsearchentities',
+          search: query,
+          language: languages,
+          type: 'item',
+          limit: Math.floor(limit / 2),
+          format: 'json'
+        });
+
+        const entityResponse = await fetch(entityUrl);
+        if (entityResponse.ok) {
+          const entityData = await entityResponse.json();
+          results.entities = entityData.search || [];
+        }
+      }
+
+      // Search for properties
+      if (type === 'both' || type === 'property') {
+        const propertyUrl = this.buildApiUrl({
+          action: 'wbsearchentities',
+          search: query,
+          language: languages,
+          type: 'property',
+          limit: Math.floor(limit / 2),
+          format: 'json'
+        });
+
+        const propertyResponse = await fetch(propertyUrl);
+        if (propertyResponse.ok) {
+          const propertyData = await propertyResponse.json();
+          results.properties = propertyData.search || [];
+        }
+      }
+
+      results.total = results.entities.length + results.properties.length;
+      return results;
+
+    } catch (error) {
+      console.error('Error searching with fuzzy matching:', error);
+      throw new Error(`Search failed: ${error.message}`);
+    }
+  }
 }
 
 /**
@@ -296,6 +418,180 @@ class WikidataDataProcessor {
 }
 
 /**
+ * Wikidata Search and Disambiguation Utility
+ * Provides advanced search and disambiguation functionality for entities and properties
+ */
+class WikidataSearchUtility {
+  constructor(apiClient, cacheManager, dataProcessor) {
+    this.apiClient = apiClient;
+    this.cacheManager = cacheManager;
+    this.dataProcessor = dataProcessor;
+  }
+
+  /**
+   * Search for entities and properties with exact word sequence matching
+   * @param {string} query - Exact word sequence to search for
+   * @param {string} languages - Languages to search in (default: 'en')
+   * @param {number} limit - Maximum number of results (default: 50)
+   * @param {string} type - Type to search for: 'item', 'property', or 'both' (default: 'both')
+   * @returns {Promise<Object>} - Search results with entities and properties
+   */
+  async searchExactMatch(query, languages = 'en', limit = 50, type = 'both') {
+    return await this.apiClient.searchExactMatch(query, languages, limit, type);
+  }
+
+  /**
+   * Search for entities and properties with fuzzy matching
+   * @param {string} query - Query string to search for
+   * @param {string} languages - Languages to search in (default: 'en')
+   * @param {number} limit - Maximum number of results (default: 50)
+   * @param {string} type - Type to search for: 'item', 'property', or 'both' (default: 'both')
+   * @returns {Promise<Object>} - Search results with entities and properties
+   */
+  async searchFuzzy(query, languages = 'en', limit = 50, type = 'both') {
+    return await this.apiClient.searchFuzzy(query, languages, limit, type);
+  }
+
+  /**
+   * Enhanced disambiguation search that combines exact and fuzzy matching
+   * @param {string} query - Query string to search for
+   * @param {string} languages - Languages to search in (default: 'en')
+   * @param {number} limit - Maximum number of results (default: 50)
+   * @param {string} type - Type to search for: 'item', 'property', or 'both' (default: 'both')
+   * @returns {Promise<Object>} - Enhanced search results with ranking
+   */
+  async disambiguateSearch(query, languages = 'en', limit = 50, type = 'both') {
+    const results = {
+      exact: [],
+      fuzzy: [],
+      combined: [],
+      total: 0
+    };
+
+    try {
+      // Get exact matches first
+      const exactResults = await this.searchExactMatch(query, languages, limit, type);
+      
+      // Get fuzzy matches
+      const fuzzyResults = await this.searchFuzzy(query, languages, limit, type);
+
+      // Combine and rank results
+      const exactEntities = exactResults.entities || [];
+      const exactProperties = exactResults.properties || [];
+      const fuzzyEntities = fuzzyResults.entities || [];
+      const fuzzyProperties = fuzzyResults.properties || [];
+
+      // Create a map to avoid duplicates
+      const seenIds = new Set();
+
+      // Add exact matches first (higher priority)
+      exactEntities.forEach(entity => {
+        if (!seenIds.has(entity.id)) {
+          seenIds.add(entity.id);
+          results.exact.push({ ...entity, matchType: 'exact' });
+        }
+      });
+
+      exactProperties.forEach(property => {
+        if (!seenIds.has(property.id)) {
+          seenIds.add(property.id);
+          results.exact.push({ ...property, matchType: 'exact' });
+        }
+      });
+
+      // Add fuzzy matches (lower priority)
+      fuzzyEntities.forEach(entity => {
+        if (!seenIds.has(entity.id)) {
+          seenIds.add(entity.id);
+          results.fuzzy.push({ ...entity, matchType: 'fuzzy' });
+        }
+      });
+
+      fuzzyProperties.forEach(property => {
+        if (!seenIds.has(property.id)) {
+          seenIds.add(property.id);
+          results.fuzzy.push({ ...property, matchType: 'fuzzy' });
+        }
+      });
+
+      // Combine all results
+      results.combined = [...results.exact, ...results.fuzzy];
+      results.total = results.combined.length;
+
+      return results;
+
+    } catch (error) {
+      console.error('Error in disambiguation search:', error);
+      throw new Error(`Disambiguation search failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Search for entities and properties with context-aware ranking
+   * @param {string} query - Query string to search for
+   * @param {Object} context - Context information for ranking
+   * @param {string} languages - Languages to search in (default: 'en')
+   * @param {number} limit - Maximum number of results (default: 50)
+   * @param {string} type - Type to search for: 'item', 'property', or 'both' (default: 'both')
+   * @returns {Promise<Object>} - Context-aware search results
+   */
+  async searchWithContext(query, context = {}, languages = 'en', limit = 50, type = 'both') {
+    const results = await this.disambiguateSearch(query, languages, limit, type);
+    
+    // Apply context-based ranking
+    if (context.domain) {
+      results.combined = this.rankByDomain(results.combined, context.domain);
+    }
+    
+    if (context.preferredTypes) {
+      results.combined = this.rankByType(results.combined, context.preferredTypes);
+    }
+
+    return results;
+  }
+
+  /**
+   * Rank results by domain relevance
+   * @param {Array} results - Search results
+   * @param {string} domain - Domain context
+   * @returns {Array} - Ranked results
+   */
+  rankByDomain(results, domain) {
+    return results.sort((a, b) => {
+      const aDescription = a.description || '';
+      const bDescription = b.description || '';
+      
+      const aDomainMatch = aDescription.toLowerCase().includes(domain.toLowerCase());
+      const bDomainMatch = bDescription.toLowerCase().includes(domain.toLowerCase());
+      
+      if (aDomainMatch && !bDomainMatch) return -1;
+      if (!aDomainMatch && bDomainMatch) return 1;
+      return 0;
+    });
+  }
+
+  /**
+   * Rank results by preferred types
+   * @param {Array} results - Search results
+   * @param {Array} preferredTypes - Array of preferred types
+   * @returns {Array} - Ranked results
+   */
+  rankByType(results, preferredTypes) {
+    return results.sort((a, b) => {
+      const aType = a.type || 'item';
+      const bType = b.type || 'item';
+      
+      const aPreferred = preferredTypes.includes(aType);
+      const bPreferred = preferredTypes.includes(bType);
+      
+      if (aPreferred && !bPreferred) return -1;
+      if (!aPreferred && bPreferred) return 1;
+      return 0;
+    });
+  }
+}
+
+/**
  * Label Manager for Wikidata entities and properties
  * Handles loading and caching of labels for entities and properties referenced in statements
  */
@@ -412,6 +708,7 @@ const apiClientInstance = new WikidataAPIClient();
 const cacheManagerInstance = new WikidataCacheManager();
 const dataProcessorInstance = new WikidataDataProcessor();
 const labelManagerInstance = new WikidataLabelManager(apiClientInstance, cacheManagerInstance, dataProcessorInstance);
+const searchUtilityInstance = new WikidataSearchUtility(apiClientInstance, cacheManagerInstance, dataProcessorInstance);
 
 // Export classes and instances
 export {
@@ -419,8 +716,10 @@ export {
   WikidataCacheManager,
   WikidataDataProcessor,
   WikidataLabelManager,
+  WikidataSearchUtility,
   apiClientInstance as client,
   cacheManagerInstance as cache,
   dataProcessorInstance as processor,
-  labelManagerInstance as labelManager
+  labelManagerInstance as labelManager,
+  searchUtilityInstance as searchUtility
 }; 
