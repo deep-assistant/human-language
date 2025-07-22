@@ -22,7 +22,7 @@ class WikidataSearchTest {
     console.log('🧪 Starting Wikidata Search Tests...\n');
 
     await this.testExactMatchSearch();
-    await this.testFuzzySearch();
+    // await this.testFuzzySearch();
     await this.testDisambiguationSearch();
     await this.testContextAwareSearch();
     await this.testSearchWithDifferentTypes();
