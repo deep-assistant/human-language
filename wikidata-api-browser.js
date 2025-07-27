@@ -361,6 +361,175 @@ class WikidataCacheManager {
 }
 
 /**
+ * Wikidata Data Processor
+ * Handles processing and formatting of Wikidata data
+ */
+class WikidataDataProcessor {
+  /**
+   * Extract property and entity IDs from statements
+   * @param {Object} claims - Claims object from Wikidata
+   * @returns {Object} - Object with propertyIds and entityIds sets
+   */
+  extractIdsFromClaims(claims) {
+    const propertyIds = new Set();
+    const entityIds = new Set();
+    
+    Object.values(claims || {}).forEach(claimsArray => {
+      if (Array.isArray(claimsArray)) {
+        claimsArray.forEach(claim => {
+          if (claim.mainsnak && claim.mainsnak.property) {
+            propertyIds.add(claim.mainsnak.property);
+          }
+          if (claim.mainsnak && claim.mainsnak.datavalue && claim.mainsnak.datavalue.value) {
+            const value = claim.mainsnak.datavalue.value;
+            if (claim.mainsnak.datatype === 'wikibase-item' && value.id) {
+              entityIds.add(value.id);
+            }
+          }
+        });
+      }
+    });
+    
+    return { propertyIds, entityIds };
+  }
+
+  /**
+   * Get label from labels object with fallback
+   * @param {Object} labels - Labels object
+   * @param {string} selectedLanguage - Selected language
+   * @param {string} fallbackId - ID to return if no label found
+   * @returns {string} - Label or fallback ID
+   */
+  getLabel(labels, selectedLanguage, fallbackId) {
+    if (labels && labels[selectedLanguage]) {
+      return labels[selectedLanguage].value;
+    }
+    // Fallback to English
+    if (labels && labels.en) {
+      return labels.en.value;
+    }
+    // Fallback to any available language
+    if (labels) {
+      const firstLang = Object.keys(labels)[0];
+      return labels[firstLang].value;
+    }
+    return fallbackId;
+  }
+}
+
+/**
+ * Label Manager for Wikidata entities and properties
+ * Handles loading and caching of labels for entities and properties referenced in statements
+ */
+class WikidataLabelManager {
+  constructor(apiClient, cacheManager, dataProcessor) {
+    this.apiClient = apiClient;
+    this.cacheManager = cacheManager;
+    this.dataProcessor = dataProcessor;
+  }
+
+  /**
+   * Load all labels for entities and properties referenced in statements
+   * @param {Object} claims - Claims object from Wikidata
+   * @param {string} languages - Languages to fetch
+   * @returns {Promise<Object>} - Object with propertyLabels and entityLabels
+   */
+  async loadAllLabels(claims, languages) {
+    console.log('Loading all labels for claims:', claims);
+    
+    // Extract IDs from claims
+    const { propertyIds, entityIds } = this.dataProcessor.extractIdsFromClaims(claims);
+    const allIds = [...propertyIds, ...entityIds];
+    
+    if (allIds.length === 0) {
+      console.log('No IDs found in claims');
+      return { propertyLabels: {}, entityLabels: {} };
+    }
+
+    const newPropertyLabels = {};
+    const newEntityLabels = {};
+    const uncachedIds = [];
+
+    // Check cache for each ID
+    for (const id of allIds) {
+      const storeName = id.startsWith('P') ? this.cacheManager.stores.PROPERTIES : this.cacheManager.stores.ENTITIES;
+      const cachedData = await this.cacheManager.getFromCache(storeName, id);
+      if (cachedData && cachedData.data) {
+        if (id.startsWith('P')) {
+          newPropertyLabels[id] = cachedData.data.labels || {};
+        } else {
+          newEntityLabels[id] = cachedData.data.labels || {};
+        }
+      } else {
+        uncachedIds.push(id);
+      }
+    }
+
+    // Fetch uncached IDs from API in batches
+    if (uncachedIds.length > 0) {
+      const BATCH_SIZE = 50;
+      for (let i = 0; i < uncachedIds.length; i += BATCH_SIZE) {
+        const batchIds = uncachedIds.slice(i, i + BATCH_SIZE);
+        try {
+          const entities = await this.apiClient.fetchLabels(batchIds, languages);
+          if (!entities || Object.keys(entities).length === 0) {
+            console.error('No entities returned for label fetch:', batchIds);
+          }
+          Object.entries(entities || {}).forEach(([id, entity]) => {
+            // Save to cache
+            const storeName = id.startsWith('P') ? this.cacheManager.stores.PROPERTIES : this.cacheManager.stores.ENTITIES;
+            this.cacheManager.saveToCache(storeName, id, entity);
+            if (id.startsWith('P')) {
+              newPropertyLabels[id] = entity.labels || {};
+            } else if (id.startsWith('Q')) {
+              newEntityLabels[id] = entity.labels || {};
+            }
+          });
+        } catch (error) {
+          console.error('Error fetching labels:', error);
+        }
+      }
+    }
+
+    console.log('Setting property labels:', newPropertyLabels);
+    console.log('Setting entity labels:', newEntityLabels);
+    
+    return {
+      propertyLabels: newPropertyLabels,
+      entityLabels: newEntityLabels
+    };
+  }
+
+  /**
+   * Create a unified getLabel function that handles current subject and referenced entities/properties
+   * @param {string} subjectId - Current subject ID (entity or property)
+   * @param {Object} mainLabels - Main labels for the current subject
+   * @param {Object} entityLabels - Labels for referenced entities
+   * @param {Object} propertyLabels - Labels for referenced properties
+   * @param {string} selectedLanguage - Selected language
+   * @returns {Function} - getLabel function
+   */
+  createGetLabelFunction(subjectId, mainLabels, entityLabels, propertyLabels, selectedLanguage) {
+    return (id) => {
+      // If this is the current subject, use the main labels
+      if (id === subjectId) {
+        return this.dataProcessor.getLabel(mainLabels, selectedLanguage, id);
+      }
+      // Check entity labels
+      if (entityLabels[id]) {
+        return this.dataProcessor.getLabel(entityLabels[id], selectedLanguage, id);
+      }
+      // Check property labels
+      if (propertyLabels[id]) {
+        return this.dataProcessor.getLabel(propertyLabels[id], selectedLanguage, id);
+      }
+      // Fallback to ID
+      return id;
+    };
+  }
+}
+
+/**
  * Wikidata Search and Disambiguation Utility
  * Provides advanced search and disambiguation functionality for entities and properties
  */
@@ -537,15 +706,21 @@ class WikidataSearchUtility {
 // Create instances with auto-detected cache type
 const apiClientInstance = new WikidataAPIClient('auto');
 const cacheManagerInstance = new WikidataCacheManager();
-const searchUtilityInstance = new WikidataSearchUtility(apiClientInstance, cacheManagerInstance, null);
+const dataProcessorInstance = new WikidataDataProcessor();
+const searchUtilityInstance = new WikidataSearchUtility(apiClientInstance, cacheManagerInstance, dataProcessorInstance);
+const labelManagerInstance = new WikidataLabelManager(apiClientInstance, cacheManagerInstance, dataProcessorInstance);
 
 // Export classes and instances
 export {
   WikidataAPIClient,
   WikidataCacheManager,
+  WikidataDataProcessor,
+  WikidataLabelManager,
   WikidataSearchUtility,
   apiClientInstance as client,
   cacheManagerInstance as cache,
+  dataProcessorInstance as processor,
+  labelManagerInstance as labelManager,
   searchUtilityInstance as searchUtility
 };
 
