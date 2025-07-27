@@ -39,7 +39,7 @@ function LoadingComponent() {
           padding: '30px 40px',
           borderRadius: '12px',
           border: '2px solid var(--neon)',
-          boxShadow: '0 0 30px rgba(0, 255, 0, 0.4)',
+          boxShadow: '0 0 30px var(--neon-shadow)',
           backdropFilter: 'blur(10px)',
           animation: 'pulse 2s infinite, fadeInScale 1s ease-out'
         }}
@@ -53,15 +53,25 @@ function LoadingComponent() {
 // Add CSS animations for pulse effect and fade-in
 const style = document.createElement('style');
 style.textContent = `
+  :root {
+    --neon-shadow: rgba(0, 255, 0, 0.4);
+    --neon-shadow-intense: rgba(0, 255, 0, 0.6);
+  }
+  
+  [data-theme="light"] {
+    --neon-shadow: rgba(255, 0, 255, 0.4);
+    --neon-shadow-intense: rgba(255, 0, 255, 0.6);
+  }
+  
   @keyframes pulse {
     0% {
-      box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+      box-shadow: 0 0 30px var(--neon-shadow);
     }
     50% {
-      box-shadow: 0 0 40px rgba(0, 255, 0, 0.6);
+      box-shadow: 0 0 40px var(--neon-shadow-intense);
     }
     100% {
-      box-shadow: 0 0 30px rgba(0, 255, 0, 0.4);
+      box-shadow: 0 0 30px var(--neon-shadow);
     }
   }
 
