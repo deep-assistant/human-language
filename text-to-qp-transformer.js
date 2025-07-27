@@ -2,7 +2,20 @@
 // Transforms English text into sequences of Wikidata entities (Q) and properties (P)
 // with disambiguation support using [Q1 or Q2 or Q3] syntax
 
-import { WikidataAPIClient, WikidataSearchUtility } from './wikidata-api.js';
+// Import appropriate API based on environment
+let WikidataAPIClient, WikidataSearchUtility;
+
+if (typeof window !== 'undefined') {
+  // Browser environment
+  const module = await import('./wikidata-api-browser.js');
+  WikidataAPIClient = module.WikidataAPIClient;
+  WikidataSearchUtility = module.WikidataSearchUtility;
+} else {
+  // Node.js environment
+  const module = await import('./wikidata-api.js');
+  WikidataAPIClient = module.WikidataAPIClient;  
+  WikidataSearchUtility = module.WikidataSearchUtility;
+}
 
 /**
  * Text to Q/P Transformer Class
