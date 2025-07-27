@@ -2,6 +2,7 @@
 // This file contains all logic related to Wikidata API interactions
 
 import { PersistentCacheManager } from './persistent-cache.js';
+import { CacheFactory } from './unified-cache.js';
 
 // API Configuration
 const WIKIDATA_API_BASE = 'https://www.wikidata.org/w/api.php';
@@ -18,12 +19,21 @@ const CACHE_CONFIG = {
 
 /**
  * Wikidata API Client Class
- * Handles all interactions with the Wikidata API with persistent caching
+ * Handles all interactions with the Wikidata API with configurable caching
  */
 class WikidataAPIClient {
-  constructor() {
+  constructor(cacheType = 'auto', cacheOptions = {}) {
     this.baseUrl = WIKIDATA_API_BASE;
-    this.cache = new PersistentCacheManager('./data/wikidata-cache');
+    this.cache = CacheFactory.create(cacheType, cacheOptions);
+  }
+
+  /**
+   * Set cache type and reinitialize cache
+   * @param {string} cacheType - 'auto', 'file', 'indexeddb', or 'none'
+   * @param {Object} cacheOptions - Cache configuration options
+   */
+  setCacheType(cacheType, cacheOptions = {}) {
+    this.cache = CacheFactory.create(cacheType, cacheOptions);
   }
 
   /**
@@ -733,7 +743,8 @@ class WikidataLabelManager {
 }
 
 // Create global instances
-const apiClientInstance = new WikidataAPIClient();
+// Create instances with auto-detected cache type
+const apiClientInstance = new WikidataAPIClient('auto');
 const cacheManagerInstance = new WikidataCacheManager();
 const dataProcessorInstance = new WikidataDataProcessor();
 const labelManagerInstance = new WikidataLabelManager(apiClientInstance, cacheManagerInstance, dataProcessorInstance);
@@ -751,4 +762,7 @@ export {
   dataProcessorInstance as processor,
   labelManagerInstance as labelManager,
   searchUtilityInstance as searchUtility
-}; 
+};
+
+// Export cache factory for custom cache configuration
+export { CacheFactory } from './unified-cache.js'; 
