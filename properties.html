@@ -195,7 +195,7 @@
   <script type="module">
     // Import settings and Wikidata API utilities
     import { STORAGE_KEYS, saveToLocalStorage, loadFromLocalStorage, flagMap } from './settings.js';
-    import { client as apiClient, cache as cacheManager, processor as dataProcessor, labelManager } from './wikidata-api.js';
+    import { client as apiClient, cache as cacheManager, processor as dataProcessor, labelManager, searchUtility } from './wikidata-api-browser.js';
 
     // Make them available globally for the text/babel script
     window.STORAGE_KEYS = STORAGE_KEYS;
@@ -206,6 +206,7 @@
     window.cacheManager = cacheManager;
     window.dataProcessor = dataProcessor;
     window.labelManager = labelManager;
+    window.searchUtility = searchUtility;
   </script>
   <script type="text/babel" src="statements.jsx"></script>
   <script type="text/babel" src="loading.jsx"></script>
