@@ -39,6 +39,13 @@ The Human Language project aims to create a universal meta-language that bridges
 - **Automatic fallback**: Seamless switching between cache types
 - **Performance optimized**: Reduces API calls and improves response times
 - **Cross-platform**: Works in both Node.js and browser environments
+- **Persistent storage**: Cached data survives across sessions
+
+### 5. Comprehensive Language Support
+- **100+ languages**: Full support for all major Wikidata languages
+- **Locale-specific quotes**: Proper quotation marks for each language
+- **Flag emojis**: Visual language indicators for better UX
+- **Language persistence**: Settings saved in localStorage
 
 ## 📋 Roadmap
 
@@ -154,13 +161,32 @@ bun transformation/test-ngram-demo.mjs
 
 # Run comprehensive tests
 bun comprehensive-test.mjs
+
+# Run E2E tests
+bun e2e-test.mjs
+
+# Check limitations
+bun limitation-test.mjs
 ```
 
 ### Interactive Demos
 - **Entity Viewer**: Open `entities.html`
-- **Property Viewer**: Open `properties.html`
+- **Property Viewer**: Open `properties.html`  
 - **Text Transformer**: Open `transformation/index.html`
 - **Search Demo**: Open `search-demo.html`
+- **Browser Tests**: Open `run-tests.html`
+
+## ⚠️ Known Limitations
+
+The text transformation system currently has some limitations:
+
+1. **Negation handling**: Phrases with "not" aren't properly processed
+2. **Question parsing**: Direct questions (who, what, when) aren't supported
+3. **Verb tenses**: Past/future tenses may not be accurately captured
+4. **Pronoun resolution**: Cannot resolve pronouns like "he", "she", "it"
+5. **Complex sentences**: Struggles with subordinate clauses
+
+See `limitations-found.json` for detailed test results.
 
 ## 📚 Documentation
 
@@ -168,13 +194,31 @@ bun comprehensive-test.mjs
 - [Text Transformation Guide](transformation/README.md)
 - [N-gram Feature Documentation](transformation/ngram-feature-summary.md)
 
+## 📊 Performance & Testing
+
+The project includes comprehensive test suites with excellent results:
+
+- **API Pattern Tests**: 100% success rate (8/8 tests passing)
+- **N-gram Matching**: Correctly identifies multi-word entities
+- **Disambiguation**: Handles ambiguous terms with multiple alternatives
+- **Caching Efficiency**: Significant performance improvements with persistent cache
+
+Test results are stored in `api-patterns.json` showing real-world transformation examples.
+
 ## 🤝 Contributing
 
 We welcome contributions! Check our [issues](https://github.com/deep-assistant/human-language/issues) for areas where you can help.
 
 ## 📄 License
 
-This project is open source - see the LICENSE file for details.
+This project is released into the public domain under The Unlicense.
+
+This means you are free to:
+- Copy, modify, publish, use, compile, sell, or distribute this software
+- Use it for any purpose, commercial or non-commercial
+- Do so without any restrictions or attribution requirements
+
+For more information, see [The Unlicense](https://unlicense.org)
 
 ---
 
