@@ -1,64 +1,181 @@
-# Wikidata Entity Viewer
+# Human Language Project
 
-A modern web application for viewing Wikidata entities and properties with a beautiful, responsive interface.
+> A sophisticated web application for transforming natural language into Wikidata entity and property sequences, enabling semantic understanding and knowledge representation.
 
-## Features
+## 🎯 Vision
 
-- View Wikidata entities and their statements
-- View property information
-- Multi-language support with automatic language detection
-- Dark/light theme toggle
-- Responsive design
-- Caching for improved performance
+The Human Language project aims to create a universal meta-language that bridges all human languages by leveraging Wikidata's semantic knowledge graph. By converting natural language into sequences of entities (Q) and properties (P), we enable:
 
-## JSX Support
+- **Cross-linguistic understanding**: Unified representation across all languages
+- **Semantic precision**: Disambiguation of concepts using Wikidata's rich ontology
+- **Knowledge integration**: Direct connection to the world's largest open knowledge base
+- **IPA support**: Universal phonetic representation for true language unification
 
-The project now supports JSX syntax for React components. The `statements.jsx` file contains React components written in JSX syntax that are automatically transformed by Babel standalone.
+## 🚀 Key Features
 
-### How to use JSX:
+### 1. Text-to-Q/P Transformation
+- **N-gram support**: Recognizes multi-word phrases as single entities
+- **Configurable matching**: Adjust n-gram size (1-5) for optimal results
+- **Priority-based search**: Longer matches take precedence
+- **Real-time transformation**: Interactive web demo at `transformation/index.html`
+- [Learn more →](transformation/README.md)
 
-1. **Write JSX components** in `.jsx` files
-2. **Load with Babel** using `type="text/babel"` attribute
-3. **No build step required** - transformation happens in the browser
+### 2. Entity & Property Viewer
+- **Beautiful UI**: Modern, responsive interface with dark/light themes
+- **Multi-language support**: Automatic language detection and switching
+- **Rich statements display**: View all properties and relationships
+- **Direct Wikidata links**: Seamlessly navigate to source data
+- View entities at `entities.html` and properties at `properties.html`
 
-### Example:
+### 3. Advanced Search & Disambiguation
+- **Exact & fuzzy matching**: Find entities even with typos
+- **Context-aware ranking**: Domain and type preferences
+- **Batch searching**: Efficient parallel searches
+- **Multi-language search**: Search in any supported language
+- [API Documentation →](SEARCH_README.md)
 
-```jsx
-function MyComponent({ name }) {
-  return (
-    <div>
-      <h1>Hello {name}!</h1>
-      <p>This is JSX syntax</p>
-    </div>
-  );
-}
+### 4. Intelligent Caching System
+- **Multi-tier caching**: File system (Node.js) and IndexedDB (browser)
+- **Automatic fallback**: Seamless switching between cache types
+- **Performance optimized**: Reduces API calls and improves response times
+- **Cross-platform**: Works in both Node.js and browser environments
+
+## 📋 Roadmap
+
+Based on our [GitHub issues](https://github.com/deep-assistant/human-language/issues), here's our development roadmap:
+
+### Phase 1: Core Infrastructure Enhancement
+- [ ] **Rename properties to relations/links** ([#12](https://github.com/deep-assistant/human-language/issues/12))
+  - Better semantic clarity for relationships between entities
+  - Update UI and API to reflect new terminology
+
+### Phase 2: Enhanced Language Support
+- [ ] **IPA Translation Support** ([#1](https://github.com/deep-assistant/human-language/issues/1))
+  - Integrate International Phonetic Alphabet for universal pronunciation
+  - Enable true cross-linguistic unification
+  
+- [ ] **Words Page Development** ([#14](https://github.com/deep-assistant/human-language/issues/14))
+  - Display words in native language and IPA
+  - List all entities a word can represent
+  - Support alternative names/words for entities ([#10](https://github.com/deep-assistant/human-language/issues/10))
+
+### Phase 3: Advanced Features
+- [ ] **Automatic Description Conversion** ([#11](https://github.com/deep-assistant/human-language/issues/11))
+  - Convert natural language descriptions into Q/P sequences
+  - Enable semantic analysis of any text
+  
+- [ ] **Statements Viewer** ([#3](https://github.com/deep-assistant/human-language/issues/3))
+  - Display confirmations and refutations for each statement
+  - Build trust through community validation
+
+### Phase 4: External Integration
+- [ ] **Wikidata Links API Access** ([#15](https://github.com/deep-assistant/human-language/issues/15))
+  - Direct API-style access to Wikidata relationships
+  - Enable programmatic knowledge graph traversal
+  
+- [ ] **Formal Ontology Integration** ([#17](https://github.com/deep-assistant/human-language/issues/17))
+  - Research and integrate best formal upper ontology
+  - Enhance semantic reasoning capabilities
+
+## 🏗️ Architecture Overview
+
+### Core Components
+
+1. **Wikidata API Client** (`wikidata-api.js`)
+   - Handles all Wikidata API interactions
+   - Configurable caching strategies
+   - Batch request optimization
+
+2. **Text Transformer** (`transformation/text-to-qp-transformer.js`)
+   - N-gram generation and matching
+   - Parallel search execution
+   - Priority-based result merging
+
+3. **Search Utilities** (`wikidata-api.js`)
+   - Exact and fuzzy search algorithms
+   - Context-aware ranking system
+   - Multi-language support
+
+4. **Caching System** (`unified-cache.js`)
+   - Factory pattern for cache creation
+   - File system cache for Node.js
+   - IndexedDB cache for browsers
+
+5. **UI Components** (`statements.jsx`, `loading.jsx`)
+   - React 19 components with JSX
+   - No build step required (Babel in-browser)
+   - Responsive and theme-aware design
+
+### Data Flow
+
+```
+User Input → Text Transformer → N-gram Generator → Parallel Search
+                                                           ↓
+                                                    Wikidata API
+                                                           ↓
+                                                     Cache Layer
+                                                           ↓
+                                                   Result Merger
+                                                           ↓
+                                                    UI Display
 ```
 
-### Files:
+## 🛠️ Technical Details
 
-- `statements.jsx` - JSX version of the statements components
-- `statements.js` - Original JavaScript version (for reference)
-- `entities.html` - Updated to load JSX version
-- `properties.html` - Property viewer page
+### Dependencies
+- **React 19**: Latest features via ESM.sh CDN
+- **Babel Standalone**: In-browser JSX transformation
+- **No build step**: Direct browser execution
 
-## Setup
+### Browser Support
+- Modern browsers with ES6+ support
+- IndexedDB for caching
+- Fetch API for network requests
 
+### Node.js Support
+- Version 18+ recommended
+- File system caching
+- Native fetch support
+
+## 🚦 Getting Started
+
+### Quick Start
 1. Clone the repository
 2. Open `entities.html` in a web browser
-3. The JSX components will be automatically transformed by Babel
+3. Start exploring Wikidata entities!
 
-## Dependencies
+### For Developers
+```bash
+# Run tests
+bun run-tests.mjs
 
-- React 19 (loaded via ESM.sh CDN) - Latest stable version
-- React DOM 19 (loaded via ESM.sh CDN) - Latest stable version
-- Babel Standalone (loaded via unpkg CDN) - Latest stable version
+# Test n-gram features
+bun transformation/test-ngram-demo.mjs
 
-## CDN Strategy
+# Run comprehensive tests
+bun comprehensive-test.mjs
+```
 
-The project uses a hybrid CDN approach for React 19:
-- **ESM.sh CDN**: For React 19 and React DOM 19 (ES modules format)
-- **unpkg CDN**: For Babel Standalone (UMD format)
+### Interactive Demos
+- **Entity Viewer**: Open `entities.html`
+- **Property Viewer**: Open `properties.html`
+- **Text Transformer**: Open `transformation/index.html`
+- **Search Demo**: Open `search-demo.html`
 
-The setup uses ES module imports to load React 19 and makes it available globally for Babel transformation, ensuring access to the latest React features.
+## 📚 Documentation
 
-No npm installation required!
+- [Search & Disambiguation API](SEARCH_README.md)
+- [Text Transformation Guide](transformation/README.md)
+- [N-gram Feature Documentation](transformation/ngram-feature-summary.md)
+
+## 🤝 Contributing
+
+We welcome contributions! Check our [issues](https://github.com/deep-assistant/human-language/issues) for areas where you can help.
+
+## 📄 License
+
+This project is open source - see the LICENSE file for details.
+
+---
+
+*Building bridges between human languages through semantic understanding.*
