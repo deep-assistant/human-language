@@ -21,7 +21,7 @@ function LoadingComponent() {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(18, 18, 18, 1)', // Semi-transparent dark background
+        backgroundColor: 'var(--background)', // Use theme-aware background color
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
