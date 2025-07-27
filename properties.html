@@ -34,23 +34,32 @@
     body {
       color: var(--text);
       font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    .app-wrapper {
       max-width: 800px;
       margin: 0 auto;
       padding: 20px;
       position: relative;
+      min-height: 100vh;
+      z-index: 2;
     }
 
     .watermark {
       position: fixed;
       bottom: 20px;
-      left: 20px;
+      left: 30px;
       font-size: 6rem;
       color: var(--watermark-color);
       opacity: 0.1;
       pointer-events: none;
       text-transform: uppercase;
       font-weight: 700;
-      z-index: 0; /* Changed from -1 to 0 */
+      z-index: 1; /* Changed from -1 to 1 to be above root background */
+      max-width: 800px;
     }
 
     main {
@@ -79,22 +88,33 @@
     }
 
     .property-info {
-      position: fixed;
-      bottom: 90px;
-      right: 20px;
+      position: relative;
       font-size: 1rem;
       color: var(--text);
-      z-index: 10;
       padding: 8px;
-      margin: 0 8px;
+      margin: 20px 0;
+      text-align: right;
+      padding-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .property-info {
+        font-size: 0.9rem;
+        padding: 6px;
+        margin: 15px 0;
+        padding-top: 15px;
+      }
     }
 
     .property-info a {
       color: var(--neon);
       text-decoration: none;
+      pointer-events: auto;
+      transition: color 0.3s ease;
     }
 
     .property-info a:hover {
+      color: var(--neon-selected);
       text-decoration: underline;
     }
 
@@ -120,6 +140,7 @@
       text-align: center;
       overflow-x: auto;
       white-space: nowrap;
+      z-index: 2;
     }
 
     .language-switcher button {
@@ -176,7 +197,6 @@
       .language-switcher button { font-size: 1rem; padding: 6px; margin: 0 4px; }
       .theme-toggle { top: 10px; right: 10px; width: 30px; height: 30px; font-size: 1.2rem; padding: 6px; margin: 0 4px; }
       .watermark { font-size: 4rem; left: 10px; bottom: 10px; }
-      .property-info { font-size: 0.9rem; bottom: 70px; right: 10px; padding: 6px; margin: 0 4px; }
     }
   </style>
 </head>
@@ -360,7 +380,7 @@
       }
 
       return (
-        <div>
+        <div className="app-wrapper">
           <button className="theme-toggle" onClick={toggleTheme}>
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
@@ -389,11 +409,12 @@
               }}
               selectedLanguage={selectedLanguage}
             />
+            
+            <div className="property-info">
+              <span>Data source: </span>
+              <a href={`https://www.wikidata.org/wiki/${propertyId}`} target="_blank" rel="noopener noreferrer">{propertyId}</a>
+            </div>
           </main>
-          <div className="property-info">
-            <span>Data source: </span>
-            <a href={`https://www.wikidata.org/wiki/${propertyId}`} target="_blank" rel="noopener noreferrer">{propertyId}</a>
-          </div>
           <div className="language-switcher">
             {availableLanguages.map(lang => (
               <button
