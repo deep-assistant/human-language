@@ -1,0 +1,222 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q142",
+        "title": "Q142",
+        "pageid": 277,
+        "concepturi": "http://www.wikidata.org/entity/Q142",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q142",
+        "display": {
+          "label": {
+            "value": "France",
+            "language": "en"
+          },
+          "description": {
+            "value": "country in Western Europe and other continents (through its overseas territories in America, Africa and Oceania)",
+            "language": "en"
+          }
+        },
+        "label": "France",
+        "description": "country in Western Europe and other continents (through its overseas territories in America, Africa and Oceania)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "France"
+        }
+      },
+      {
+        "id": "Q3080569",
+        "title": "Q3080569",
+        "pageid": 2944260,
+        "concepturi": "http://www.wikidata.org/entity/Q3080569",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q3080569",
+        "display": {
+          "label": {
+            "value": "France",
+            "language": "en"
+          },
+          "description": {
+            "value": "unisex given name",
+            "language": "en"
+          }
+        },
+        "label": "France",
+        "description": "unisex given name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "France"
+        }
+      },
+      {
+        "id": "Q16275867",
+        "title": "Q16275867",
+        "pageid": 17901345,
+        "concepturi": "http://www.wikidata.org/entity/Q16275867",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q16275867",
+        "display": {
+          "label": {
+            "value": "France",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "France",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "France"
+        }
+      },
+      {
+        "id": "Q47774",
+        "title": "Q47774",
+        "pageid": 49862,
+        "concepturi": "http://www.wikidata.org/entity/Q47774",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q47774",
+        "display": {
+          "label": {
+            "value": "France men's national association football team",
+            "language": "en"
+          },
+          "description": {
+            "value": "national association football team representing France",
+            "language": "en"
+          }
+        },
+        "label": "France men's national association football team",
+        "description": "national association football team representing France",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "France men's national association football team"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P9371",
+        "title": "Property:P9371",
+        "pageid": 101547158,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9371",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9371",
+        "display": {
+          "label": {
+            "value": "FranceArchives agent ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a person on FranceArchives",
+            "language": "en"
+          }
+        },
+        "label": "FranceArchives agent ID",
+        "description": "identifier for a person on FranceArchives",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "FranceArchives agent ID"
+        }
+      },
+      {
+        "id": "P3918",
+        "title": "Property:P3918",
+        "pageid": 31279976,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P3918",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3918",
+        "display": {
+          "label": {
+            "value": "Répertoire national des associations ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier of a non-profit in the French National Register of Associations",
+            "language": "en"
+          }
+        },
+        "label": "Répertoire national des associations ID",
+        "description": "identifier of a non-profit in the French National Register of Associations",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "France National Associations Register Identifier"
+        },
+        "aliases": [
+          "France National Associations Register Identifier"
+        ]
+      },
+      {
+        "id": "P4050",
+        "title": "Property:P4050",
+        "pageid": 31849818,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P4050",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P4050",
+        "display": {
+          "label": {
+            "value": "France EspritBleu athlete ID (archived)",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for an athlete (sportsperson) at espritbleu.franceolympique.com, a website of the French National Olympic and Sports Committee (French: Comité national olympique et sportif français, CNOSF)",
+            "language": "en"
+          }
+        },
+        "label": "France EspritBleu athlete ID (archived)",
+        "description": "identifier for an athlete (sportsperson) at espritbleu.franceolympique.com, a website of the French National Olympic and Sports Committee (French: Comité national olympique et sportif français, CNOSF)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "France EspritBleu athlete ID (archived)"
+        }
+      },
+      {
+        "id": "P5301",
+        "title": "Property:P5301",
+        "pageid": 55019764,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P5301",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P5301",
+        "display": {
+          "label": {
+            "value": "France Culture person ID (DEPRECATED)",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a person on the France Culture website (do not use in duplicate with a Radio France P10780 identifier already present)",
+            "language": "en"
+          }
+        },
+        "label": "France Culture person ID (DEPRECATED)",
+        "description": "identifier for a person on the France Culture website (do not use in duplicate with a Radio France P10780 identifier already present)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "France Culture person ID (DEPRECATED)"
+        }
+      }
+    ],
+    "total": 8
+  },
+  "timestamp": 1753622207537,
+  "ttl": 86400000,
+  "query": "France",
+  "languages": "en",
+  "limit": 8,
+  "type": "both"
+}

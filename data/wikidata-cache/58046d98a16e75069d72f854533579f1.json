@@ -1,0 +1,124 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P577",
+        "title": "Property:P577",
+        "pageid": 15087952,
+        "datatype": "time",
+        "concepturi": "http://www.wikidata.org/entity/P577",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P577",
+        "display": {
+          "label": {
+            "value": "publication date",
+            "language": "en"
+          },
+          "description": {
+            "value": "date or point in time when a work was first published or released",
+            "language": "en"
+          }
+        },
+        "label": "publication date",
+        "description": "date or point in time when a work was first published or released",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "was published during"
+        },
+        "aliases": [
+          "was published during"
+        ]
+      },
+      {
+        "id": "P7943",
+        "title": "Property:P7943",
+        "pageid": 86106483,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P7943",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P7943",
+        "display": {
+          "label": {
+            "value": "The Washington Post contributor ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a person on the Washington Post website",
+            "language": "en"
+          }
+        },
+        "label": "The Washington Post contributor ID",
+        "description": "identifier for a person on the Washington Post website",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Washington Post contributor ID"
+        },
+        "aliases": [
+          "Washington Post contributor ID"
+        ]
+      },
+      {
+        "id": "P9330",
+        "title": "Property:P9330",
+        "pageid": 101382247,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9330",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9330",
+        "display": {
+          "label": {
+            "value": "Washington Place Names ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "numerical identifier for a place in Washington Place Names",
+            "language": "en"
+          }
+        },
+        "label": "Washington Place Names ID",
+        "description": "numerical identifier for a place in Washington Place Names",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Washington Place Names ID"
+        }
+      },
+      {
+        "id": "P9460",
+        "title": "Property:P9460",
+        "pageid": 101833519,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9460",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9460",
+        "display": {
+          "label": {
+            "value": "Washington Rare Plant Field Guide ID (PDF version)",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a rare plant in the Washington Natural Heritage Program's Rare Plant Field Guide",
+            "language": "en"
+          }
+        },
+        "label": "Washington Rare Plant Field Guide ID (PDF version)",
+        "description": "identifier for a rare plant in the Washington Natural Heritage Program's Rare Plant Field Guide",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Washington Rare Plant Field Guide ID (PDF version)"
+        }
+      }
+    ],
+    "total": 4
+  },
+  "timestamp": 1753622137405,
+  "ttl": 86400000,
+  "query": "fuzzy_was",
+  "languages": "en",
+  "limit": 8,
+  "type": "property"
+}

@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753622240248,
+  "ttl": 86400000,
+  "query": "fuzzy_Shakespeare",
+  "languages": "en",
+  "limit": 8,
+  "type": "property"
+}

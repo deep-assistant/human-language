@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753622132990,
+  "ttl": 86400000,
+  "query": "fuzzy_Obama was",
+  "languages": "en",
+  "limit": 1,
+  "type": "property"
+}

@@ -1,0 +1,255 @@
+{
+  "timestamp": "2025-07-27T12:23:08.732Z",
+  "summary": {
+    "total": 31,
+    "problems": 12,
+    "issues": [
+      {
+        "name": "Simple negation",
+        "input": "Einstein did not discover gravity",
+        "expected": "should_handle_negation",
+        "output": "Q937",
+        "issues": [
+          "Negation not properly handled - \"not\" should affect meaning"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Negative statement",
+        "input": "Paris is not in Germany",
+        "expected": "should_handle_negation",
+        "output": "Q90",
+        "issues": [
+          "Negation not properly handled - \"not\" should affect meaning"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Who question",
+        "input": "Who discovered America?",
+        "expected": "should_handle_questions",
+        "output": "P61",
+        "issues": [
+          "Questions treated as statements - need special handling"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "What question",
+        "input": "What is the capital of Japan?",
+        "expected": "should_handle_questions",
+        "output": "P36",
+        "issues": [
+          "Questions treated as statements - need special handling"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "When question",
+        "input": "When was Einstein born?",
+        "expected": "should_handle_questions",
+        "output": "Q937 P569",
+        "issues": [
+          "Questions treated as statements - need special handling"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Height measurement",
+        "input": "Mount Everest is 8848 meters tall",
+        "expected": "numerical",
+        "output": "",
+        "issues": [
+          "Numerical values lost in transformation"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Speed measurement",
+        "input": "Speed of light is 299792458 meters per second",
+        "expected": "numerical",
+        "output": "",
+        "issues": [
+          "Numerical values lost in transformation"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Ambiguous Turkey",
+        "input": "Turkey is delicious",
+        "expected": "ambiguous",
+        "output": "[Q43 or Q4229558]",
+        "issues": [
+          "All results ambiguous - no confident matches"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Recent entity",
+        "input": "ChatGPT answers questions",
+        "expected": "modern",
+        "output": "",
+        "issues": [
+          "Recent/modern entities not found in knowledge base"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Social media",
+        "input": "TikTok is popular",
+        "expected": "modern",
+        "output": "",
+        "issues": [
+          "Recent/modern entities not found in knowledge base"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Japanese text",
+        "input": "Tokyo is in 日本",
+        "expected": "foreign",
+        "output": "",
+        "issues": [
+          "Non-Latin script terms not recognized"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Mixed repetition",
+        "input": "Paris Paris France France",
+        "expected": "repetition",
+        "output": "Q90 Q90 Q142 Q142",
+        "issues": [
+          "Repeated entities not properly deduplicated"
+        ],
+        "duration": 0
+      }
+    ],
+    "failures": []
+  },
+  "details": {
+    "issues": [
+      {
+        "name": "Simple negation",
+        "input": "Einstein did not discover gravity",
+        "expected": "should_handle_negation",
+        "output": "Q937",
+        "issues": [
+          "Negation not properly handled - \"not\" should affect meaning"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Negative statement",
+        "input": "Paris is not in Germany",
+        "expected": "should_handle_negation",
+        "output": "Q90",
+        "issues": [
+          "Negation not properly handled - \"not\" should affect meaning"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Who question",
+        "input": "Who discovered America?",
+        "expected": "should_handle_questions",
+        "output": "P61",
+        "issues": [
+          "Questions treated as statements - need special handling"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "What question",
+        "input": "What is the capital of Japan?",
+        "expected": "should_handle_questions",
+        "output": "P36",
+        "issues": [
+          "Questions treated as statements - need special handling"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "When question",
+        "input": "When was Einstein born?",
+        "expected": "should_handle_questions",
+        "output": "Q937 P569",
+        "issues": [
+          "Questions treated as statements - need special handling"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Height measurement",
+        "input": "Mount Everest is 8848 meters tall",
+        "expected": "numerical",
+        "output": "",
+        "issues": [
+          "Numerical values lost in transformation"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Speed measurement",
+        "input": "Speed of light is 299792458 meters per second",
+        "expected": "numerical",
+        "output": "",
+        "issues": [
+          "Numerical values lost in transformation"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Ambiguous Turkey",
+        "input": "Turkey is delicious",
+        "expected": "ambiguous",
+        "output": "[Q43 or Q4229558]",
+        "issues": [
+          "All results ambiguous - no confident matches"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Recent entity",
+        "input": "ChatGPT answers questions",
+        "expected": "modern",
+        "output": "",
+        "issues": [
+          "Recent/modern entities not found in knowledge base"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Social media",
+        "input": "TikTok is popular",
+        "expected": "modern",
+        "output": "",
+        "issues": [
+          "Recent/modern entities not found in knowledge base"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Japanese text",
+        "input": "Tokyo is in 日本",
+        "expected": "foreign",
+        "output": "",
+        "issues": [
+          "Non-Latin script terms not recognized"
+        ],
+        "duration": 0
+      },
+      {
+        "name": "Mixed repetition",
+        "input": "Paris Paris France France",
+        "expected": "repetition",
+        "output": "Q90 Q90 Q142 Q142",
+        "issues": [
+          "Repeated entities not properly deduplicated"
+        ],
+        "duration": 0
+      }
+    ],
+    "failures": []
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753622202408,
+  "ttl": 86400000,
+  "query": "Paris is the capital",
+  "languages": "en",
+  "limit": 1,
+  "type": "property"
+}

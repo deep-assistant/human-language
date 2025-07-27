@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753622238575,
+  "ttl": 86400000,
+  "query": "Shakespeare wrote",
+  "languages": "en",
+  "limit": 1,
+  "type": "property"
+}

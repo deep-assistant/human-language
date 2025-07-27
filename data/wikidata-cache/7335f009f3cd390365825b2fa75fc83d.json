@@ -1,0 +1,142 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q16834800",
+        "title": "Q16834800",
+        "pageid": 18439701,
+        "concepturi": "http://www.wikidata.org/entity/Q16834800",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q16834800",
+        "display": {
+          "label": {
+            "value": "Einstein",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Einstein",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Einstein"
+        }
+      },
+      {
+        "id": "Q937",
+        "title": "Q937",
+        "pageid": 1262,
+        "concepturi": "http://www.wikidata.org/entity/Q937",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q937",
+        "display": {
+          "label": {
+            "value": "Albert Einstein",
+            "language": "en"
+          },
+          "description": {
+            "value": "German-born theoretical physicist (1879–1955)",
+            "language": "en"
+          }
+        },
+        "label": "Albert Einstein",
+        "description": "German-born theoretical physicist (1879–1955)",
+        "match": {
+          "type": "alias",
+          "language": "mul",
+          "text": "Einstein"
+        },
+        "aliases": [
+          "Einstein"
+        ]
+      },
+      {
+        "id": "Q1309274",
+        "title": "Q1309274",
+        "pageid": 1249177,
+        "concepturi": "http://www.wikidata.org/entity/Q1309274",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1309274",
+        "display": {
+          "label": {
+            "value": "Einstein",
+            "language": "en"
+          },
+          "description": {
+            "value": "mountain of the Allgäu Alps in Tyrol, Austria",
+            "language": "en"
+          }
+        },
+        "label": "Einstein",
+        "description": "mountain of the Allgäu Alps in Tyrol, Austria",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Einstein"
+        }
+      },
+      {
+        "id": "Q26854017",
+        "title": "Q26854017",
+        "pageid": 28772870,
+        "concepturi": "http://www.wikidata.org/entity/Q26854017",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q26854017",
+        "display": {
+          "label": {
+            "value": "Einstein / Instituto de Ensino e Pesquisa Albert Einstein",
+            "language": "en"
+          },
+          "description": {
+            "value": "journal",
+            "language": "en"
+          }
+        },
+        "label": "Einstein / Instituto de Ensino e Pesquisa Albert Einstein",
+        "description": "journal",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Einstein / Instituto de Ensino e Pesquisa Albert Einstein"
+        }
+      },
+      {
+        "id": "Q1892",
+        "title": "Q1892",
+        "pageid": 2774,
+        "concepturi": "http://www.wikidata.org/entity/Q1892",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1892",
+        "display": {
+          "label": {
+            "value": "einsteinium",
+            "language": "en"
+          },
+          "description": {
+            "value": "chemical element with the atomic number of 99",
+            "language": "en"
+          }
+        },
+        "label": "einsteinium",
+        "description": "chemical element with the atomic number of 99",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "einsteinium"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753619272348,
+  "ttl": 86400000,
+  "query": "Einstein",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,150 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P1376",
+        "title": "Property:P1376",
+        "pageid": 18875222,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1376",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1376",
+        "display": {
+          "label": {
+            "value": "capital of",
+            "language": "en"
+          },
+          "description": {
+            "value": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+            "language": "en"
+          }
+        },
+        "label": "capital of",
+        "description": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "parish seat of"
+        },
+        "aliases": [
+          "parish seat of"
+        ]
+      },
+      {
+        "id": "P5607",
+        "title": "Property:P5607",
+        "pageid": 55984644,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P5607",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P5607",
+        "display": {
+          "label": {
+            "value": "located in the religious territorial entity",
+            "language": "en"
+          },
+          "description": {
+            "value": "the item is located on the territory of the following religious entity. Use P708 (diocese) for dioceses",
+            "language": "en"
+          }
+        },
+        "label": "located in the religious territorial entity",
+        "description": "the item is located on the territory of the following religious entity. Use P708 (diocese) for dioceses",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Parish"
+        },
+        "aliases": [
+          "Parish"
+        ]
+      },
+      {
+        "id": "P6246",
+        "title": "Property:P6246",
+        "pageid": 59662972,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P6246",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P6246",
+        "display": {
+          "label": {
+            "value": "Paris Musées work ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a work on the website of the museums of the city of Paris",
+            "language": "en"
+          }
+        },
+        "label": "Paris Musées work ID",
+        "description": "identifier for a work on the website of the museums of the city of Paris",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Paris Musées work ID"
+        }
+      },
+      {
+        "id": "P8289",
+        "title": "Property:P8289",
+        "pageid": 94850999,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P8289",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P8289",
+        "display": {
+          "label": {
+            "value": "parish church(es)",
+            "language": "en"
+          },
+          "description": {
+            "value": "church(es) which acts as the religious center of a parish",
+            "language": "en"
+          }
+        },
+        "label": "parish church(es)",
+        "description": "church(es) which acts as the religious center of a parish",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "parish church(es)"
+        }
+      },
+      {
+        "id": "P630",
+        "title": "Property:P630",
+        "pageid": 15146586,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P630",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P630",
+        "display": {
+          "label": {
+            "value": "Paris city digital code",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a street in Paris, France; format: 3 or 4 digits/letters",
+            "language": "en"
+          }
+        },
+        "label": "Paris city digital code",
+        "description": "identifier for a street in Paris, France; format: 3 or 4 digits/letters",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Paris city digital code"
+        }
+      }
+    ],
+    "total": 5
+  },
+  "timestamp": 1753619280566,
+  "ttl": 86400000,
+  "query": "Paris",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

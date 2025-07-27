@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753619259003,
+  "ttl": 86400000,
+  "query": "Barack Obama",
+  "languages": "en",
+  "limit": 1,
+  "type": "both"
+}

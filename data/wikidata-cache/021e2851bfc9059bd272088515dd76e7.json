@@ -1,0 +1,145 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q18355807",
+        "title": "Q18355807",
+        "pageid": 19888643,
+        "concepturi": "http://www.wikidata.org/entity/Q18355807",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q18355807",
+        "display": {
+          "label": {
+            "value": "Obama",
+            "language": "en"
+          },
+          "description": {
+            "value": "genus of worms",
+            "language": "en"
+          }
+        },
+        "label": "Obama",
+        "description": "genus of worms",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Obama"
+        }
+      },
+      {
+        "id": "Q76",
+        "title": "Q76",
+        "pageid": 205,
+        "concepturi": "http://www.wikidata.org/entity/Q76",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q76",
+        "display": {
+          "label": {
+            "value": "Barack Obama",
+            "language": "en"
+          },
+          "description": {
+            "value": "president of the United States from 2009 to 2017",
+            "language": "en"
+          }
+        },
+        "label": "Barack Obama",
+        "description": "president of the United States from 2009 to 2017",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Obama"
+        },
+        "aliases": [
+          "Obama"
+        ]
+      },
+      {
+        "id": "Q41773",
+        "title": "Q41773",
+        "pageid": 44036,
+        "concepturi": "http://www.wikidata.org/entity/Q41773",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q41773",
+        "display": {
+          "label": {
+            "value": "Obama",
+            "language": "en"
+          },
+          "description": {
+            "value": "city in Fukui prefecture, Japan",
+            "language": "en"
+          }
+        },
+        "label": "Obama",
+        "description": "city in Fukui prefecture, Japan",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Obama"
+        }
+      },
+      {
+        "id": "Q122348649",
+        "title": "Q122348649",
+        "pageid": 116670138,
+        "concepturi": "http://www.wikidata.org/entity/Q122348649",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q122348649",
+        "display": {
+          "label": {
+            "value": "Obama",
+            "language": "en"
+          },
+          "description": {
+            "value": "2022 video game",
+            "language": "en"
+          }
+        },
+        "label": "Obama",
+        "description": "2022 video game",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Obama"
+        }
+      },
+      {
+        "id": "Q59661289",
+        "title": "Q59661289",
+        "pageid": 59555309,
+        "concepturi": "http://www.wikidata.org/entity/Q59661289",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q59661289",
+        "display": {
+          "label": {
+            "value": "Barack Obama Presidential Library",
+            "language": "en"
+          },
+          "description": {
+            "value": "reference unit of the National Archives and Records Administration",
+            "language": "en"
+          }
+        },
+        "label": "Barack Obama Presidential Library",
+        "description": "reference unit of the National Archives and Records Administration",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Obama Presidential Library"
+        },
+        "aliases": [
+          "Obama Presidential Library"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753619265623,
+  "ttl": 86400000,
+  "query": "Obama",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

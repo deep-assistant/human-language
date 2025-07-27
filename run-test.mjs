@@ -6,37 +6,100 @@
 import { TextToQPTransformer } from './text-to-qp-transformer.js';
 
 /**
- * Mock Wikidata API responses for testing
+ * Mock Wikidata API responses for testing - Updated based on E2E findings
  */
 class MockWikidataAPIClient {
   constructor() {
+    // Mock data based on real API patterns discovered in E2E tests
     this.mockData = {
       'Barack Obama': {
-        entities: [{ id: 'Q76', label: 'Barack Obama', description: '44th President of the United States' }],
+        entities: [
+          { id: 'Q76', label: 'Barack Obama', description: 'president of the United States from 2009 to 2017' },
+          { id: 'Q18643532', label: 'Barack', description: 'male given name' }
+        ],
+        properties: []
+      },
+      'Barack': {
+        entities: [
+          { id: 'Q76', label: 'Barack Obama', description: 'president of the United States from 2009 to 2017' },
+          { id: 'Q18643532', label: 'Barack', description: 'male given name' },
+          { id: 'Q37011990', label: 'Barack', description: 'family name' }
+        ],
+        properties: []
+      },
+      'Obama': {
+        entities: [
+          { id: 'Q18355807', label: 'Obama', description: 'family name' },
+          { id: 'Q76', label: 'Barack Obama', description: 'president of the United States from 2009 to 2017' },
+          { id: 'Q41773', label: 'Obama', description: 'city in Japan' }
+        ],
         properties: []
       },
       'Hawaii': {
         entities: [
           { id: 'Q782', label: 'Hawaii', description: 'state of the United States of America' },
-          { id: 'Q18094', label: 'Hawaii', description: 'island' },
-          { id: 'Q131750', label: 'Hawaii', description: 'volcanic island chain' }
+          { id: 'Q18703903', label: 'Hawaii', description: 'volcanic island chain in the Pacific Ocean' },
+          { id: 'Q68740', label: 'Hawaii', description: 'largest island of Hawaii' }
         ],
         properties: []
       },
       'born': {
-        entities: [],
-        properties: [{ id: 'P569', label: 'date of birth', description: 'date on which the subject was born' }]
+        entities: [
+          { id: 'Q893914', label: 'Born', description: 'American actor' }
+        ],
+        properties: [
+          { id: 'P569', label: 'date of birth', description: 'date on which the subject was born' },
+          { id: 'P19', label: 'place of birth', description: 'most specific known birth location' },
+          { id: 'P1477', label: 'birth name', description: 'full name of a person at birth' }
+        ]
       },
       'was born': {
         entities: [],
-        properties: [{ id: 'P569', label: 'date of birth', description: 'date on which the subject was born' }]
+        properties: [
+          { id: 'P569', label: 'date of birth', description: 'date on which the subject was born' },
+          { id: 'P19', label: 'place of birth', description: 'most specific known birth location' }
+        ]
+      },
+      'Einstein': {
+        entities: [
+          { id: 'Q16834800', label: 'Einstein', description: 'family name' },
+          { id: 'Q937', label: 'Albert Einstein', description: 'German-born theoretical physicist' },
+          { id: 'Q1309274', label: 'Einstein', description: 'municipality in Switzerland' }
+        ],
+        properties: []
       },
       'Albert Einstein': {
-        entities: [{ id: 'Q937', label: 'Albert Einstein', description: 'German-born theoretical physicist' }],
+        entities: [
+          { id: 'Q937', label: 'Albert Einstein', description: 'German-born theoretical physicist' }
+        ],
         properties: []
       },
       'Paris': {
-        entities: [{ id: 'Q90', label: 'Paris', description: 'capital city of France' }],
+        entities: [
+          { id: 'Q90', label: 'Paris', description: 'capital and most populous city of France' },
+          { id: 'Q60', label: 'New York City', description: 'most populous city in the United States' },
+          { id: 'Q193893', label: 'capital', description: 'city or town designated as seat of government' },
+          { id: 'Q5119', label: 'capital city', description: 'municipality that is the primary city of a country' }
+        ],
+        properties: [
+          { id: 'P1376', label: 'capital of', description: 'country, state, department, canton or other administrative division of which the municipality is the governmental seat' }
+        ]
+      },
+      'capital': {
+        entities: [
+          { id: 'Q5119', label: 'capital city', description: 'municipality that is the primary city of a country' },
+          { id: 'Q193893', label: 'capital', description: 'city or town designated as seat of government' }
+        ],
+        properties: [
+          { id: 'P1376', label: 'capital of', description: 'country, state, department, canton or other administrative division' }
+        ]
+      },
+      'France': {
+        entities: [
+          { id: 'Q142', label: 'France', description: 'country in Western Europe' },
+          { id: 'Q3080569', label: 'France', description: 'family name' },
+          { id: 'Q16275867', label: 'France', description: 'commune in Lot, France' }
+        ],
         properties: []
       }
     };
@@ -102,7 +165,7 @@ class TextTransformerTest {
         expectedPatterns: {
           shouldContain: ['Q76', 'P569'],
           shouldNotBeEmpty: true,
-          maxAmbiguousItems: 2
+          maxAmbiguousItems: 5  // Updated based on E2E findings - real API returns more complex results
         }
       },
       {
@@ -133,6 +196,24 @@ class TextTransformerTest {
         input: "Hawaii",
         expectedPatterns: {
           shouldContain: ['[', 'or'],
+          shouldNotBeEmpty: true,
+          maxAmbiguousItems: 1
+        }
+      },
+      {
+        name: "Individual word 'born' property detection",
+        input: "born",
+        expectedPatterns: {
+          shouldContain: ['P569'],  // Should find birth-related properties
+          shouldNotBeEmpty: true,
+          maxAmbiguousItems: 1
+        }
+      },
+      {
+        name: "Paris entity detection",
+        input: "Paris",
+        expectedPatterns: {
+          shouldContain: ['Q90'],  // Paris, France
           shouldNotBeEmpty: true,
           maxAmbiguousItems: 1
         }

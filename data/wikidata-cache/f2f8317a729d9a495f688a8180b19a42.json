@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753622135981,
+  "ttl": 86400000,
+  "query": "fuzzy_was born",
+  "languages": "en",
+  "limit": 1,
+  "type": "property"
+}

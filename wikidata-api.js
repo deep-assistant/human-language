@@ -1,6 +1,8 @@
 // Wikidata API utilities and functions
 // This file contains all logic related to Wikidata API interactions
 
+import { PersistentCacheManager } from './persistent-cache.js';
+
 // API Configuration
 const WIKIDATA_API_BASE = 'https://www.wikidata.org/w/api.php';
 
@@ -16,11 +18,12 @@ const CACHE_CONFIG = {
 
 /**
  * Wikidata API Client Class
- * Handles all interactions with the Wikidata API
+ * Handles all interactions with the Wikidata API with persistent caching
  */
 class WikidataAPIClient {
   constructor() {
     this.baseUrl = WIKIDATA_API_BASE;
+    this.cache = new PersistentCacheManager('./data/wikidata-cache');
   }
 
   /**
@@ -103,6 +106,14 @@ class WikidataAPIClient {
    * @returns {Promise<Object>} - Search results with entities and properties
    */
   async searchExactMatch(query, languages = 'en', limit = 50, type = 'both') {
+    // Check cache first
+    const cached = await this.cache.get(query, languages, limit, type);
+    if (cached) {
+      console.log(`Cache hit for: ${query}`);
+      return cached;
+    }
+
+    console.log(`API call for: ${query}`);
     const results = {
       entities: [],
       properties: [],
@@ -147,6 +158,10 @@ class WikidataAPIClient {
       }
 
       results.total = results.entities.length + results.properties.length;
+      
+      // Cache the results for 24 hours
+      await this.cache.set(query, results, languages, limit, type, 24 * 60 * 60 * 1000);
+      
       return results;
 
     } catch (error) {
@@ -170,6 +185,16 @@ class WikidataAPIClient {
       total: 0
     };
 
+    // Check cache first
+    const cacheKey = `fuzzy_${query}`;
+    const cached = await this.cache.get(cacheKey, languages, limit, type);
+    if (cached) {
+      console.log(`Cache hit for fuzzy: ${query}`);
+      return cached;
+    }
+
+    console.log(`API call for fuzzy: ${query}`);
+    
     try {
       // Search for entities (items)
       if (type === 'both' || type === 'item') {
@@ -208,6 +233,10 @@ class WikidataAPIClient {
       }
 
       results.total = results.entities.length + results.properties.length;
+      
+      // Cache the results for 24 hours
+      await this.cache.set(cacheKey, results, languages, limit, type, 24 * 60 * 60 * 1000);
+      
       return results;
 
     } catch (error) {

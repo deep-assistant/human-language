@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753622133681,
+  "ttl": 86400000,
+  "query": "Obama was born",
+  "languages": "en",
+  "limit": 1,
+  "type": "property"
+}

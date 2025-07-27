@@ -1,0 +1,101 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P800",
+        "title": "Property:P800",
+        "pageid": 16238659,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P800",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P800",
+        "display": {
+          "label": {
+            "value": "notable work",
+            "language": "en"
+          },
+          "description": {
+            "value": "notable scientific, artistic or literary work, or other work of significance among subject's works",
+            "language": "en"
+          }
+        },
+        "label": "notable work",
+        "description": "notable scientific, artistic or literary work, or other work of significance among subject's works",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "wrote"
+        },
+        "aliases": [
+          "wrote"
+        ]
+      },
+      {
+        "id": "P1412",
+        "title": "Property:P1412",
+        "pageid": 18935690,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1412",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1412",
+        "display": {
+          "label": {
+            "value": "languages spoken, written or signed",
+            "language": "en"
+          },
+          "description": {
+            "value": "language(s) that a person or a people speaks, writes or signs, including the native language(s)",
+            "language": "en"
+          }
+        },
+        "label": "languages spoken, written or signed",
+        "description": "language(s) that a person or a people speaks, writes or signs, including the native language(s)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "wrote language"
+        },
+        "aliases": [
+          "wrote language"
+        ]
+      },
+      {
+        "id": "P6872",
+        "title": "Property:P6872",
+        "pageid": 64385044,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P6872",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P6872",
+        "display": {
+          "label": {
+            "value": "has written for",
+            "language": "en"
+          },
+          "description": {
+            "value": "publication an author has contributed to",
+            "language": "en"
+          }
+        },
+        "label": "has written for",
+        "description": "publication an author has contributed to",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "wrote for"
+        },
+        "aliases": [
+          "wrote for"
+        ]
+      }
+    ],
+    "total": 3
+  },
+  "timestamp": 1753622241717,
+  "ttl": 86400000,
+  "query": "fuzzy_wrote",
+  "languages": "en",
+  "limit": 8,
+  "type": "property"
+}

@@ -1,0 +1,147 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q782",
+        "title": "Q782",
+        "pageid": 1093,
+        "concepturi": "http://www.wikidata.org/entity/Q782",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q782",
+        "display": {
+          "label": {
+            "value": "Hawaii",
+            "language": "en"
+          },
+          "description": {
+            "value": "state of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "Hawaii",
+        "description": "state of the United States of America",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hawaii"
+        }
+      },
+      {
+        "id": "Q18703903",
+        "title": "Q18703903",
+        "pageid": 20233810,
+        "concepturi": "http://www.wikidata.org/entity/Q18703903",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q18703903",
+        "display": {
+          "label": {
+            "value": "Hawaii",
+            "language": "en"
+          },
+          "description": {
+            "value": "2013 film by Marco Berger",
+            "language": "en"
+          }
+        },
+        "label": "Hawaii",
+        "description": "2013 film by Marco Berger",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hawaii"
+        }
+      },
+      {
+        "id": "Q68740",
+        "title": "Q68740",
+        "pageid": 71454,
+        "concepturi": "http://www.wikidata.org/entity/Q68740",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q68740",
+        "display": {
+          "label": {
+            "value": "Hawaii",
+            "language": "en"
+          },
+          "description": {
+            "value": "largest of the Hawaiian islands",
+            "language": "en"
+          }
+        },
+        "label": "Hawaii",
+        "description": "largest of the Hawaiian islands",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hawaii"
+        }
+      },
+      {
+        "id": "Q156418",
+        "title": "Q156418",
+        "pageid": 157528,
+        "concepturi": "http://www.wikidata.org/entity/Q156418",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q156418",
+        "display": {
+          "label": {
+            "value": "Kingdom of Hawaiʻi",
+            "language": "en"
+          },
+          "description": {
+            "value": "historical kingdom in the Hawaiian Islands (1778–1893)",
+            "language": "en"
+          }
+        },
+        "label": "Kingdom of Hawaiʻi",
+        "description": "historical kingdom in the Hawaiian Islands (1778–1893)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Hawaiian Kingdom"
+        },
+        "aliases": [
+          "Hawaiian Kingdom"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P4365",
+        "title": "Property:P4365",
+        "pageid": 43275222,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P4365",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P4365",
+        "display": {
+          "label": {
+            "value": "Hawai‘i Sports Hall of Fame ID (archived)",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for an athlete on the Hawai‘i Sports Hall of Fame website",
+            "language": "en"
+          }
+        },
+        "label": "Hawai‘i Sports Hall of Fame ID (archived)",
+        "description": "identifier for an athlete on the Hawai‘i Sports Hall of Fame website",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Hawaii Sports Hall of Fame ID"
+        },
+        "aliases": [
+          "Hawaii Sports Hall of Fame ID"
+        ]
+      }
+    ],
+    "total": 5
+  },
+  "timestamp": 1753622139412,
+  "ttl": 86400000,
+  "query": "Hawaii",
+  "languages": "en",
+  "limit": 8,
+  "type": "both"
+}

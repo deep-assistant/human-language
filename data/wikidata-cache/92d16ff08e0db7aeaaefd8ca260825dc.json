@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753622276661,
+  "ttl": 86400000,
+  "query": "discovered gravity",
+  "languages": "en",
+  "limit": 1,
+  "type": "property"
+}

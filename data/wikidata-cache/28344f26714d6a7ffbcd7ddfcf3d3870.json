@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753622274960,
+  "ttl": 86400000,
+  "query": "fuzzy_Newton discovered gravity",
+  "languages": "en",
+  "limit": 1,
+  "type": "property"
+}

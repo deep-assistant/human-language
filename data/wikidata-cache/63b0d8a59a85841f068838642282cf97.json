@@ -1,0 +1,139 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q76",
+        "title": "Q76",
+        "pageid": 205,
+        "concepturi": "http://www.wikidata.org/entity/Q76",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q76",
+        "display": {
+          "label": {
+            "value": "Barack Obama",
+            "language": "en"
+          },
+          "description": {
+            "value": "president of the United States from 2009 to 2017",
+            "language": "en"
+          }
+        },
+        "label": "Barack Obama",
+        "description": "president of the United States from 2009 to 2017",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Barack Obama"
+        }
+      },
+      {
+        "id": "Q18643532",
+        "title": "Q18643532",
+        "pageid": 20174477,
+        "concepturi": "http://www.wikidata.org/entity/Q18643532",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q18643532",
+        "display": {
+          "label": {
+            "value": "Barack",
+            "language": "en"
+          },
+          "description": {
+            "value": "male given name",
+            "language": "en"
+          }
+        },
+        "label": "Barack",
+        "description": "male given name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Barack"
+        }
+      },
+      {
+        "id": "Q37011990",
+        "title": "Q37011990",
+        "pageid": 38392016,
+        "concepturi": "http://www.wikidata.org/entity/Q37011990",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q37011990",
+        "display": {
+          "label": {
+            "value": "Barack",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Barack",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Barack"
+        }
+      },
+      {
+        "id": "Q59661289",
+        "title": "Q59661289",
+        "pageid": 59555309,
+        "concepturi": "http://www.wikidata.org/entity/Q59661289",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q59661289",
+        "display": {
+          "label": {
+            "value": "Barack Obama Presidential Library",
+            "language": "en"
+          },
+          "description": {
+            "value": "reference unit of the National Archives and Records Administration",
+            "language": "en"
+          }
+        },
+        "label": "Barack Obama Presidential Library",
+        "description": "reference unit of the National Archives and Records Administration",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Barack Obama Presidential Library"
+        }
+      },
+      {
+        "id": "Q649593",
+        "title": "Q649593",
+        "pageid": 611354,
+        "concepturi": "http://www.wikidata.org/entity/Q649593",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q649593",
+        "display": {
+          "label": {
+            "value": "Barack Obama Sr.",
+            "language": "en"
+          },
+          "description": {
+            "value": "Economist, father of Barack Obama Jr. (1934–1982)",
+            "language": "en"
+          }
+        },
+        "label": "Barack Obama Sr.",
+        "description": "Economist, father of Barack Obama Jr. (1934–1982)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Barack Obama Sr."
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753619262525,
+  "ttl": 86400000,
+  "query": "Barack",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,1435 @@
+{
+  "timestamp": "2025-07-27T12:14:57.801Z",
+  "testResults": {
+    "passed": 6,
+    "total": 6,
+    "successRate": 100,
+    "results": [
+      {
+        "testCase": "Barack Obama birthplace",
+        "result": {
+          "passed": true,
+          "reason": "E2E test produced results from real API",
+          "output": "[Q76 or Q18643532 or Q37011990] [Q18355807 or Q76 or Q41773] [P577 or P7943 or P9330] [P569 or P19 or P1477] [Q782 or Q18703903 or Q68740]",
+          "tokens": [
+            "Barack",
+            "Obama",
+            "was",
+            "born",
+            "in",
+            "Hawaii"
+          ],
+          "sequenceLength": 5,
+          "detailedSequence": [
+            {
+              "id": "[Q76 or Q18643532 or Q37011990]",
+              "label": "[Barack Obama or Barack or Barack]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q76",
+                  "label": "Barack Obama",
+                  "description": "president of the United States from 2009 to 2017",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q18643532",
+                  "label": "Barack",
+                  "description": "male given name",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q37011990",
+                  "label": "Barack",
+                  "description": "family name",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[Q18355807 or Q76 or Q41773]",
+              "label": "[Obama or Barack Obama or Obama]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q18355807",
+                  "label": "Obama",
+                  "description": "genus of worms",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q76",
+                  "label": "Barack Obama",
+                  "description": "president of the United States from 2009 to 2017",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q41773",
+                  "label": "Obama",
+                  "description": "city in Fukui prefecture, Japan",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[P577 or P7943 or P9330]",
+              "label": "[publication date or The Washington Post contributor ID or Washington Place Names ID]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "P577",
+                  "label": "publication date",
+                  "description": "date or point in time when a work was first published or released",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P7943",
+                  "label": "The Washington Post contributor ID",
+                  "description": "identifier for a person on the Washington Post website",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P9330",
+                  "label": "Washington Place Names ID",
+                  "description": "numerical identifier for a place in Washington Place Names",
+                  "type": "property",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[P569 or P19 or P1477]",
+              "label": "[date of birth or place of birth or birth name]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "P569",
+                  "label": "date of birth",
+                  "description": "date on which the subject was born",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P19",
+                  "label": "place of birth",
+                  "description": "most specific known birth location of a person, animal or fictional character",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P1477",
+                  "label": "birth name",
+                  "description": "full name of a person at birth, if different from their current, generally used name",
+                  "type": "property",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[Q782 or Q18703903 or Q68740]",
+              "label": "[Hawaii or Hawaii or Hawaii]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q782",
+                  "label": "Hawaii",
+                  "description": "state of the United States of America",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q18703903",
+                  "label": "Hawaii",
+                  "description": "2013 film by Marco Berger",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q68740",
+                  "label": "Hawaii",
+                  "description": "largest of the Hawaiian islands",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            }
+          ],
+          "rawResult": {
+            "original": "Barack Obama was born in Hawaii",
+            "tokens": [
+              "Barack",
+              "Obama",
+              "was",
+              "born",
+              "in",
+              "Hawaii"
+            ],
+            "sequence": [
+              {
+                "id": "[Q76 or Q18643532 or Q37011990]",
+                "label": "[Barack Obama or Barack or Barack]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q76",
+                    "label": "Barack Obama",
+                    "description": "president of the United States from 2009 to 2017",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q18643532",
+                    "label": "Barack",
+                    "description": "male given name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q37011990",
+                    "label": "Barack",
+                    "description": "family name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[Q18355807 or Q76 or Q41773]",
+                "label": "[Obama or Barack Obama or Obama]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q18355807",
+                    "label": "Obama",
+                    "description": "genus of worms",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q76",
+                    "label": "Barack Obama",
+                    "description": "president of the United States from 2009 to 2017",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q41773",
+                    "label": "Obama",
+                    "description": "city in Fukui prefecture, Japan",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[P577 or P7943 or P9330]",
+                "label": "[publication date or The Washington Post contributor ID or Washington Place Names ID]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "P577",
+                    "label": "publication date",
+                    "description": "date or point in time when a work was first published or released",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P7943",
+                    "label": "The Washington Post contributor ID",
+                    "description": "identifier for a person on the Washington Post website",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P9330",
+                    "label": "Washington Place Names ID",
+                    "description": "numerical identifier for a place in Washington Place Names",
+                    "type": "property",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[P569 or P19 or P1477]",
+                "label": "[date of birth or place of birth or birth name]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "P569",
+                    "label": "date of birth",
+                    "description": "date on which the subject was born",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P19",
+                    "label": "place of birth",
+                    "description": "most specific known birth location of a person, animal or fictional character",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P1477",
+                    "label": "birth name",
+                    "description": "full name of a person at birth, if different from their current, generally used name",
+                    "type": "property",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[Q782 or Q18703903 or Q68740]",
+                "label": "[Hawaii or Hawaii or Hawaii]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q782",
+                    "label": "Hawaii",
+                    "description": "state of the United States of America",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q18703903",
+                    "label": "Hawaii",
+                    "description": "2013 film by Marco Berger",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q68740",
+                    "label": "Hawaii",
+                    "description": "largest of the Hawaiian islands",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              }
+            ],
+            "formatted": "[Q76 or Q18643532 or Q37011990] [Q18355807 or Q76 or Q41773] [P577 or P7943 or P9330] [P569 or P19 or P1477] [Q782 or Q18703903 or Q68740]",
+            "alternatives": [
+              {
+                "sequence": "Q76 Q18355807 P577 P569 Q782",
+                "confidence": "low"
+              }
+            ]
+          }
+        },
+        "duration": 11224
+      },
+      {
+        "testCase": "Simple person",
+        "result": {
+          "passed": true,
+          "reason": "E2E test produced results from real API",
+          "output": "[Q16834800 or Q937 or Q1309274]",
+          "tokens": [
+            "Einstein"
+          ],
+          "sequenceLength": 1,
+          "detailedSequence": [
+            {
+              "id": "[Q16834800 or Q937 or Q1309274]",
+              "label": "[Einstein or Albert Einstein or Einstein]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q16834800",
+                  "label": "Einstein",
+                  "description": "family name",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q937",
+                  "label": "Albert Einstein",
+                  "description": "German-born theoretical physicist (1879–1955)",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q1309274",
+                  "label": "Einstein",
+                  "description": "mountain of the Allgäu Alps in Tyrol, Austria",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            }
+          ],
+          "rawResult": {
+            "original": "Einstein",
+            "tokens": [
+              "Einstein"
+            ],
+            "sequence": [
+              {
+                "id": "[Q16834800 or Q937 or Q1309274]",
+                "label": "[Einstein or Albert Einstein or Einstein]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q16834800",
+                    "label": "Einstein",
+                    "description": "family name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q937",
+                    "label": "Albert Einstein",
+                    "description": "German-born theoretical physicist (1879–1955)",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q1309274",
+                    "label": "Einstein",
+                    "description": "mountain of the Allgäu Alps in Tyrol, Austria",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              }
+            ],
+            "formatted": "[Q16834800 or Q937 or Q1309274]",
+            "alternatives": [
+              {
+                "sequence": "Q16834800",
+                "confidence": "low"
+              }
+            ]
+          }
+        },
+        "duration": 1317
+      },
+      {
+        "testCase": "Capital city relation",
+        "result": {
+          "passed": true,
+          "reason": "E2E test produced results from real API",
+          "output": "[P1376 or P5607 or P6246] [P213 or P31 or P236] [Q5119 or Q193893 or Q60] [Q142 or Q3080569 or Q16275867]",
+          "tokens": [
+            "Paris",
+            "is",
+            "the",
+            "capital",
+            "of",
+            "France"
+          ],
+          "sequenceLength": 4,
+          "detailedSequence": [
+            {
+              "id": "[P1376 or P5607 or P6246]",
+              "label": "[capital of or located in the religious territorial entity or Paris Musées work ID]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "P1376",
+                  "label": "capital of",
+                  "description": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P5607",
+                  "label": "located in the religious territorial entity",
+                  "description": "the item is located on the territory of the following religious entity. Use P708 (diocese) for dioceses",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P6246",
+                  "label": "Paris Musées work ID",
+                  "description": "identifier for a work on the website of the museums of the city of Paris",
+                  "type": "property",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[P213 or P31 or P236]",
+              "label": "[ISNI or instance of or ISSN]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "P213",
+                  "label": "ISNI",
+                  "description": "International Standard Name Identifier for an identity. Starting with 0000.",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P31",
+                  "label": "instance of",
+                  "description": "type to which this subject corresponds/belongs. Different from P279 (subclass of); for example: K2 is an instance of mountain; volcanoes form a subclass of mountains",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P236",
+                  "label": "ISSN",
+                  "description": "International Standard Serial Number (print or electronic)",
+                  "type": "property",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[Q5119 or Q193893 or Q60]",
+              "label": "[capital city or capital or New York City]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q5119",
+                  "label": "capital city",
+                  "description": "primary governing city of a top-level (country) or first-level and second-level subdivision (country, state, province, regency, etc) political entity",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q193893",
+                  "label": "capital",
+                  "description": "upper part of a column (architecture)",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q60",
+                  "label": "New York City",
+                  "description": "most populous city in the United States",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[Q142 or Q3080569 or Q16275867]",
+              "label": "[France or France or France]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q142",
+                  "label": "France",
+                  "description": "country in Western Europe and other continents (through its overseas territories in America, Africa and Oceania)",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q3080569",
+                  "label": "France",
+                  "description": "unisex given name",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q16275867",
+                  "label": "France",
+                  "description": "family name",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            }
+          ],
+          "rawResult": {
+            "original": "Paris is the capital of France",
+            "tokens": [
+              "Paris",
+              "is",
+              "the",
+              "capital",
+              "of",
+              "France"
+            ],
+            "sequence": [
+              {
+                "id": "[P1376 or P5607 or P6246]",
+                "label": "[capital of or located in the religious territorial entity or Paris Musées work ID]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "P1376",
+                    "label": "capital of",
+                    "description": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P5607",
+                    "label": "located in the religious territorial entity",
+                    "description": "the item is located on the territory of the following religious entity. Use P708 (diocese) for dioceses",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P6246",
+                    "label": "Paris Musées work ID",
+                    "description": "identifier for a work on the website of the museums of the city of Paris",
+                    "type": "property",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[P213 or P31 or P236]",
+                "label": "[ISNI or instance of or ISSN]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "P213",
+                    "label": "ISNI",
+                    "description": "International Standard Name Identifier for an identity. Starting with 0000.",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P31",
+                    "label": "instance of",
+                    "description": "type to which this subject corresponds/belongs. Different from P279 (subclass of); for example: K2 is an instance of mountain; volcanoes form a subclass of mountains",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P236",
+                    "label": "ISSN",
+                    "description": "International Standard Serial Number (print or electronic)",
+                    "type": "property",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[Q5119 or Q193893 or Q60]",
+                "label": "[capital city or capital or New York City]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q5119",
+                    "label": "capital city",
+                    "description": "primary governing city of a top-level (country) or first-level and second-level subdivision (country, state, province, regency, etc) political entity",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q193893",
+                    "label": "capital",
+                    "description": "upper part of a column (architecture)",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q60",
+                    "label": "New York City",
+                    "description": "most populous city in the United States",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[Q142 or Q3080569 or Q16275867]",
+                "label": "[France or France or France]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q142",
+                    "label": "France",
+                    "description": "country in Western Europe and other continents (through its overseas territories in America, Africa and Oceania)",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q3080569",
+                    "label": "France",
+                    "description": "unisex given name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q16275867",
+                    "label": "France",
+                    "description": "family name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              }
+            ],
+            "formatted": "[P1376 or P5607 or P6246] [P213 or P31 or P236] [Q5119 or Q193893 or Q60] [Q142 or Q3080569 or Q16275867]",
+            "alternatives": [
+              {
+                "sequence": "P1376 P213 Q5119 Q142",
+                "confidence": "low"
+              }
+            ]
+          }
+        },
+        "duration": 6900
+      },
+      {
+        "testCase": "Scientific discovery",
+        "result": {
+          "passed": true,
+          "reason": "E2E test produced results from real API",
+          "output": "[Q1469854 or Q979741 or Q49196] [P575 or P61 or P65] [Q11412 or Q48791078 or Q76212719]",
+          "tokens": [
+            "Newton",
+            "discovered",
+            "gravity"
+          ],
+          "sequenceLength": 3,
+          "detailedSequence": [
+            {
+              "id": "[Q1469854 or Q979741 or Q49196]",
+              "label": "[Newton or Newton or Newton]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q1469854",
+                  "label": "Newton",
+                  "description": "family name",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q979741",
+                  "label": "Newton",
+                  "description": "city in and county seat of Newton County, Texas, United States",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q49196",
+                  "label": "Newton",
+                  "description": "city in Massachusetts, United States",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[P575 or P61 or P65]",
+              "label": "[time of discovery or invention or discoverer or inventor or site of astronomical discovery]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "P575",
+                  "label": "time of discovery or invention",
+                  "description": "date or point in time when the item was discovered or invented",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P61",
+                  "label": "discoverer or inventor",
+                  "description": "subject who discovered, first described, invented, or developed this discovery or invention or scientific hypothesis or theory",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P65",
+                  "label": "site of astronomical discovery",
+                  "description": "the place where an astronomical object was discovered (observatory, satellite)",
+                  "type": "property",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[Q11412 or Q48791078 or Q76212719]",
+              "label": "[gravity or Gravity or Gravity]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q11412",
+                  "label": "gravity",
+                  "description": "fundamental interaction affecting all matter",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q48791078",
+                  "label": "Gravity",
+                  "description": "isometric game for the Amiga and Atari ST published by Image Works in 1991",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q76212719",
+                  "label": "Gravity",
+                  "description": "vocal track by Embrace; 2004 studio recording",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            }
+          ],
+          "rawResult": {
+            "original": "Newton discovered gravity",
+            "tokens": [
+              "Newton",
+              "discovered",
+              "gravity"
+            ],
+            "sequence": [
+              {
+                "id": "[Q1469854 or Q979741 or Q49196]",
+                "label": "[Newton or Newton or Newton]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q1469854",
+                    "label": "Newton",
+                    "description": "family name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q979741",
+                    "label": "Newton",
+                    "description": "city in and county seat of Newton County, Texas, United States",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q49196",
+                    "label": "Newton",
+                    "description": "city in Massachusetts, United States",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[P575 or P61 or P65]",
+                "label": "[time of discovery or invention or discoverer or inventor or site of astronomical discovery]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "P575",
+                    "label": "time of discovery or invention",
+                    "description": "date or point in time when the item was discovered or invented",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P61",
+                    "label": "discoverer or inventor",
+                    "description": "subject who discovered, first described, invented, or developed this discovery or invention or scientific hypothesis or theory",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P65",
+                    "label": "site of astronomical discovery",
+                    "description": "the place where an astronomical object was discovered (observatory, satellite)",
+                    "type": "property",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[Q11412 or Q48791078 or Q76212719]",
+                "label": "[gravity or Gravity or Gravity]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q11412",
+                    "label": "gravity",
+                    "description": "fundamental interaction affecting all matter",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q48791078",
+                    "label": "Gravity",
+                    "description": "isometric game for the Amiga and Atari ST published by Image Works in 1991",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q76212719",
+                    "label": "Gravity",
+                    "description": "vocal track by Embrace; 2004 studio recording",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              }
+            ],
+            "formatted": "[Q1469854 or Q979741 or Q49196] [P575 or P61 or P65] [Q11412 or Q48791078 or Q76212719]",
+            "alternatives": [
+              {
+                "sequence": "Q1469854 P575 Q11412",
+                "confidence": "low"
+              }
+            ]
+          }
+        },
+        "duration": 5264
+      },
+      {
+        "testCase": "Creative work",
+        "result": {
+          "passed": true,
+          "reason": "E2E test produced results from real API",
+          "output": "[P800 or P1412 or P6872] [Q5084 or Q43374750 or Q16276236]",
+          "tokens": [
+            "Shakespeare",
+            "wrote",
+            "Hamlet"
+          ],
+          "sequenceLength": 2,
+          "detailedSequence": [
+            {
+              "id": "[P800 or P1412 or P6872]",
+              "label": "[notable work or languages spoken, written or signed or has written for]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "P800",
+                  "label": "notable work",
+                  "description": "notable scientific, artistic or literary work, or other work of significance among subject's works",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P1412",
+                  "label": "languages spoken, written or signed",
+                  "description": "language(s) that a person or a people speaks, writes or signs, including the native language(s)",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P6872",
+                  "label": "has written for",
+                  "description": "publication an author has contributed to",
+                  "type": "property",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[Q5084 or Q43374750 or Q16276236]",
+              "label": "[hamlet or Hamlet or Hamlet]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q5084",
+                  "label": "hamlet",
+                  "description": "small settlement in a rural area",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q43374750",
+                  "label": "Hamlet",
+                  "description": "male given name",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q16276236",
+                  "label": "Hamlet",
+                  "description": "family name",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            }
+          ],
+          "rawResult": {
+            "original": "Shakespeare wrote Hamlet",
+            "tokens": [
+              "Shakespeare",
+              "wrote",
+              "Hamlet"
+            ],
+            "sequence": [
+              {
+                "id": "[P800 or P1412 or P6872]",
+                "label": "[notable work or languages spoken, written or signed or has written for]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "P800",
+                    "label": "notable work",
+                    "description": "notable scientific, artistic or literary work, or other work of significance among subject's works",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P1412",
+                    "label": "languages spoken, written or signed",
+                    "description": "language(s) that a person or a people speaks, writes or signs, including the native language(s)",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P6872",
+                    "label": "has written for",
+                    "description": "publication an author has contributed to",
+                    "type": "property",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[Q5084 or Q43374750 or Q16276236]",
+                "label": "[hamlet or Hamlet or Hamlet]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q5084",
+                    "label": "hamlet",
+                    "description": "small settlement in a rural area",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q43374750",
+                    "label": "Hamlet",
+                    "description": "male given name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q16276236",
+                    "label": "Hamlet",
+                    "description": "family name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              }
+            ],
+            "formatted": "[P800 or P1412 or P6872] [Q5084 or Q43374750 or Q16276236]",
+            "alternatives": [
+              {
+                "sequence": "P800 Q5084",
+                "confidence": "low"
+              }
+            ]
+          }
+        },
+        "duration": 4726
+      },
+      {
+        "testCase": "Family relation",
+        "result": {
+          "passed": true,
+          "reason": "E2E test produced results from real API",
+          "output": "[Q385468 or Q9682 or Q37118203] [P213 or P31 or P236] [Q7560 or Q30949692 or Q345] [Q2958359 or Q16865501 or Q984568]",
+          "tokens": [
+            "Elizabeth",
+            "is",
+            "the",
+            "mother",
+            "of",
+            "Charles"
+          ],
+          "sequenceLength": 4,
+          "detailedSequence": [
+            {
+              "id": "[Q385468 or Q9682 or Q37118203]",
+              "label": "[Elizabeth or Elizabeth II or Elizabeth]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q385468",
+                  "label": "Elizabeth",
+                  "description": "female given name",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q9682",
+                  "label": "Elizabeth II",
+                  "description": "Queen of the United Kingdom from 1952 to 2022",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q37118203",
+                  "label": "Elizabeth",
+                  "description": "family name",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[P213 or P31 or P236]",
+              "label": "[ISNI or instance of or ISSN]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "P213",
+                  "label": "ISNI",
+                  "description": "International Standard Name Identifier for an identity. Starting with 0000.",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P31",
+                  "label": "instance of",
+                  "description": "type to which this subject corresponds/belongs. Different from P279 (subclass of); for example: K2 is an instance of mountain; volcanoes form a subclass of mountains",
+                  "type": "property",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "P236",
+                  "label": "ISSN",
+                  "description": "International Standard Serial Number (print or electronic)",
+                  "type": "property",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[Q7560 or Q30949692 or Q345]",
+              "label": "[mother or Mother or Mary]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q7560",
+                  "label": "mother",
+                  "description": "female parent",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q30949692",
+                  "label": "Mother",
+                  "description": "South Korean television series",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q345",
+                  "label": "Mary",
+                  "description": "mother of Jesus",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            },
+            {
+              "id": "[Q2958359 or Q16865501 or Q984568]",
+              "label": "[Charles or Charles or Charles de Mazade]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q2958359",
+                  "label": "Charles",
+                  "description": "male given name",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q16865501",
+                  "label": "Charles",
+                  "description": "family name",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q984568",
+                  "label": "Charles de Mazade",
+                  "description": "French historian, journalist, and political editor of Revue des deux mondes (1820–1893)",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ]
+            }
+          ],
+          "rawResult": {
+            "original": "Elizabeth is the mother of Charles",
+            "tokens": [
+              "Elizabeth",
+              "is",
+              "the",
+              "mother",
+              "of",
+              "Charles"
+            ],
+            "sequence": [
+              {
+                "id": "[Q385468 or Q9682 or Q37118203]",
+                "label": "[Elizabeth or Elizabeth II or Elizabeth]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q385468",
+                    "label": "Elizabeth",
+                    "description": "female given name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q9682",
+                    "label": "Elizabeth II",
+                    "description": "Queen of the United Kingdom from 1952 to 2022",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q37118203",
+                    "label": "Elizabeth",
+                    "description": "family name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[P213 or P31 or P236]",
+                "label": "[ISNI or instance of or ISSN]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "P213",
+                    "label": "ISNI",
+                    "description": "International Standard Name Identifier for an identity. Starting with 0000.",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P31",
+                    "label": "instance of",
+                    "description": "type to which this subject corresponds/belongs. Different from P279 (subclass of); for example: K2 is an instance of mountain; volcanoes form a subclass of mountains",
+                    "type": "property",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "P236",
+                    "label": "ISSN",
+                    "description": "International Standard Serial Number (print or electronic)",
+                    "type": "property",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[Q7560 or Q30949692 or Q345]",
+                "label": "[mother or Mother or Mary]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q7560",
+                    "label": "mother",
+                    "description": "female parent",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q30949692",
+                    "label": "Mother",
+                    "description": "South Korean television series",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q345",
+                    "label": "Mary",
+                    "description": "mother of Jesus",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              },
+              {
+                "id": "[Q2958359 or Q16865501 or Q984568]",
+                "label": "[Charles or Charles or Charles de Mazade]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q2958359",
+                    "label": "Charles",
+                    "description": "male given name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q16865501",
+                    "label": "Charles",
+                    "description": "family name",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q984568",
+                    "label": "Charles de Mazade",
+                    "description": "French historian, journalist, and political editor of Revue des deux mondes (1820–1893)",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ]
+              }
+            ],
+            "formatted": "[Q385468 or Q9682 or Q37118203] [P213 or P31 or P236] [Q7560 or Q30949692 or Q345] [Q2958359 or Q16865501 or Q984568]",
+            "alternatives": [
+              {
+                "sequence": "Q385468 P213 Q7560 Q2958359",
+                "confidence": "low"
+              }
+            ]
+          }
+        },
+        "duration": 8419
+      }
+    ],
+    "apiCalls": 141
+  },
+  "apiPatterns": {
+    "Barack Obama": {
+      "exactCount": 2,
+      "fuzzyCount": 0,
+      "totalCount": 2,
+      "sampleResults": {
+        "exact": [
+          {
+            "id": "Q76",
+            "label": "Barack Obama",
+            "description": "president of the United States from 2009 to 2017"
+          },
+          {
+            "id": "Q649593",
+            "label": "Barack Obama Sr.",
+            "description": "Economist, father of Barack Obama Jr. (1934–1982)"
+          }
+        ],
+        "fuzzy": []
+      }
+    },
+    "Hawaii": {
+      "exactCount": 3,
+      "fuzzyCount": 0,
+      "totalCount": 3,
+      "sampleResults": {
+        "exact": [
+          {
+            "id": "Q782",
+            "label": "Hawaii",
+            "description": "state of the United States of America"
+          },
+          {
+            "id": "Q18703903",
+            "label": "Hawaii",
+            "description": "2013 film by Marco Berger"
+          },
+          {
+            "id": "P4365",
+            "label": "Hawai‘i Sports Hall of Fame ID (archived)",
+            "description": "identifier for an athlete on the Hawai‘i Sports Hall of Fame website"
+          }
+        ],
+        "fuzzy": []
+      }
+    },
+    "Einstein": {
+      "exactCount": 2,
+      "fuzzyCount": 0,
+      "totalCount": 2,
+      "sampleResults": {
+        "exact": [
+          {
+            "id": "Q16834800",
+            "label": "Einstein",
+            "description": "family name"
+          },
+          {
+            "id": "Q937",
+            "label": "Albert Einstein",
+            "description": "German-born theoretical physicist (1879–1955)"
+          }
+        ],
+        "fuzzy": []
+      }
+    },
+    "Paris": {
+      "exactCount": 4,
+      "fuzzyCount": 0,
+      "totalCount": 4,
+      "sampleResults": {
+        "exact": [
+          {
+            "id": "Q90",
+            "label": "Paris",
+            "description": "capital city and largest city of France"
+          },
+          {
+            "id": "Q483020",
+            "label": "Paris Saint-Germain FC",
+            "description": "association football club in Paris, France"
+          },
+          {
+            "id": "P1376",
+            "label": "capital of",
+            "description": "country, state, department, canton or other administrative division of which the municipality is the governmental seat"
+          }
+        ],
+        "fuzzy": []
+      }
+    },
+    "born": {
+      "exactCount": 4,
+      "fuzzyCount": 0,
+      "totalCount": 4,
+      "sampleResults": {
+        "exact": [
+          {
+            "id": "Q893914",
+            "label": "Born",
+            "description": "family name"
+          },
+          {
+            "id": "Q80590975",
+            "label": "born fewer than 70 years ago",
+            "description": "method for determining copyright status of a creator: author was born fewer than 70 years ago, so cannot have died more than 70 years ago"
+          },
+          {
+            "id": "P569",
+            "label": "date of birth",
+            "description": "date on which the subject was born"
+          }
+        ],
+        "fuzzy": []
+      }
+    },
+    "capital": {
+      "exactCount": 4,
+      "fuzzyCount": 0,
+      "totalCount": 4,
+      "sampleResults": {
+        "exact": [
+          {
+            "id": "Q5119",
+            "label": "capital city",
+            "description": "primary governing city of a top-level (country) or first-level and second-level subdivision (country, state, province, regency, etc) political entity"
+          },
+          {
+            "id": "Q193893",
+            "label": "capital",
+            "description": "upper part of a column (architecture)"
+          },
+          {
+            "id": "P36",
+            "label": "capital",
+            "description": "seat of government of a country, province, state or other type of administrative territorial entity"
+          }
+        ],
+        "fuzzy": []
+      }
+    }
+  }
+}

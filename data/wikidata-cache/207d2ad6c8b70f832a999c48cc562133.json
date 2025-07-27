@@ -1,0 +1,121 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P213",
+        "title": "Property:P213",
+        "pageid": 6237138,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P213",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P213",
+        "display": {
+          "label": {
+            "value": "ISNI",
+            "language": "en"
+          },
+          "description": {
+            "value": "International Standard Name Identifier for an identity. Starting with 0000.",
+            "language": "en"
+          }
+        },
+        "label": "ISNI",
+        "description": "International Standard Name Identifier for an identity. Starting with 0000.",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "ISNI"
+        }
+      },
+      {
+        "id": "P31",
+        "title": "Property:P31",
+        "pageid": 3918489,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P31",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P31",
+        "display": {
+          "label": {
+            "value": "instance of",
+            "language": "en"
+          },
+          "description": {
+            "value": "type to which this subject corresponds/belongs. Different from P279 (subclass of); for example: K2 is an instance of mountain; volcanoes form a subclass of mountains",
+            "language": "en"
+          }
+        },
+        "label": "instance of",
+        "description": "type to which this subject corresponds/belongs. Different from P279 (subclass of); for example: K2 is an instance of mountain; volcanoes form a subclass of mountains",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "is a"
+        },
+        "aliases": [
+          "is a"
+        ]
+      },
+      {
+        "id": "P236",
+        "title": "Property:P236",
+        "pageid": 6249369,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P236",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P236",
+        "display": {
+          "label": {
+            "value": "ISSN",
+            "language": "en"
+          },
+          "description": {
+            "value": "International Standard Serial Number (print or electronic)",
+            "language": "en"
+          }
+        },
+        "label": "ISSN",
+        "description": "International Standard Serial Number (print or electronic)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "ISSN"
+        }
+      },
+      {
+        "id": "P212",
+        "title": "Property:P212",
+        "pageid": 6237112,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P212",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P212",
+        "display": {
+          "label": {
+            "value": "ISBN-13",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a book (edition), thirteen digit",
+            "language": "en"
+          }
+        },
+        "label": "ISBN-13",
+        "description": "identifier for a book (edition), thirteen digit",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "ISBN-13"
+        }
+      }
+    ],
+    "total": 4
+  },
+  "timestamp": 1753622204390,
+  "ttl": 86400000,
+  "query": "is",
+  "languages": "en",
+  "limit": 8,
+  "type": "property"
+}

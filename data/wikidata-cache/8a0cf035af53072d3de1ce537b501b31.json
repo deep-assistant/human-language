@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753622137753,
+  "ttl": 86400000,
+  "query": "born in Hawaii",
+  "languages": "en",
+  "limit": 1,
+  "type": "property"
+}
