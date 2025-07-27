@@ -310,6 +310,72 @@
         flex-direction: column;
       }
     }
+    
+    /* Link styling for Q/P IDs */
+    .result-box a {
+      color: #0066cc;
+      text-decoration: none;
+      border-bottom: 1px dotted #0066cc;
+    }
+    
+    .result-box a:hover {
+      text-decoration: none;
+      border-bottom-style: solid;
+    }
+    
+    .sequence-item a {
+      border-bottom: 1px dotted currentColor;
+    }
+    
+    .sequence-item a:hover {
+      border-bottom-style: solid;
+    }
+    
+    /* Loading state */
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #0066cc;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 8px;
+      vertical-align: middle;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    button.loading {
+      position: relative;
+    }
+    
+    button.loading .button-text {
+      visibility: hidden;
+    }
+    
+    button.loading::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 50%;
+      left: 50%;
+      margin-left: -8px;
+      margin-top: -8px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
   </style>
 </head>
 <body>
@@ -355,14 +421,14 @@
           </div>
 
           <div class="button-group">
-            <button type="submit" class="transform-button">
-              🔄 Transform
+            <button type="submit" class="transform-button" id="transformBtn">
+              <span class="button-text">🔄 Transform</span>
             </button>
-            <button type="button" class="clear-button" onclick="clearForm()">
-              🗑️ Clear
+            <button type="button" class="clear-button" id="clearBtn" onclick="clearForm()">
+              <span class="button-text">🗑️ Clear</span>
             </button>
-            <button type="button" class="example-button" onclick="loadRandomExample()">
-              💡 Load Example
+            <button type="button" class="example-button" id="exampleBtn" onclick="loadRandomExample()">
+              <span class="button-text">💡 Load Example</span>
             </button>
           </div>
         </form>
@@ -451,6 +517,9 @@
     window.loadRandomExample = function() {
       const randomExample = examples[Math.floor(Math.random() * examples.length)];
       document.getElementById('inputText').value = randomExample.text;
+      
+      // Auto-submit the form
+      document.getElementById('transformForm').dispatchEvent(new Event('submit'));
     };
 
     // Clear form
@@ -461,14 +530,20 @@
     };
 
     // Copy to clipboard
-    window.copyToClipboard = function(text) {
+    window.copyToClipboard = function(text, event) {
+      const button = event.target;
+      button.disabled = true;
+      
       navigator.clipboard.writeText(text).then(() => {
-        const button = event.target;
         const originalText = button.textContent;
         button.textContent = '✓ Copied!';
         setTimeout(() => {
           button.textContent = originalText;
+          button.disabled = false;
         }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+        button.disabled = false;
       });
     };
 
@@ -485,9 +560,20 @@
         searchLimit: parseInt(formData.get('searchLimit'))
       };
 
+      // Get all buttons
+      const transformBtn = document.getElementById('transformBtn');
+      const clearBtn = document.getElementById('clearBtn');
+      const exampleBtn = document.getElementById('exampleBtn');
+      
+      // Disable buttons and show loading state
+      transformBtn.disabled = true;
+      clearBtn.disabled = true;
+      exampleBtn.disabled = true;
+      transformBtn.classList.add('loading');
+
       // Show loading state
-      document.getElementById('resultContent').innerHTML = '<div class="loading">🔄 Transforming text...</div>';
-      document.getElementById('analysisContent').innerHTML = '<div class="loading">🔍 Analyzing...</div>';
+      document.getElementById('resultContent').innerHTML = '<div class="loading"><span class="loading-spinner"></span>Transforming text...</div>';
+      document.getElementById('analysisContent').innerHTML = '<div class="loading"><span class="loading-spinner"></span>Analyzing...</div>';
 
       try {
         const result = await transformer.transform(text, options);
@@ -505,6 +591,12 @@
             Analysis failed due to transformation error
           </div>
         `;
+      } finally {
+        // Re-enable buttons and remove loading state
+        transformBtn.disabled = false;
+        clearBtn.disabled = false;
+        exampleBtn.disabled = false;
+        transformBtn.classList.remove('loading');
       }
     }
 
@@ -516,8 +608,8 @@
       html += `
         <h3>🎯 Q/P Sequence</h3>
         <div class="result-box">
-          ${result.formatted || 'No matches found'}
-          <button class="copy-button" onclick="copyToClipboard('${result.formatted}')">📋 Copy</button>
+          ${result.formattedWithLinks || result.formatted || 'No matches found'}
+          <button class="copy-button" onclick="copyToClipboard('${result.formatted}', event)">📋 Copy</button>
         </div>
       `;
 
@@ -529,7 +621,28 @@
             const typeClass = item.type === 'property' ? 'property-item' : 
                             item.type === 'entity' ? 'entity-item' : 'ambiguous-item';
             const label = options.includeLabels && item.label ? ` (${item.label})` : '';
-            html += `<span class="sequence-item ${typeClass}">${item.id}${label}</span>`;
+            
+            // Create linked version of the ID
+            let linkedId = item.id;
+            if (item.type === 'ambiguous') {
+              // Handle ambiguous items with multiple IDs
+              const ids = item.id.match(/[QP]\d+/g) || [];
+              const linkedIds = ids.map(id => {
+                if (id.startsWith('Q')) {
+                  return `<a href="entities.html#${id}" target="_blank" style="color: inherit; text-decoration: none;">${id}</a>`;
+                } else if (id.startsWith('P')) {
+                  return `<a href="properties.html#${id}" target="_blank" style="color: inherit; text-decoration: none;">${id}</a>`;
+                }
+                return id;
+              });
+              linkedId = `[${linkedIds.join(' or ')}]`;
+            } else if (item.id.startsWith('Q')) {
+              linkedId = `<a href="entities.html#${item.id}" target="_blank" style="color: inherit; text-decoration: none;">${item.id}</a>`;
+            } else if (item.id.startsWith('P')) {
+              linkedId = `<a href="properties.html#${item.id}" target="_blank" style="color: inherit; text-decoration: none;">${item.id}</a>`;
+            }
+            
+            html += `<span class="sequence-item ${typeClass}">${linkedId}${label}</span>`;
           }
         });
         html += '</div>';

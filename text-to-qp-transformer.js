@@ -111,6 +111,7 @@ class TextToQPTransformer {
 
       // Format the final sequence
       result.formatted = this.formatSequence(result.sequence);
+      result.formattedWithLinks = this.formatSequenceWithLinks(result.sequence);
       
       // Generate alternative sequences if there are ambiguous matches
       result.alternatives = this.generateAlternatives(result.sequence);
@@ -242,6 +243,42 @@ class TextToQPTransformer {
   }
 
   /**
+   * Format the sequence into HTML with links
+   * @param {Array} sequence - Array of Q/P items
+   * @returns {string} - Formatted HTML string with links
+   */
+  formatSequenceWithLinks(sequence) {
+    return sequence
+      .filter(item => item !== null)
+      .map(item => {
+        if (item.type === 'ambiguous') {
+          // For ambiguous items, we need to handle the bracketed format
+          const ids = item.id.match(/[QP]\d+/g) || [];
+          const linkedIds = ids.map(id => {
+            if (id.startsWith('Q')) {
+              return `<a href="entities.html#${id}" target="_blank">${id}</a>`;
+            } else if (id.startsWith('P')) {
+              return `<a href="properties.html#${id}" target="_blank">${id}</a>`;
+            }
+            return id;
+          });
+          // Reconstruct the ambiguous format with links
+          return `[${linkedIds.join(' or ')}]`;
+        } else {
+          // Single ID
+          const id = item.id;
+          if (id.startsWith('Q')) {
+            return `<a href="entities.html#${id}" target="_blank">${id}</a>`;
+          } else if (id.startsWith('P')) {
+            return `<a href="properties.html#${id}" target="_blank">${id}</a>`;
+          }
+          return id;
+        }
+      })
+      .join(' ');
+  }
+
+  /**
    * Generate alternative sequences for disambiguation
    * @param {Array} sequence - Original sequence with ambiguous items
    * @returns {Array} - Array of alternative sequences
@@ -300,6 +337,7 @@ class TextToQPTransformer {
       });
       
       result.formatted = this.formatSequence(result.sequence);
+      result.formattedWithLinks = this.formatSequenceWithLinks(result.sequence);
     }
     
     return result;
