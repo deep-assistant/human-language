@@ -1,0 +1,67 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q16834800",
+        "title": "Q16834800",
+        "pageid": 18439701,
+        "concepturi": "http://www.wikidata.org/entity/Q16834800",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q16834800",
+        "display": {
+          "label": {
+            "value": "Einstein",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Einstein",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Einstein"
+        }
+      },
+      {
+        "id": "Q937",
+        "title": "Q937",
+        "pageid": 1262,
+        "concepturi": "http://www.wikidata.org/entity/Q937",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q937",
+        "display": {
+          "label": {
+            "value": "Albert Einstein",
+            "language": "en"
+          },
+          "description": {
+            "value": "German-born theoretical physicist (1879–1955)",
+            "language": "en"
+          }
+        },
+        "label": "Albert Einstein",
+        "description": "German-born theoretical physicist (1879–1955)",
+        "match": {
+          "type": "alias",
+          "language": "mul",
+          "text": "Einstein"
+        },
+        "aliases": [
+          "Einstein"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 2
+  },
+  "timestamp": 1753634779810,
+  "ttl": 86400000,
+  "query": "Einstein",
+  "languages": "en",
+  "limit": 5,
+  "type": "both"
+}

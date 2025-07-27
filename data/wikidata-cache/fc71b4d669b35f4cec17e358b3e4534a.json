@@ -1,0 +1,94 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q782",
+        "title": "Q782",
+        "pageid": 1093,
+        "concepturi": "http://www.wikidata.org/entity/Q782",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q782",
+        "display": {
+          "label": {
+            "value": "Hawaii",
+            "language": "en"
+          },
+          "description": {
+            "value": "state of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "Hawaii",
+        "description": "state of the United States of America",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hawaii"
+        }
+      },
+      {
+        "id": "Q18703903",
+        "title": "Q18703903",
+        "pageid": 20233810,
+        "concepturi": "http://www.wikidata.org/entity/Q18703903",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q18703903",
+        "display": {
+          "label": {
+            "value": "Hawaii",
+            "language": "en"
+          },
+          "description": {
+            "value": "2013 film by Marco Berger",
+            "language": "en"
+          }
+        },
+        "label": "Hawaii",
+        "description": "2013 film by Marco Berger",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hawaii"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P4365",
+        "title": "Property:P4365",
+        "pageid": 43275222,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P4365",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P4365",
+        "display": {
+          "label": {
+            "value": "Hawai‘i Sports Hall of Fame ID (archived)",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for an athlete on the Hawai‘i Sports Hall of Fame website",
+            "language": "en"
+          }
+        },
+        "label": "Hawai‘i Sports Hall of Fame ID (archived)",
+        "description": "identifier for an athlete on the Hawai‘i Sports Hall of Fame website",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Hawaii Sports Hall of Fame ID"
+        },
+        "aliases": [
+          "Hawaii Sports Hall of Fame ID"
+        ]
+      }
+    ],
+    "total": 3
+  },
+  "timestamp": 1753634777459,
+  "ttl": 86400000,
+  "query": "Hawaii",
+  "languages": "en",
+  "limit": 5,
+  "type": "both"
+}

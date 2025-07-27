@@ -1,0 +1,151 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q15615",
+        "title": "Q15615",
+        "pageid": 17955,
+        "concepturi": "http://www.wikidata.org/entity/Q15615",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q15615",
+        "display": {
+          "label": {
+            "value": "Lil Wayne",
+            "language": "en"
+          },
+          "description": {
+            "value": "American rapper (born 1982)",
+            "language": "en"
+          }
+        },
+        "label": "Lil Wayne",
+        "description": "American rapper (born 1982)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The President"
+        },
+        "aliases": [
+          "The President"
+        ]
+      },
+      {
+        "id": "Q123885",
+        "title": "Q123885",
+        "pageid": 126084,
+        "concepturi": "http://www.wikidata.org/entity/Q123885",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q123885",
+        "display": {
+          "label": {
+            "value": "Royal Society",
+            "language": "en"
+          },
+          "description": {
+            "value": "English learned society for science",
+            "language": "en"
+          }
+        },
+        "label": "Royal Society",
+        "description": "English learned society for science",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The President, Council, and Fellows of the Royal Society of London for Improving Natural Knowledge"
+        },
+        "aliases": [
+          "The President, Council, and Fellows of the Royal Society of London for Improving Natural Knowledge"
+        ]
+      },
+      {
+        "id": "Q11696",
+        "title": "Q11696",
+        "pageid": 13235,
+        "concepturi": "http://www.wikidata.org/entity/Q11696",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q11696",
+        "display": {
+          "label": {
+            "value": "President of the United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "head of state and head of government of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "President of the United States",
+        "description": "head of state and head of government of the United States of America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the president of the United States"
+        },
+        "aliases": [
+          "the president of the United States"
+        ]
+      },
+      {
+        "id": "Q3050361",
+        "title": "Q3050361",
+        "pageid": 2915818,
+        "concepturi": "http://www.wikidata.org/entity/Q3050361",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q3050361",
+        "display": {
+          "label": {
+            "value": "Mister President",
+            "language": "en"
+          },
+          "description": {
+            "value": "novel by Miguel Ángel Asturias",
+            "language": "en"
+          }
+        },
+        "label": "Mister President",
+        "description": "novel by Miguel Ángel Asturias",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The President"
+        },
+        "aliases": [
+          "The President"
+        ]
+      },
+      {
+        "id": "Q113287791",
+        "title": "Q113287791",
+        "pageid": 108085266,
+        "concepturi": "http://www.wikidata.org/entity/Q113287791",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q113287791",
+        "display": {
+          "label": {
+            "value": "The President",
+            "language": "en"
+          },
+          "description": {
+            "value": "2022 video game",
+            "language": "en"
+          }
+        },
+        "label": "The President",
+        "description": "2022 video game",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The President"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634616968,
+  "ttl": 86400000,
+  "query": "fuzzy_the President",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

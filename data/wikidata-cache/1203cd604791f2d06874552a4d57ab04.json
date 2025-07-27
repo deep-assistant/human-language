@@ -1,0 +1,175 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q1469854",
+        "title": "Q1469854",
+        "pageid": 1407904,
+        "concepturi": "http://www.wikidata.org/entity/Q1469854",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1469854",
+        "display": {
+          "label": {
+            "value": "Newton",
+            "language": "mul"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Newton",
+        "description": "family name",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Newton (family name)"
+        },
+        "aliases": [
+          "Newton (family name)"
+        ]
+      },
+      {
+        "id": "Q979741",
+        "title": "Q979741",
+        "pageid": 929438,
+        "concepturi": "http://www.wikidata.org/entity/Q979741",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q979741",
+        "display": {
+          "label": {
+            "value": "Newton",
+            "language": "en"
+          },
+          "description": {
+            "value": "city in and county seat of Newton County, Texas, United States",
+            "language": "en"
+          }
+        },
+        "label": "Newton",
+        "description": "city in and county seat of Newton County, Texas, United States",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Newton"
+        }
+      },
+      {
+        "id": "Q49196",
+        "title": "Q49196",
+        "pageid": 51177,
+        "concepturi": "http://www.wikidata.org/entity/Q49196",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q49196",
+        "display": {
+          "label": {
+            "value": "Newton",
+            "language": "en"
+          },
+          "description": {
+            "value": "city in Massachusetts, United States",
+            "language": "en"
+          }
+        },
+        "label": "Newton",
+        "description": "city in Massachusetts, United States",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Newton"
+        }
+      },
+      {
+        "id": "Q935",
+        "title": "Q935",
+        "pageid": 1259,
+        "concepturi": "http://www.wikidata.org/entity/Q935",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q935",
+        "display": {
+          "label": {
+            "value": "Isaac Newton",
+            "language": "en"
+          },
+          "description": {
+            "value": "English mathematician and physicist (1642–1727)",
+            "language": "en"
+          }
+        },
+        "label": "Isaac Newton",
+        "description": "English mathematician and physicist (1642–1727)",
+        "match": {
+          "type": "alias",
+          "language": "mul",
+          "text": "Newton"
+        },
+        "aliases": [
+          "Newton"
+        ]
+      },
+      {
+        "id": "Q12438",
+        "title": "Q12438",
+        "pageid": 14025,
+        "concepturi": "http://www.wikidata.org/entity/Q12438",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q12438",
+        "display": {
+          "label": {
+            "value": "newton",
+            "language": "en"
+          },
+          "description": {
+            "value": "SI unit of force",
+            "language": "en"
+          }
+        },
+        "label": "newton",
+        "description": "SI unit of force",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "newton"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P2230",
+        "title": "Property:P2230",
+        "pageid": 23112943,
+        "datatype": "quantity",
+        "concepturi": "http://www.wikidata.org/entity/P2230",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2230",
+        "display": {
+          "label": {
+            "value": "torque",
+            "language": "en"
+          },
+          "description": {
+            "value": "torque of a machine, a motor/engine/powerplant, or a vehicle",
+            "language": "en"
+          }
+        },
+        "label": "torque",
+        "description": "torque of a machine, a motor/engine/powerplant, or a vehicle",
+        "match": {
+          "type": "alias",
+          "language": "nl",
+          "text": "newtonmeter"
+        },
+        "aliases": [
+          "newtonmeter"
+        ]
+      }
+    ],
+    "total": 6
+  },
+  "timestamp": 1753634792547,
+  "ttl": 86400000,
+  "query": "Newton",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

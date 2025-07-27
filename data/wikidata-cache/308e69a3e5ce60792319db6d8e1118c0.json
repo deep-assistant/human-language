@@ -1,0 +1,39 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q44805503",
+        "title": "Q44805503",
+        "pageid": 45990472,
+        "concepturi": "http://www.wikidata.org/entity/Q44805503",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q44805503",
+        "display": {
+          "label": {
+            "value": "Of the United States Government, history taking, and the physical examination",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific article published on June 1, 1970",
+            "language": "en"
+          }
+        },
+        "label": "Of the United States Government, history taking, and the physical examination",
+        "description": "scientific article published on June 1, 1970",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Of the United States Government, history taking, and the physical examination"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 1
+  },
+  "timestamp": 1753634616879,
+  "ttl": 86400000,
+  "query": "fuzzy_of the United",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

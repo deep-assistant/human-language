@@ -1,0 +1,221 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q10729205",
+        "title": "Q10729205",
+        "pageid": 12003956,
+        "concepturi": "http://www.wikidata.org/entity/Q10729205",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q10729205",
+        "display": {
+          "label": {
+            "value": "Albert",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Albert",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Albert"
+        }
+      },
+      {
+        "id": "Q30940",
+        "title": "Q30940",
+        "pageid": 33890,
+        "concepturi": "http://www.wikidata.org/entity/Q30940",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30940",
+        "display": {
+          "label": {
+            "value": "Albert",
+            "language": "en"
+          },
+          "description": {
+            "value": "commune in Somme, France",
+            "language": "en"
+          }
+        },
+        "label": "Albert",
+        "description": "commune in Somme, France",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Albert"
+        }
+      },
+      {
+        "id": "Q1951",
+        "title": "Q1951",
+        "pageid": 2844,
+        "concepturi": "http://www.wikidata.org/entity/Q1951",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1951",
+        "display": {
+          "label": {
+            "value": "Alberta",
+            "language": "en"
+          },
+          "description": {
+            "value": "province of Canada",
+            "language": "en"
+          }
+        },
+        "label": "Alberta",
+        "description": "province of Canada",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Alberta"
+        }
+      },
+      {
+        "id": "Q577011",
+        "title": "Q577011",
+        "pageid": 542688,
+        "concepturi": "http://www.wikidata.org/entity/Q577011",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q577011",
+        "display": {
+          "label": {
+            "value": "Albert",
+            "language": "mul"
+          },
+          "description": {
+            "value": "male given name",
+            "language": "en"
+          }
+        },
+        "label": "Albert",
+        "description": "male given name",
+        "match": {
+          "type": "label",
+          "language": "mul",
+          "text": "Albert"
+        }
+      },
+      {
+        "id": "Q16799105",
+        "title": "Q16799105",
+        "pageid": 18404052,
+        "concepturi": "http://www.wikidata.org/entity/Q16799105",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q16799105",
+        "display": {
+          "label": {
+            "value": "Alberto",
+            "language": "en"
+          },
+          "description": {
+            "value": "male given name",
+            "language": "en"
+          }
+        },
+        "label": "Alberto",
+        "description": "male given name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Alberto"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P8795",
+        "title": "Property:P8795",
+        "pageid": 98787394,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P8795",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P8795",
+        "display": {
+          "label": {
+            "value": "Diamond Catalog ID for persons and organisations",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a person or an organisation in the General Diamond Catalog",
+            "language": "en"
+          }
+        },
+        "label": "Diamond Catalog ID for persons and organisations",
+        "description": "identifier for a person or an organisation in the General Diamond Catalog",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Albertus ID"
+        },
+        "aliases": [
+          "Albertus ID"
+        ]
+      },
+      {
+        "id": "P759",
+        "title": "Property:P759",
+        "pageid": 16123624,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P759",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P759",
+        "display": {
+          "label": {
+            "value": "Alberta Register of Historic Places ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier of historic resources in the Alberta Register of Historic Places",
+            "language": "en"
+          }
+        },
+        "label": "Alberta Register of Historic Places ID",
+        "description": "identifier of historic resources in the Alberta Register of Historic Places",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Alberta Register of Historic Places ID"
+        }
+      },
+      {
+        "id": "P4396",
+        "title": "Property:P4396",
+        "pageid": 43505475,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P4396",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P4396",
+        "display": {
+          "label": {
+            "value": "Alberta Sports Hall of Fame ID (archived)",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for an athlete on the Alberta Sports Hall of Fame and Museum website",
+            "language": "en"
+          }
+        },
+        "label": "Alberta Sports Hall of Fame ID (archived)",
+        "description": "identifier for an athlete on the Alberta Sports Hall of Fame and Museum website",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Alberta Sports Hall of Fame ID (archived)"
+        }
+      }
+    ],
+    "total": 8
+  },
+  "timestamp": 1753634609571,
+  "ttl": 86400000,
+  "query": "Albert",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

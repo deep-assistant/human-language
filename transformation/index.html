@@ -418,6 +418,10 @@
               <label for="searchLimit">Search limit:</label>
               <input type="number" id="searchLimit" name="searchLimit" min="5" max="50" value="10">
             </div>
+            <div class="option">
+              <label for="maxNgramSize">Max n-gram size:</label>
+              <input type="number" id="maxNgramSize" name="maxNgramSize" min="1" max="5" value="3">
+            </div>
           </div>
 
           <div class="button-group">
@@ -557,7 +561,8 @@
         includeLabels: formData.get('includeLabels') === 'on',
         preferProperties: formData.get('preferProperties') === 'on',
         maxCandidates: parseInt(formData.get('maxCandidates')),
-        searchLimit: parseInt(formData.get('searchLimit'))
+        searchLimit: parseInt(formData.get('searchLimit')),
+        maxNgramSize: parseInt(formData.get('maxNgramSize'))
       };
 
       // Get all buttons
@@ -629,17 +634,17 @@
               const ids = item.id.match(/[QP]\d+/g) || [];
               const linkedIds = ids.map(id => {
                 if (id.startsWith('Q')) {
-                  return `<a href="entities.html#${id}" target="_blank" style="color: inherit; text-decoration: none;">${id}</a>`;
+                  return `<a href="../entities.html#${id}" target="_blank" style="color: inherit; text-decoration: none;">${id}</a>`;
                 } else if (id.startsWith('P')) {
-                  return `<a href="properties.html#${id}" target="_blank" style="color: inherit; text-decoration: none;">${id}</a>`;
+                  return `<a href="../properties.html#${id}" target="_blank" style="color: inherit; text-decoration: none;">${id}</a>`;
                 }
                 return id;
               });
               linkedId = `[${linkedIds.join(' or ')}]`;
             } else if (item.id.startsWith('Q')) {
-              linkedId = `<a href="entities.html#${item.id}" target="_blank" style="color: inherit; text-decoration: none;">${item.id}</a>`;
+              linkedId = `<a href="../entities.html#${item.id}" target="_blank" style="color: inherit; text-decoration: none;">${item.id}</a>`;
             } else if (item.id.startsWith('P')) {
-              linkedId = `<a href="properties.html#${item.id}" target="_blank" style="color: inherit; text-decoration: none;">${item.id}</a>`;
+              linkedId = `<a href="../properties.html#${item.id}" target="_blank" style="color: inherit; text-decoration: none;">${item.id}</a>`;
             }
             
             html += `<span class="sequence-item ${typeClass}">${linkedId}${label}</span>`;
@@ -691,6 +696,12 @@
             } else {
               html += `<strong>${item.id}</strong>: ${item.label || 'No label'}<br>`;
               html += `Type: ${item.type}<br>`;
+            }
+            if (item.ngramSize) {
+              html += `N-gram size: ${item.ngramSize}<br>`;
+            }
+            if (item.originalText) {
+              html += `Matched text: "${item.originalText}"<br>`;
             }
             html += '</div>';
           }

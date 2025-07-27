@@ -3,7 +3,7 @@
 // End-to-End test for Text to Q/P Transformer using real Wikidata API
 // Run with: bun e2e-test.mjs
 
-import { TextToQPTransformer } from './text-to-qp-transformer.js';
+import { TextToQPTransformer } from './transformation/text-to-qp-transformer.js';
 
 /**
  * E2E Test Suite using real Wikidata API
@@ -62,6 +62,26 @@ class E2ETextTransformerTest {
           shouldFindProperty: "author",
           minSequenceLength: 2,
           maxSequenceLength: 4
+        }
+      },
+      {
+        name: "N-gram: Multi-word entity",
+        input: "United Nations headquarters",
+        options: { maxNgramSize: 3 },
+        expectations: {
+          shouldFindEntity: "United Nations",
+          minSequenceLength: 1,
+          maxSequenceLength: 2
+        }
+      },
+      {
+        name: "N-gram: Complex phrase",
+        input: "World Health Organization director",
+        options: { maxNgramSize: 3 },
+        expectations: {
+          shouldFindEntity: "World Health Organization",
+          minSequenceLength: 1,
+          maxSequenceLength: 3
         }
       },
       {
@@ -169,7 +189,9 @@ class E2ETextTransformerTest {
       maxCandidates: 3,
       includeLabels: true,
       searchLimit: 10,
-      preferProperties: false
+      preferProperties: false,
+      maxNgramSize: 3, // Default n-gram size
+      ...testCase.options // Override with test-specific options
     };
 
     // Count API calls by wrapping the search utility

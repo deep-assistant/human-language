@@ -1,0 +1,43 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P19",
+        "title": "Property:P19",
+        "pageid": 3917861,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P19",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P19",
+        "display": {
+          "label": {
+            "value": "place of birth",
+            "language": "en"
+          },
+          "description": {
+            "value": "most specific known birth location of a person, animal or fictional character",
+            "language": "en"
+          }
+        },
+        "label": "place of birth",
+        "description": "most specific known birth location of a person, animal or fictional character",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "born in"
+        },
+        "aliases": [
+          "born in"
+        ]
+      }
+    ],
+    "total": 1
+  },
+  "timestamp": 1753634606392,
+  "ttl": 86400000,
+  "query": "born in",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

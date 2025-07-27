@@ -1,0 +1,142 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q4287745",
+        "title": "Q4287745",
+        "pageid": 4098417,
+        "concepturi": "http://www.wikidata.org/entity/Q4287745",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q4287745",
+        "display": {
+          "label": {
+            "value": "medical organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "organization which supports the field of medicine",
+            "language": "en"
+          }
+        },
+        "label": "medical organization",
+        "description": "organization which supports the field of medicine",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "health organization"
+        },
+        "aliases": [
+          "health organization"
+        ]
+      },
+      {
+        "id": "Q70454036",
+        "title": "Q70454036",
+        "pageid": 70111721,
+        "concepturi": "http://www.wikidata.org/entity/Q70454036",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q70454036",
+        "display": {
+          "label": {
+            "value": "health organizational case studies",
+            "language": "en"
+          },
+          "description": {
+            "value": "descriptions and evaluations of specific health care organizations",
+            "language": "en"
+          }
+        },
+        "label": "health organizational case studies",
+        "description": "descriptions and evaluations of specific health care organizations",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "health organizational case studies"
+        }
+      },
+      {
+        "id": "Q64272716",
+        "title": "Q64272716",
+        "pageid": 63974324,
+        "concepturi": "http://www.wikidata.org/entity/Q64272716",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q64272716",
+        "display": {
+          "label": {
+            "value": "Health Organizational and Functional Files (NAID 32621808)",
+            "language": "en"
+          },
+          "description": {
+            "value": "series in the National Archives and Records Administration's holdings",
+            "language": "en"
+          }
+        },
+        "label": "Health Organizational and Functional Files (NAID 32621808)",
+        "description": "series in the National Archives and Records Administration's holdings",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Health Organizational and Functional Files (NAID 32621808)"
+        }
+      },
+      {
+        "id": "Q77690269",
+        "title": "Q77690269",
+        "pageid": 77153464,
+        "concepturi": "http://www.wikidata.org/entity/Q77690269",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q77690269",
+        "display": {
+          "label": {
+            "value": "Health organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific article published on 01 May 1978",
+            "language": "en"
+          }
+        },
+        "label": "Health organization",
+        "description": "scientific article published on 01 May 1978",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Health organization"
+        }
+      },
+      {
+        "id": "Q51465424",
+        "title": "Q51465424",
+        "pageid": 52382224,
+        "concepturi": "http://www.wikidata.org/entity/Q51465424",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q51465424",
+        "display": {
+          "label": {
+            "value": "Health Organizations Providing and Seeking Social Support: A Twitter-Based Content Analysis",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific article published on June 20, 2013",
+            "language": "en"
+          }
+        },
+        "label": "Health Organizations Providing and Seeking Social Support: A Twitter-Based Content Analysis",
+        "description": "scientific article published on June 20, 2013",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Health Organizations Providing and Seeking Social Support: A Twitter-Based Content Analysis"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634798458,
+  "ttl": 86400000,
+  "query": "Health Organization",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

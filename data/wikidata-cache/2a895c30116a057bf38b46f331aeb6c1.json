@@ -1,0 +1,143 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q81066",
+        "title": "Q81066",
+        "pageid": 83537,
+        "concepturi": "http://www.wikidata.org/entity/Q81066",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q81066",
+        "display": {
+          "label": {
+            "value": "United Nations Secretary-General",
+            "language": "en"
+          },
+          "description": {
+            "value": "chief administrative officer and head of the United Nations",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Secretary-General",
+        "description": "chief administrative officer and head of the United Nations",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations Secretary-General"
+        }
+      },
+      {
+        "id": "Q27242623",
+        "title": "Q27242623",
+        "pageid": 29058735,
+        "concepturi": "http://www.wikidata.org/entity/Q27242623",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q27242623",
+        "display": {
+          "label": {
+            "value": "United Nations Secretary-General selection",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Secretary-General selection",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations Secretary-General selection"
+        }
+      },
+      {
+        "id": "Q22909554",
+        "title": "Q22909554",
+        "pageid": 24930692,
+        "concepturi": "http://www.wikidata.org/entity/Q22909554",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q22909554",
+        "display": {
+          "label": {
+            "value": "2016 United Nations Secretary-General selection",
+            "language": "en"
+          },
+          "description": {
+            "value": "selection for Secretary General of the United Nations",
+            "language": "en"
+          }
+        },
+        "label": "2016 United Nations Secretary-General selection",
+        "description": "selection for Secretary General of the United Nations",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations Secretary-General selection, 2016"
+        },
+        "aliases": [
+          "United Nations Secretary-General selection, 2016"
+        ]
+      },
+      {
+        "id": "Q7888514",
+        "title": "Q7888514",
+        "pageid": 7825753,
+        "concepturi": "http://www.wikidata.org/entity/Q7888514",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7888514",
+        "display": {
+          "label": {
+            "value": "2006 United Nations Secretary-General selection",
+            "language": "en"
+          },
+          "description": {
+            "value": "2006 selection for United nations Secretary General",
+            "language": "en"
+          }
+        },
+        "label": "2006 United Nations Secretary-General selection",
+        "description": "2006 selection for United nations Secretary General",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations Secretary-General selection, 2006"
+        },
+        "aliases": [
+          "United Nations Secretary-General selection, 2006"
+        ]
+      },
+      {
+        "id": "Q30593756",
+        "title": "Q30593756",
+        "pageid": 32204492,
+        "concepturi": "http://www.wikidata.org/entity/Q30593756",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30593756",
+        "display": {
+          "label": {
+            "value": "1996 United Nations Secretary-General selection",
+            "language": "en"
+          },
+          "description": {
+            "value": "UN Secretary-General selection, 1996",
+            "language": "en"
+          }
+        },
+        "label": "1996 United Nations Secretary-General selection",
+        "description": "UN Secretary-General selection, 1996",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations Secretary-General selection, 1996"
+        },
+        "aliases": [
+          "United Nations Secretary-General selection, 1996"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634614811,
+  "ttl": 86400000,
+  "query": "United Nations Secretary General",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

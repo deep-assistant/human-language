@@ -1,0 +1,151 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q35525",
+        "title": "Q35525",
+        "pageid": 38197,
+        "concepturi": "http://www.wikidata.org/entity/Q35525",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q35525",
+        "display": {
+          "label": {
+            "value": "White House",
+            "language": "en"
+          },
+          "description": {
+            "value": "official residence and office of the President of the United States",
+            "language": "en"
+          }
+        },
+        "label": "White House",
+        "description": "official residence and office of the President of the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the White House"
+        },
+        "aliases": [
+          "the White House"
+        ]
+      },
+      {
+        "id": "Q1355327",
+        "title": "Q1355327",
+        "pageid": 1294924,
+        "concepturi": "http://www.wikidata.org/entity/Q1355327",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1355327",
+        "display": {
+          "label": {
+            "value": "Executive Office of the President of the United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "U.S. federal government office of the president of the United States",
+            "language": "en"
+          }
+        },
+        "label": "Executive Office of the President of the United States",
+        "description": "U.S. federal government office of the president of the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The White House"
+        },
+        "aliases": [
+          "The White House"
+        ]
+      },
+      {
+        "id": "Q108602895",
+        "title": "Q108602895",
+        "pageid": 103836638,
+        "concepturi": "http://www.wikidata.org/entity/Q108602895",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q108602895",
+        "display": {
+          "label": {
+            "value": "presidential administration of the United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "the presidential administration of the United States",
+            "language": "en"
+          }
+        },
+        "label": "presidential administration of the United States",
+        "description": "the presidential administration of the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The White House"
+        },
+        "aliases": [
+          "The White House"
+        ]
+      },
+      {
+        "id": "Q2677411",
+        "title": "Q2677411",
+        "pageid": 2578685,
+        "concepturi": "http://www.wikidata.org/entity/Q2677411",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2677411",
+        "display": {
+          "label": {
+            "value": "Calda House",
+            "language": "en"
+          },
+          "description": {
+            "value": "c.1660 or c.1720 house in Assynt, Sutherland, Highland, Scotland, UK, now ruinous",
+            "language": "en"
+          }
+        },
+        "label": "Calda House",
+        "description": "c.1660 or c.1720 house in Assynt, Sutherland, Highland, Scotland, UK, now ruinous",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The White House"
+        },
+        "aliases": [
+          "The White House"
+        ]
+      },
+      {
+        "id": "Q18002089",
+        "title": "Q18002089",
+        "pageid": 19537038,
+        "concepturi": "http://www.wikidata.org/entity/Q18002089",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q18002089",
+        "display": {
+          "label": {
+            "value": "The White House",
+            "language": "en"
+          },
+          "description": {
+            "value": "historical building in Basel",
+            "language": "en"
+          }
+        },
+        "label": "The White House",
+        "description": "historical building in Basel",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The White House"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634608146,
+  "ttl": 86400000,
+  "query": "the White House",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

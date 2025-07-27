@@ -7,12 +7,12 @@ let WikidataAPIClient, WikidataSearchUtility;
 
 if (typeof window !== 'undefined') {
   // Browser environment
-  const module = await import('./wikidata-api-browser.js');
+  const module = await import('../wikidata-api-browser.js');
   WikidataAPIClient = module.WikidataAPIClient;
   WikidataSearchUtility = module.WikidataSearchUtility;
 } else {
   // Node.js environment
-  const module = await import('./wikidata-api.js');
+  const module = await import('../wikidata-api.js');
   WikidataAPIClient = module.WikidataAPIClient;  
   WikidataSearchUtility = module.WikidataSearchUtility;
 }
@@ -51,7 +51,8 @@ class TextToQPTransformer {
       maxCandidates = 3,
       includeLabels = false,
       searchLimit = 10,
-      preferProperties = false
+      preferProperties = false,
+      maxNgramSize = 3 // Configurable max n-gram size
     } = options;
 
     const result = {
@@ -67,47 +68,17 @@ class TextToQPTransformer {
       const tokens = this.tokenize(text);
       result.tokens = tokens;
 
-      // Process each token
-      for (let i = 0; i < tokens.length; i++) {
-        const token = tokens[i];
-        
-        // Skip stop words
-        if (this.stopWords.includes(token.toLowerCase())) {
-          continue;
-        }
-
-        // Check for multi-word phrases
-        let phrase = token;
-        let phraseLength = 1;
-        
-        // Try to build longer phrases (up to 4 words)
-        for (let j = 1; j <= 3 && i + j < tokens.length; j++) {
-          const nextToken = tokens[i + j];
-          if (!this.stopWords.includes(nextToken.toLowerCase())) {
-            const testPhrase = tokens.slice(i, i + j + 1).join(' ');
-            const testResults = await this.searchForTerm(testPhrase, preferProperties, 1);
-            
-            if (testResults.exact.length > 0 || testResults.fuzzy.length > 0) {
-              phrase = testPhrase;
-              phraseLength = j + 1;
-            }
-          }
-        }
-
-        // Search for the term
-        const searchResults = await this.searchForTerm(phrase, preferProperties, searchLimit);
-        
-        // Process search results
-        const candidates = this.processCandidates(searchResults, maxCandidates);
-        
-        if (candidates.length > 0) {
-          const qpItem = this.formatCandidates(candidates, includeLabels);
-          result.sequence.push(qpItem);
-          
-          // Skip tokens that were part of the phrase
-          i += phraseLength - 1;
-        }
-      }
+      // Generate all n-grams
+      const ngrams = this.generateNgrams(tokens, maxNgramSize);
+      
+      // Search for all n-grams in parallel to find matches
+      const ngramResults = await this.searchNgrams(ngrams, preferProperties, searchLimit);
+      
+      // Match tokens using longest-first priority
+      const matches = this.matchTokensWithPriority(tokens, ngramResults, maxCandidates, includeLabels);
+      
+      // Build the final sequence
+      result.sequence = matches;
 
       // Format the final sequence
       result.formatted = this.formatSequence(result.sequence);
@@ -135,6 +106,135 @@ class TextToQPTransformer {
       .replace(/[.,!?;:]/g, '') // Remove punctuation
       .split(/\s+/) // Split by whitespace
       .filter(token => token.length > 0);
+  }
+
+  /**
+   * Generate all n-grams from tokens
+   * @param {Array<string>} tokens - Array of tokens
+   * @param {number} maxNgramSize - Maximum n-gram size
+   * @returns {Object} - Object with n-grams organized by size
+   */
+  generateNgrams(tokens, maxNgramSize) {
+    const ngrams = {};
+    
+    // Generate n-grams for each size
+    for (let size = 1; size <= maxNgramSize; size++) {
+      ngrams[size] = [];
+      
+      for (let i = 0; i <= tokens.length - size; i++) {
+        const ngram = tokens.slice(i, i + size);
+        const ngramText = ngram.join(' ');
+        
+        // Skip if it contains only stop words
+        const nonStopWords = ngram.filter(word => !this.stopWords.includes(word.toLowerCase()));
+        if (nonStopWords.length > 0) {
+          ngrams[size].push({
+            text: ngramText,
+            tokens: ngram,
+            start: i,
+            end: i + size - 1,
+            size: size
+          });
+        }
+      }
+    }
+    
+    return ngrams;
+  }
+
+  /**
+   * Search for all n-grams in parallel
+   * @param {Object} ngrams - N-grams organized by size
+   * @param {boolean} preferProperties - Whether to prefer properties
+   * @param {number} searchLimit - Search limit
+   * @returns {Promise<Array>} - Array of n-gram results with search matches
+   */
+  async searchNgrams(ngrams, preferProperties, searchLimit) {
+    const allSearchPromises = [];
+    const ngramInfoList = [];
+    
+    // Create search promises for all n-grams
+    for (const size in ngrams) {
+      for (const ngram of ngrams[size]) {
+        allSearchPromises.push(this.searchForTerm(ngram.text, preferProperties, searchLimit));
+        ngramInfoList.push(ngram);
+      }
+    }
+    
+    // Execute all searches in parallel
+    const searchResults = await Promise.all(allSearchPromises);
+    
+    // Combine n-gram info with search results
+    const ngramResults = [];
+    for (let i = 0; i < searchResults.length; i++) {
+      const ngram = ngramInfoList[i];
+      const results = searchResults[i];
+      
+      if (results.exact.length > 0 || results.fuzzy.length > 0) {
+        ngramResults.push({
+          ...ngram,
+          searchResults: results
+        });
+      }
+    }
+    
+    return ngramResults;
+  }
+
+  /**
+   * Match tokens with priority given to longer n-grams
+   * @param {Array<string>} tokens - Original tokens
+   * @param {Array} ngramResults - N-gram search results
+   * @param {number} maxCandidates - Max candidates per match
+   * @param {boolean} includeLabels - Whether to include labels
+   * @returns {Array} - Array of matched items for the sequence
+   */
+  matchTokensWithPriority(tokens, ngramResults, maxCandidates, includeLabels) {
+    const matches = [];
+    const usedTokenIndices = new Set();
+    
+    // Sort n-gram results by size (descending) to prioritize longer matches
+    const sortedNgrams = ngramResults.sort((a, b) => b.size - a.size);
+    
+    // Process n-grams in order of size
+    for (const ngram of sortedNgrams) {
+      // Check if any token in this n-gram is already used
+      let isUsed = false;
+      for (let i = ngram.start; i <= ngram.end; i++) {
+        if (usedTokenIndices.has(i)) {
+          isUsed = true;
+          break;
+        }
+      }
+      
+      if (!isUsed) {
+        // Mark all tokens in this n-gram as used
+        for (let i = ngram.start; i <= ngram.end; i++) {
+          usedTokenIndices.add(i);
+        }
+        
+        // Process candidates and add to matches
+        const candidates = this.processCandidates(ngram.searchResults, maxCandidates);
+        if (candidates.length > 0) {
+          const qpItem = this.formatCandidates(candidates, includeLabels);
+          matches.push({
+            ...qpItem,
+            position: ngram.start, // Track position for proper ordering
+            ngramSize: ngram.size,
+            originalText: ngram.text // Keep track of original text for debugging
+          });
+        }
+      }
+    }
+    
+    // Sort matches by position to maintain original order
+    matches.sort((a, b) => a.position - b.position);
+    
+    // Remove only position info before returning, keep ngramSize and originalText
+    return matches.map(match => {
+      const { position, ...item } = match;
+      return item;
+    });
   }
 
   /**
@@ -256,9 +356,9 @@ class TextToQPTransformer {
           const ids = item.id.match(/[QP]\d+/g) || [];
           const linkedIds = ids.map(id => {
             if (id.startsWith('Q')) {
-              return `<a href="entities.html#${id}" target="_blank">${id}</a>`;
+              return `<a href="../entities.html#${id}" target="_blank">${id}</a>`;
             } else if (id.startsWith('P')) {
-              return `<a href="properties.html#${id}" target="_blank">${id}</a>`;
+              return `<a href="../properties.html#${id}" target="_blank">${id}</a>`;
             }
             return id;
           });
@@ -268,9 +368,9 @@ class TextToQPTransformer {
           // Single ID
           const id = item.id;
           if (id.startsWith('Q')) {
-            return `<a href="entities.html#${id}" target="_blank">${id}</a>`;
+            return `<a href="../entities.html#${id}" target="_blank">${id}</a>`;
           } else if (id.startsWith('P')) {
-            return `<a href="properties.html#${id}" target="_blank">${id}</a>`;
+            return `<a href="../properties.html#${id}" target="_blank">${id}</a>`;
           }
           return id;
         }

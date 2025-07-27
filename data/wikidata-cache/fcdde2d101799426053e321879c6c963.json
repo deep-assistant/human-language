@@ -1,0 +1,175 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q6501749",
+        "title": "Q6501749",
+        "pageid": 6320685,
+        "concepturi": "http://www.wikidata.org/entity/Q6501749",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q6501749",
+        "display": {
+          "label": {
+            "value": "general secretary",
+            "language": "en"
+          },
+          "description": {
+            "value": "leader or chief officer of an organisation",
+            "language": "en"
+          }
+        },
+        "label": "general secretary",
+        "description": "leader or chief officer of an organisation",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "secretary-general"
+        },
+        "aliases": [
+          "secretary-general"
+        ]
+      },
+      {
+        "id": "Q81066",
+        "title": "Q81066",
+        "pageid": 83537,
+        "concepturi": "http://www.wikidata.org/entity/Q81066",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q81066",
+        "display": {
+          "label": {
+            "value": "United Nations Secretary-General",
+            "language": "en"
+          },
+          "description": {
+            "value": "chief administrative officer and head of the United Nations",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Secretary-General",
+        "description": "chief administrative officer and head of the United Nations",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Secretary-General of the United Nations"
+        },
+        "aliases": [
+          "Secretary-General of the United Nations"
+        ]
+      },
+      {
+        "id": "Q2003810",
+        "title": "Q2003810",
+        "pageid": 1932172,
+        "concepturi": "http://www.wikidata.org/entity/Q2003810",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2003810",
+        "display": {
+          "label": {
+            "value": "secretary general",
+            "language": "en"
+          },
+          "description": {
+            "value": "highest non-political official of a Dutch ministry",
+            "language": "en"
+          }
+        },
+        "label": "secretary general",
+        "description": "highest non-political official of a Dutch ministry",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "secretary general"
+        }
+      },
+      {
+        "id": "Q10855085",
+        "title": "Q10855085",
+        "pageid": 12127331,
+        "concepturi": "http://www.wikidata.org/entity/Q10855085",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q10855085",
+        "display": {
+          "label": {
+            "value": "secretary general",
+            "language": "en"
+          },
+          "description": {
+            "value": "position",
+            "language": "en"
+          }
+        },
+        "label": "secretary general",
+        "description": "position",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "secretary general"
+        }
+      },
+      {
+        "id": "Q112186567",
+        "title": "Q112186567",
+        "pageid": 107090252,
+        "concepturi": "http://www.wikidata.org/entity/Q112186567",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q112186567",
+        "display": {
+          "label": {
+            "value": "Secretary General",
+            "language": "en"
+          },
+          "description": {
+            "value": "government position in Equatorial Guinea",
+            "language": "en"
+          }
+        },
+        "label": "Secretary General",
+        "description": "government position in Equatorial Guinea",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Secretary General"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P3975",
+        "title": "Property:P3975",
+        "pageid": 31629028,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P3975",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3975",
+        "display": {
+          "label": {
+            "value": "general secretary",
+            "language": "en"
+          },
+          "description": {
+            "value": "leader of a political or international organization, sometimes below the chairperson (P488)",
+            "language": "en"
+          }
+        },
+        "label": "general secretary",
+        "description": "leader of a political or international organization, sometimes below the chairperson (P488)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "secretary general"
+        },
+        "aliases": [
+          "secretary general"
+        ]
+      }
+    ],
+    "total": 6
+  },
+  "timestamp": 1753634615515,
+  "ttl": 86400000,
+  "query": "fuzzy_Secretary General",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

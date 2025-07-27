@@ -1,0 +1,154 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q35657",
+        "title": "Q35657",
+        "pageid": 38328,
+        "concepturi": "http://www.wikidata.org/entity/Q35657",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q35657",
+        "display": {
+          "label": {
+            "value": "U.S. state",
+            "language": "en"
+          },
+          "description": {
+            "value": "constituent political entity of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "U.S. state",
+        "description": "constituent political entity of the United States of America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "states of the United States"
+        },
+        "aliases": [
+          "states of the United States"
+        ]
+      },
+      {
+        "id": "Q170174",
+        "title": "Q170174",
+        "pageid": 170528,
+        "concepturi": "http://www.wikidata.org/entity/Q170174",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q170174",
+        "display": {
+          "label": {
+            "value": "Papal States",
+            "language": "en"
+          },
+          "description": {
+            "value": "territories mostly in the Appenine Peninsula under the sovereign direct rule of the pope between 756–1870",
+            "language": "en"
+          }
+        },
+        "label": "Papal States",
+        "description": "territories mostly in the Appenine Peninsula under the sovereign direct rule of the pope between 756–1870",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "States of the Church"
+        },
+        "aliases": [
+          "States of the Church"
+        ]
+      },
+      {
+        "id": "Q1221156",
+        "title": "Q1221156",
+        "pageid": 1162750,
+        "concepturi": "http://www.wikidata.org/entity/Q1221156",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1221156",
+        "display": {
+          "label": {
+            "value": "federated state of Germany",
+            "language": "en"
+          },
+          "description": {
+            "value": "administrative division of the Federal Republic of Germany",
+            "language": "en"
+          }
+        },
+        "label": "federated state of Germany",
+        "description": "administrative division of the Federal Republic of Germany",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "States of Germany"
+        },
+        "aliases": [
+          "States of Germany"
+        ]
+      },
+      {
+        "id": "Q185441",
+        "title": "Q185441",
+        "pageid": 184294,
+        "concepturi": "http://www.wikidata.org/entity/Q185441",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q185441",
+        "display": {
+          "label": {
+            "value": "member state of the European Union",
+            "language": "en"
+          },
+          "description": {
+            "value": "sovereign states that form the European Union",
+            "language": "en"
+          }
+        },
+        "label": "member state of the European Union",
+        "description": "sovereign states that form the European Union",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "States of the Union"
+        },
+        "aliases": [
+          "States of the Union"
+        ]
+      },
+      {
+        "id": "Q501094",
+        "title": "Q501094",
+        "pageid": 471336,
+        "concepturi": "http://www.wikidata.org/entity/Q501094",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q501094",
+        "display": {
+          "label": {
+            "value": "state of Venezuela",
+            "language": "en"
+          },
+          "description": {
+            "value": "first-level administrative division in Venezuela",
+            "language": "en"
+          }
+        },
+        "label": "state of Venezuela",
+        "description": "first-level administrative division in Venezuela",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "states of Venezuela"
+        },
+        "aliases": [
+          "states of Venezuela"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634612558,
+  "ttl": 86400000,
+  "query": "States of",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

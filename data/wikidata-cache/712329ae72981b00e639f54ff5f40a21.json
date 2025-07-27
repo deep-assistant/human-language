@@ -1,0 +1,142 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q83186",
+        "title": "Q83186",
+        "pageid": 85589,
+        "concepturi": "http://www.wikidata.org/entity/Q83186",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q83186",
+        "display": {
+          "label": {
+            "value": "Romeo and Juliet",
+            "language": "en"
+          },
+          "description": {
+            "value": "tragedy by William Shakespeare",
+            "language": "en"
+          }
+        },
+        "label": "Romeo and Juliet",
+        "description": "tragedy by William Shakespeare",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Romeo and Juliet"
+        }
+      },
+      {
+        "id": "Q19101569",
+        "title": "Q19101569",
+        "pageid": 20665843,
+        "concepturi": "http://www.wikidata.org/entity/Q19101569",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q19101569",
+        "display": {
+          "label": {
+            "value": "Romeo and Juliet",
+            "language": "en"
+          },
+          "description": {
+            "value": "version included in Shakespeare's Plays: With His Life, The Illustrated Shakespeare edition, Vol. III: Tragedies, edited by Gulian C. Verplanck",
+            "language": "en"
+          }
+        },
+        "label": "Romeo and Juliet",
+        "description": "version included in Shakespeare's Plays: With His Life, The Illustrated Shakespeare edition, Vol. III: Tragedies, edited by Gulian C. Verplanck",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Romeo and Juliet"
+        }
+      },
+      {
+        "id": "Q463313",
+        "title": "Q463313",
+        "pageid": 436995,
+        "concepturi": "http://www.wikidata.org/entity/Q463313",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q463313",
+        "display": {
+          "label": {
+            "value": "Romeo + Juliet",
+            "language": "en"
+          },
+          "description": {
+            "value": "1996 film directed by Baz Luhrmann",
+            "language": "en"
+          }
+        },
+        "label": "Romeo + Juliet",
+        "description": "1996 film directed by Baz Luhrmann",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Romeo And Juliet (Luhrmann)"
+        },
+        "aliases": [
+          "Romeo And Juliet (Luhrmann)"
+        ]
+      },
+      {
+        "id": "Q517265",
+        "title": "Q517265",
+        "pageid": 486507,
+        "concepturi": "http://www.wikidata.org/entity/Q517265",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q517265",
+        "display": {
+          "label": {
+            "value": "Romeo and Juliet",
+            "language": "en"
+          },
+          "description": {
+            "value": "1968 film by Franco Zeffirelli",
+            "language": "en"
+          }
+        },
+        "label": "Romeo and Juliet",
+        "description": "1968 film by Franco Zeffirelli",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Romeo and Juliet"
+        }
+      },
+      {
+        "id": "Q1081181",
+        "title": "Q1081181",
+        "pageid": 1029274,
+        "concepturi": "http://www.wikidata.org/entity/Q1081181",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1081181",
+        "display": {
+          "label": {
+            "value": "Romeo and Juliet",
+            "language": "en"
+          },
+          "description": {
+            "value": "1936 film by George Cukor",
+            "language": "en"
+          }
+        },
+        "label": "Romeo and Juliet",
+        "description": "1936 film by George Cukor",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Romeo and Juliet"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634617988,
+  "ttl": 86400000,
+  "query": "Romeo and",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

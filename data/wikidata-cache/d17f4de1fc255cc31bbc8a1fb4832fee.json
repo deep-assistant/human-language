@@ -1,0 +1,140 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q11696",
+        "title": "Q11696",
+        "pageid": 13235,
+        "concepturi": "http://www.wikidata.org/entity/Q11696",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q11696",
+        "display": {
+          "label": {
+            "value": "President of the United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "head of state and head of government of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "President of the United States",
+        "description": "head of state and head of government of the United States of America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the president of the United States"
+        },
+        "aliases": [
+          "the president of the United States"
+        ]
+      },
+      {
+        "id": "Q524901",
+        "title": "Q524901",
+        "pageid": 493910,
+        "concepturi": "http://www.wikidata.org/entity/Q524901",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q524901",
+        "display": {
+          "label": {
+            "value": "seal of the president of the United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "seal",
+            "language": "en"
+          }
+        },
+        "label": "seal of the president of the United States",
+        "description": "seal",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the president of the United States seal"
+        },
+        "aliases": [
+          "the president of the United States seal"
+        ]
+      },
+      {
+        "id": "Q101408876",
+        "title": "Q101408876",
+        "pageid": 98730555,
+        "concepturi": "http://www.wikidata.org/entity/Q101408876",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q101408876",
+        "display": {
+          "label": {
+            "value": "The President of Vice: The Autobiography of Joe Biden",
+            "language": "en"
+          },
+          "description": {
+            "value": "2013 novel by The Onion",
+            "language": "en"
+          }
+        },
+        "label": "The President of Vice: The Autobiography of Joe Biden",
+        "description": "2013 novel by The Onion",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The President of Vice: The Autobiography of Joe Biden"
+        }
+      },
+      {
+        "id": "Q77248326",
+        "title": "Q77248326",
+        "pageid": 76715207,
+        "concepturi": "http://www.wikidata.org/entity/Q77248326",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q77248326",
+        "display": {
+          "label": {
+            "value": "The President of Supreme Audit Office",
+            "language": "en"
+          }
+        },
+        "label": "The President of Supreme Audit Office",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The President of Supreme Audit Office"
+        }
+      },
+      {
+        "id": "Q3988818",
+        "title": "Q3988818",
+        "pageid": 3803003,
+        "concepturi": "http://www.wikidata.org/entity/Q3988818",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q3988818",
+        "display": {
+          "label": {
+            "value": "The President of the LSD Golf Club",
+            "language": "en"
+          },
+          "description": {
+            "value": "album by Hooverphonic",
+            "language": "en"
+          }
+        },
+        "label": "The President of the LSD Golf Club",
+        "description": "album by Hooverphonic",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The President of the LSD Golf Club"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634617324,
+  "ttl": 86400000,
+  "query": "fuzzy_the President of",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

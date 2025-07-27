@@ -1,0 +1,151 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q597897",
+        "title": "Q597897",
+        "pageid": 562669,
+        "concepturi": "http://www.wikidata.org/entity/Q597897",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q597897",
+        "display": {
+          "label": {
+            "value": "nation",
+            "language": "en"
+          },
+          "description": {
+            "value": "student organisation",
+            "language": "en"
+          }
+        },
+        "label": "nation",
+        "description": "student organisation",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "nations"
+        },
+        "aliases": [
+          "nations"
+        ]
+      },
+      {
+        "id": "Q26213387",
+        "title": "Q26213387",
+        "pageid": 28165660,
+        "concepturi": "http://www.wikidata.org/entity/Q26213387",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q26213387",
+        "display": {
+          "label": {
+            "value": "Olympic delegation",
+            "language": "en"
+          },
+          "description": {
+            "value": "national or special sports team that participates at the Olympic Games",
+            "language": "en"
+          }
+        },
+        "label": "Olympic delegation",
+        "description": "national or special sports team that participates at the Olympic Games",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "nations at the Olympics"
+        },
+        "aliases": [
+          "nations at the Olympics"
+        ]
+      },
+      {
+        "id": "Q46195901",
+        "title": "Q46195901",
+        "pageid": 47334438,
+        "concepturi": "http://www.wikidata.org/entity/Q46195901",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q46195901",
+        "display": {
+          "label": {
+            "value": "Paralympics delegation",
+            "language": "en"
+          },
+          "description": {
+            "value": "national or special sports team that participate at the Paralympic games",
+            "language": "en"
+          }
+        },
+        "label": "Paralympics delegation",
+        "description": "national or special sports team that participate at the Paralympic games",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "nations at the Paralympics"
+        },
+        "aliases": [
+          "nations at the Paralympics"
+        ]
+      },
+      {
+        "id": "Q26887428",
+        "title": "Q26887428",
+        "pageid": 28798111,
+        "concepturi": "http://www.wikidata.org/entity/Q26887428",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q26887428",
+        "display": {
+          "label": {
+            "value": "nation at competition",
+            "language": "en"
+          },
+          "description": {
+            "value": "participation of a nation at a competition",
+            "language": "en"
+          }
+        },
+        "label": "nation at competition",
+        "description": "participation of a nation at a competition",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "nations at competitions"
+        },
+        "aliases": [
+          "nations at competitions"
+        ]
+      },
+      {
+        "id": "Q37069248",
+        "title": "Q37069248",
+        "pageid": 38448741,
+        "concepturi": "http://www.wikidata.org/entity/Q37069248",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q37069248",
+        "display": {
+          "label": {
+            "value": "Nations",
+            "language": "mul"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Nations",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "mul",
+          "text": "Nations"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634614811,
+  "ttl": 86400000,
+  "query": "Nations",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

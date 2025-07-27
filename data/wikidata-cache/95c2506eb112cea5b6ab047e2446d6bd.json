@@ -1,0 +1,285 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q83460",
+        "title": "Q83460",
+        "pageid": 85850,
+        "concepturi": "http://www.wikidata.org/entity/Q83460",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q83460",
+        "display": {
+          "label": {
+            "value": "general",
+            "language": "en"
+          },
+          "description": {
+            "value": "officer of high rank in the armies, and in some nations' air forces, space forces, or marines",
+            "language": "en"
+          }
+        },
+        "label": "general",
+        "description": "officer of high rank in the armies, and in some nations' air forces, space forces, or marines",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "general"
+        }
+      },
+      {
+        "id": "Q106644026",
+        "title": "Q106644026",
+        "pageid": 101923278,
+        "concepturi": "http://www.wikidata.org/entity/Q106644026",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q106644026",
+        "display": {
+          "label": {
+            "value": "general",
+            "language": "en"
+          },
+          "description": {
+            "value": "from underspecified for grammatical number",
+            "language": "en"
+          }
+        },
+        "label": "general",
+        "description": "from underspecified for grammatical number",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "general"
+        }
+      },
+      {
+        "id": "Q23790275",
+        "title": "Q23790275",
+        "pageid": 25790089,
+        "concepturi": "http://www.wikidata.org/entity/Q23790275",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q23790275",
+        "display": {
+          "label": {
+            "value": "G",
+            "language": "en"
+          },
+          "description": {
+            "value": "EIRIN film rating",
+            "language": "en"
+          }
+        },
+        "label": "G",
+        "description": "EIRIN film rating",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "General"
+        },
+        "aliases": [
+          "General"
+        ]
+      },
+      {
+        "id": "Q81965",
+        "title": "Q81965",
+        "pageid": 84409,
+        "concepturi": "http://www.wikidata.org/entity/Q81965",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q81965",
+        "display": {
+          "label": {
+            "value": "General Motors",
+            "language": "en"
+          },
+          "description": {
+            "value": "American automotive manufacturing corporation",
+            "language": "en"
+          }
+        },
+        "label": "General Motors",
+        "description": "American automotive manufacturing corporation",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "General Motors"
+        }
+      },
+      {
+        "id": "Q8277",
+        "title": "Q8277",
+        "pageid": 9573,
+        "concepturi": "http://www.wikidata.org/entity/Q8277",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q8277",
+        "display": {
+          "label": {
+            "value": "multiple sclerosis",
+            "language": "en"
+          },
+          "description": {
+            "value": "disease that damages the myelin sheaths around nerve axons",
+            "language": "en"
+          }
+        },
+        "label": "multiple sclerosis",
+        "description": "disease that damages the myelin sheaths around nerve axons",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "generalized multiple sclerosis"
+        },
+        "aliases": [
+          "generalized multiple sclerosis"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P8795",
+        "title": "Property:P8795",
+        "pageid": 98787394,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P8795",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P8795",
+        "display": {
+          "label": {
+            "value": "Diamond Catalog ID for persons and organisations",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a person or an organisation in the General Diamond Catalog",
+            "language": "en"
+          }
+        },
+        "label": "Diamond Catalog ID for persons and organisations",
+        "description": "identifier for a person or an organisation in the General Diamond Catalog",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "General Diamond ID"
+        },
+        "aliases": [
+          "General Diamond ID"
+        ]
+      },
+      {
+        "id": "P1037",
+        "title": "Property:P1037",
+        "pageid": 16872299,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1037",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1037",
+        "display": {
+          "label": {
+            "value": "director / manager",
+            "language": "en"
+          },
+          "description": {
+            "value": "person who manages any kind of group or organisation",
+            "language": "en"
+          }
+        },
+        "label": "director / manager",
+        "description": "person who manages any kind of group or organisation",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "general manager"
+        },
+        "aliases": [
+          "general manager"
+        ]
+      },
+      {
+        "id": "P2321",
+        "title": "Property:P2321",
+        "pageid": 23544475,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P2321",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2321",
+        "display": {
+          "label": {
+            "value": "general classification of race participants",
+            "language": "en"
+          },
+          "description": {
+            "value": "classification of race participants",
+            "language": "en"
+          }
+        },
+        "label": "general classification of race participants",
+        "description": "classification of race participants",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "general classification of race participants"
+        }
+      },
+      {
+        "id": "P9426",
+        "title": "Property:P9426",
+        "pageid": 101760637,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9426",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9426",
+        "display": {
+          "label": {
+            "value": "Generals of World War II ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "alphabetical identifier for a person on the Generals of World War II website at generals.dk",
+            "language": "en"
+          }
+        },
+        "label": "Generals of World War II ID",
+        "description": "alphabetical identifier for a person on the Generals of World War II website at generals.dk",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Generals of World War II ID"
+        }
+      },
+      {
+        "id": "P193",
+        "title": "Property:P193",
+        "pageid": 5949345,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P193",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P193",
+        "display": {
+          "label": {
+            "value": "main building contractor",
+            "language": "en"
+          },
+          "description": {
+            "value": "the main organization (or person) responsible for construction of this structure or building",
+            "language": "en"
+          }
+        },
+        "label": "main building contractor",
+        "description": "the main organization (or person) responsible for construction of this structure or building",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "general contractor"
+        },
+        "aliases": [
+          "general contractor"
+        ]
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634615600,
+  "ttl": 86400000,
+  "query": "fuzzy_General",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

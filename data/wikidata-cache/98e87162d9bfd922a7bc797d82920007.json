@@ -1,0 +1,145 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q30",
+        "title": "Q30",
+        "pageid": 126,
+        "concepturi": "http://www.wikidata.org/entity/Q30",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30",
+        "display": {
+          "label": {
+            "value": "United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "country located primarily in North America",
+            "language": "en"
+          }
+        },
+        "label": "United States",
+        "description": "country located primarily in North America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States of America"
+        },
+        "aliases": [
+          "United States of America"
+        ]
+      },
+      {
+        "id": "Q105870683",
+        "title": "Q105870683",
+        "pageid": 101217582,
+        "concepturi": "http://www.wikidata.org/entity/Q105870683",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q105870683",
+        "display": {
+          "label": {
+            "value": "United States of America",
+            "language": "en"
+          },
+          "description": {
+            "value": "vocal track by Kikki Danielsson; 1980 studio recording",
+            "language": "en"
+          }
+        },
+        "label": "United States of America",
+        "description": "vocal track by Kikki Danielsson; 1980 studio recording",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States of America"
+        }
+      },
+      {
+        "id": "Q99281400",
+        "title": "Q99281400",
+        "pageid": 97269448,
+        "concepturi": "http://www.wikidata.org/entity/Q99281400",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q99281400",
+        "display": {
+          "label": {
+            "value": "United States of America",
+            "language": "en"
+          },
+          "description": {
+            "value": "country of the United States of America as depicted in Star Trek",
+            "language": "en"
+          }
+        },
+        "label": "United States of America",
+        "description": "country of the United States of America as depicted in Star Trek",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States of America"
+        }
+      },
+      {
+        "id": "Q104146934",
+        "title": "Q104146934",
+        "pageid": 99616542,
+        "concepturi": "http://www.wikidata.org/entity/Q104146934",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q104146934",
+        "display": {
+          "label": {
+            "value": "United States of America state-level electoral district",
+            "language": "en"
+          },
+          "description": {
+            "value": "state-level electoral district within the United States",
+            "language": "en"
+          }
+        },
+        "label": "United States of America state-level electoral district",
+        "description": "state-level electoral district within the United States",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States of America state-level electoral district"
+        }
+      },
+      {
+        "id": "Q20571325",
+        "title": "Q20571325",
+        "pageid": 22318927,
+        "concepturi": "http://www.wikidata.org/entity/Q20571325",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q20571325",
+        "display": {
+          "label": {
+            "value": "USA (United States of America)",
+            "language": "en"
+          },
+          "description": {
+            "value": "Wikimedia permanent duplicate item",
+            "language": "en"
+          }
+        },
+        "label": "USA (United States of America)",
+        "description": "Wikimedia permanent duplicate item",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States of America"
+        },
+        "aliases": [
+          "United States of America"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634613227,
+  "ttl": 86400000,
+  "query": "fuzzy_United States of America",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

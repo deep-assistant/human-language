@@ -1,0 +1,64 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q125900590",
+        "title": "Q125900590",
+        "pageid": 119987304,
+        "concepturi": "http://www.wikidata.org/entity/Q125900590",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q125900590",
+        "display": {
+          "label": {
+            "value": "In Hawaii, new state panel stirs hope for giant telescope",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific article published on 12 January 2023",
+            "language": "en"
+          }
+        },
+        "label": "In Hawaii, new state panel stirs hope for giant telescope",
+        "description": "scientific article published on 12 January 2023",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "In Hawaii, new state panel stirs hope for giant telescope"
+        }
+      },
+      {
+        "id": "Q81213776",
+        "title": "Q81213776",
+        "pageid": 80579324,
+        "concepturi": "http://www.wikidata.org/entity/Q81213776",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q81213776",
+        "display": {
+          "label": {
+            "value": "In hawaii, taking inventory of a biological hot spot",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific article published on 01 July 1995",
+            "language": "en"
+          }
+        },
+        "label": "In hawaii, taking inventory of a biological hot spot",
+        "description": "scientific article published on 01 July 1995",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "In hawaii, taking inventory of a biological hot spot"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 2
+  },
+  "timestamp": 1753634607329,
+  "ttl": 86400000,
+  "query": "fuzzy_in Hawaii",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

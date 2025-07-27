@@ -1,0 +1,42 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q49765",
+        "title": "Q49765",
+        "pageid": 51810,
+        "concepturi": "http://www.wikidata.org/entity/Q49765",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q49765",
+        "display": {
+          "label": {
+            "value": "Louis XVII of France",
+            "language": "en"
+          },
+          "description": {
+            "value": "heir of the French throne",
+            "language": "en"
+          }
+        },
+        "label": "Louis XVII of France",
+        "description": "heir of the French throne",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "of France Louis XVII"
+        },
+        "aliases": [
+          "of France Louis XVII"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 1
+  },
+  "timestamp": 1753634611734,
+  "ttl": 86400000,
+  "query": "fuzzy_of France",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

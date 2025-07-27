@@ -1,8 +1,8 @@
 {
-  "timestamp": "2025-07-27T12:14:57.801Z",
+  "timestamp": "2025-07-27T16:46:42.813Z",
   "testResults": {
-    "passed": 6,
-    "total": 6,
+    "passed": 8,
+    "total": 8,
     "successRate": 100,
     "results": [
       {
@@ -10,7 +10,7 @@
         "result": {
           "passed": true,
           "reason": "E2E test produced results from real API",
-          "output": "[Q76 or Q18643532 or Q37011990] [Q18355807 or Q76 or Q41773] [P577 or P7943 or P9330] [P569 or P19 or P1477] [Q782 or Q18703903 or Q68740]",
+          "output": "[Q76 or Q649593 or Q59661289] [P577 or P7943 or P9330] P19 [Q782 or Q18703903 or Q68740]",
           "tokens": [
             "Barack",
             "Obama",
@@ -19,11 +19,11 @@
             "in",
             "Hawaii"
           ],
-          "sequenceLength": 5,
+          "sequenceLength": 4,
           "detailedSequence": [
             {
-              "id": "[Q76 or Q18643532 or Q37011990]",
-              "label": "[Barack Obama or Barack or Barack]",
+              "id": "[Q76 or Q649593 or Q59661289]",
+              "label": "[Barack Obama or Barack Obama Sr. or Barack Obama Presidential Library]",
               "type": "ambiguous",
               "alternatives": [
                 {
@@ -34,48 +34,22 @@
                   "matchType": "exact"
                 },
                 {
-                  "id": "Q18643532",
-                  "label": "Barack",
-                  "description": "male given name",
+                  "id": "Q649593",
+                  "label": "Barack Obama Sr.",
+                  "description": "Economist, father of Barack Obama Jr. (1934–1982)",
                   "type": "entity",
                   "matchType": "exact"
                 },
                 {
-                  "id": "Q37011990",
-                  "label": "Barack",
-                  "description": "family name",
+                  "id": "Q59661289",
+                  "label": "Barack Obama Presidential Library",
+                  "description": "reference unit of the National Archives and Records Administration",
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
-            },
-            {
-              "id": "[Q18355807 or Q76 or Q41773]",
-              "label": "[Obama or Barack Obama or Obama]",
-              "type": "ambiguous",
-              "alternatives": [
-                {
-                  "id": "Q18355807",
-                  "label": "Obama",
-                  "description": "genus of worms",
-                  "type": "entity",
-                  "matchType": "exact"
-                },
-                {
-                  "id": "Q76",
-                  "label": "Barack Obama",
-                  "description": "president of the United States from 2009 to 2017",
-                  "type": "entity",
-                  "matchType": "exact"
-                },
-                {
-                  "id": "Q41773",
-                  "label": "Obama",
-                  "description": "city in Fukui prefecture, Japan",
-                  "type": "entity",
-                  "matchType": "exact"
-                }
-              ]
+              ],
+              "ngramSize": 2,
+              "originalText": "Barack Obama"
             },
             {
               "id": "[P577 or P7943 or P9330]",
@@ -103,35 +77,17 @@
                   "type": "property",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "was"
             },
             {
-              "id": "[P569 or P19 or P1477]",
-              "label": "[date of birth or place of birth or birth name]",
-              "type": "ambiguous",
-              "alternatives": [
-                {
-                  "id": "P569",
-                  "label": "date of birth",
-                  "description": "date on which the subject was born",
-                  "type": "property",
-                  "matchType": "exact"
-                },
-                {
-                  "id": "P19",
-                  "label": "place of birth",
-                  "description": "most specific known birth location of a person, animal or fictional character",
-                  "type": "property",
-                  "matchType": "exact"
-                },
-                {
-                  "id": "P1477",
-                  "label": "birth name",
-                  "description": "full name of a person at birth, if different from their current, generally used name",
-                  "type": "property",
-                  "matchType": "exact"
-                }
-              ]
+              "id": "P19",
+              "label": "place of birth",
+              "type": "property",
+              "alternatives": [],
+              "ngramSize": 2,
+              "originalText": "born in"
             },
             {
               "id": "[Q782 or Q18703903 or Q68740]",
@@ -159,7 +115,9 @@
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "Hawaii"
             }
           ],
           "rawResult": {
@@ -174,8 +132,8 @@
             ],
             "sequence": [
               {
-                "id": "[Q76 or Q18643532 or Q37011990]",
-                "label": "[Barack Obama or Barack or Barack]",
+                "id": "[Q76 or Q649593 or Q59661289]",
+                "label": "[Barack Obama or Barack Obama Sr. or Barack Obama Presidential Library]",
                 "type": "ambiguous",
                 "alternatives": [
                   {
@@ -186,48 +144,22 @@
                     "matchType": "exact"
                   },
                   {
-                    "id": "Q18643532",
-                    "label": "Barack",
-                    "description": "male given name",
+                    "id": "Q649593",
+                    "label": "Barack Obama Sr.",
+                    "description": "Economist, father of Barack Obama Jr. (1934–1982)",
                     "type": "entity",
                     "matchType": "exact"
                   },
                   {
-                    "id": "Q37011990",
-                    "label": "Barack",
-                    "description": "family name",
+                    "id": "Q59661289",
+                    "label": "Barack Obama Presidential Library",
+                    "description": "reference unit of the National Archives and Records Administration",
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
-              },
-              {
-                "id": "[Q18355807 or Q76 or Q41773]",
-                "label": "[Obama or Barack Obama or Obama]",
-                "type": "ambiguous",
-                "alternatives": [
-                  {
-                    "id": "Q18355807",
-                    "label": "Obama",
-                    "description": "genus of worms",
-                    "type": "entity",
-                    "matchType": "exact"
-                  },
-                  {
-                    "id": "Q76",
-                    "label": "Barack Obama",
-                    "description": "president of the United States from 2009 to 2017",
-                    "type": "entity",
-                    "matchType": "exact"
-                  },
-                  {
-                    "id": "Q41773",
-                    "label": "Obama",
-                    "description": "city in Fukui prefecture, Japan",
-                    "type": "entity",
-                    "matchType": "exact"
-                  }
-                ]
+                ],
+                "ngramSize": 2,
+                "originalText": "Barack Obama"
               },
               {
                 "id": "[P577 or P7943 or P9330]",
@@ -255,35 +187,17 @@
                     "type": "property",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "was"
               },
               {
-                "id": "[P569 or P19 or P1477]",
-                "label": "[date of birth or place of birth or birth name]",
-                "type": "ambiguous",
-                "alternatives": [
-                  {
-                    "id": "P569",
-                    "label": "date of birth",
-                    "description": "date on which the subject was born",
-                    "type": "property",
-                    "matchType": "exact"
-                  },
-                  {
-                    "id": "P19",
-                    "label": "place of birth",
-                    "description": "most specific known birth location of a person, animal or fictional character",
-                    "type": "property",
-                    "matchType": "exact"
-                  },
-                  {
-                    "id": "P1477",
-                    "label": "birth name",
-                    "description": "full name of a person at birth, if different from their current, generally used name",
-                    "type": "property",
-                    "matchType": "exact"
-                  }
-                ]
+                "id": "P19",
+                "label": "place of birth",
+                "type": "property",
+                "alternatives": [],
+                "ngramSize": 2,
+                "originalText": "born in"
               },
               {
                 "id": "[Q782 or Q18703903 or Q68740]",
@@ -311,19 +225,22 @@
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "Hawaii"
               }
             ],
-            "formatted": "[Q76 or Q18643532 or Q37011990] [Q18355807 or Q76 or Q41773] [P577 or P7943 or P9330] [P569 or P19 or P1477] [Q782 or Q18703903 or Q68740]",
+            "formatted": "[Q76 or Q649593 or Q59661289] [P577 or P7943 or P9330] P19 [Q782 or Q18703903 or Q68740]",
             "alternatives": [
               {
-                "sequence": "Q76 Q18355807 P577 P569 Q782",
+                "sequence": "Q76 P577 P19 Q782",
                 "confidence": "low"
               }
-            ]
+            ],
+            "formattedWithLinks": "[<a href=\"entities.html#Q76\" target=\"_blank\">Q76</a> or <a href=\"entities.html#Q649593\" target=\"_blank\">Q649593</a> or <a href=\"entities.html#Q59661289\" target=\"_blank\">Q59661289</a>] [<a href=\"properties.html#P577\" target=\"_blank\">P577</a> or <a href=\"properties.html#P7943\" target=\"_blank\">P7943</a> or <a href=\"properties.html#P9330\" target=\"_blank\">P9330</a>] <a href=\"properties.html#P19\" target=\"_blank\">P19</a> [<a href=\"entities.html#Q782\" target=\"_blank\">Q782</a> or <a href=\"entities.html#Q18703903\" target=\"_blank\">Q18703903</a> or <a href=\"entities.html#Q68740\" target=\"_blank\">Q68740</a>]"
           }
         },
-        "duration": 11224
+        "duration": 8
       },
       {
         "testCase": "Simple person",
@@ -362,7 +279,9 @@
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "Einstein"
             }
           ],
           "rawResult": {
@@ -397,7 +316,9 @@
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "Einstein"
               }
             ],
             "formatted": "[Q16834800 or Q937 or Q1309274]",
@@ -406,17 +327,18 @@
                 "sequence": "Q16834800",
                 "confidence": "low"
               }
-            ]
+            ],
+            "formattedWithLinks": "[<a href=\"entities.html#Q16834800\" target=\"_blank\">Q16834800</a> or <a href=\"entities.html#Q937\" target=\"_blank\">Q937</a> or <a href=\"entities.html#Q1309274\" target=\"_blank\">Q1309274</a>]"
           }
         },
-        "duration": 1317
+        "duration": 2
       },
       {
         "testCase": "Capital city relation",
         "result": {
           "passed": true,
           "reason": "E2E test produced results from real API",
-          "output": "[P1376 or P5607 or P6246] [P213 or P31 or P236] [Q5119 or Q193893 or Q60] [Q142 or Q3080569 or Q16275867]",
+          "output": "[P1376 or P5607 or P6246] [P279 or P3373 or P460] P1376 [Q142 or Q3080569 or Q16275867]",
           "tokens": [
             "Paris",
             "is",
@@ -453,63 +375,47 @@
                   "type": "property",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "Paris"
             },
             {
-              "id": "[P213 or P31 or P236]",
-              "label": "[ISNI or instance of or ISSN]",
+              "id": "[P279 or P3373 or P460]",
+              "label": "[subclass of or sibling or said to be the same as]",
               "type": "ambiguous",
               "alternatives": [
                 {
-                  "id": "P213",
-                  "label": "ISNI",
-                  "description": "International Standard Name Identifier for an identity. Starting with 0000.",
+                  "id": "P279",
+                  "label": "subclass of",
+                  "description": "this item is a subclass (subset) of that item; ALL instances of this item are instances of that item; different from P31 (instance of), e.g.: volcano is a subclass of mountain (and an instance of volcanic landform); Everest is an instance of mountain",
                   "type": "property",
                   "matchType": "exact"
                 },
                 {
-                  "id": "P31",
-                  "label": "instance of",
-                  "description": "type to which this subject corresponds/belongs. Different from P279 (subclass of); for example: K2 is an instance of mountain; volcanoes form a subclass of mountains",
+                  "id": "P3373",
+                  "label": "sibling",
+                  "description": "the subject and the object have at least one common parent (brother, sister, etc. including half-siblings); use \"relative\" (P1038) for siblings-in-law (brother-in-law, sister-in-law, etc.) and step-siblings (step-brothers, step-sisters, etc.)",
                   "type": "property",
                   "matchType": "exact"
                 },
                 {
-                  "id": "P236",
-                  "label": "ISSN",
-                  "description": "International Standard Serial Number (print or electronic)",
+                  "id": "P460",
+                  "label": "said to be the same as",
+                  "description": "this item is said to be the same as that item, though this may be uncertain or disputed",
                   "type": "property",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 2,
+              "originalText": "is the"
             },
             {
-              "id": "[Q5119 or Q193893 or Q60]",
-              "label": "[capital city or capital or New York City]",
-              "type": "ambiguous",
-              "alternatives": [
-                {
-                  "id": "Q5119",
-                  "label": "capital city",
-                  "description": "primary governing city of a top-level (country) or first-level and second-level subdivision (country, state, province, regency, etc) political entity",
-                  "type": "entity",
-                  "matchType": "exact"
-                },
-                {
-                  "id": "Q193893",
-                  "label": "capital",
-                  "description": "upper part of a column (architecture)",
-                  "type": "entity",
-                  "matchType": "exact"
-                },
-                {
-                  "id": "Q60",
-                  "label": "New York City",
-                  "description": "most populous city in the United States",
-                  "type": "entity",
-                  "matchType": "exact"
-                }
-              ]
+              "id": "P1376",
+              "label": "capital of",
+              "type": "property",
+              "alternatives": [],
+              "ngramSize": 2,
+              "originalText": "capital of"
             },
             {
               "id": "[Q142 or Q3080569 or Q16275867]",
@@ -537,7 +443,9 @@
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "France"
             }
           ],
           "rawResult": {
@@ -577,63 +485,47 @@
                     "type": "property",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "Paris"
               },
               {
-                "id": "[P213 or P31 or P236]",
-                "label": "[ISNI or instance of or ISSN]",
+                "id": "[P279 or P3373 or P460]",
+                "label": "[subclass of or sibling or said to be the same as]",
                 "type": "ambiguous",
                 "alternatives": [
                   {
-                    "id": "P213",
-                    "label": "ISNI",
-                    "description": "International Standard Name Identifier for an identity. Starting with 0000.",
+                    "id": "P279",
+                    "label": "subclass of",
+                    "description": "this item is a subclass (subset) of that item; ALL instances of this item are instances of that item; different from P31 (instance of), e.g.: volcano is a subclass of mountain (and an instance of volcanic landform); Everest is an instance of mountain",
                     "type": "property",
                     "matchType": "exact"
                   },
                   {
-                    "id": "P31",
-                    "label": "instance of",
-                    "description": "type to which this subject corresponds/belongs. Different from P279 (subclass of); for example: K2 is an instance of mountain; volcanoes form a subclass of mountains",
+                    "id": "P3373",
+                    "label": "sibling",
+                    "description": "the subject and the object have at least one common parent (brother, sister, etc. including half-siblings); use \"relative\" (P1038) for siblings-in-law (brother-in-law, sister-in-law, etc.) and step-siblings (step-brothers, step-sisters, etc.)",
                     "type": "property",
                     "matchType": "exact"
                   },
                   {
-                    "id": "P236",
-                    "label": "ISSN",
-                    "description": "International Standard Serial Number (print or electronic)",
+                    "id": "P460",
+                    "label": "said to be the same as",
+                    "description": "this item is said to be the same as that item, though this may be uncertain or disputed",
                     "type": "property",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 2,
+                "originalText": "is the"
               },
               {
-                "id": "[Q5119 or Q193893 or Q60]",
-                "label": "[capital city or capital or New York City]",
-                "type": "ambiguous",
-                "alternatives": [
-                  {
-                    "id": "Q5119",
-                    "label": "capital city",
-                    "description": "primary governing city of a top-level (country) or first-level and second-level subdivision (country, state, province, regency, etc) political entity",
-                    "type": "entity",
-                    "matchType": "exact"
-                  },
-                  {
-                    "id": "Q193893",
-                    "label": "capital",
-                    "description": "upper part of a column (architecture)",
-                    "type": "entity",
-                    "matchType": "exact"
-                  },
-                  {
-                    "id": "Q60",
-                    "label": "New York City",
-                    "description": "most populous city in the United States",
-                    "type": "entity",
-                    "matchType": "exact"
-                  }
-                ]
+                "id": "P1376",
+                "label": "capital of",
+                "type": "property",
+                "alternatives": [],
+                "ngramSize": 2,
+                "originalText": "capital of"
               },
               {
                 "id": "[Q142 or Q3080569 or Q16275867]",
@@ -661,19 +553,22 @@
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "France"
               }
             ],
-            "formatted": "[P1376 or P5607 or P6246] [P213 or P31 or P236] [Q5119 or Q193893 or Q60] [Q142 or Q3080569 or Q16275867]",
+            "formatted": "[P1376 or P5607 or P6246] [P279 or P3373 or P460] P1376 [Q142 or Q3080569 or Q16275867]",
             "alternatives": [
               {
-                "sequence": "P1376 P213 Q5119 Q142",
+                "sequence": "P1376 P279 P1376 Q142",
                 "confidence": "low"
               }
-            ]
+            ],
+            "formattedWithLinks": "[<a href=\"properties.html#P1376\" target=\"_blank\">P1376</a> or <a href=\"properties.html#P5607\" target=\"_blank\">P5607</a> or <a href=\"properties.html#P6246\" target=\"_blank\">P6246</a>] [<a href=\"properties.html#P279\" target=\"_blank\">P279</a> or <a href=\"properties.html#P3373\" target=\"_blank\">P3373</a> or <a href=\"properties.html#P460\" target=\"_blank\">P460</a>] <a href=\"properties.html#P1376\" target=\"_blank\">P1376</a> [<a href=\"entities.html#Q142\" target=\"_blank\">Q142</a> or <a href=\"entities.html#Q3080569\" target=\"_blank\">Q3080569</a> or <a href=\"entities.html#Q16275867\" target=\"_blank\">Q16275867</a>]"
           }
         },
-        "duration": 6900
+        "duration": 5
       },
       {
         "testCase": "Scientific discovery",
@@ -714,7 +609,9 @@
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "Newton"
             },
             {
               "id": "[P575 or P61 or P65]",
@@ -742,7 +639,9 @@
                   "type": "property",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "discovered"
             },
             {
               "id": "[Q11412 or Q48791078 or Q76212719]",
@@ -770,7 +669,9 @@
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "gravity"
             }
           ],
           "rawResult": {
@@ -807,7 +708,9 @@
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "Newton"
               },
               {
                 "id": "[P575 or P61 or P65]",
@@ -835,7 +738,9 @@
                     "type": "property",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "discovered"
               },
               {
                 "id": "[Q11412 or Q48791078 or Q76212719]",
@@ -863,7 +768,9 @@
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "gravity"
               }
             ],
             "formatted": "[Q1469854 or Q979741 or Q49196] [P575 or P61 or P65] [Q11412 or Q48791078 or Q76212719]",
@@ -872,10 +779,11 @@
                 "sequence": "Q1469854 P575 Q11412",
                 "confidence": "low"
               }
-            ]
+            ],
+            "formattedWithLinks": "[<a href=\"entities.html#Q1469854\" target=\"_blank\">Q1469854</a> or <a href=\"entities.html#Q979741\" target=\"_blank\">Q979741</a> or <a href=\"entities.html#Q49196\" target=\"_blank\">Q49196</a>] [<a href=\"properties.html#P575\" target=\"_blank\">P575</a> or <a href=\"properties.html#P61\" target=\"_blank\">P61</a> or <a href=\"properties.html#P65\" target=\"_blank\">P65</a>] [<a href=\"entities.html#Q11412\" target=\"_blank\">Q11412</a> or <a href=\"entities.html#Q48791078\" target=\"_blank\">Q48791078</a> or <a href=\"entities.html#Q76212719\" target=\"_blank\">Q76212719</a>]"
           }
         },
-        "duration": 5264
+        "duration": 1628
       },
       {
         "testCase": "Creative work",
@@ -916,7 +824,9 @@
                   "type": "property",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "wrote"
             },
             {
               "id": "[Q5084 or Q43374750 or Q16276236]",
@@ -944,7 +854,9 @@
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "Hamlet"
             }
           ],
           "rawResult": {
@@ -981,7 +893,9 @@
                     "type": "property",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "wrote"
               },
               {
                 "id": "[Q5084 or Q43374750 or Q16276236]",
@@ -1009,7 +923,9 @@
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "Hamlet"
               }
             ],
             "formatted": "[P800 or P1412 or P6872] [Q5084 or Q43374750 or Q16276236]",
@@ -1018,17 +934,270 @@
                 "sequence": "P800 Q5084",
                 "confidence": "low"
               }
-            ]
+            ],
+            "formattedWithLinks": "[<a href=\"properties.html#P800\" target=\"_blank\">P800</a> or <a href=\"properties.html#P1412\" target=\"_blank\">P1412</a> or <a href=\"properties.html#P6872\" target=\"_blank\">P6872</a>] [<a href=\"entities.html#Q5084\" target=\"_blank\">Q5084</a> or <a href=\"entities.html#Q43374750\" target=\"_blank\">Q43374750</a> or <a href=\"entities.html#Q16276236\" target=\"_blank\">Q16276236</a>]"
           }
         },
-        "duration": 4726
+        "duration": 1364
+      },
+      {
+        "testCase": "N-gram: Multi-word entity",
+        "result": {
+          "passed": true,
+          "reason": "E2E test produced results from real API",
+          "output": "[Q11297 or Q41789437 or Q127066037]",
+          "tokens": [
+            "United",
+            "Nations",
+            "headquarters"
+          ],
+          "sequenceLength": 1,
+          "detailedSequence": [
+            {
+              "id": "[Q11297 or Q41789437 or Q127066037]",
+              "label": "[Headquarters of the United Nations or United Nations Headquarters District or United Nations Headquarters Medal]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q11297",
+                  "label": "Headquarters of the United Nations",
+                  "description": "group of buildings in New York City",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q41789437",
+                  "label": "United Nations Headquarters District",
+                  "description": "diplomatic region",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q127066037",
+                  "label": "United Nations Headquarters Medal",
+                  "description": "United Nations medal",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ],
+              "ngramSize": 3,
+              "originalText": "United Nations headquarters"
+            }
+          ],
+          "rawResult": {
+            "original": "United Nations headquarters",
+            "tokens": [
+              "United",
+              "Nations",
+              "headquarters"
+            ],
+            "sequence": [
+              {
+                "id": "[Q11297 or Q41789437 or Q127066037]",
+                "label": "[Headquarters of the United Nations or United Nations Headquarters District or United Nations Headquarters Medal]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q11297",
+                    "label": "Headquarters of the United Nations",
+                    "description": "group of buildings in New York City",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q41789437",
+                    "label": "United Nations Headquarters District",
+                    "description": "diplomatic region",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q127066037",
+                    "label": "United Nations Headquarters Medal",
+                    "description": "United Nations medal",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ],
+                "ngramSize": 3,
+                "originalText": "United Nations headquarters"
+              }
+            ],
+            "formatted": "[Q11297 or Q41789437 or Q127066037]",
+            "alternatives": [
+              {
+                "sequence": "Q11297",
+                "confidence": "low"
+              }
+            ],
+            "formattedWithLinks": "[<a href=\"entities.html#Q11297\" target=\"_blank\">Q11297</a> or <a href=\"entities.html#Q41789437\" target=\"_blank\">Q41789437</a> or <a href=\"entities.html#Q127066037\" target=\"_blank\">Q127066037</a>]"
+          }
+        },
+        "duration": 1
+      },
+      {
+        "testCase": "N-gram: Complex phrase",
+        "result": {
+          "passed": true,
+          "reason": "E2E test produced results from real API",
+          "output": "[Q7817 or Q2928049 or Q15757365] [Q2526255 or Q3455803 or Q3387717]",
+          "tokens": [
+            "World",
+            "Health",
+            "Organization",
+            "director"
+          ],
+          "sequenceLength": 2,
+          "detailedSequence": [
+            {
+              "id": "[Q7817 or Q2928049 or Q15757365]",
+              "label": "[World Health Organization or Bulletin of the World Health Organization or WHO Technical Report Series]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q7817",
+                  "label": "World Health Organization",
+                  "description": "United Nations agency concerned with international public health",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q2928049",
+                  "label": "Bulletin of the World Health Organization",
+                  "description": "scientific journal",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q15757365",
+                  "label": "WHO Technical Report Series",
+                  "description": "journal",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ],
+              "ngramSize": 3,
+              "originalText": "World Health Organization"
+            },
+            {
+              "id": "[Q2526255 or Q3455803 or Q3387717]",
+              "label": "[film director or director or theatrical director]",
+              "type": "ambiguous",
+              "alternatives": [
+                {
+                  "id": "Q2526255",
+                  "label": "film director",
+                  "description": "person who controls the artistic and dramatic aspects of a film production",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q3455803",
+                  "label": "director",
+                  "description": "director of a creative work",
+                  "type": "entity",
+                  "matchType": "exact"
+                },
+                {
+                  "id": "Q3387717",
+                  "label": "theatrical director",
+                  "description": "person overseeing the mounting of a theatre production",
+                  "type": "entity",
+                  "matchType": "exact"
+                }
+              ],
+              "ngramSize": 1,
+              "originalText": "director"
+            }
+          ],
+          "rawResult": {
+            "original": "World Health Organization director",
+            "tokens": [
+              "World",
+              "Health",
+              "Organization",
+              "director"
+            ],
+            "sequence": [
+              {
+                "id": "[Q7817 or Q2928049 or Q15757365]",
+                "label": "[World Health Organization or Bulletin of the World Health Organization or WHO Technical Report Series]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q7817",
+                    "label": "World Health Organization",
+                    "description": "United Nations agency concerned with international public health",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q2928049",
+                    "label": "Bulletin of the World Health Organization",
+                    "description": "scientific journal",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q15757365",
+                    "label": "WHO Technical Report Series",
+                    "description": "journal",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ],
+                "ngramSize": 3,
+                "originalText": "World Health Organization"
+              },
+              {
+                "id": "[Q2526255 or Q3455803 or Q3387717]",
+                "label": "[film director or director or theatrical director]",
+                "type": "ambiguous",
+                "alternatives": [
+                  {
+                    "id": "Q2526255",
+                    "label": "film director",
+                    "description": "person who controls the artistic and dramatic aspects of a film production",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q3455803",
+                    "label": "director",
+                    "description": "director of a creative work",
+                    "type": "entity",
+                    "matchType": "exact"
+                  },
+                  {
+                    "id": "Q3387717",
+                    "label": "theatrical director",
+                    "description": "person overseeing the mounting of a theatre production",
+                    "type": "entity",
+                    "matchType": "exact"
+                  }
+                ],
+                "ngramSize": 1,
+                "originalText": "director"
+              }
+            ],
+            "formatted": "[Q7817 or Q2928049 or Q15757365] [Q2526255 or Q3455803 or Q3387717]",
+            "alternatives": [
+              {
+                "sequence": "Q7817 Q2526255",
+                "confidence": "low"
+              }
+            ],
+            "formattedWithLinks": "[<a href=\"entities.html#Q7817\" target=\"_blank\">Q7817</a> or <a href=\"entities.html#Q2928049\" target=\"_blank\">Q2928049</a> or <a href=\"entities.html#Q15757365\" target=\"_blank\">Q15757365</a>] [<a href=\"entities.html#Q2526255\" target=\"_blank\">Q2526255</a> or <a href=\"entities.html#Q3455803\" target=\"_blank\">Q3455803</a> or <a href=\"entities.html#Q3387717\" target=\"_blank\">Q3387717</a>]"
+          }
+        },
+        "duration": 1726
       },
       {
         "testCase": "Family relation",
         "result": {
           "passed": true,
           "reason": "E2E test produced results from real API",
-          "output": "[Q385468 or Q9682 or Q37118203] [P213 or P31 or P236] [Q7560 or Q30949692 or Q345] [Q2958359 or Q16865501 or Q984568]",
+          "output": "[Q385468 or Q9682 or Q37118203] [P213 or P31 or P236] [Q11771555 or Q272783 or Q226122] [Q2958359 or Q16865501 or Q984568]",
           "tokens": [
             "Elizabeth",
             "is",
@@ -1065,7 +1234,9 @@
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "Elizabeth"
             },
             {
               "id": "[P213 or P31 or P236]",
@@ -1093,35 +1264,39 @@
                   "type": "property",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "is"
             },
             {
-              "id": "[Q7560 or Q30949692 or Q345]",
-              "label": "[mother or Mother or Mary]",
+              "id": "[Q11771555 or Q272783 or Q226122]",
+              "label": "[The Mother of God of Trakai or Safi Faye or Funmilayo Ransome-Kuti]",
               "type": "ambiguous",
               "alternatives": [
                 {
-                  "id": "Q7560",
-                  "label": "mother",
-                  "description": "female parent",
+                  "id": "Q11771555",
+                  "label": "The Mother of God of Trakai",
+                  "description": "religious icon in Lithuania",
                   "type": "entity",
                   "matchType": "exact"
                 },
                 {
-                  "id": "Q30949692",
-                  "label": "Mother",
-                  "description": "South Korean television series",
+                  "id": "Q272783",
+                  "label": "Safi Faye",
+                  "description": "Senegalese ethnologist and film director (1943–2023)",
                   "type": "entity",
                   "matchType": "exact"
                 },
                 {
-                  "id": "Q345",
-                  "label": "Mary",
-                  "description": "mother of Jesus",
+                  "id": "Q226122",
+                  "label": "Funmilayo Ransome-Kuti",
+                  "description": "Nigerian educator, political campaigner, suffragist, and women's rights activist",
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 3,
+              "originalText": "the mother of"
             },
             {
               "id": "[Q2958359 or Q16865501 or Q984568]",
@@ -1149,7 +1324,9 @@
                   "type": "entity",
                   "matchType": "exact"
                 }
-              ]
+              ],
+              "ngramSize": 1,
+              "originalText": "Charles"
             }
           ],
           "rawResult": {
@@ -1189,7 +1366,9 @@
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "Elizabeth"
               },
               {
                 "id": "[P213 or P31 or P236]",
@@ -1217,35 +1396,39 @@
                     "type": "property",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "is"
               },
               {
-                "id": "[Q7560 or Q30949692 or Q345]",
-                "label": "[mother or Mother or Mary]",
+                "id": "[Q11771555 or Q272783 or Q226122]",
+                "label": "[The Mother of God of Trakai or Safi Faye or Funmilayo Ransome-Kuti]",
                 "type": "ambiguous",
                 "alternatives": [
                   {
-                    "id": "Q7560",
-                    "label": "mother",
-                    "description": "female parent",
+                    "id": "Q11771555",
+                    "label": "The Mother of God of Trakai",
+                    "description": "religious icon in Lithuania",
                     "type": "entity",
                     "matchType": "exact"
                   },
                   {
-                    "id": "Q30949692",
-                    "label": "Mother",
-                    "description": "South Korean television series",
+                    "id": "Q272783",
+                    "label": "Safi Faye",
+                    "description": "Senegalese ethnologist and film director (1943–2023)",
                     "type": "entity",
                     "matchType": "exact"
                   },
                   {
-                    "id": "Q345",
-                    "label": "Mary",
-                    "description": "mother of Jesus",
+                    "id": "Q226122",
+                    "label": "Funmilayo Ransome-Kuti",
+                    "description": "Nigerian educator, political campaigner, suffragist, and women's rights activist",
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 3,
+                "originalText": "the mother of"
               },
               {
                 "id": "[Q2958359 or Q16865501 or Q984568]",
@@ -1273,22 +1456,25 @@
                     "type": "entity",
                     "matchType": "exact"
                   }
-                ]
+                ],
+                "ngramSize": 1,
+                "originalText": "Charles"
               }
             ],
-            "formatted": "[Q385468 or Q9682 or Q37118203] [P213 or P31 or P236] [Q7560 or Q30949692 or Q345] [Q2958359 or Q16865501 or Q984568]",
+            "formatted": "[Q385468 or Q9682 or Q37118203] [P213 or P31 or P236] [Q11771555 or Q272783 or Q226122] [Q2958359 or Q16865501 or Q984568]",
             "alternatives": [
               {
-                "sequence": "Q385468 P213 Q7560 Q2958359",
+                "sequence": "Q385468 P213 Q11771555 Q2958359",
                 "confidence": "low"
               }
-            ]
+            ],
+            "formattedWithLinks": "[<a href=\"entities.html#Q385468\" target=\"_blank\">Q385468</a> or <a href=\"entities.html#Q9682\" target=\"_blank\">Q9682</a> or <a href=\"entities.html#Q37118203\" target=\"_blank\">Q37118203</a>] [<a href=\"properties.html#P213\" target=\"_blank\">P213</a> or <a href=\"properties.html#P31\" target=\"_blank\">P31</a> or <a href=\"properties.html#P236\" target=\"_blank\">P236</a>] [<a href=\"entities.html#Q11771555\" target=\"_blank\">Q11771555</a> or <a href=\"entities.html#Q272783\" target=\"_blank\">Q272783</a> or <a href=\"entities.html#Q226122\" target=\"_blank\">Q226122</a>] [<a href=\"entities.html#Q2958359\" target=\"_blank\">Q2958359</a> or <a href=\"entities.html#Q16865501\" target=\"_blank\">Q16865501</a> or <a href=\"entities.html#Q984568\" target=\"_blank\">Q984568</a>]"
           }
         },
-        "duration": 8419
+        "duration": 1463
       }
     ],
-    "apiCalls": 141
+    "apiCalls": 312
   },
   "apiPatterns": {
     "Barack Obama": {

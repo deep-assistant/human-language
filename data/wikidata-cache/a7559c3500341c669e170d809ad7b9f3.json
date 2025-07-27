@@ -1,0 +1,193 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q2725393",
+        "title": "Q2725393",
+        "pageid": 2618626,
+        "concepturi": "http://www.wikidata.org/entity/Q2725393",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2725393",
+        "display": {
+          "label": {
+            "value": "global health",
+            "language": "en"
+          },
+          "description": {
+            "value": "collaborative trans-national research and action for promoting health for all",
+            "language": "en"
+          }
+        },
+        "label": "global health",
+        "description": "collaborative trans-national research and action for promoting health for all",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "world health"
+        },
+        "aliases": [
+          "world health"
+        ]
+      },
+      {
+        "id": "Q7817",
+        "title": "Q7817",
+        "pageid": 9063,
+        "concepturi": "http://www.wikidata.org/entity/Q7817",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7817",
+        "display": {
+          "label": {
+            "value": "World Health Organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "United Nations agency concerned with international public health",
+            "language": "en"
+          }
+        },
+        "label": "World Health Organization",
+        "description": "United Nations agency concerned with international public health",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World Health Organization"
+        }
+      },
+      {
+        "id": "Q2928049",
+        "title": "Q2928049",
+        "pageid": 2801197,
+        "concepturi": "http://www.wikidata.org/entity/Q2928049",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2928049",
+        "display": {
+          "label": {
+            "value": "Bulletin of the World Health Organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific journal",
+            "language": "en"
+          }
+        },
+        "label": "Bulletin of the World Health Organization",
+        "description": "scientific journal",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "World Health Organization. Bulletin"
+        },
+        "aliases": [
+          "World Health Organization. Bulletin"
+        ]
+      },
+      {
+        "id": "Q27709472",
+        "title": "Q27709472",
+        "pageid": 29425745,
+        "concepturi": "http://www.wikidata.org/entity/Q27709472",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q27709472",
+        "display": {
+          "label": {
+            "value": "World health forum",
+            "language": "en"
+          },
+          "description": {
+            "value": "journal",
+            "language": "en"
+          }
+        },
+        "label": "World health forum",
+        "description": "journal",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World health forum"
+        }
+      },
+      {
+        "id": "Q26839995",
+        "title": "Q26839995",
+        "pageid": 28760935,
+        "concepturi": "http://www.wikidata.org/entity/Q26839995",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q26839995",
+        "display": {
+          "label": {
+            "value": "World health : published for the non-technical reader by the World Health Organization",
+            "language": "en"
+          }
+        },
+        "label": "World health : published for the non-technical reader by the World Health Organization",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World health : published for the non-technical reader by the World Health Organization"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P2275",
+        "title": "Property:P2275",
+        "pageid": 23395642,
+        "datatype": "monolingualtext",
+        "concepturi": "http://www.wikidata.org/entity/P2275",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2275",
+        "display": {
+          "label": {
+            "value": "World Health Organisation  international non-proprietary name",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a drug",
+            "language": "en"
+          }
+        },
+        "label": "World Health Organisation  international non-proprietary name",
+        "description": "identifier for a drug",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World Health Organisation  international non-proprietary name"
+        }
+      },
+      {
+        "id": "P3350",
+        "title": "Property:P3350",
+        "pageid": 29590651,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P3350",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3350",
+        "display": {
+          "label": {
+            "value": "World Health Organisation international non-proprietary name numeric ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "a numeric ID for the WHO international non-proprietary drug names collection",
+            "language": "en"
+          }
+        },
+        "label": "World Health Organisation international non-proprietary name numeric ID",
+        "description": "a numeric ID for the WHO international non-proprietary drug names collection",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World Health Organisation international non-proprietary name numeric ID"
+        }
+      }
+    ],
+    "total": 7
+  },
+  "timestamp": 1753634798312,
+  "ttl": 86400000,
+  "query": "World Health",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

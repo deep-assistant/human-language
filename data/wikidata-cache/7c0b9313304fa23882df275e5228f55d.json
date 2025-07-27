@@ -1,0 +1,148 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q17737",
+        "title": "Q17737",
+        "pageid": 20583,
+        "concepturi": "http://www.wikidata.org/entity/Q17737",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q17737",
+        "display": {
+          "label": {
+            "value": "theory",
+            "language": "en"
+          },
+          "description": {
+            "value": "contemplative and rational type of abstract or generalizing thinking, or the results of such thinking",
+            "language": "en"
+          }
+        },
+        "label": "theory",
+        "description": "contemplative and rational type of abstract or generalizing thinking, or the results of such thinking",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "theory"
+        }
+      },
+      {
+        "id": "Q126697241",
+        "title": "Q126697241",
+        "pageid": 120713598,
+        "concepturi": "http://www.wikidata.org/entity/Q126697241",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q126697241",
+        "display": {
+          "label": {
+            "value": "THEORY",
+            "language": "en"
+          },
+          "description": {
+            "value": "2024 video game",
+            "language": "en"
+          }
+        },
+        "label": "THEORY",
+        "description": "2024 video game",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "THEORY"
+        }
+      },
+      {
+        "id": "Q9471",
+        "title": "Q9471",
+        "pageid": 10845,
+        "concepturi": "http://www.wikidata.org/entity/Q9471",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q9471",
+        "display": {
+          "label": {
+            "value": "epistemology",
+            "language": "en"
+          },
+          "description": {
+            "value": "branch of philosophy studying the nature and scope of knowledge",
+            "language": "en"
+          }
+        },
+        "label": "epistemology",
+        "description": "branch of philosophy studying the nature and scope of knowledge",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "theory of knowledge"
+        },
+        "aliases": [
+          "theory of knowledge"
+        ]
+      },
+      {
+        "id": "Q131476",
+        "title": "Q131476",
+        "pageid": 133329,
+        "concepturi": "http://www.wikidata.org/entity/Q131476",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q131476",
+        "display": {
+          "label": {
+            "value": "graph theory",
+            "language": "en"
+          },
+          "description": {
+            "value": "study of graphs, which are mathematical structures used to model pairwise relations between objects",
+            "language": "en"
+          }
+        },
+        "label": "graph theory",
+        "description": "study of graphs, which are mathematical structures used to model pairwise relations between objects",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "theory of graphs"
+        },
+        "aliases": [
+          "theory of graphs"
+        ]
+      },
+      {
+        "id": "Q59115",
+        "title": "Q59115",
+        "pageid": 61925,
+        "concepturi": "http://www.wikidata.org/entity/Q59115",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q59115",
+        "display": {
+          "label": {
+            "value": "philosophy of science",
+            "language": "en"
+          },
+          "description": {
+            "value": "branch of philosophy concerned with the foundations, methods, and implications of science",
+            "language": "en"
+          }
+        },
+        "label": "philosophy of science",
+        "description": "branch of philosophy concerned with the foundations, methods, and implications of science",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "theory of science"
+        },
+        "aliases": [
+          "theory of science"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634609553,
+  "ttl": 86400000,
+  "query": "theory",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

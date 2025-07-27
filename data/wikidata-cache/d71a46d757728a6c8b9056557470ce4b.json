@@ -1,0 +1,145 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q11771555",
+        "title": "Q11771555",
+        "pageid": 12907944,
+        "concepturi": "http://www.wikidata.org/entity/Q11771555",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q11771555",
+        "display": {
+          "label": {
+            "value": "The Mother of God of Trakai",
+            "language": "en"
+          },
+          "description": {
+            "value": "religious icon in Lithuania",
+            "language": "en"
+          }
+        },
+        "label": "The Mother of God of Trakai",
+        "description": "religious icon in Lithuania",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Mother of God of Trakai"
+        }
+      },
+      {
+        "id": "Q272783",
+        "title": "Q272783",
+        "pageid": 263935,
+        "concepturi": "http://www.wikidata.org/entity/Q272783",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q272783",
+        "display": {
+          "label": {
+            "value": "Safi Faye",
+            "language": "en"
+          },
+          "description": {
+            "value": "Senegalese ethnologist and film director (1943–2023)",
+            "language": "en"
+          }
+        },
+        "label": "Safi Faye",
+        "description": "Senegalese ethnologist and film director (1943–2023)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The mother of African cinema"
+        },
+        "aliases": [
+          "The mother of African cinema"
+        ]
+      },
+      {
+        "id": "Q226122",
+        "title": "Q226122",
+        "pageid": 220638,
+        "concepturi": "http://www.wikidata.org/entity/Q226122",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q226122",
+        "display": {
+          "label": {
+            "value": "Funmilayo Ransome-Kuti",
+            "language": "en"
+          },
+          "description": {
+            "value": "Nigerian educator, political campaigner, suffragist, and women's rights activist",
+            "language": "en"
+          }
+        },
+        "label": "Funmilayo Ransome-Kuti",
+        "description": "Nigerian educator, political campaigner, suffragist, and women's rights activist",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The Mother of Africa"
+        },
+        "aliases": [
+          "The Mother of Africa"
+        ]
+      },
+      {
+        "id": "Q1788187",
+        "title": "Q1788187",
+        "pageid": 1719758,
+        "concepturi": "http://www.wikidata.org/entity/Q1788187",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1788187",
+        "display": {
+          "label": {
+            "value": "The Mother of Tears",
+            "language": "en"
+          },
+          "description": {
+            "value": "2007 film by Dario Argento",
+            "language": "en"
+          }
+        },
+        "label": "The Mother of Tears",
+        "description": "2007 film by Dario Argento",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Mother of Tears"
+        }
+      },
+      {
+        "id": "Q4089584",
+        "title": "Q4089584",
+        "pageid": 3897765,
+        "concepturi": "http://www.wikidata.org/entity/Q4089584",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q4089584",
+        "display": {
+          "label": {
+            "value": "The Mother of God with the child (Vrubel)",
+            "language": "en"
+          },
+          "description": {
+            "value": "icon, which was created by Vrubel for the decoration of the iconostasis of St. Cyril's Church in Kiev",
+            "language": "en"
+          }
+        },
+        "label": "The Mother of God with the child (Vrubel)",
+        "description": "icon, which was created by Vrubel for the decoration of the iconostasis of St. Cyril's Church in Kiev",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Mother of God with the child (Vrubel)"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634801030,
+  "ttl": 86400000,
+  "query": "the mother of",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

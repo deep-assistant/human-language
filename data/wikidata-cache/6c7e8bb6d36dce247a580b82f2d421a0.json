@@ -1,0 +1,129 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q15079318",
+        "title": "Q15079318",
+        "pageid": 16742520,
+        "concepturi": "http://www.wikidata.org/entity/Q15079318",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q15079318",
+        "display": {
+          "label": {
+            "value": "The Theory of Everything",
+            "language": "en"
+          },
+          "description": {
+            "value": "2014 film directed by James Marsh",
+            "language": "en"
+          }
+        },
+        "label": "The Theory of Everything",
+        "description": "2014 film directed by James Marsh",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Theory of Everything"
+        }
+      },
+      {
+        "id": "Q27877266",
+        "title": "Q27877266",
+        "pageid": 29586051,
+        "concepturi": "http://www.wikidata.org/entity/Q27877266",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q27877266",
+        "display": {
+          "label": {
+            "value": "The Theory",
+            "language": "en"
+          },
+          "description": {
+            "value": "painting by Elliot Collins",
+            "language": "en"
+          }
+        },
+        "label": "The Theory",
+        "description": "painting by Elliot Collins",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Theory"
+        }
+      },
+      {
+        "id": "Q23012191",
+        "title": "Q23012191",
+        "pageid": 25026554,
+        "concepturi": "http://www.wikidata.org/entity/Q23012191",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q23012191",
+        "display": {
+          "label": {
+            "value": "The Theory of Economic Development",
+            "language": "en"
+          },
+          "description": {
+            "value": "book by Joseph Schumpeter",
+            "language": "en"
+          }
+        },
+        "label": "The Theory of Economic Development",
+        "description": "book by Joseph Schumpeter",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Theory of Economic Development"
+        }
+      },
+      {
+        "id": "Q114501447",
+        "title": "Q114501447",
+        "pageid": 109190881,
+        "concepturi": "http://www.wikidata.org/entity/Q114501447",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q114501447",
+        "display": {
+          "label": {
+            "value": "The theory of digit representation for real numbers",
+            "language": "en"
+          }
+        },
+        "label": "The theory of digit representation for real numbers",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The theory of digit representation for real numbers"
+        }
+      },
+      {
+        "id": "Q114701898",
+        "title": "Q114701898",
+        "pageid": 109380450,
+        "concepturi": "http://www.wikidata.org/entity/Q114701898",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q114701898",
+        "display": {
+          "label": {
+            "value": "The theory of Archimedean bodies",
+            "language": "en"
+          }
+        },
+        "label": "The theory of Archimedean bodies",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The theory of Archimedean bodies"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634610228,
+  "ttl": 86400000,
+  "query": "fuzzy_the theory",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

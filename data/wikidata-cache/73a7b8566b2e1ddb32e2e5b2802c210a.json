@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634800982,
+  "ttl": 86400000,
+  "query": "mother of Charles",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

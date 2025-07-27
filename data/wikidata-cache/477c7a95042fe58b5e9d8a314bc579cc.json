@@ -1,0 +1,139 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q5084",
+        "title": "Q5084",
+        "pageid": 6038,
+        "concepturi": "http://www.wikidata.org/entity/Q5084",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q5084",
+        "display": {
+          "label": {
+            "value": "hamlet",
+            "language": "en"
+          },
+          "description": {
+            "value": "small settlement in a rural area",
+            "language": "en"
+          }
+        },
+        "label": "hamlet",
+        "description": "small settlement in a rural area",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "hamlet"
+        }
+      },
+      {
+        "id": "Q43374750",
+        "title": "Q43374750",
+        "pageid": 44596446,
+        "concepturi": "http://www.wikidata.org/entity/Q43374750",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q43374750",
+        "display": {
+          "label": {
+            "value": "Hamlet",
+            "language": "en"
+          },
+          "description": {
+            "value": "male given name",
+            "language": "en"
+          }
+        },
+        "label": "Hamlet",
+        "description": "male given name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hamlet"
+        }
+      },
+      {
+        "id": "Q16276236",
+        "title": "Q16276236",
+        "pageid": 17901749,
+        "concepturi": "http://www.wikidata.org/entity/Q16276236",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q16276236",
+        "display": {
+          "label": {
+            "value": "Hamlet",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Hamlet",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hamlet"
+        }
+      },
+      {
+        "id": "Q41567",
+        "title": "Q41567",
+        "pageid": 43845,
+        "concepturi": "http://www.wikidata.org/entity/Q41567",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q41567",
+        "display": {
+          "label": {
+            "value": "Hamlet",
+            "language": "en"
+          },
+          "description": {
+            "value": "tragedy by William Shakespeare",
+            "language": "en"
+          }
+        },
+        "label": "Hamlet",
+        "description": "tragedy by William Shakespeare",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hamlet"
+        }
+      },
+      {
+        "id": "Q4379239",
+        "title": "Q4379239",
+        "pageid": 4183054,
+        "concepturi": "http://www.wikidata.org/entity/Q4379239",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q4379239",
+        "display": {
+          "label": {
+            "value": "hamlet",
+            "language": "en"
+          },
+          "description": {
+            "value": "administrative unit in Poland, part of a village",
+            "language": "en"
+          }
+        },
+        "label": "hamlet",
+        "description": "administrative unit in Poland, part of a village",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "hamlet"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634794959,
+  "ttl": 86400000,
+  "query": "Hamlet",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

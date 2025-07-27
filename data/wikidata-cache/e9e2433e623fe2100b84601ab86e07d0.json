@@ -1,0 +1,69 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P813",
+        "title": "Property:P813",
+        "pageid": 16298155,
+        "datatype": "time",
+        "concepturi": "http://www.wikidata.org/entity/P813",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P813",
+        "display": {
+          "label": {
+            "value": "retrieved",
+            "language": "en"
+          },
+          "description": {
+            "value": "date or point in time that information was retrieved from a database or website (for use in online sources)",
+            "language": "en"
+          }
+        },
+        "label": "retrieved",
+        "description": "date or point in time that information was retrieved from a database or website (for use in online sources)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "visited at"
+        },
+        "aliases": [
+          "visited at"
+        ]
+      },
+      {
+        "id": "P11801",
+        "title": "Property:P11801",
+        "pageid": 113374754,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P11801",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P11801",
+        "display": {
+          "label": {
+            "value": "visited by",
+            "language": "en"
+          },
+          "description": {
+            "value": "organisms attracted by this plant taxon and reported to visit it",
+            "language": "en"
+          }
+        },
+        "label": "visited by",
+        "description": "organisms attracted by this plant taxon and reported to visit it",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "visited by"
+        }
+      }
+    ],
+    "total": 2
+  },
+  "timestamp": 1753634607822,
+  "ttl": 86400000,
+  "query": "visited",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

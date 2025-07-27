@@ -1,0 +1,123 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q893914",
+        "title": "Q893914",
+        "pageid": 844819,
+        "concepturi": "http://www.wikidata.org/entity/Q893914",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q893914",
+        "display": {
+          "label": {
+            "value": "Born",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Born",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Born"
+        }
+      },
+      {
+        "id": "Q80590975",
+        "title": "Q80590975",
+        "pageid": 79970335,
+        "concepturi": "http://www.wikidata.org/entity/Q80590975",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q80590975",
+        "display": {
+          "label": {
+            "value": "born fewer than 70 years ago",
+            "language": "en"
+          },
+          "description": {
+            "value": "method for determining copyright status of a creator: author was born fewer than 70 years ago, so cannot have died more than 70 years ago",
+            "language": "en"
+          }
+        },
+        "label": "born fewer than 70 years ago",
+        "description": "method for determining copyright status of a creator: author was born fewer than 70 years ago, so cannot have died more than 70 years ago",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "born fewer than 70 years ago"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P569",
+        "title": "Property:P569",
+        "pageid": 15087781,
+        "datatype": "time",
+        "concepturi": "http://www.wikidata.org/entity/P569",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P569",
+        "display": {
+          "label": {
+            "value": "date of birth",
+            "language": "en"
+          },
+          "description": {
+            "value": "date on which the subject was born",
+            "language": "en"
+          }
+        },
+        "label": "date of birth",
+        "description": "date on which the subject was born",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "born"
+        },
+        "aliases": [
+          "born"
+        ]
+      },
+      {
+        "id": "P19",
+        "title": "Property:P19",
+        "pageid": 3917861,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P19",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P19",
+        "display": {
+          "label": {
+            "value": "place of birth",
+            "language": "en"
+          },
+          "description": {
+            "value": "most specific known birth location of a person, animal or fictional character",
+            "language": "en"
+          }
+        },
+        "label": "place of birth",
+        "description": "most specific known birth location of a person, animal or fictional character",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "born in"
+        },
+        "aliases": [
+          "born in"
+        ]
+      }
+    ],
+    "total": 4
+  },
+  "timestamp": 1753634784549,
+  "ttl": 86400000,
+  "query": "born",
+  "languages": "en",
+  "limit": 5,
+  "type": "both"
+}

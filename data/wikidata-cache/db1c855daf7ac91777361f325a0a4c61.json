@@ -1,0 +1,151 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q7817",
+        "title": "Q7817",
+        "pageid": 9063,
+        "concepturi": "http://www.wikidata.org/entity/Q7817",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7817",
+        "display": {
+          "label": {
+            "value": "World Health Organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "United Nations agency concerned with international public health",
+            "language": "en"
+          }
+        },
+        "label": "World Health Organization",
+        "description": "United Nations agency concerned with international public health",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World Health Organization"
+        }
+      },
+      {
+        "id": "Q2928049",
+        "title": "Q2928049",
+        "pageid": 2801197,
+        "concepturi": "http://www.wikidata.org/entity/Q2928049",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2928049",
+        "display": {
+          "label": {
+            "value": "Bulletin of the World Health Organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific journal",
+            "language": "en"
+          }
+        },
+        "label": "Bulletin of the World Health Organization",
+        "description": "scientific journal",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "World Health Organization. Bulletin"
+        },
+        "aliases": [
+          "World Health Organization. Bulletin"
+        ]
+      },
+      {
+        "id": "Q15757365",
+        "title": "Q15757365",
+        "pageid": 17390611,
+        "concepturi": "http://www.wikidata.org/entity/Q15757365",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q15757365",
+        "display": {
+          "label": {
+            "value": "WHO Technical Report Series",
+            "language": "en"
+          },
+          "description": {
+            "value": "journal",
+            "language": "en"
+          }
+        },
+        "label": "WHO Technical Report Series",
+        "description": "journal",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "World Health Organization technical report series"
+        },
+        "aliases": [
+          "World Health Organization technical report series"
+        ]
+      },
+      {
+        "id": "Q26853904",
+        "title": "Q26853904",
+        "pageid": 28772757,
+        "concepturi": "http://www.wikidata.org/entity/Q26853904",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q26853904",
+        "display": {
+          "label": {
+            "value": "Monograph Series",
+            "language": "en"
+          },
+          "description": {
+            "value": "publication of the  World Health Organization",
+            "language": "en"
+          }
+        },
+        "label": "Monograph Series",
+        "description": "publication of the  World Health Organization",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "World Health Organization Monograph Series"
+        },
+        "aliases": [
+          "World Health Organization Monograph Series"
+        ]
+      },
+      {
+        "id": "Q88380217",
+        "title": "Q88380217",
+        "pageid": 87616990,
+        "concepturi": "http://www.wikidata.org/entity/Q88380217",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q88380217",
+        "display": {
+          "label": {
+            "value": "WHO situation report",
+            "language": "en"
+          },
+          "description": {
+            "value": "situation report by the World Health Organization, commonly used in the case of epidemics",
+            "language": "en"
+          }
+        },
+        "label": "WHO situation report",
+        "description": "situation report by the World Health Organization, commonly used in the case of epidemics",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "World Health Organization situation report"
+        },
+        "aliases": [
+          "World Health Organization situation report"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634799075,
+  "ttl": 86400000,
+  "query": "fuzzy_World Health Organization",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

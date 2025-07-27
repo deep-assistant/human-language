@@ -1,0 +1,285 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q12147",
+        "title": "Q12147",
+        "pageid": 13720,
+        "concepturi": "http://www.wikidata.org/entity/Q12147",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q12147",
+        "display": {
+          "label": {
+            "value": "health",
+            "language": "en"
+          },
+          "description": {
+            "value": "desirable level of functional or metabolic efficiency of a living being",
+            "language": "en"
+          }
+        },
+        "label": "health",
+        "description": "desirable level of functional or metabolic efficiency of a living being",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "health"
+        }
+      },
+      {
+        "id": "Q162297",
+        "title": "Q162297",
+        "pageid": 163117,
+        "concepturi": "http://www.wikidata.org/entity/Q162297",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q162297",
+        "display": {
+          "label": {
+            "value": "hygiene",
+            "language": "en"
+          },
+          "description": {
+            "value": "set of practices performed for the preservation of health",
+            "language": "en"
+          }
+        },
+        "label": "hygiene",
+        "description": "set of practices performed for the preservation of health",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "health and hygiene"
+        },
+        "aliases": [
+          "health and hygiene"
+        ]
+      },
+      {
+        "id": "Q189603",
+        "title": "Q189603",
+        "pageid": 188118,
+        "concepturi": "http://www.wikidata.org/entity/Q189603",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q189603",
+        "display": {
+          "label": {
+            "value": "public health",
+            "language": "en"
+          },
+          "description": {
+            "value": "science and art of preventing disease, prolonging life and promoting health through organized efforts and informed choices of society, organizations, public and private, communities and individuals",
+            "language": "en"
+          }
+        },
+        "label": "public health",
+        "description": "science and art of preventing disease, prolonging life and promoting health through organized efforts and informed choices of society, organizations, public and private, communities and individuals",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "health service"
+        },
+        "aliases": [
+          "health service"
+        ]
+      },
+      {
+        "id": "Q15710148",
+        "title": "Q15710148",
+        "pageid": 17345217,
+        "concepturi": "http://www.wikidata.org/entity/Q15710148",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q15710148",
+        "display": {
+          "label": {
+            "value": "Healthincenter",
+            "language": "en"
+          },
+          "description": {
+            "value": "journal",
+            "language": "en"
+          }
+        },
+        "label": "Healthincenter",
+        "description": "journal",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Healthincenter"
+        }
+      },
+      {
+        "id": "Q31207",
+        "title": "Q31207",
+        "pageid": 34154,
+        "concepturi": "http://www.wikidata.org/entity/Q31207",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q31207",
+        "display": {
+          "label": {
+            "value": "health care",
+            "language": "en"
+          },
+          "description": {
+            "value": "prevention of disease and promotion of wellbeing of humans and animals",
+            "language": "en"
+          }
+        },
+        "label": "health care",
+        "description": "prevention of disease and promotion of wellbeing of humans and animals",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "health care"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P1050",
+        "title": "Property:P1050",
+        "pageid": 16930620,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1050",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1050",
+        "display": {
+          "label": {
+            "value": "medical condition",
+            "language": "en"
+          },
+          "description": {
+            "value": "any state relevant to the health of an organism, including diseases and positive conditions",
+            "language": "en"
+          }
+        },
+        "label": "medical condition",
+        "description": "any state relevant to the health of an organism, including diseases and positive conditions",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "health problem"
+        },
+        "aliases": [
+          "health problem"
+        ]
+      },
+      {
+        "id": "P1995",
+        "title": "Property:P1995",
+        "pageid": 22414422,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1995",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1995",
+        "display": {
+          "label": {
+            "value": "health specialty",
+            "language": "en"
+          },
+          "description": {
+            "value": "main specialty relevant to this medical condition or treatment",
+            "language": "en"
+          }
+        },
+        "label": "health specialty",
+        "description": "main specialty relevant to this medical condition or treatment",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "health specialty"
+        }
+      },
+      {
+        "id": "P9272",
+        "title": "Property:P9272",
+        "pageid": 101177821,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9272",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9272",
+        "display": {
+          "label": {
+            "value": "DeCS ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier in the Health Sciences Descriptors thesaurus",
+            "language": "en"
+          }
+        },
+        "label": "DeCS ID",
+        "description": "identifier in the Health Sciences Descriptors thesaurus",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Health Sciences Descriptors ID"
+        },
+        "aliases": [
+          "Health Sciences Descriptors ID"
+        ]
+      },
+      {
+        "id": "P924",
+        "title": "Property:P924",
+        "pageid": 16609787,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P924",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P924",
+        "display": {
+          "label": {
+            "value": "possible treatment",
+            "language": "en"
+          },
+          "description": {
+            "value": "health treatment used to resolve or ameliorate a medical condition",
+            "language": "en"
+          }
+        },
+        "label": "possible treatment",
+        "description": "health treatment used to resolve or ameliorate a medical condition",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "health treatment"
+        },
+        "aliases": [
+          "health treatment"
+        ]
+      },
+      {
+        "id": "P7410",
+        "title": "Property:P7410",
+        "pageid": 70238029,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P7410",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P7410",
+        "display": {
+          "label": {
+            "value": "Healthcare Common Procedure Coding System ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "health care procedure codes based on the American Medical Association's Current Procedural Terminology",
+            "language": "en"
+          }
+        },
+        "label": "Healthcare Common Procedure Coding System ID",
+        "description": "health care procedure codes based on the American Medical Association's Current Procedural Terminology",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Healthcare Common Procedure Coding System ID"
+        }
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634798366,
+  "ttl": 86400000,
+  "query": "Health",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,112 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q11297",
+        "title": "Q11297",
+        "pageid": 12795,
+        "concepturi": "http://www.wikidata.org/entity/Q11297",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q11297",
+        "display": {
+          "label": {
+            "value": "Headquarters of the United Nations",
+            "language": "en"
+          },
+          "description": {
+            "value": "group of buildings in New York City",
+            "language": "en"
+          }
+        },
+        "label": "Headquarters of the United Nations",
+        "description": "group of buildings in New York City",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations Headquarters"
+        },
+        "aliases": [
+          "United Nations Headquarters"
+        ]
+      },
+      {
+        "id": "Q41789437",
+        "title": "Q41789437",
+        "pageid": 43099968,
+        "concepturi": "http://www.wikidata.org/entity/Q41789437",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q41789437",
+        "display": {
+          "label": {
+            "value": "United Nations Headquarters District",
+            "language": "en"
+          },
+          "description": {
+            "value": "diplomatic region",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Headquarters District",
+        "description": "diplomatic region",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations Headquarters District"
+        }
+      },
+      {
+        "id": "Q127066037",
+        "title": "Q127066037",
+        "pageid": 121067071,
+        "concepturi": "http://www.wikidata.org/entity/Q127066037",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q127066037",
+        "display": {
+          "label": {
+            "value": "United Nations Headquarters Medal",
+            "language": "en"
+          },
+          "description": {
+            "value": "United Nations medal",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Headquarters Medal",
+        "description": "United Nations medal",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations Headquarters Medal"
+        }
+      },
+      {
+        "id": "Q117115926",
+        "title": "Q117115926",
+        "pageid": 111906360,
+        "concepturi": "http://www.wikidata.org/entity/Q117115926",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q117115926",
+        "display": {
+          "label": {
+            "value": "United Nations Headquarters Board Of Design",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Headquarters Board Of Design",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations Headquarters Board Of Design"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 4
+  },
+  "timestamp": 1753634749600,
+  "ttl": 86400000,
+  "query": "United Nations headquarters",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

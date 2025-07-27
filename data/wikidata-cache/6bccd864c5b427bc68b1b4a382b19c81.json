@@ -1,0 +1,132 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q76",
+        "title": "Q76",
+        "pageid": 205,
+        "concepturi": "http://www.wikidata.org/entity/Q76",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q76",
+        "display": {
+          "label": {
+            "value": "Barack Obama",
+            "language": "en"
+          },
+          "description": {
+            "value": "president of the United States from 2009 to 2017",
+            "language": "en"
+          }
+        },
+        "label": "Barack Obama",
+        "description": "president of the United States from 2009 to 2017",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "President Barack Obama"
+        },
+        "aliases": [
+          "President Barack Obama"
+        ]
+      },
+      {
+        "id": "Q50303833",
+        "title": "Q50303833",
+        "pageid": 51291401,
+        "concepturi": "http://www.wikidata.org/entity/Q50303833",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q50303833",
+        "display": {
+          "label": {
+            "value": "President Barack Obama",
+            "language": "en"
+          },
+          "description": {
+            "value": "painting by Kehinde Wiley",
+            "language": "en"
+          }
+        },
+        "label": "President Barack Obama",
+        "description": "painting by Kehinde Wiley",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President Barack Obama"
+        }
+      },
+      {
+        "id": "Q66425153",
+        "title": "Q66425153",
+        "pageid": 66025909,
+        "concepturi": "http://www.wikidata.org/entity/Q66425153",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q66425153",
+        "display": {
+          "label": {
+            "value": "President Barack Obama Hugs Congresswoman Gabrielle (Gabby) Giffords (NAID 118817949)",
+            "language": "en"
+          },
+          "description": {
+            "value": "item in the National Archives and Records Administration's holdings",
+            "language": "en"
+          }
+        },
+        "label": "President Barack Obama Hugs Congresswoman Gabrielle (Gabby) Giffords (NAID 118817949)",
+        "description": "item in the National Archives and Records Administration's holdings",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President Barack Obama Hugs Congresswoman Gabrielle (Gabby) Giffords (NAID 118817949)"
+        }
+      },
+      {
+        "id": "Q24361725",
+        "title": "Q24361725",
+        "pageid": 26332609,
+        "concepturi": "http://www.wikidata.org/entity/Q24361725",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q24361725",
+        "display": {
+          "label": {
+            "value": "President Barack Obama visit to Hiroshima",
+            "language": "en"
+          }
+        },
+        "label": "President Barack Obama visit to Hiroshima",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President Barack Obama visit to Hiroshima"
+        }
+      },
+      {
+        "id": "Q19045443",
+        "title": "Q19045443",
+        "pageid": 20605784,
+        "concepturi": "http://www.wikidata.org/entity/Q19045443",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q19045443",
+        "display": {
+          "label": {
+            "value": "President Barack Obama on Space Exploration in the 21st Century",
+            "language": "en"
+          }
+        },
+        "label": "President Barack Obama on Space Exploration in the 21st Century",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President Barack Obama on Space Exploration in the 21st Century"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634612513,
+  "ttl": 86400000,
+  "query": "president Barack Obama",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

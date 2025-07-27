@@ -1,0 +1,40 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P1376",
+        "title": "Property:P1376",
+        "pageid": 18875222,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1376",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1376",
+        "display": {
+          "label": {
+            "value": "capital of",
+            "language": "en"
+          },
+          "description": {
+            "value": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+            "language": "en"
+          }
+        },
+        "label": "capital of",
+        "description": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "capital of"
+        }
+      }
+    ],
+    "total": 1
+  },
+  "timestamp": 1753634610744,
+  "ttl": 86400000,
+  "query": "capital of",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

@@ -1,0 +1,154 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q30",
+        "title": "Q30",
+        "pageid": 126,
+        "concepturi": "http://www.wikidata.org/entity/Q30",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30",
+        "display": {
+          "label": {
+            "value": "United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "country located primarily in North America",
+            "language": "en"
+          }
+        },
+        "label": "United States",
+        "description": "country located primarily in North America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the United States of America"
+        },
+        "aliases": [
+          "the United States of America"
+        ]
+      },
+      {
+        "id": "Q145",
+        "title": "Q145",
+        "pageid": 281,
+        "concepturi": "http://www.wikidata.org/entity/Q145",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q145",
+        "display": {
+          "label": {
+            "value": "United Kingdom",
+            "language": "en"
+          },
+          "description": {
+            "value": "country in north-west Europe",
+            "language": "en"
+          }
+        },
+        "label": "United Kingdom",
+        "description": "country in north-west Europe",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The United Kingdom of Great Britain and Northern Ireland"
+        },
+        "aliases": [
+          "The United Kingdom of Great Britain and Northern Ireland"
+        ]
+      },
+      {
+        "id": "Q878",
+        "title": "Q878",
+        "pageid": 1198,
+        "concepturi": "http://www.wikidata.org/entity/Q878",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q878",
+        "display": {
+          "label": {
+            "value": "United Arab Emirates",
+            "language": "en"
+          },
+          "description": {
+            "value": "A country in West Asia, in the Middle East, at the eastern end of the Arabian Peninsula.",
+            "language": "en"
+          }
+        },
+        "label": "United Arab Emirates",
+        "description": "A country in West Asia, in the Middle East, at the eastern end of the Arabian Peninsula.",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the United Arab Emirates"
+        },
+        "aliases": [
+          "the United Arab Emirates"
+        ]
+      },
+      {
+        "id": "Q11703",
+        "title": "Q11703",
+        "pageid": 13243,
+        "concepturi": "http://www.wikidata.org/entity/Q11703",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q11703",
+        "display": {
+          "label": {
+            "value": "United States Virgin Islands",
+            "language": "en"
+          },
+          "description": {
+            "value": "unincorporated territory of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "United States Virgin Islands",
+        "description": "unincorporated territory of the United States of America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the United States Virgin Islands"
+        },
+        "aliases": [
+          "the United States Virgin Islands"
+        ]
+      },
+      {
+        "id": "Q1891156",
+        "title": "Q1891156",
+        "pageid": 1821288,
+        "concepturi": "http://www.wikidata.org/entity/Q1891156",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1891156",
+        "display": {
+          "label": {
+            "value": "United States Forest Service",
+            "language": "en"
+          },
+          "description": {
+            "value": "agency of the U.S. Department of Agriculture",
+            "language": "en"
+          }
+        },
+        "label": "United States Forest Service",
+        "description": "agency of the U.S. Department of Agriculture",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The United States Forest Service"
+        },
+        "aliases": [
+          "The United States Forest Service"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634616939,
+  "ttl": 86400000,
+  "query": "fuzzy_the United",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

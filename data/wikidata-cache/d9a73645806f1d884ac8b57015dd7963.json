@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634617994,
+  "ttl": 86400000,
+  "query": "and Juliet",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

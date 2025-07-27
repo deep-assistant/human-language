@@ -1,0 +1,178 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q30",
+        "title": "Q30",
+        "pageid": 126,
+        "concepturi": "http://www.wikidata.org/entity/Q30",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30",
+        "display": {
+          "label": {
+            "value": "United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "country located primarily in North America",
+            "language": "en"
+          }
+        },
+        "label": "United States",
+        "description": "country located primarily in North America",
+        "match": {
+          "type": "alias",
+          "language": "vec",
+          "text": "States"
+        },
+        "aliases": [
+          "States"
+        ]
+      },
+      {
+        "id": "Q372436",
+        "title": "Q372436",
+        "pageid": 354399,
+        "concepturi": "http://www.wikidata.org/entity/Q372436",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q372436",
+        "display": {
+          "label": {
+            "value": "statesperson",
+            "language": "en"
+          },
+          "description": {
+            "value": "civil servant or politician in high government offices",
+            "language": "en"
+          }
+        },
+        "label": "statesperson",
+        "description": "civil servant or politician in high government offices",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "statesperson"
+        }
+      },
+      {
+        "id": "Q35657",
+        "title": "Q35657",
+        "pageid": 38328,
+        "concepturi": "http://www.wikidata.org/entity/Q35657",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q35657",
+        "display": {
+          "label": {
+            "value": "U.S. state",
+            "language": "en"
+          },
+          "description": {
+            "value": "constituent political entity of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "U.S. state",
+        "description": "constituent political entity of the United States of America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "states of the United States"
+        },
+        "aliases": [
+          "states of the United States"
+        ]
+      },
+      {
+        "id": "Q553956",
+        "title": "Q553956",
+        "pageid": 521941,
+        "concepturi": "http://www.wikidata.org/entity/Q553956",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q553956",
+        "display": {
+          "label": {
+            "value": "Statesville",
+            "language": "en"
+          },
+          "description": {
+            "value": "city in Iredell County, North Carolina, United States",
+            "language": "en"
+          }
+        },
+        "label": "Statesville",
+        "description": "city in Iredell County, North Carolina, United States",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Statesville"
+        }
+      },
+      {
+        "id": "Q170174",
+        "title": "Q170174",
+        "pageid": 170528,
+        "concepturi": "http://www.wikidata.org/entity/Q170174",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q170174",
+        "display": {
+          "label": {
+            "value": "Papal States",
+            "language": "en"
+          },
+          "description": {
+            "value": "territories mostly in the Appenine Peninsula under the sovereign direct rule of the pope between 756–1870",
+            "language": "en"
+          }
+        },
+        "label": "Papal States",
+        "description": "territories mostly in the Appenine Peninsula under the sovereign direct rule of the pope between 756–1870",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "States of the Church"
+        },
+        "aliases": [
+          "States of the Church"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P35",
+        "title": "Property:P35",
+        "pageid": 3919147,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P35",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P35",
+        "display": {
+          "label": {
+            "value": "head of state",
+            "language": "en"
+          },
+          "description": {
+            "value": "official with the highest formal authority in a country/state",
+            "language": "en"
+          }
+        },
+        "label": "head of state",
+        "description": "official with the highest formal authority in a country/state",
+        "match": {
+          "type": "label",
+          "language": "eo",
+          "text": "ŝtatestro"
+        },
+        "aliases": [
+          "ŝtatestro"
+        ]
+      }
+    ],
+    "total": 6
+  },
+  "timestamp": 1753634612541,
+  "ttl": 86400000,
+  "query": "States",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

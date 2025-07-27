@@ -19,6 +19,16 @@ class TextTransformerTest {
         }
       },
       {
+        name: "N-gram test: Barack Obama as single entity",
+        input: "Barack Obama visited the White House",
+        options: { maxNgramSize: 3 },
+        expectedPatterns: {
+          shouldContain: ['Q76'], // Barack Obama as single entity
+          shouldNotBeEmpty: true,
+          maxSequenceLength: 3 // Should match "Barack Obama" as one, not two separate
+        }
+      },
+      {
         name: "Scientific discovery",
         input: "Albert Einstein discovered the theory of relativity",
         expectedPatterns: {
@@ -57,6 +67,25 @@ class TextTransformerTest {
         input: "the and or but",
         expectedPatterns: {
           shouldBeEmpty: true // Stop words should be filtered out
+        }
+      },
+      {
+        name: "N-gram priority test: Theory of Relativity",
+        input: "theory of relativity",
+        options: { maxNgramSize: 3 },
+        expectedPatterns: {
+          shouldNotBeEmpty: true,
+          maxSequenceLength: 1 // Should match as one concept, not three words
+        }
+      },
+      {
+        name: "N-gram with different sizes",
+        input: "United States of America president Barack Obama",
+        options: { maxNgramSize: 4 },
+        expectedPatterns: {
+          shouldContain: ['Q30', 'Q76'], // USA and Barack Obama
+          shouldNotBeEmpty: true,
+          maxSequenceLength: 3 // USA, president/property, Barack Obama
         }
       }
     ];
@@ -110,7 +139,9 @@ class TextTransformerTest {
       maxCandidates: 3,
       includeLabels: false,
       searchLimit: 10,
-      preferProperties: false
+      preferProperties: false,
+      maxNgramSize: 3, // Default n-gram size
+      ...testCase.options // Override with test-specific options
     };
 
     const result = await this.transformer.transform(testCase.input, options);
@@ -187,6 +218,16 @@ class TextTransformerTest {
       }
     }
     
+    // Check maximum sequence length
+    if (expectedPatterns.maxSequenceLength !== undefined) {
+      if (sequence.length > expectedPatterns.maxSequenceLength) {
+        return {
+          passed: false,
+          reason: `Sequence too long: ${sequence.length} > ${expectedPatterns.maxSequenceLength}`
+        };
+      }
+    }
+    
     return { passed: true, reason: 'All validations passed' };
   }
 
@@ -238,6 +279,31 @@ class TextTransformerTest {
       console.log('❌ Property detection needs improvement');
     }
     console.log(`   Result: ${propertyResult.formatted}\n`);
+    
+    // Test 5: N-gram priority
+    console.log('Test: N-gram priority (longest match first)');
+    const ngramResult1 = await this.transformer.transform("Barack Obama", { maxNgramSize: 2 });
+    const ngramResult2 = await this.transformer.transform("Barack Obama", { maxNgramSize: 1 });
+    console.log(`   With maxNgramSize=2: ${ngramResult1.formatted} (${ngramResult1.sequence.length} items)`);
+    console.log(`   With maxNgramSize=1: ${ngramResult2.formatted} (${ngramResult2.sequence.length} items)`);
+    if (ngramResult1.sequence.length < ngramResult2.sequence.length) {
+      console.log('✅ N-gram priority working correctly');
+    } else {
+      console.log('❌ N-gram priority not working as expected');
+    }
+    console.log('');
+    
+    // Test 6: Complex phrase matching
+    console.log('Test: Complex phrase matching');
+    const complexResult = await this.transformer.transform("United Nations Secretary General", { maxNgramSize: 4 });
+    console.log(`   Result: ${complexResult.formatted}`);
+    console.log(`   Sequence length: ${complexResult.sequence.length}`);
+    if (complexResult.sequence.length <= 2) {
+      console.log('✅ Complex phrases matched as units');
+    } else {
+      console.log('⚠️ Complex phrases might be over-segmented');
+    }
+    console.log('');
   }
 
   /**

@@ -1,0 +1,148 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q7903",
+        "title": "Q7903",
+        "pageid": 9152,
+        "concepturi": "http://www.wikidata.org/entity/Q7903",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7903",
+        "display": {
+          "label": {
+            "value": "Casablanca",
+            "language": "en"
+          },
+          "description": {
+            "value": "largest city of Morocco",
+            "language": "en"
+          }
+        },
+        "label": "Casablanca",
+        "description": "largest city of Morocco",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "White House"
+        },
+        "aliases": [
+          "White House"
+        ]
+      },
+      {
+        "id": "Q35525",
+        "title": "Q35525",
+        "pageid": 38197,
+        "concepturi": "http://www.wikidata.org/entity/Q35525",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q35525",
+        "display": {
+          "label": {
+            "value": "White House",
+            "language": "en"
+          },
+          "description": {
+            "value": "official residence and office of the President of the United States",
+            "language": "en"
+          }
+        },
+        "label": "White House",
+        "description": "official residence and office of the President of the United States",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "White House"
+        }
+      },
+      {
+        "id": "Q1355327",
+        "title": "Q1355327",
+        "pageid": 1294924,
+        "concepturi": "http://www.wikidata.org/entity/Q1355327",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1355327",
+        "display": {
+          "label": {
+            "value": "Executive Office of the President of the United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "U.S. federal government office of the president of the United States",
+            "language": "en"
+          }
+        },
+        "label": "Executive Office of the President of the United States",
+        "description": "U.S. federal government office of the president of the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "White House"
+        },
+        "aliases": [
+          "White House"
+        ]
+      },
+      {
+        "id": "Q1956766",
+        "title": "Q1956766",
+        "pageid": 1885985,
+        "concepturi": "http://www.wikidata.org/entity/Q1956766",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1956766",
+        "display": {
+          "label": {
+            "value": "WhiteHouse.gov",
+            "language": "en"
+          },
+          "description": {
+            "value": "official website of the White House",
+            "language": "en"
+          }
+        },
+        "label": "WhiteHouse.gov",
+        "description": "official website of the White House",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "White House"
+        },
+        "aliases": [
+          "White House"
+        ]
+      },
+      {
+        "id": "Q130556185",
+        "title": "Q130556185",
+        "pageid": 124500695,
+        "concepturi": "http://www.wikidata.org/entity/Q130556185",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q130556185",
+        "display": {
+          "label": {
+            "value": "White House",
+            "language": "en"
+          },
+          "description": {
+            "value": "Czech company",
+            "language": "en"
+          }
+        },
+        "label": "White House",
+        "description": "Czech company",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "White House"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634608798,
+  "ttl": 86400000,
+  "query": "fuzzy_White House",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,92 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q134611891",
+        "title": "Q134611891",
+        "pageid": 128442309,
+        "concepturi": "http://www.wikidata.org/entity/Q134611891",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q134611891",
+        "display": {
+          "label": {
+            "value": "organization register",
+            "language": "en"
+          },
+          "description": {
+            "value": "type of register for any type of organizations",
+            "language": "en"
+          }
+        },
+        "label": "organization register",
+        "description": "type of register for any type of organizations",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "organization directory"
+        },
+        "aliases": [
+          "organization directory"
+        ]
+      },
+      {
+        "id": "Q74703694",
+        "title": "Q74703694",
+        "pageid": 74317364,
+        "concepturi": "http://www.wikidata.org/entity/Q74703694",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q74703694",
+        "display": {
+          "label": {
+            "value": "Organization directory. Radiology and radiation therapy resources",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific article published on 01 February 1991",
+            "language": "en"
+          }
+        },
+        "label": "Organization directory. Radiology and radiation therapy resources",
+        "description": "scientific article published on 01 February 1991",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Organization directory. Radiology and radiation therapy resources"
+        }
+      },
+      {
+        "id": "Q77672804",
+        "title": "Q77672804",
+        "pageid": 77136229,
+        "concepturi": "http://www.wikidata.org/entity/Q77672804",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q77672804",
+        "display": {
+          "label": {
+            "value": "Organization directory",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific article published on 01 December 1989",
+            "language": "en"
+          }
+        },
+        "label": "Organization directory",
+        "description": "scientific article published on 01 December 1989",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Organization directory"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 3
+  },
+  "timestamp": 1753634799074,
+  "ttl": 86400000,
+  "query": "fuzzy_Organization director",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

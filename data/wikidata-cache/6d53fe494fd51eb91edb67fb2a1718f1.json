@@ -1,0 +1,145 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q3520197",
+        "title": "Q3520197",
+        "pageid": 3351681,
+        "concepturi": "http://www.wikidata.org/entity/Q3520197",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q3520197",
+        "display": {
+          "label": {
+            "value": "The Capital",
+            "language": "en"
+          },
+          "description": {
+            "value": "newspaper in Annapolis, Maryland",
+            "language": "en"
+          }
+        },
+        "label": "The Capital",
+        "description": "newspaper in Annapolis, Maryland",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Capital"
+        }
+      },
+      {
+        "id": "Q4016289",
+        "title": "Q4016289",
+        "pageid": 3828967,
+        "concepturi": "http://www.wikidata.org/entity/Q4016289",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q4016289",
+        "display": {
+          "label": {
+            "value": "The Capital",
+            "language": "en"
+          },
+          "description": {
+            "value": "Iranian comedy TV series",
+            "language": "en"
+          }
+        },
+        "label": "The Capital",
+        "description": "Iranian comedy TV series",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Capital"
+        }
+      },
+      {
+        "id": "Q17153073",
+        "title": "Q17153073",
+        "pageid": 18746247,
+        "concepturi": "http://www.wikidata.org/entity/Q17153073",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q17153073",
+        "display": {
+          "label": {
+            "value": "The Capital",
+            "language": "en"
+          },
+          "description": {
+            "value": "building in India",
+            "language": "en"
+          }
+        },
+        "label": "The Capital",
+        "description": "building in India",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Capital"
+        }
+      },
+      {
+        "id": "Q223240",
+        "title": "Q223240",
+        "pageid": 217974,
+        "concepturi": "http://www.wikidata.org/entity/Q223240",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q223240",
+        "display": {
+          "label": {
+            "value": "Capital One Arena",
+            "language": "en"
+          },
+          "description": {
+            "value": "multi-purpose arena in Washington, D.C.",
+            "language": "en"
+          }
+        },
+        "label": "Capital One Arena",
+        "description": "multi-purpose arena in Washington, D.C.",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The Capital One Arena"
+        },
+        "aliases": [
+          "The Capital One Arena"
+        ]
+      },
+      {
+        "id": "Q15240768",
+        "title": "Q15240768",
+        "pageid": 16889436,
+        "concepturi": "http://www.wikidata.org/entity/Q15240768",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q15240768",
+        "display": {
+          "label": {
+            "value": "Kumbungu",
+            "language": "en"
+          },
+          "description": {
+            "value": "the district capital of the Kumbungu district",
+            "language": "en"
+          }
+        },
+        "label": "Kumbungu",
+        "description": "the district capital of the Kumbungu district",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The capital town of Kumbungu District"
+        },
+        "aliases": [
+          "The capital town of Kumbungu District"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634611721,
+  "ttl": 86400000,
+  "query": "fuzzy_the capital",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

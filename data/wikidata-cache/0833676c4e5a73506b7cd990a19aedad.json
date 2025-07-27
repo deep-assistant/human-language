@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634613171,
+  "ttl": 86400000,
+  "query": "fuzzy_of America president",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,184 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q345",
+        "title": "Q345",
+        "pageid": 539,
+        "concepturi": "http://www.wikidata.org/entity/Q345",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q345",
+        "display": {
+          "label": {
+            "value": "Mary",
+            "language": "en"
+          },
+          "description": {
+            "value": "mother of Jesus",
+            "language": "en"
+          }
+        },
+        "label": "Mary",
+        "description": "mother of Jesus",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Mother of God"
+        },
+        "aliases": [
+          "Mother of God"
+        ]
+      },
+      {
+        "id": "Q5806",
+        "title": "Q5806",
+        "pageid": 6881,
+        "concepturi": "http://www.wikidata.org/entity/Q5806",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q5806",
+        "display": {
+          "label": {
+            "value": "Mecca",
+            "language": "en"
+          },
+          "description": {
+            "value": "Saudi Arabian city and capital of the Makkah province",
+            "language": "en"
+          }
+        },
+        "label": "Mecca",
+        "description": "Saudi Arabian city and capital of the Makkah province",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Mother of All Settlements"
+        },
+        "aliases": [
+          "Mother of All Settlements"
+        ]
+      },
+      {
+        "id": "Q40236",
+        "title": "Q40236",
+        "pageid": 42594,
+        "concepturi": "http://www.wikidata.org/entity/Q40236",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q40236",
+        "display": {
+          "label": {
+            "value": "Manaus",
+            "language": "en"
+          },
+          "description": {
+            "value": "city in Amazonas federated state, Brazil",
+            "language": "en"
+          }
+        },
+        "label": "Manaus",
+        "description": "city in Amazonas federated state, Brazil",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Mother of Gods"
+        },
+        "aliases": [
+          "Mother of Gods"
+        ]
+      },
+      {
+        "id": "Q215865",
+        "title": "Q215865",
+        "pageid": 211137,
+        "concepturi": "http://www.wikidata.org/entity/Q215865",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q215865",
+        "display": {
+          "label": {
+            "value": "nacre",
+            "language": "en"
+          },
+          "description": {
+            "value": "organic-inorganic composite material produced by some molluscs",
+            "language": "en"
+          }
+        },
+        "label": "nacre",
+        "description": "organic-inorganic composite material produced by some molluscs",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "mother of pearl"
+        },
+        "aliases": [
+          "mother of pearl"
+        ]
+      },
+      {
+        "id": "Q208542",
+        "title": "Q208542",
+        "pageid": 204517,
+        "concepturi": "http://www.wikidata.org/entity/Q208542",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q208542",
+        "display": {
+          "label": {
+            "value": "Theotokos",
+            "language": "en"
+          },
+          "description": {
+            "value": "title of Mary in Eastern Christianity",
+            "language": "en"
+          }
+        },
+        "label": "Theotokos",
+        "description": "title of Mary in Eastern Christianity",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Mother of God"
+        },
+        "aliases": [
+          "Mother of God"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P40",
+        "title": "Property:P40",
+        "pageid": 3919593,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P40",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P40",
+        "display": {
+          "label": {
+            "value": "child",
+            "language": "en"
+          },
+          "description": {
+            "value": "subject has object as child. Do not use for stepchildren—use \"relative\" (P1038), qualified with \"type of kinship\" (P1039)",
+            "language": "en"
+          }
+        },
+        "label": "child",
+        "description": "subject has object as child. Do not use for stepchildren—use \"relative\" (P1038), qualified with \"type of kinship\" (P1039)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "mother of"
+        },
+        "aliases": [
+          "mother of"
+        ]
+      }
+    ],
+    "total": 6
+  },
+  "timestamp": 1753634801027,
+  "ttl": 86400000,
+  "query": "mother of",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

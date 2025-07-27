@@ -1,0 +1,142 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q73376505",
+        "title": "Q73376505",
+        "pageid": 73018832,
+        "concepturi": "http://www.wikidata.org/entity/Q73376505",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q73376505",
+        "display": {
+          "label": {
+            "value": "journal flipped to open access",
+            "language": "en"
+          },
+          "description": {
+            "value": "occasion where an academic journal flipped from being toll access to being fully open access",
+            "language": "en"
+          }
+        },
+        "label": "journal flipped to open access",
+        "description": "occasion where an academic journal flipped from being toll access to being fully open access",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "became open-access"
+        },
+        "aliases": [
+          "became open-access"
+        ]
+      },
+      {
+        "id": "Q813571",
+        "title": "Q813571",
+        "pageid": 766464,
+        "concepturi": "http://www.wikidata.org/entity/Q813571",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q813571",
+        "display": {
+          "label": {
+            "value": "Becamex Binh Duong F.C.",
+            "language": "en"
+          },
+          "description": {
+            "value": "association football club in Vietnam",
+            "language": "en"
+          }
+        },
+        "label": "Becamex Binh Duong F.C.",
+        "description": "association football club in Vietnam",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Becamex Binh Duong F.C."
+        }
+      },
+      {
+        "id": "Q122820986",
+        "title": "Q122820986",
+        "pageid": 117067325,
+        "concepturi": "http://www.wikidata.org/entity/Q122820986",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q122820986",
+        "display": {
+          "label": {
+            "value": "Became The Hunted",
+            "language": "en"
+          },
+          "description": {
+            "value": "2018 early access video game",
+            "language": "en"
+          }
+        },
+        "label": "Became The Hunted",
+        "description": "2018 early access video game",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Became The Hunted"
+        }
+      },
+      {
+        "id": "Q18408566",
+        "title": "Q18408566",
+        "pageid": 19942692,
+        "concepturi": "http://www.wikidata.org/entity/Q18408566",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q18408566",
+        "display": {
+          "label": {
+            "value": "Became Silence",
+            "language": "en"
+          },
+          "description": {
+            "value": "painting by Nikolay Nikanorovich Dubovskoy",
+            "language": "en"
+          }
+        },
+        "label": "Became Silence",
+        "description": "painting by Nikolay Nikanorovich Dubovskoy",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Became Silence"
+        }
+      },
+      {
+        "id": "Q112228563",
+        "title": "Q112228563",
+        "pageid": 107131415,
+        "concepturi": "http://www.wikidata.org/entity/Q112228563",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q112228563",
+        "display": {
+          "label": {
+            "value": "Became silence / Silence has settled / Quieted down",
+            "language": "en"
+          },
+          "description": {
+            "value": "painting by Nikolay Nikanorovich Dubovskoy",
+            "language": "en"
+          }
+        },
+        "label": "Became silence / Silence has settled / Quieted down",
+        "description": "painting by Nikolay Nikanorovich Dubovskoy",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Became silence / Silence has settled / Quieted down"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634616917,
+  "ttl": 86400000,
+  "query": "fuzzy_became",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,172 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q268160",
+        "title": "Q268160",
+        "pageid": 259741,
+        "concepturi": "http://www.wikidata.org/entity/Q268160",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q268160",
+        "display": {
+          "label": {
+            "value": "The White Stripes",
+            "language": "en"
+          },
+          "description": {
+            "value": "American rock band",
+            "language": "en"
+          }
+        },
+        "label": "The White Stripes",
+        "description": "American rock band",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The White Stripes"
+        }
+      },
+      {
+        "id": "Q815617",
+        "title": "Q815617",
+        "pageid": 768499,
+        "concepturi": "http://www.wikidata.org/entity/Q815617",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q815617",
+        "display": {
+          "label": {
+            "value": "Aleyrodidae",
+            "language": "en"
+          },
+          "description": {
+            "value": "family of insects",
+            "language": "en"
+          }
+        },
+        "label": "Aleyrodidae",
+        "description": "family of insects",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the whiteflies"
+        },
+        "aliases": [
+          "the whiteflies"
+        ]
+      },
+      {
+        "id": "Q35525",
+        "title": "Q35525",
+        "pageid": 38197,
+        "concepturi": "http://www.wikidata.org/entity/Q35525",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q35525",
+        "display": {
+          "label": {
+            "value": "White House",
+            "language": "en"
+          },
+          "description": {
+            "value": "official residence and office of the President of the United States",
+            "language": "en"
+          }
+        },
+        "label": "White House",
+        "description": "official residence and office of the President of the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the White House"
+        },
+        "aliases": [
+          "the White House"
+        ]
+      },
+      {
+        "id": "Q85857952",
+        "title": "Q85857952",
+        "pageid": 85128786,
+        "concepturi": "http://www.wikidata.org/entity/Q85857952",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q85857952",
+        "display": {
+          "label": {
+            "value": "The White Door",
+            "language": "en"
+          },
+          "description": {
+            "value": "2020 video game",
+            "language": "en"
+          }
+        },
+        "label": "The White Door",
+        "description": "2020 video game",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The White Door"
+        }
+      },
+      {
+        "id": "Q106679014",
+        "title": "Q106679014",
+        "pageid": 101954385,
+        "concepturi": "http://www.wikidata.org/entity/Q106679014",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q106679014",
+        "display": {
+          "label": {
+            "value": "The White Lotus",
+            "language": "en"
+          },
+          "description": {
+            "value": "2021 American television series",
+            "language": "en"
+          }
+        },
+        "label": "The White Lotus",
+        "description": "2021 American television series",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The White Lotus"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P6347",
+        "title": "Property:P6347",
+        "pageid": 60391044,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P6347",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P6347",
+        "display": {
+          "label": {
+            "value": "The White-files species ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a species in The White-files",
+            "language": "en"
+          }
+        },
+        "label": "The White-files species ID",
+        "description": "identifier for a species in The White-files",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The White-files species ID"
+        }
+      }
+    ],
+    "total": 6
+  },
+  "timestamp": 1753634608836,
+  "ttl": 86400000,
+  "query": "fuzzy_the White",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

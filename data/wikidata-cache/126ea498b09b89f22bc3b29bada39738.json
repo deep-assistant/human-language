@@ -1,0 +1,285 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q5119",
+        "title": "Q5119",
+        "pageid": 6078,
+        "concepturi": "http://www.wikidata.org/entity/Q5119",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q5119",
+        "display": {
+          "label": {
+            "value": "capital city",
+            "language": "en"
+          },
+          "description": {
+            "value": "primary governing city of a top-level (country) or first-level and second-level subdivision (country, state, province, regency, etc) political entity",
+            "language": "en"
+          }
+        },
+        "label": "capital city",
+        "description": "primary governing city of a top-level (country) or first-level and second-level subdivision (country, state, province, regency, etc) political entity",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "capital city"
+        }
+      },
+      {
+        "id": "Q193893",
+        "title": "Q193893",
+        "pageid": 191848,
+        "concepturi": "http://www.wikidata.org/entity/Q193893",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q193893",
+        "display": {
+          "label": {
+            "value": "capital",
+            "language": "en"
+          },
+          "description": {
+            "value": "upper part of a column (architecture)",
+            "language": "en"
+          }
+        },
+        "label": "capital",
+        "description": "upper part of a column (architecture)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "capital"
+        }
+      },
+      {
+        "id": "Q60",
+        "title": "Q60",
+        "pageid": 186,
+        "concepturi": "http://www.wikidata.org/entity/Q60",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q60",
+        "display": {
+          "label": {
+            "value": "New York City",
+            "language": "en"
+          },
+          "description": {
+            "value": "most populous city in the United States",
+            "language": "en"
+          }
+        },
+        "label": "New York City",
+        "description": "most populous city in the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Capital of the World"
+        },
+        "aliases": [
+          "Capital of the World"
+        ]
+      },
+      {
+        "id": "Q98912",
+        "title": "Q98912",
+        "pageid": 101522,
+        "concepturi": "http://www.wikidata.org/entity/Q98912",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q98912",
+        "display": {
+          "label": {
+            "value": "uppercase letter",
+            "language": "en"
+          },
+          "description": {
+            "value": "type of letter in some alphabets used for particular purposes",
+            "language": "en"
+          }
+        },
+        "label": "uppercase letter",
+        "description": "type of letter in some alphabets used for particular purposes",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "capital letter"
+        },
+        "aliases": [
+          "capital letter"
+        ]
+      },
+      {
+        "id": "Q100",
+        "title": "Q100",
+        "pageid": 231,
+        "concepturi": "http://www.wikidata.org/entity/Q100",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q100",
+        "display": {
+          "label": {
+            "value": "Boston",
+            "language": "en"
+          },
+          "description": {
+            "value": "capital and largest city of Massachusetts, United States",
+            "language": "en"
+          }
+        },
+        "label": "Boston",
+        "description": "capital and largest city of Massachusetts, United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Capital of Massachusetts"
+        },
+        "aliases": [
+          "Capital of Massachusetts"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P36",
+        "title": "Property:P36",
+        "pageid": 3919269,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P36",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P36",
+        "display": {
+          "label": {
+            "value": "capital",
+            "language": "en"
+          },
+          "description": {
+            "value": "seat of government of a country, province, state or other type of administrative territorial entity",
+            "language": "en"
+          }
+        },
+        "label": "capital",
+        "description": "seat of government of a country, province, state or other type of administrative territorial entity",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "capital"
+        }
+      },
+      {
+        "id": "P1376",
+        "title": "Property:P1376",
+        "pageid": 18875222,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1376",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1376",
+        "display": {
+          "label": {
+            "value": "capital of",
+            "language": "en"
+          },
+          "description": {
+            "value": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+            "language": "en"
+          }
+        },
+        "label": "capital of",
+        "description": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "capital of"
+        }
+      },
+      {
+        "id": "P2130",
+        "title": "Property:P2130",
+        "pageid": 23092251,
+        "datatype": "quantity",
+        "concepturi": "http://www.wikidata.org/entity/P2130",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2130",
+        "display": {
+          "label": {
+            "value": "capital cost",
+            "language": "en"
+          },
+          "description": {
+            "value": "amount of money spent on building or producing an object",
+            "language": "en"
+          }
+        },
+        "label": "capital cost",
+        "description": "amount of money spent on building or producing an object",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "capital cost"
+        }
+      },
+      {
+        "id": "P6106",
+        "title": "Property:P6106",
+        "pageid": 58378409,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P6106",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P6106",
+        "display": {
+          "label": {
+            "value": "uses capitalization for",
+            "language": "en"
+          },
+          "description": {
+            "value": "lexical classes and subclasses of words as well as other uses in the language where the first letter is written as a capital letter",
+            "language": "en"
+          }
+        },
+        "label": "uses capitalization for",
+        "description": "lexical classes and subclasses of words as well as other uses in the language where the first letter is written as a capital letter",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "capitalizes"
+        },
+        "aliases": [
+          "capitalizes"
+        ]
+      },
+      {
+        "id": "P2218",
+        "title": "Property:P2218",
+        "pageid": 23112911,
+        "datatype": "quantity",
+        "concepturi": "http://www.wikidata.org/entity/P2218",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2218",
+        "display": {
+          "label": {
+            "value": "net worth",
+            "language": "en"
+          },
+          "description": {
+            "value": "totality of wealth possessed by a person",
+            "language": "en"
+          }
+        },
+        "label": "net worth",
+        "description": "totality of wealth possessed by a person",
+        "match": {
+          "type": "alias",
+          "language": "ca",
+          "text": "capital net"
+        },
+        "aliases": [
+          "capital net"
+        ]
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634611813,
+  "ttl": 86400000,
+  "query": "fuzzy_capital",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

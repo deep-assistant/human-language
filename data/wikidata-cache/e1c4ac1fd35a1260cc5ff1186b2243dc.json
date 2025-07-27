@@ -1,0 +1,279 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q30",
+        "title": "Q30",
+        "pageid": 126,
+        "concepturi": "http://www.wikidata.org/entity/Q30",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30",
+        "display": {
+          "label": {
+            "value": "United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "country located primarily in North America",
+            "language": "en"
+          }
+        },
+        "label": "United States",
+        "description": "country located primarily in North America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "America"
+        },
+        "aliases": [
+          "America"
+        ]
+      },
+      {
+        "id": "Q828",
+        "title": "Q828",
+        "pageid": 1146,
+        "concepturi": "http://www.wikidata.org/entity/Q828",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q828",
+        "display": {
+          "label": {
+            "value": "Americas",
+            "language": "en"
+          },
+          "description": {
+            "value": "North America and South America taken together as a single continent or landmass",
+            "language": "en"
+          }
+        },
+        "label": "Americas",
+        "description": "North America and South America taken together as a single continent or landmass",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Americas"
+        }
+      },
+      {
+        "id": "Q126852",
+        "title": "Q126852",
+        "pageid": 128931,
+        "concepturi": "http://www.wikidata.org/entity/Q126852",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q126852",
+        "display": {
+          "label": {
+            "value": "America",
+            "language": "en"
+          },
+          "description": {
+            "value": "British-American rock band",
+            "language": "en"
+          }
+        },
+        "label": "America",
+        "description": "British-American rock band",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "America"
+        }
+      },
+      {
+        "id": "Q7976",
+        "title": "Q7976",
+        "pageid": 9244,
+        "concepturi": "http://www.wikidata.org/entity/Q7976",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7976",
+        "display": {
+          "label": {
+            "value": "American English",
+            "language": "en"
+          },
+          "description": {
+            "value": "set of dialects of the English language spoken in the United States",
+            "language": "en"
+          }
+        },
+        "label": "American English",
+        "description": "set of dialects of the English language spoken in the United States",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "American English"
+        }
+      },
+      {
+        "id": "Q169889",
+        "title": "Q169889",
+        "pageid": 170288,
+        "concepturi": "http://www.wikidata.org/entity/Q169889",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q169889",
+        "display": {
+          "label": {
+            "value": "American Broadcasting Company",
+            "language": "en"
+          },
+          "description": {
+            "value": "American broadcast television network owned by The Walt Disney Company",
+            "language": "en"
+          }
+        },
+        "label": "American Broadcasting Company",
+        "description": "American broadcast television network owned by The Walt Disney Company",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "American Broadcasting Company"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P9097",
+        "title": "Property:P9097",
+        "pageid": 100487943,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9097",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9097",
+        "display": {
+          "label": {
+            "value": "American Academy in Rome ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for an authority in the library catalogue of the American Academy in Rome",
+            "language": "en"
+          }
+        },
+        "label": "American Academy in Rome ID",
+        "description": "identifier for an authority in the library catalogue of the American Academy in Rome",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "American Academy in Rome ID"
+        }
+      },
+      {
+        "id": "P3593",
+        "title": "Property:P3593",
+        "pageid": 30386500,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P3593",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3593",
+        "display": {
+          "label": {
+            "value": "AFI Catalog of Feature Films ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier of a film (movie) in the American Film Institute Catalog of Feature Film",
+            "language": "en"
+          }
+        },
+        "label": "AFI Catalog of Feature Films ID",
+        "description": "identifier of a film (movie) in the American Film Institute Catalog of Feature Film",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "American Film Institute Catalog"
+        },
+        "aliases": [
+          "American Film Institute Catalog"
+        ]
+      },
+      {
+        "id": "P4823",
+        "title": "Property:P4823",
+        "pageid": 49206399,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P4823",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P4823",
+        "display": {
+          "label": {
+            "value": "American National Biography ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier of a person in the scholarly biographical encyclopedia",
+            "language": "en"
+          }
+        },
+        "label": "American National Biography ID",
+        "description": "identifier of a person in the scholarly biographical encyclopedia",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "American National Biography ID"
+        }
+      },
+      {
+        "id": "P1795",
+        "title": "Property:P1795",
+        "pageid": 21257281,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P1795",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1795",
+        "display": {
+          "label": {
+            "value": "Smithsonian American Art Museum person/institution ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a person or institution, in the Smithsonian American Art Museum: person/institution thesaurus",
+            "language": "en"
+          }
+        },
+        "label": "Smithsonian American Art Museum person/institution ID",
+        "description": "identifier for a person or institution, in the Smithsonian American Art Museum: person/institution thesaurus",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "American Art ID"
+        },
+        "aliases": [
+          "American Art ID"
+        ]
+      },
+      {
+        "id": "P5340",
+        "title": "Property:P5340",
+        "pageid": 55171421,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P5340",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P5340",
+        "display": {
+          "label": {
+            "value": "American Film Institute person ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a person at American Film Institute",
+            "language": "en"
+          }
+        },
+        "label": "American Film Institute person ID",
+        "description": "identifier for a person at American Film Institute",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "American Film Institute person ID"
+        }
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634613702,
+  "ttl": 86400000,
+  "query": "fuzzy_America",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

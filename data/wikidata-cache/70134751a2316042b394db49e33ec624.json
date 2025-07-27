@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634606367,
+  "ttl": 86400000,
+  "query": "was born in",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

@@ -1,0 +1,145 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q23444",
+        "title": "Q23444",
+        "pageid": 26835,
+        "concepturi": "http://www.wikidata.org/entity/Q23444",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q23444",
+        "display": {
+          "label": {
+            "value": "white",
+            "language": "en"
+          },
+          "description": {
+            "value": "lightest color",
+            "language": "en"
+          }
+        },
+        "label": "white",
+        "description": "lightest color",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "white"
+        }
+      },
+      {
+        "id": "Q1215200",
+        "title": "Q1215200",
+        "pageid": 1156977,
+        "concepturi": "http://www.wikidata.org/entity/Q1215200",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1215200",
+        "display": {
+          "label": {
+            "value": "White",
+            "language": "mul"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "White",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "mul",
+          "text": "White"
+        }
+      },
+      {
+        "id": "Q184",
+        "title": "Q184",
+        "pageid": 323,
+        "concepturi": "http://www.wikidata.org/entity/Q184",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q184",
+        "display": {
+          "label": {
+            "value": "Belarus",
+            "language": "en"
+          },
+          "description": {
+            "value": "country in Eastern Europe",
+            "language": "en"
+          }
+        },
+        "label": "Belarus",
+        "description": "country in Eastern Europe",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "White Russia"
+        },
+        "aliases": [
+          "White Russia"
+        ]
+      },
+      {
+        "id": "Q12204",
+        "title": "Q12204",
+        "pageid": 13780,
+        "concepturi": "http://www.wikidata.org/entity/Q12204",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q12204",
+        "display": {
+          "label": {
+            "value": "tuberculosis",
+            "language": "en"
+          },
+          "description": {
+            "value": "infectious disease caused by the bacterium Mycobacterium tuberculosis",
+            "language": "en"
+          }
+        },
+        "label": "tuberculosis",
+        "description": "infectious disease caused by the bacterium Mycobacterium tuberculosis",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "White Death"
+        },
+        "aliases": [
+          "White Death"
+        ]
+      },
+      {
+        "id": "Q235155",
+        "title": "Q235155",
+        "pageid": 228682,
+        "concepturi": "http://www.wikidata.org/entity/Q235155",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q235155",
+        "display": {
+          "label": {
+            "value": "White people",
+            "language": "en"
+          },
+          "description": {
+            "value": "racial classification and skin color specifier",
+            "language": "en"
+          }
+        },
+        "label": "White people",
+        "description": "racial classification and skin color specifier",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "White people"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634608824,
+  "ttl": 86400000,
+  "query": "fuzzy_White",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

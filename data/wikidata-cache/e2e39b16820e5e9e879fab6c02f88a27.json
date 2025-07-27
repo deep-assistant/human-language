@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634615408,
+  "ttl": 86400000,
+  "query": "fuzzy_Nations Secretary",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

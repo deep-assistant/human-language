@@ -1,0 +1,279 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q77076820",
+        "title": "Q77076820",
+        "pageid": 76556197,
+        "concepturi": "http://www.wikidata.org/entity/Q77076820",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q77076820",
+        "display": {
+          "label": {
+            "value": "World Flora Online",
+            "language": "en"
+          },
+          "description": {
+            "value": "online flora for plants",
+            "language": "en"
+          }
+        },
+        "label": "World Flora Online",
+        "description": "online flora for plants",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World Flora Online"
+        }
+      },
+      {
+        "id": "Q2",
+        "title": "Q2",
+        "pageid": 130,
+        "concepturi": "http://www.wikidata.org/entity/Q2",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2",
+        "display": {
+          "label": {
+            "value": "Earth",
+            "language": "en"
+          },
+          "description": {
+            "value": "third planet from the Sun in the Solar System",
+            "language": "en"
+          }
+        },
+        "label": "Earth",
+        "description": "third planet from the Sun in the Solar System",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "World"
+        },
+        "aliases": [
+          "World"
+        ]
+      },
+      {
+        "id": "Q846596",
+        "title": "Q846596",
+        "pageid": 798620,
+        "concepturi": "http://www.wikidata.org/entity/Q846596",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q846596",
+        "display": {
+          "label": {
+            "value": "WorldCat",
+            "language": "en"
+          },
+          "description": {
+            "value": "international union library catalog",
+            "language": "en"
+          }
+        },
+        "label": "WorldCat",
+        "description": "international union library catalog",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "WorldCat"
+        }
+      },
+      {
+        "id": "Q189289",
+        "title": "Q189289",
+        "pageid": 187834,
+        "concepturi": "http://www.wikidata.org/entity/Q189289",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q189289",
+        "display": {
+          "label": {
+            "value": "World Aquatics",
+            "language": "en"
+          },
+          "description": {
+            "value": "international sport governing body",
+            "language": "en"
+          }
+        },
+        "label": "World Aquatics",
+        "description": "international sport governing body",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World Aquatics"
+        }
+      },
+      {
+        "id": "Q604063",
+        "title": "Q604063",
+        "pageid": 568654,
+        "concepturi": "http://www.wikidata.org/entity/Q604063",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q604063",
+        "display": {
+          "label": {
+            "value": "World Register of Marine Species",
+            "language": "en"
+          },
+          "description": {
+            "value": "web-based database of marine species",
+            "language": "en"
+          }
+        },
+        "label": "World Register of Marine Species",
+        "description": "web-based database of marine species",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World Register of Marine Species"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P2020",
+        "title": "Property:P2020",
+        "pageid": 22501600,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P2020",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2020",
+        "display": {
+          "label": {
+            "value": "WorldFootball.net person ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for an association football (soccer) player or manager at WorldFootball.net, Weltfussball.com, Weltfussball.de, Weltfussball.at, Voetbal.com, Calcio.com, Mondedufoot.fr, or Livefutbol.com",
+            "language": "en"
+          }
+        },
+        "label": "WorldFootball.net person ID",
+        "description": "identifier for an association football (soccer) player or manager at WorldFootball.net, Weltfussball.com, Weltfussball.de, Weltfussball.at, Voetbal.com, Calcio.com, Mondedufoot.fr, or Livefutbol.com",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "WorldFootball.net person ID"
+        }
+      },
+      {
+        "id": "P8990",
+        "title": "Property:P8990",
+        "pageid": 99960230,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P8990",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P8990",
+        "display": {
+          "label": {
+            "value": "World Rowing rower UUID",
+            "language": "en"
+          },
+          "description": {
+            "value": "UUID identifier for a person in the database of World Rowing (FISA)",
+            "language": "en"
+          }
+        },
+        "label": "World Rowing rower UUID",
+        "description": "UUID identifier for a person in the database of World Rowing (FISA)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World Rowing rower UUID"
+        }
+      },
+      {
+        "id": "P7715",
+        "title": "Property:P7715",
+        "pageid": 77607838,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P7715",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P7715",
+        "display": {
+          "label": {
+            "value": "World Flora Online ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a plant in World Flora Online",
+            "language": "en"
+          }
+        },
+        "label": "World Flora Online ID",
+        "description": "identifier for a plant in World Flora Online",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "World Flora Online ID"
+        }
+      },
+      {
+        "id": "P850",
+        "title": "Property:P850",
+        "pageid": 16519814,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P850",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P850",
+        "display": {
+          "label": {
+            "value": "WoRMS-ID for taxa",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier in the World Register of Marine Species",
+            "language": "en"
+          }
+        },
+        "label": "WoRMS-ID for taxa",
+        "description": "identifier in the World Register of Marine Species",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "World Register of Marine Species identifier"
+        },
+        "aliases": [
+          "World Register of Marine Species identifier"
+        ]
+      },
+      {
+        "id": "P140",
+        "title": "Property:P140",
+        "pageid": 4978387,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P140",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P140",
+        "display": {
+          "label": {
+            "value": "religion or worldview",
+            "language": "en"
+          },
+          "description": {
+            "value": "religion of a person, organization or religious building, or associated with this subject",
+            "language": "en"
+          }
+        },
+        "label": "religion or worldview",
+        "description": "religion of a person, organization or religious building, or associated with this subject",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "worldview"
+        },
+        "aliases": [
+          "worldview"
+        ]
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634799011,
+  "ttl": 86400000,
+  "query": "fuzzy_World",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

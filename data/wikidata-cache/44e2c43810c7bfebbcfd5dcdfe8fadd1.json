@@ -1,0 +1,142 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q1255921",
+        "title": "Q1255921",
+        "pageid": 1196800,
+        "concepturi": "http://www.wikidata.org/entity/Q1255921",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1255921",
+        "display": {
+          "label": {
+            "value": "president",
+            "language": "en"
+          },
+          "description": {
+            "value": "leader of an organization",
+            "language": "en"
+          }
+        },
+        "label": "president",
+        "description": "leader of an organization",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "president of organization"
+        },
+        "aliases": [
+          "president of organization"
+        ]
+      },
+      {
+        "id": "Q11696",
+        "title": "Q11696",
+        "pageid": 13235,
+        "concepturi": "http://www.wikidata.org/entity/Q11696",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q11696",
+        "display": {
+          "label": {
+            "value": "President of the United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "head of state and head of government of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "President of the United States",
+        "description": "head of state and head of government of the United States of America",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President of the United States"
+        }
+      },
+      {
+        "id": "Q218295",
+        "title": "Q218295",
+        "pageid": 213313,
+        "concepturi": "http://www.wikidata.org/entity/Q218295",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q218295",
+        "display": {
+          "label": {
+            "value": "President of Russia",
+            "language": "en"
+          },
+          "description": {
+            "value": "head of state of the RSFSR (office established in 1991) and Russia",
+            "language": "en"
+          }
+        },
+        "label": "President of Russia",
+        "description": "head of state of the RSFSR (office established in 1991) and Russia",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President of Russia"
+        }
+      },
+      {
+        "id": "Q866725",
+        "title": "Q866725",
+        "pageid": 818073,
+        "concepturi": "http://www.wikidata.org/entity/Q866725",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q866725",
+        "display": {
+          "label": {
+            "value": "President of Botswana",
+            "language": "en"
+          },
+          "description": {
+            "value": "head of state and government of Botswana",
+            "language": "en"
+          }
+        },
+        "label": "President of Botswana",
+        "description": "head of state and government of Botswana",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President of Botswana"
+        }
+      },
+      {
+        "id": "Q6468838",
+        "title": "Q6468838",
+        "pageid": 6285992,
+        "concepturi": "http://www.wikidata.org/entity/Q6468838",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q6468838",
+        "display": {
+          "label": {
+            "value": "President of Slovakia",
+            "language": "en"
+          },
+          "description": {
+            "value": "head of state of Slovakia",
+            "language": "en"
+          }
+        },
+        "label": "President of Slovakia",
+        "description": "head of state of Slovakia",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President of Slovakia"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634617308,
+  "ttl": 86400000,
+  "query": "fuzzy_President of",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

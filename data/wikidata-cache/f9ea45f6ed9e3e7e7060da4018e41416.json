@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634801189,
+  "ttl": 86400000,
+  "query": "fuzzy_is the mother",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

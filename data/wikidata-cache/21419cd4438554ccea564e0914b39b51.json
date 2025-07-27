@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634745787,
+  "ttl": 86400000,
+  "query": "Obama visited Washington",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

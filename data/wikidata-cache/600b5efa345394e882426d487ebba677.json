@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634617668,
+  "ttl": 86400000,
+  "query": "wrote Romeo",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

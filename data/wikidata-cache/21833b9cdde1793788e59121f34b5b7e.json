@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634606693,
+  "ttl": 86400000,
+  "query": "fuzzy_born in Hawaii",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

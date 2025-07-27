@@ -1,0 +1,175 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q20000410",
+        "title": "Q20000410",
+        "pageid": 21641493,
+        "concepturi": "http://www.wikidata.org/entity/Q20000410",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q20000410",
+        "display": {
+          "label": {
+            "value": "Juliet",
+            "language": "en"
+          },
+          "description": {
+            "value": "female given name",
+            "language": "en"
+          }
+        },
+        "label": "Juliet",
+        "description": "female given name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Juliet"
+        }
+      },
+      {
+        "id": "Q9773",
+        "title": "Q9773",
+        "pageid": 11171,
+        "concepturi": "http://www.wikidata.org/entity/Q9773",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q9773",
+        "display": {
+          "label": {
+            "value": "J",
+            "language": "en"
+          },
+          "description": {
+            "value": "10th letter of the basic Latin alphabet",
+            "language": "en"
+          }
+        },
+        "label": "J",
+        "description": "10th letter of the basic Latin alphabet",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Juliett"
+        },
+        "aliases": [
+          "Juliett"
+        ]
+      },
+      {
+        "id": "Q106275",
+        "title": "Q106275",
+        "pageid": 108941,
+        "concepturi": "http://www.wikidata.org/entity/Q106275",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q106275",
+        "display": {
+          "label": {
+            "value": "Juliette Binoche",
+            "language": "en"
+          },
+          "description": {
+            "value": "French actress, artist and dancer (born 1964)",
+            "language": "en"
+          }
+        },
+        "label": "Juliette Binoche",
+        "description": "French actress, artist and dancer (born 1964)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Juliette Binoche"
+        }
+      },
+      {
+        "id": "Q111954053",
+        "title": "Q111954053",
+        "pageid": 106867202,
+        "concepturi": "http://www.wikidata.org/entity/Q111954053",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q111954053",
+        "display": {
+          "label": {
+            "value": "Juliet Chung",
+            "language": "en"
+          },
+          "description": {
+            "value": "American journalist",
+            "language": "en"
+          }
+        },
+        "label": "Juliet Chung",
+        "description": "American journalist",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Juliet Chung"
+        }
+      },
+      {
+        "id": "Q45103589",
+        "title": "Q45103589",
+        "pageid": 46282492,
+        "concepturi": "http://www.wikidata.org/entity/Q45103589",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q45103589",
+        "display": {
+          "label": {
+            "value": "SHERPA/Juliet",
+            "language": "en"
+          },
+          "description": {
+            "value": "online database of open access mandates",
+            "language": "en"
+          }
+        },
+        "label": "SHERPA/Juliet",
+        "description": "online database of open access mandates",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "JULIET"
+        },
+        "aliases": [
+          "JULIET"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P4636",
+        "title": "Property:P4636",
+        "pageid": 46468206,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P4636",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P4636",
+        "display": {
+          "label": {
+            "value": "Sherpa Juliet ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier on the Juliet directory of research funding policies",
+            "language": "en"
+          }
+        },
+        "label": "Sherpa Juliet ID",
+        "description": "identifier on the Juliet directory of research funding policies",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "JULIET ID"
+        },
+        "aliases": [
+          "JULIET ID"
+        ]
+      }
+    ],
+    "total": 6
+  },
+  "timestamp": 1753634618004,
+  "ttl": 86400000,
+  "query": "Juliet",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

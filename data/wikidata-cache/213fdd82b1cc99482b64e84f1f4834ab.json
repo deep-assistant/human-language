@@ -1,0 +1,282 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q3947",
+        "title": "Q3947",
+        "pageid": 4858,
+        "concepturi": "http://www.wikidata.org/entity/Q3947",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q3947",
+        "display": {
+          "label": {
+            "value": "house",
+            "language": "en"
+          },
+          "description": {
+            "value": "building usually intended for living in",
+            "language": "en"
+          }
+        },
+        "label": "house",
+        "description": "building usually intended for living in",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "house"
+        }
+      },
+      {
+        "id": "Q19902419",
+        "title": "Q19902419",
+        "pageid": 21545771,
+        "concepturi": "http://www.wikidata.org/entity/Q19902419",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q19902419",
+        "display": {
+          "label": {
+            "value": "House",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "House",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "House"
+        }
+      },
+      {
+        "id": "Q2085381",
+        "title": "Q2085381",
+        "pageid": 2012331,
+        "concepturi": "http://www.wikidata.org/entity/Q2085381",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2085381",
+        "display": {
+          "label": {
+            "value": "publishing company",
+            "language": "en"
+          },
+          "description": {
+            "value": "company that prints and distributes pressed goods or electronic media",
+            "language": "en"
+          }
+        },
+        "label": "publishing company",
+        "description": "company that prints and distributes pressed goods or electronic media",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "house"
+        },
+        "aliases": [
+          "house"
+        ]
+      },
+      {
+        "id": "Q20502",
+        "title": "Q20502",
+        "pageid": 23802,
+        "concepturi": "http://www.wikidata.org/entity/Q20502",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q20502",
+        "display": {
+          "label": {
+            "value": "house music",
+            "language": "en"
+          },
+          "description": {
+            "value": "electronic dance music genre, that originated in Chicago in the early 1980s",
+            "language": "en"
+          }
+        },
+        "label": "house music",
+        "description": "electronic dance music genre, that originated in Chicago in the early 1980s",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "house music"
+        }
+      },
+      {
+        "id": "Q83310",
+        "title": "Q83310",
+        "pageid": 85709,
+        "concepturi": "http://www.wikidata.org/entity/Q83310",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q83310",
+        "display": {
+          "label": {
+            "value": "house mouse",
+            "language": "en"
+          },
+          "description": {
+            "value": "species of mammal",
+            "language": "en"
+          }
+        },
+        "label": "house mouse",
+        "description": "species of mammal",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "house mouse"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P53",
+        "title": "Property:P53",
+        "pageid": 3923449,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P53",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P53",
+        "display": {
+          "label": {
+            "value": "family",
+            "language": "en"
+          },
+          "description": {
+            "value": "family, including dynasty and nobility houses. Not family name (use P734 for family name).",
+            "language": "en"
+          }
+        },
+        "label": "family",
+        "description": "family, including dynasty and nobility houses. Not family name (use P734 for family name).",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "house"
+        },
+        "aliases": [
+          "house"
+        ]
+      },
+      {
+        "id": "P1538",
+        "title": "Property:P1538",
+        "pageid": 19656994,
+        "datatype": "quantity",
+        "concepturi": "http://www.wikidata.org/entity/P1538",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1538",
+        "display": {
+          "label": {
+            "value": "number of households",
+            "language": "en"
+          },
+          "description": {
+            "value": "total number of households in this place, includes dwellings of all types",
+            "language": "en"
+          }
+        },
+        "label": "number of households",
+        "description": "total number of households in this place, includes dwellings of all types",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "households"
+        },
+        "aliases": [
+          "households"
+        ]
+      },
+      {
+        "id": "P670",
+        "title": "Property:P670",
+        "pageid": 15262370,
+        "datatype": "string",
+        "concepturi": "http://www.wikidata.org/entity/P670",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P670",
+        "display": {
+          "label": {
+            "value": "house number",
+            "language": "en"
+          },
+          "description": {
+            "value": "number in the street address. To be used as a qualifier of Property:P669 \"located on street\"",
+            "language": "en"
+          }
+        },
+        "label": "house number",
+        "description": "number in the street address. To be used as a qualifier of Property:P669 \"located on street\"",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "house number"
+        }
+      },
+      {
+        "id": "P466",
+        "title": "Property:P466",
+        "pageid": 13187811,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P466",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P466",
+        "display": {
+          "label": {
+            "value": "occupant",
+            "language": "en"
+          },
+          "description": {
+            "value": "person or organization occupying property",
+            "language": "en"
+          }
+        },
+        "label": "occupant",
+        "description": "person or organization occupying property",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "houses"
+        },
+        "aliases": [
+          "houses"
+        ]
+      },
+      {
+        "id": "P2813",
+        "title": "Property:P2813",
+        "pageid": 26018275,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P2813",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2813",
+        "display": {
+          "label": {
+            "value": "house publication",
+            "language": "en"
+          },
+          "description": {
+            "value": "media that speaks for an organization or a movement, and that is usually edited by its members",
+            "language": "en"
+          }
+        },
+        "label": "house publication",
+        "description": "media that speaks for an organization or a movement, and that is usually edited by its members",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "house publication"
+        }
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634608192,
+  "ttl": 86400000,
+  "query": "House",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

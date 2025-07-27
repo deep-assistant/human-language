@@ -1,0 +1,285 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q1065",
+        "title": "Q1065",
+        "pageid": 1404,
+        "concepturi": "http://www.wikidata.org/entity/Q1065",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1065",
+        "display": {
+          "label": {
+            "value": "United Nations",
+            "language": "en"
+          },
+          "description": {
+            "value": "global international and intergovernmental organization",
+            "language": "en"
+          }
+        },
+        "label": "United Nations",
+        "description": "global international and intergovernmental organization",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations"
+        }
+      },
+      {
+        "id": "Q9259",
+        "title": "Q9259",
+        "pageid": 10620,
+        "concepturi": "http://www.wikidata.org/entity/Q9259",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q9259",
+        "display": {
+          "label": {
+            "value": "World Heritage Site",
+            "language": "en"
+          },
+          "description": {
+            "value": "place of significance listed by UNESCO",
+            "language": "en"
+          }
+        },
+        "label": "World Heritage Site",
+        "description": "place of significance listed by UNESCO",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations Educational, Scientific and Cultural Organization (UNESCO) World Heritage Site"
+        },
+        "aliases": [
+          "United Nations Educational, Scientific and Cultural Organization (UNESCO) World Heritage Site"
+        ]
+      },
+      {
+        "id": "Q37470",
+        "title": "Q37470",
+        "pageid": 39974,
+        "concepturi": "http://www.wikidata.org/entity/Q37470",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q37470",
+        "display": {
+          "label": {
+            "value": "United Nations Security Council",
+            "language": "en"
+          },
+          "description": {
+            "value": "one of the six principal organs of the UN, charged with the maintenance of international peace and security",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Security Council",
+        "description": "one of the six principal organs of the UN, charged with the maintenance of international peace and security",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations Security Council"
+        }
+      },
+      {
+        "id": "Q877358",
+        "title": "Q877358",
+        "pageid": 828603,
+        "concepturi": "http://www.wikidata.org/entity/Q877358",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q877358",
+        "display": {
+          "label": {
+            "value": "United Nations Security Council resolution",
+            "language": "en"
+          },
+          "description": {
+            "value": "UN resolution adopted by the fifteen members of the Security Council",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Security Council resolution",
+        "description": "UN resolution adopted by the fifteen members of the Security Council",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations Security Council resolution"
+        }
+      },
+      {
+        "id": "Q7809",
+        "title": "Q7809",
+        "pageid": 9055,
+        "concepturi": "http://www.wikidata.org/entity/Q7809",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7809",
+        "display": {
+          "label": {
+            "value": "UNESCO",
+            "language": "en"
+          },
+          "description": {
+            "value": "specialised agency of the United Nations for education, sciences, and culture",
+            "language": "en"
+          }
+        },
+        "label": "UNESCO",
+        "description": "specialised agency of the United Nations for education, sciences, and culture",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations Educational, Scientific and Cultural Organization"
+        },
+        "aliases": [
+          "United Nations Educational, Scientific and Cultural Organization"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P1937",
+        "title": "Property:P1937",
+        "pageid": 21750525,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P1937",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1937",
+        "display": {
+          "label": {
+            "value": "UN/LOCODE",
+            "language": "en"
+          },
+          "description": {
+            "value": "geographic location code maintained by UNECE",
+            "language": "en"
+          }
+        },
+        "label": "UN/LOCODE",
+        "description": "geographic location code maintained by UNECE",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations LOCODE"
+        },
+        "aliases": [
+          "United Nations LOCODE"
+        ]
+      },
+      {
+        "id": "P4222",
+        "title": "Property:P4222",
+        "pageid": 41216868,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P4222",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P4222",
+        "display": {
+          "label": {
+            "value": "United Nations Treaty Series Volume Number",
+            "language": "en"
+          },
+          "description": {
+            "value": "volume number within the United Nations Treaty Series",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Treaty Series Volume Number",
+        "description": "volume number within the United Nations Treaty Series",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations Treaty Series Volume Number"
+        }
+      },
+      {
+        "id": "P3069",
+        "title": "Property:P3069",
+        "pageid": 28203783,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P3069",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3069",
+        "display": {
+          "label": {
+            "value": "UN document symbol",
+            "language": "en"
+          },
+          "description": {
+            "value": "unique number assigned to United Nations documents",
+            "language": "en"
+          }
+        },
+        "label": "UN document symbol",
+        "description": "unique number assigned to United Nations documents",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations Document Codes"
+        },
+        "aliases": [
+          "United Nations Document Codes"
+        ]
+      },
+      {
+        "id": "P2167",
+        "title": "Property:P2167",
+        "pageid": 23102423,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P2167",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2167",
+        "display": {
+          "label": {
+            "value": "UNSPSC Code",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for taxonomy of products and services for use in eCommerce",
+            "language": "en"
+          }
+        },
+        "label": "UNSPSC Code",
+        "description": "identifier for taxonomy of products and services for use in eCommerce",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations Standard Products and Services Code"
+        },
+        "aliases": [
+          "United Nations Standard Products and Services Code"
+        ]
+      },
+      {
+        "id": "P9966",
+        "title": "Property:P9966",
+        "pageid": 104100058,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9966",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9966",
+        "display": {
+          "label": {
+            "value": "United Nations Treaty Collection object ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier in the United Nations database of treaties registered with the Secretariat",
+            "language": "en"
+          }
+        },
+        "label": "United Nations Treaty Collection object ID",
+        "description": "identifier in the United Nations database of treaties registered with the Secretariat",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Nations Treaty Collection object ID"
+        }
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634614841,
+  "ttl": 86400000,
+  "query": "United Nations",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

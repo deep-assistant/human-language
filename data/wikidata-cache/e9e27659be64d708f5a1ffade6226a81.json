@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634800693,
+  "ttl": 86400000,
+  "query": "Elizabeth is",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

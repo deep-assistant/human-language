@@ -1,0 +1,147 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P7943",
+        "title": "Property:P7943",
+        "pageid": 86106483,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P7943",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P7943",
+        "display": {
+          "label": {
+            "value": "The Washington Post contributor ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a person on the Washington Post website",
+            "language": "en"
+          }
+        },
+        "label": "The Washington Post contributor ID",
+        "description": "identifier for a person on the Washington Post website",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Washington Post contributor ID"
+        },
+        "aliases": [
+          "Washington Post contributor ID"
+        ]
+      },
+      {
+        "id": "P9330",
+        "title": "Property:P9330",
+        "pageid": 101382247,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9330",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9330",
+        "display": {
+          "label": {
+            "value": "Washington Place Names ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "numerical identifier for a place in Washington Place Names",
+            "language": "en"
+          }
+        },
+        "label": "Washington Place Names ID",
+        "description": "numerical identifier for a place in Washington Place Names",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Washington Place Names ID"
+        }
+      },
+      {
+        "id": "P9460",
+        "title": "Property:P9460",
+        "pageid": 101833519,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9460",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9460",
+        "display": {
+          "label": {
+            "value": "Washington Rare Plant Field Guide ID (PDF version)",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a rare plant in the Washington Natural Heritage Program's Rare Plant Field Guide",
+            "language": "en"
+          }
+        },
+        "label": "Washington Rare Plant Field Guide ID (PDF version)",
+        "description": "identifier for a rare plant in the Washington Natural Heritage Program's Rare Plant Field Guide",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Washington Rare Plant Field Guide ID (PDF version)"
+        }
+      },
+      {
+        "id": "P9408",
+        "title": "Property:P9408",
+        "pageid": 101651189,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9408",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9408",
+        "display": {
+          "label": {
+            "value": "Washington Flora Checklist ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier in the Washington Flora Checklist",
+            "language": "en"
+          }
+        },
+        "label": "Washington Flora Checklist ID",
+        "description": "identifier in the Washington Flora Checklist",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Washington Flora Checklist ID"
+        }
+      },
+      {
+        "id": "P9967",
+        "title": "Property:P9967",
+        "pageid": 104104401,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P9967",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P9967",
+        "display": {
+          "label": {
+            "value": "Washington Rare Plant Field Guide ID (Web version)",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a rare plant in the Washington Natural Heritage Program's of the Rare Plant Field Guide (2021- Web version)",
+            "language": "en"
+          }
+        },
+        "label": "Washington Rare Plant Field Guide ID (Web version)",
+        "description": "identifier for a rare plant in the Washington Natural Heritage Program's of the Rare Plant Field Guide (2021- Web version)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Washington Rare Plant Field Guide ID (Web version)"
+        }
+      }
+    ],
+    "total": 5
+  },
+  "timestamp": 1753634744412,
+  "ttl": 86400000,
+  "query": "Washington",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

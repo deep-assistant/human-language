@@ -1,0 +1,139 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q117824261",
+        "title": "Q117824261",
+        "pageid": 112555948,
+        "concepturi": "http://www.wikidata.org/entity/Q117824261",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q117824261",
+        "display": {
+          "label": {
+            "value": "Relativity",
+            "language": "en"
+          },
+          "description": {
+            "value": "mural in Montréal, Canada",
+            "language": "en"
+          }
+        },
+        "label": "Relativity",
+        "description": "mural in Montréal, Canada",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Relativity"
+        }
+      },
+      {
+        "id": "Q124070620",
+        "title": "Q124070620",
+        "pageid": 118245082,
+        "concepturi": "http://www.wikidata.org/entity/Q124070620",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q124070620",
+        "display": {
+          "label": {
+            "value": "Relativity",
+            "language": "en"
+          },
+          "description": {
+            "value": "2016 video game",
+            "language": "en"
+          }
+        },
+        "label": "Relativity",
+        "description": "2016 video game",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Relativity"
+        }
+      },
+      {
+        "id": "Q983751",
+        "title": "Q983751",
+        "pageid": 933429,
+        "concepturi": "http://www.wikidata.org/entity/Q983751",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q983751",
+        "display": {
+          "label": {
+            "value": "relativity",
+            "language": "en"
+          },
+          "description": {
+            "value": "quality of a property or measure that is defined in relation to some other entity, as opposed to absoluteness",
+            "language": "en"
+          }
+        },
+        "label": "relativity",
+        "description": "quality of a property or measure that is defined in relation to some other entity, as opposed to absoluteness",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "relativity"
+        }
+      },
+      {
+        "id": "Q8010281",
+        "title": "Q8010281",
+        "pageid": 7955589,
+        "concepturi": "http://www.wikidata.org/entity/Q8010281",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q8010281",
+        "display": {
+          "label": {
+            "value": "Relativity",
+            "language": "en"
+          },
+          "description": {
+            "value": "episode of Star Trek: Voyager (S5 E24)",
+            "language": "en"
+          }
+        },
+        "label": "Relativity",
+        "description": "episode of Star Trek: Voyager (S5 E24)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Relativity"
+        }
+      },
+      {
+        "id": "Q7310841",
+        "title": "Q7310841",
+        "pageid": 7216361,
+        "concepturi": "http://www.wikidata.org/entity/Q7310841",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7310841",
+        "display": {
+          "label": {
+            "value": "Relativity",
+            "language": "en"
+          },
+          "description": {
+            "value": "album by Emarosa",
+            "language": "en"
+          }
+        },
+        "label": "Relativity",
+        "description": "album by Emarosa",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Relativity"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634609551,
+  "ttl": 86400000,
+  "query": "relativity",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

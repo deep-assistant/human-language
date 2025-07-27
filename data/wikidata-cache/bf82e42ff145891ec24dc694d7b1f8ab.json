@@ -1,0 +1,123 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q90",
+        "title": "Q90",
+        "pageid": 221,
+        "concepturi": "http://www.wikidata.org/entity/Q90",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q90",
+        "display": {
+          "label": {
+            "value": "Paris",
+            "language": "en"
+          },
+          "description": {
+            "value": "capital city and largest city of France",
+            "language": "en"
+          }
+        },
+        "label": "Paris",
+        "description": "capital city and largest city of France",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Paris"
+        }
+      },
+      {
+        "id": "Q483020",
+        "title": "Q483020",
+        "pageid": 454642,
+        "concepturi": "http://www.wikidata.org/entity/Q483020",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q483020",
+        "display": {
+          "label": {
+            "value": "Paris Saint-Germain FC",
+            "language": "en"
+          },
+          "description": {
+            "value": "association football club in Paris, France",
+            "language": "en"
+          }
+        },
+        "label": "Paris Saint-Germain FC",
+        "description": "association football club in Paris, France",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Paris Saint-Germain FC"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P1376",
+        "title": "Property:P1376",
+        "pageid": 18875222,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1376",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1376",
+        "display": {
+          "label": {
+            "value": "capital of",
+            "language": "en"
+          },
+          "description": {
+            "value": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+            "language": "en"
+          }
+        },
+        "label": "capital of",
+        "description": "country, state, department, canton or other administrative division of which the municipality is the governmental seat",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "parish seat of"
+        },
+        "aliases": [
+          "parish seat of"
+        ]
+      },
+      {
+        "id": "P5607",
+        "title": "Property:P5607",
+        "pageid": 55984644,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P5607",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P5607",
+        "display": {
+          "label": {
+            "value": "located in the religious territorial entity",
+            "language": "en"
+          },
+          "description": {
+            "value": "the item is located on the territory of the following religious entity. Use P708 (diocese) for dioceses",
+            "language": "en"
+          }
+        },
+        "label": "located in the religious territorial entity",
+        "description": "the item is located on the territory of the following religious entity. Use P708 (diocese) for dioceses",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Parish"
+        },
+        "aliases": [
+          "Parish"
+        ]
+      }
+    ],
+    "total": 4
+  },
+  "timestamp": 1753634782196,
+  "ttl": 86400000,
+  "query": "Paris",
+  "languages": "en",
+  "limit": 5,
+  "type": "both"
+}

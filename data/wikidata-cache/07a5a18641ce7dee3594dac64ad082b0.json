@@ -1,0 +1,130 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P575",
+        "title": "Property:P575",
+        "pageid": 15087819,
+        "datatype": "time",
+        "concepturi": "http://www.wikidata.org/entity/P575",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P575",
+        "display": {
+          "label": {
+            "value": "time of discovery or invention",
+            "language": "en"
+          },
+          "description": {
+            "value": "date or point in time when the item was discovered or invented",
+            "language": "en"
+          }
+        },
+        "label": "time of discovery or invention",
+        "description": "date or point in time when the item was discovered or invented",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "discovered on"
+        },
+        "aliases": [
+          "discovered on"
+        ]
+      },
+      {
+        "id": "P61",
+        "title": "Property:P61",
+        "pageid": 3924868,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P61",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P61",
+        "display": {
+          "label": {
+            "value": "discoverer or inventor",
+            "language": "en"
+          },
+          "description": {
+            "value": "subject who discovered, first described, invented, or developed this discovery or invention or scientific hypothesis or theory",
+            "language": "en"
+          }
+        },
+        "label": "discoverer or inventor",
+        "description": "subject who discovered, first described, invented, or developed this discovery or invention or scientific hypothesis or theory",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "discovered by"
+        },
+        "aliases": [
+          "discovered by"
+        ]
+      },
+      {
+        "id": "P65",
+        "title": "Property:P65",
+        "pageid": 3924921,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P65",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P65",
+        "display": {
+          "label": {
+            "value": "site of astronomical discovery",
+            "language": "en"
+          },
+          "description": {
+            "value": "the place where an astronomical object was discovered (observatory, satellite)",
+            "language": "en"
+          }
+        },
+        "label": "site of astronomical discovery",
+        "description": "the place where an astronomical object was discovered (observatory, satellite)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "discovered at observatory"
+        },
+        "aliases": [
+          "discovered at observatory"
+        ]
+      },
+      {
+        "id": "P189",
+        "title": "Property:P189",
+        "pageid": 5761716,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P189",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P189",
+        "display": {
+          "label": {
+            "value": "location of discovery",
+            "language": "en"
+          },
+          "description": {
+            "value": "where the item was located when discovered",
+            "language": "en"
+          }
+        },
+        "label": "location of discovery",
+        "description": "where the item was located when discovered",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "discovered at:"
+        },
+        "aliases": [
+          "discovered at:"
+        ]
+      }
+    ],
+    "total": 4
+  },
+  "timestamp": 1753634609562,
+  "ttl": 86400000,
+  "query": "fuzzy_discovered",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

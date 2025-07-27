@@ -1,0 +1,39 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q129184988",
+        "title": "Q129184988",
+        "pageid": 123157984,
+        "concepturi": "http://www.wikidata.org/entity/Q129184988",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q129184988",
+        "display": {
+          "label": {
+            "value": "Of Americans, Africans, and Atlanticists",
+            "language": "en"
+          },
+          "description": {
+            "value": "scholarly article",
+            "language": "en"
+          }
+        },
+        "label": "Of Americans, Africans, and Atlanticists",
+        "description": "scholarly article",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Of Americans, Africans, and Atlanticists"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 1
+  },
+  "timestamp": 1753634612868,
+  "ttl": 86400000,
+  "query": "of America",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,64 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q76",
+        "title": "Q76",
+        "pageid": 205,
+        "concepturi": "http://www.wikidata.org/entity/Q76",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q76",
+        "display": {
+          "label": {
+            "value": "Barack Obama",
+            "language": "en"
+          },
+          "description": {
+            "value": "president of the United States from 2009 to 2017",
+            "language": "en"
+          }
+        },
+        "label": "Barack Obama",
+        "description": "president of the United States from 2009 to 2017",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Barack Obama"
+        }
+      },
+      {
+        "id": "Q649593",
+        "title": "Q649593",
+        "pageid": 611354,
+        "concepturi": "http://www.wikidata.org/entity/Q649593",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q649593",
+        "display": {
+          "label": {
+            "value": "Barack Obama Sr.",
+            "language": "en"
+          },
+          "description": {
+            "value": "Economist, father of Barack Obama Jr. (1934–1982)",
+            "language": "en"
+          }
+        },
+        "label": "Barack Obama Sr.",
+        "description": "Economist, father of Barack Obama Jr. (1934–1982)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Barack Obama Sr."
+        }
+      }
+    ],
+    "properties": [],
+    "total": 2
+  },
+  "timestamp": 1753634775126,
+  "ttl": 86400000,
+  "query": "Barack Obama",
+  "languages": "en",
+  "limit": 5,
+  "type": "both"
+}

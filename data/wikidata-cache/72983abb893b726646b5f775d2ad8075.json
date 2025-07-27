@@ -1,0 +1,139 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q385468",
+        "title": "Q385468",
+        "pageid": 366776,
+        "concepturi": "http://www.wikidata.org/entity/Q385468",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q385468",
+        "display": {
+          "label": {
+            "value": "Elizabeth",
+            "language": "en"
+          },
+          "description": {
+            "value": "female given name",
+            "language": "en"
+          }
+        },
+        "label": "Elizabeth",
+        "description": "female given name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Elizabeth"
+        }
+      },
+      {
+        "id": "Q9682",
+        "title": "Q9682",
+        "pageid": 11076,
+        "concepturi": "http://www.wikidata.org/entity/Q9682",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q9682",
+        "display": {
+          "label": {
+            "value": "Elizabeth II",
+            "language": "en"
+          },
+          "description": {
+            "value": "Queen of the United Kingdom from 1952 to 2022",
+            "language": "en"
+          }
+        },
+        "label": "Elizabeth II",
+        "description": "Queen of the United Kingdom from 1952 to 2022",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Elizabeth II"
+        }
+      },
+      {
+        "id": "Q37118203",
+        "title": "Q37118203",
+        "pageid": 38497168,
+        "concepturi": "http://www.wikidata.org/entity/Q37118203",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q37118203",
+        "display": {
+          "label": {
+            "value": "Elizabeth",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Elizabeth",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Elizabeth"
+        }
+      },
+      {
+        "id": "Q138311",
+        "title": "Q138311",
+        "pageid": 140028,
+        "concepturi": "http://www.wikidata.org/entity/Q138311",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q138311",
+        "display": {
+          "label": {
+            "value": "Elizabeth",
+            "language": "en"
+          },
+          "description": {
+            "value": "city in and county seat of Union County, New Jersey, United States",
+            "language": "en"
+          }
+        },
+        "label": "Elizabeth",
+        "description": "city in and county seat of Union County, New Jersey, United States",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Elizabeth"
+        }
+      },
+      {
+        "id": "Q7207",
+        "title": "Q7207",
+        "pageid": 8404,
+        "concepturi": "http://www.wikidata.org/entity/Q7207",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7207",
+        "display": {
+          "label": {
+            "value": "Elizabeth I of England",
+            "language": "en"
+          },
+          "description": {
+            "value": "Queen of England and Ireland from 1558 to 1603",
+            "language": "en"
+          }
+        },
+        "label": "Elizabeth I of England",
+        "description": "Queen of England and Ireland from 1558 to 1603",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Elizabeth I of England"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634801073,
+  "ttl": 86400000,
+  "query": "Elizabeth",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

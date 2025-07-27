@@ -1,0 +1,154 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q9471",
+        "title": "Q9471",
+        "pageid": 10845,
+        "concepturi": "http://www.wikidata.org/entity/Q9471",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q9471",
+        "display": {
+          "label": {
+            "value": "epistemology",
+            "language": "en"
+          },
+          "description": {
+            "value": "branch of philosophy studying the nature and scope of knowledge",
+            "language": "en"
+          }
+        },
+        "label": "epistemology",
+        "description": "branch of philosophy studying the nature and scope of knowledge",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "theory of knowledge"
+        },
+        "aliases": [
+          "theory of knowledge"
+        ]
+      },
+      {
+        "id": "Q131476",
+        "title": "Q131476",
+        "pageid": 133329,
+        "concepturi": "http://www.wikidata.org/entity/Q131476",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q131476",
+        "display": {
+          "label": {
+            "value": "graph theory",
+            "language": "en"
+          },
+          "description": {
+            "value": "study of graphs, which are mathematical structures used to model pairwise relations between objects",
+            "language": "en"
+          }
+        },
+        "label": "graph theory",
+        "description": "study of graphs, which are mathematical structures used to model pairwise relations between objects",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "theory of graphs"
+        },
+        "aliases": [
+          "theory of graphs"
+        ]
+      },
+      {
+        "id": "Q59115",
+        "title": "Q59115",
+        "pageid": 61925,
+        "concepturi": "http://www.wikidata.org/entity/Q59115",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q59115",
+        "display": {
+          "label": {
+            "value": "philosophy of science",
+            "language": "en"
+          },
+          "description": {
+            "value": "branch of philosophy concerned with the foundations, methods, and implications of science",
+            "language": "en"
+          }
+        },
+        "label": "philosophy of science",
+        "description": "branch of philosophy concerned with the foundations, methods, and implications of science",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "theory of science"
+        },
+        "aliases": [
+          "theory of science"
+        ]
+      },
+      {
+        "id": "Q193544",
+        "title": "Q193544",
+        "pageid": 191577,
+        "concepturi": "http://www.wikidata.org/entity/Q193544",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q193544",
+        "display": {
+          "label": {
+            "value": "music theory",
+            "language": "en"
+          },
+          "description": {
+            "value": "study of the theoretical aspects of music and its notation",
+            "language": "en"
+          }
+        },
+        "label": "music theory",
+        "description": "study of the theoretical aspects of music and its notation",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "theory of music"
+        },
+        "aliases": [
+          "theory of music"
+        ]
+      },
+      {
+        "id": "Q177571",
+        "title": "Q177571",
+        "pageid": 177119,
+        "concepturi": "http://www.wikidata.org/entity/Q177571",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q177571",
+        "display": {
+          "label": {
+            "value": "decision theory",
+            "language": "en"
+          },
+          "description": {
+            "value": "branch of applied probability theory",
+            "language": "en"
+          }
+        },
+        "label": "decision theory",
+        "description": "branch of applied probability theory",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "theory of choice"
+        },
+        "aliases": [
+          "theory of choice"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634609557,
+  "ttl": 86400000,
+  "query": "theory of",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,291 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q43229",
+        "title": "Q43229",
+        "pageid": 45428,
+        "concepturi": "http://www.wikidata.org/entity/Q43229",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q43229",
+        "display": {
+          "label": {
+            "value": "organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "social entity established to meet needs or pursue goals",
+            "language": "en"
+          }
+        },
+        "label": "organization",
+        "description": "social entity established to meet needs or pursue goals",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "organization"
+        }
+      },
+      {
+        "id": "Q163740",
+        "title": "Q163740",
+        "pageid": 164513,
+        "concepturi": "http://www.wikidata.org/entity/Q163740",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q163740",
+        "display": {
+          "label": {
+            "value": "nonprofit organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "organization operated for a collective benefit",
+            "language": "en"
+          }
+        },
+        "label": "nonprofit organization",
+        "description": "organization operated for a collective benefit",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Organizations, Nonprofit"
+        },
+        "aliases": [
+          "Organizations, Nonprofit"
+        ]
+      },
+      {
+        "id": "Q36993249",
+        "title": "Q36993249",
+        "pageid": 38373397,
+        "concepturi": "http://www.wikidata.org/entity/Q36993249",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q36993249",
+        "display": {
+          "label": {
+            "value": "arranging",
+            "language": "en"
+          },
+          "description": {
+            "value": "act of arranging items in some orderly way",
+            "language": "en"
+          }
+        },
+        "label": "arranging",
+        "description": "act of arranging items in some orderly way",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "organization"
+        },
+        "aliases": [
+          "organization"
+        ]
+      },
+      {
+        "id": "Q7101933",
+        "title": "Q7101933",
+        "pageid": 6996754,
+        "concepturi": "http://www.wikidata.org/entity/Q7101933",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7101933",
+        "display": {
+          "label": {
+            "value": "Organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "peer-reviewed academic journal",
+            "language": "en"
+          }
+        },
+        "label": "Organization",
+        "description": "peer-reviewed academic journal",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Organization"
+        }
+      },
+      {
+        "id": "Q1255921",
+        "title": "Q1255921",
+        "pageid": 1196800,
+        "concepturi": "http://www.wikidata.org/entity/Q1255921",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1255921",
+        "display": {
+          "label": {
+            "value": "president",
+            "language": "en"
+          },
+          "description": {
+            "value": "leader of an organization",
+            "language": "en"
+          }
+        },
+        "label": "president",
+        "description": "leader of an organization",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "organization president"
+        },
+        "aliases": [
+          "organization president"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P108",
+        "title": "Property:P108",
+        "pageid": 4329629,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P108",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P108",
+        "display": {
+          "label": {
+            "value": "employer",
+            "language": "en"
+          },
+          "description": {
+            "value": "person or organization for which the subject works or worked",
+            "language": "en"
+          }
+        },
+        "label": "employer",
+        "description": "person or organization for which the subject works or worked",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "organization"
+        },
+        "aliases": [
+          "organization"
+        ]
+      },
+      {
+        "id": "P1225",
+        "title": "Property:P1225",
+        "pageid": 17602460,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P1225",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1225",
+        "display": {
+          "label": {
+            "value": "U.S. National Archives Identifier",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for the United States National Archives and Records Administration's online catalog",
+            "language": "en"
+          }
+        },
+        "label": "U.S. National Archives Identifier",
+        "description": "identifier for the United States National Archives and Records Administration's online catalog",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Organization Name NAID"
+        },
+        "aliases": [
+          "Organization Name NAID"
+        ]
+      },
+      {
+        "id": "P2389",
+        "title": "Property:P2389",
+        "pageid": 23744687,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P2389",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2389",
+        "display": {
+          "label": {
+            "value": "organization directed by the office or position",
+            "language": "en"
+          },
+          "description": {
+            "value": "organization which is directed by this office",
+            "language": "en"
+          }
+        },
+        "label": "organization directed by the office or position",
+        "description": "organization which is directed by this office",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "organization directed by the office or position"
+        }
+      },
+      {
+        "id": "P3989",
+        "title": "Property:P3989",
+        "pageid": 31652296,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P3989",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3989",
+        "display": {
+          "label": {
+            "value": "members have occupation",
+            "language": "en"
+          },
+          "description": {
+            "value": "some or all members of this group share the occupation",
+            "language": "en"
+          }
+        },
+        "label": "members have occupation",
+        "description": "some or all members of this group share the occupation",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "organization of"
+        },
+        "aliases": [
+          "organization of"
+        ]
+      },
+      {
+        "id": "P2813",
+        "title": "Property:P2813",
+        "pageid": 26018275,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P2813",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2813",
+        "display": {
+          "label": {
+            "value": "house publication",
+            "language": "en"
+          },
+          "description": {
+            "value": "media that speaks for an organization or a movement, and that is usually edited by its members",
+            "language": "en"
+          }
+        },
+        "label": "house publication",
+        "description": "media that speaks for an organization or a movement, and that is usually edited by its members",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "organization publication"
+        },
+        "aliases": [
+          "organization publication"
+        ]
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634798313,
+  "ttl": 86400000,
+  "query": "Organization",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

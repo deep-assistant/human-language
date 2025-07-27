@@ -2,6 +2,15 @@
 // Provides a common interface for caching with interchangeable backends
 
 import { PersistentCacheManager } from './persistent-cache.js';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+// Get the directory of this file
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Calculate the root data directory path
+const ROOT_DATA_DIR = join(__dirname, 'data', 'wikidata-cache');
 
 /**
  * Cache Interface - defines the standard cache API
@@ -66,7 +75,7 @@ class CacheInterface {
  * File-based Cache Adapter (Node.js environments)
  */
 class FileCacheAdapter extends CacheInterface {
-  constructor(cacheDir = './data/wikidata-cache') {
+  constructor(cacheDir = ROOT_DATA_DIR) {
     super();
     this.cache = new PersistentCacheManager(cacheDir);
   }

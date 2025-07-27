@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634611060,
+  "ttl": 86400000,
+  "query": "fuzzy_is the capital",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

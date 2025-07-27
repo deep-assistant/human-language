@@ -1,0 +1,169 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q1069139",
+        "title": "Q1069139",
+        "pageid": 1017688,
+        "concepturi": "http://www.wikidata.org/entity/Q1069139",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1069139",
+        "display": {
+          "label": {
+            "value": "Romeo",
+            "language": "en"
+          },
+          "description": {
+            "value": "male given name",
+            "language": "en"
+          }
+        },
+        "label": "Romeo",
+        "description": "male given name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Romeo"
+        }
+      },
+      {
+        "id": "Q18343233",
+        "title": "Q18343233",
+        "pageid": 19875608,
+        "concepturi": "http://www.wikidata.org/entity/Q18343233",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q18343233",
+        "display": {
+          "label": {
+            "value": "Romeo",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Romeo",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Romeo"
+        }
+      },
+      {
+        "id": "Q45368503",
+        "title": "Q45368503",
+        "pageid": 46539188,
+        "concepturi": "http://www.wikidata.org/entity/Q45368503",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q45368503",
+        "display": {
+          "label": {
+            "value": "Roméo",
+            "language": "en"
+          },
+          "description": {
+            "value": "male given name",
+            "language": "en"
+          }
+        },
+        "label": "Roméo",
+        "description": "male given name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Roméo"
+        }
+      },
+      {
+        "id": "Q9852",
+        "title": "Q9852",
+        "pageid": 11250,
+        "concepturi": "http://www.wikidata.org/entity/Q9852",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q9852",
+        "display": {
+          "label": {
+            "value": "R",
+            "language": "en"
+          },
+          "description": {
+            "value": "letter of the Latin alphabet",
+            "language": "en"
+          }
+        },
+        "label": "R",
+        "description": "letter of the Latin alphabet",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Romeo"
+        },
+        "aliases": [
+          "Romeo"
+        ]
+      },
+      {
+        "id": "Q19386905",
+        "title": "Q19386905",
+        "pageid": 20993766,
+        "concepturi": "http://www.wikidata.org/entity/Q19386905",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q19386905",
+        "display": {
+          "label": {
+            "value": "Romeo",
+            "language": "en"
+          },
+          "description": {
+            "value": "1986 studio album by Ketil Stokkan",
+            "language": "en"
+          }
+        },
+        "label": "Romeo",
+        "description": "1986 studio album by Ketil Stokkan",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Romeo"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P6617",
+        "title": "Property:P6617",
+        "pageid": 62325785,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P6617",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P6617",
+        "display": {
+          "label": {
+            "value": "RoMEO publisher ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier of an academic publisher in the SHERPA/RoMEO database of archiving policies",
+            "language": "en"
+          }
+        },
+        "label": "RoMEO publisher ID",
+        "description": "identifier of an academic publisher in the SHERPA/RoMEO database of archiving policies",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "RoMEO publisher ID"
+        }
+      }
+    ],
+    "total": 6
+  },
+  "timestamp": 1753634618014,
+  "ttl": 86400000,
+  "query": "Romeo",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

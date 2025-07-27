@@ -1,0 +1,39 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q122820986",
+        "title": "Q122820986",
+        "pageid": 117067325,
+        "concepturi": "http://www.wikidata.org/entity/Q122820986",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q122820986",
+        "display": {
+          "label": {
+            "value": "Became The Hunted",
+            "language": "en"
+          },
+          "description": {
+            "value": "2018 early access video game",
+            "language": "en"
+          }
+        },
+        "label": "Became The Hunted",
+        "description": "2018 early access video game",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Became The Hunted"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 1
+  },
+  "timestamp": 1753634616893,
+  "ttl": 86400000,
+  "query": "fuzzy_became the",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,124 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q15079318",
+        "title": "Q15079318",
+        "pageid": 16742520,
+        "concepturi": "http://www.wikidata.org/entity/Q15079318",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q15079318",
+        "display": {
+          "label": {
+            "value": "The Theory of Everything",
+            "language": "en"
+          },
+          "description": {
+            "value": "2014 film directed by James Marsh",
+            "language": "en"
+          }
+        },
+        "label": "The Theory of Everything",
+        "description": "2014 film directed by James Marsh",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Theory of Everything"
+        }
+      },
+      {
+        "id": "Q23012191",
+        "title": "Q23012191",
+        "pageid": 25026554,
+        "concepturi": "http://www.wikidata.org/entity/Q23012191",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q23012191",
+        "display": {
+          "label": {
+            "value": "The Theory of Economic Development",
+            "language": "en"
+          },
+          "description": {
+            "value": "book by Joseph Schumpeter",
+            "language": "en"
+          }
+        },
+        "label": "The Theory of Economic Development",
+        "description": "book by Joseph Schumpeter",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Theory of Economic Development"
+        }
+      },
+      {
+        "id": "Q114501447",
+        "title": "Q114501447",
+        "pageid": 109190881,
+        "concepturi": "http://www.wikidata.org/entity/Q114501447",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q114501447",
+        "display": {
+          "label": {
+            "value": "The theory of digit representation for real numbers",
+            "language": "en"
+          }
+        },
+        "label": "The theory of digit representation for real numbers",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The theory of digit representation for real numbers"
+        }
+      },
+      {
+        "id": "Q114701898",
+        "title": "Q114701898",
+        "pageid": 109380450,
+        "concepturi": "http://www.wikidata.org/entity/Q114701898",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q114701898",
+        "display": {
+          "label": {
+            "value": "The theory of Archimedean bodies",
+            "language": "en"
+          }
+        },
+        "label": "The theory of Archimedean bodies",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The theory of Archimedean bodies"
+        }
+      },
+      {
+        "id": "Q114701924",
+        "title": "Q114701924",
+        "pageid": 109380475,
+        "concepturi": "http://www.wikidata.org/entity/Q114701924",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q114701924",
+        "display": {
+          "label": {
+            "value": "The theory of spanning trees",
+            "language": "en"
+          }
+        },
+        "label": "The theory of spanning trees",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The theory of spanning trees"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634609698,
+  "ttl": 86400000,
+  "query": "the theory of",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

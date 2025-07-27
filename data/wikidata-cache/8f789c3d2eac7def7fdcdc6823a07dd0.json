@@ -1,0 +1,89 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q24229373",
+        "title": "Q24229373",
+        "pageid": 26203554,
+        "concepturi": "http://www.wikidata.org/entity/Q24229373",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q24229373",
+        "display": {
+          "label": {
+            "value": "Hawaii and the American Civil War",
+            "language": "en"
+          },
+          "description": {
+            "value": "war",
+            "language": "en"
+          }
+        },
+        "label": "Hawaii and the American Civil War",
+        "description": "war",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hawaii and the American Civil War"
+        }
+      },
+      {
+        "id": "Q91293796",
+        "title": "Q91293796",
+        "pageid": 90479945,
+        "concepturi": "http://www.wikidata.org/entity/Q91293796",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q91293796",
+        "display": {
+          "label": {
+            "value": "Hawaii and Other Jurisdictions Ban Oxybenzone or Octinoxate Sunscreens Based on the Confirmed Adverse Environmental Effects of Sunscreen Ingredients on Aquatic Environments",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific article published on 01 November 2019",
+            "language": "en"
+          }
+        },
+        "label": "Hawaii and Other Jurisdictions Ban Oxybenzone or Octinoxate Sunscreens Based on the Confirmed Adverse Environmental Effects of Sunscreen Ingredients on Aquatic Environments",
+        "description": "scientific article published on 01 November 2019",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hawaii and Other Jurisdictions Ban Oxybenzone or Octinoxate Sunscreens Based on the Confirmed Adverse Environmental Effects of Sunscreen Ingredients on Aquatic Environments"
+        }
+      },
+      {
+        "id": "Q68915075",
+        "title": "Q68915075",
+        "pageid": 68582937,
+        "concepturi": "http://www.wikidata.org/entity/Q68915075",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q68915075",
+        "display": {
+          "label": {
+            "value": "Hawaii and the AIDS epidemic",
+            "language": "en"
+          },
+          "description": {
+            "value": "scientific article published on 01 July 1990",
+            "language": "en"
+          }
+        },
+        "label": "Hawaii and the AIDS epidemic",
+        "description": "scientific article published on 01 July 1990",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Hawaii and the AIDS epidemic"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 3
+  },
+  "timestamp": 1753634616939,
+  "ttl": 86400000,
+  "query": "fuzzy_Hawaii and",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

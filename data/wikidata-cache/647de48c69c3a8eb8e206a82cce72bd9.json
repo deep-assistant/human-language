@@ -1,0 +1,288 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q30461",
+        "title": "Q30461",
+        "pageid": 33547,
+        "concepturi": "http://www.wikidata.org/entity/Q30461",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30461",
+        "display": {
+          "label": {
+            "value": "president",
+            "language": "en"
+          },
+          "description": {
+            "value": "leader of a country or part of a country, usually in republics",
+            "language": "en"
+          }
+        },
+        "label": "president",
+        "description": "leader of a country or part of a country, usually in republics",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "president"
+        }
+      },
+      {
+        "id": "Q1255921",
+        "title": "Q1255921",
+        "pageid": 1196800,
+        "concepturi": "http://www.wikidata.org/entity/Q1255921",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1255921",
+        "display": {
+          "label": {
+            "value": "president",
+            "language": "en"
+          },
+          "description": {
+            "value": "leader of an organization",
+            "language": "en"
+          }
+        },
+        "label": "president",
+        "description": "leader of an organization",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "president"
+        }
+      },
+      {
+        "id": "Q140686",
+        "title": "Q140686",
+        "pageid": 142348,
+        "concepturi": "http://www.wikidata.org/entity/Q140686",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q140686",
+        "display": {
+          "label": {
+            "value": "chairperson",
+            "language": "en"
+          },
+          "description": {
+            "value": "leading or presiding officer of an organized group",
+            "language": "en"
+          }
+        },
+        "label": "chairperson",
+        "description": "leading or presiding officer of an organized group",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "president (chairman)"
+        },
+        "aliases": [
+          "president (chairman)"
+        ]
+      },
+      {
+        "id": "Q11696",
+        "title": "Q11696",
+        "pageid": 13235,
+        "concepturi": "http://www.wikidata.org/entity/Q11696",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q11696",
+        "display": {
+          "label": {
+            "value": "President of the United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "head of state and head of government of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "President of the United States",
+        "description": "head of state and head of government of the United States of America",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President of the United States"
+        }
+      },
+      {
+        "id": "Q110737816",
+        "title": "Q110737816",
+        "pageid": 105772012,
+        "concepturi": "http://www.wikidata.org/entity/Q110737816",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q110737816",
+        "display": {
+          "label": {
+            "value": "President",
+            "language": "en"
+          },
+          "description": {
+            "value": "1987 video game",
+            "language": "en"
+          }
+        },
+        "label": "President",
+        "description": "1987 video game",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "President"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P6",
+        "title": "Property:P6",
+        "pageid": 3916689,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P6",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P6",
+        "display": {
+          "label": {
+            "value": "head of government",
+            "language": "en"
+          },
+          "description": {
+            "value": "head of the executive power of this town, city, municipality, state, country, or other governmental body",
+            "language": "en"
+          }
+        },
+        "label": "head of government",
+        "description": "head of the executive power of this town, city, municipality, state, country, or other governmental body",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "president"
+        },
+        "aliases": [
+          "president"
+        ]
+      },
+      {
+        "id": "P488",
+        "title": "Property:P488",
+        "pageid": 14074729,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P488",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P488",
+        "display": {
+          "label": {
+            "value": "chairperson",
+            "language": "en"
+          },
+          "description": {
+            "value": "presiding member of an organization, group or body",
+            "language": "en"
+          }
+        },
+        "label": "chairperson",
+        "description": "presiding member of an organization, group or body",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "president"
+        },
+        "aliases": [
+          "president"
+        ]
+      },
+      {
+        "id": "P35",
+        "title": "Property:P35",
+        "pageid": 3919147,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P35",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P35",
+        "display": {
+          "label": {
+            "value": "head of state",
+            "language": "en"
+          },
+          "description": {
+            "value": "official with the highest formal authority in a country/state",
+            "language": "en"
+          }
+        },
+        "label": "head of state",
+        "description": "official with the highest formal authority in a country/state",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "president"
+        },
+        "aliases": [
+          "president"
+        ]
+      },
+      {
+        "id": "P1075",
+        "title": "Property:P1075",
+        "pageid": 17270137,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1075",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1075",
+        "display": {
+          "label": {
+            "value": "rector",
+            "language": "en"
+          },
+          "description": {
+            "value": "senior official in an educational institution.",
+            "language": "en"
+          }
+        },
+        "label": "rector",
+        "description": "senior official in an educational institution.",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "president"
+        },
+        "aliases": [
+          "president"
+        ]
+      },
+      {
+        "id": "P2388",
+        "title": "Property:P2388",
+        "pageid": 23744672,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P2388",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2388",
+        "display": {
+          "label": {
+            "value": "position held by head of the organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "position of the head of this item",
+            "language": "en"
+          }
+        },
+        "label": "position held by head of the organization",
+        "description": "position of the head of this item",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "president's position"
+        },
+        "aliases": [
+          "president's position"
+        ]
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634617004,
+  "ttl": 86400000,
+  "query": "fuzzy_President",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

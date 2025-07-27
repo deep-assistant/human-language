@@ -1,0 +1,204 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q80687",
+        "title": "Q80687",
+        "pageid": 83180,
+        "concepturi": "http://www.wikidata.org/entity/Q80687",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q80687",
+        "display": {
+          "label": {
+            "value": "secretary",
+            "language": "en"
+          },
+          "description": {
+            "value": "office occupation",
+            "language": "en"
+          }
+        },
+        "label": "secretary",
+        "description": "office occupation",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "secretary"
+        }
+      },
+      {
+        "id": "Q6501749",
+        "title": "Q6501749",
+        "pageid": 6320685,
+        "concepturi": "http://www.wikidata.org/entity/Q6501749",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q6501749",
+        "display": {
+          "label": {
+            "value": "general secretary",
+            "language": "en"
+          },
+          "description": {
+            "value": "leader or chief officer of an organisation",
+            "language": "en"
+          }
+        },
+        "label": "general secretary",
+        "description": "leader or chief officer of an organisation",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "secretary-general"
+        },
+        "aliases": [
+          "secretary-general"
+        ]
+      },
+      {
+        "id": "Q319544",
+        "title": "Q319544",
+        "pageid": 306980,
+        "concepturi": "http://www.wikidata.org/entity/Q319544",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q319544",
+        "display": {
+          "label": {
+            "value": "secretary",
+            "language": "en"
+          },
+          "description": {
+            "value": "executive position within an organization or a club",
+            "language": "en"
+          }
+        },
+        "label": "secretary",
+        "description": "executive position within an organization or a club",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "secretary"
+        }
+      },
+      {
+        "id": "Q83307",
+        "title": "Q83307",
+        "pageid": 85706,
+        "concepturi": "http://www.wikidata.org/entity/Q83307",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q83307",
+        "display": {
+          "label": {
+            "value": "minister",
+            "language": "en"
+          },
+          "description": {
+            "value": "politician who holds significant civil public office in a national or regional government, generally heading a ministry",
+            "language": "en"
+          }
+        },
+        "label": "minister",
+        "description": "politician who holds significant civil public office in a national or regional government, generally heading a ministry",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "secretary of a government department"
+        },
+        "aliases": [
+          "secretary of a government department"
+        ]
+      },
+      {
+        "id": "Q3666631",
+        "title": "Q3666631",
+        "pageid": 3493324,
+        "concepturi": "http://www.wikidata.org/entity/Q3666631",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q3666631",
+        "display": {
+          "label": {
+            "value": "secretary desk",
+            "language": "en"
+          },
+          "description": {
+            "value": "drawers topped by a desk with a hinged desktop surface, usually topped by a bookcase",
+            "language": "en"
+          }
+        },
+        "label": "secretary desk",
+        "description": "drawers topped by a desk with a hinged desktop surface, usually topped by a bookcase",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "secretary desk"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P2388",
+        "title": "Property:P2388",
+        "pageid": 23744672,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P2388",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P2388",
+        "display": {
+          "label": {
+            "value": "position held by head of the organization",
+            "language": "en"
+          },
+          "description": {
+            "value": "position of the head of this item",
+            "language": "en"
+          }
+        },
+        "label": "position held by head of the organization",
+        "description": "position of the head of this item",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "secretary's position"
+        },
+        "aliases": [
+          "secretary's position"
+        ]
+      },
+      {
+        "id": "P3975",
+        "title": "Property:P3975",
+        "pageid": 31629028,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P3975",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3975",
+        "display": {
+          "label": {
+            "value": "general secretary",
+            "language": "en"
+          },
+          "description": {
+            "value": "leader of a political or international organization, sometimes below the chairperson (P488)",
+            "language": "en"
+          }
+        },
+        "label": "general secretary",
+        "description": "leader of a political or international organization, sometimes below the chairperson (P488)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "secretary general"
+        },
+        "aliases": [
+          "secretary general"
+        ]
+      }
+    ],
+    "total": 7
+  },
+  "timestamp": 1753634614814,
+  "ttl": 86400000,
+  "query": "Secretary",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

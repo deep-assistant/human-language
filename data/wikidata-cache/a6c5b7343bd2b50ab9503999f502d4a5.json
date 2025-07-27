@@ -1,0 +1,285 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q637413",
+        "title": "Q637413",
+        "pageid": 599695,
+        "concepturi": "http://www.wikidata.org/entity/Q637413",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q637413",
+        "display": {
+          "label": {
+            "value": "United States Census Bureau",
+            "language": "en"
+          },
+          "description": {
+            "value": "U.S. agency responsible for the census and related statistics",
+            "language": "en"
+          }
+        },
+        "label": "United States Census Bureau",
+        "description": "U.S. agency responsible for the census and related statistics",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States Census Bureau"
+        }
+      },
+      {
+        "id": "Q30",
+        "title": "Q30",
+        "pageid": 126,
+        "concepturi": "http://www.wikidata.org/entity/Q30",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30",
+        "display": {
+          "label": {
+            "value": "United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "country located primarily in North America",
+            "language": "en"
+          }
+        },
+        "label": "United States",
+        "description": "country located primarily in North America",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States"
+        }
+      },
+      {
+        "id": "Q145",
+        "title": "Q145",
+        "pageid": 281,
+        "concepturi": "http://www.wikidata.org/entity/Q145",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q145",
+        "display": {
+          "label": {
+            "value": "United Kingdom",
+            "language": "en"
+          },
+          "description": {
+            "value": "country in north-west Europe",
+            "language": "en"
+          }
+        },
+        "label": "United Kingdom",
+        "description": "country in north-west Europe",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Kingdom"
+        }
+      },
+      {
+        "id": "Q174769",
+        "title": "Q174769",
+        "pageid": 174659,
+        "concepturi": "http://www.wikidata.org/entity/Q174769",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q174769",
+        "display": {
+          "label": {
+            "value": "United Airlines",
+            "language": "en"
+          },
+          "description": {
+            "value": "American airline",
+            "language": "en"
+          }
+        },
+        "label": "United Airlines",
+        "description": "American airline",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United Airlines"
+        }
+      },
+      {
+        "id": "Q96",
+        "title": "Q96",
+        "pageid": 227,
+        "concepturi": "http://www.wikidata.org/entity/Q96",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q96",
+        "display": {
+          "label": {
+            "value": "Mexico",
+            "language": "en"
+          },
+          "description": {
+            "value": "country in North America",
+            "language": "en"
+          }
+        },
+        "label": "Mexico",
+        "description": "country in North America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Mexican States"
+        },
+        "aliases": [
+          "United Mexican States"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P1225",
+        "title": "Property:P1225",
+        "pageid": 17602460,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P1225",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1225",
+        "display": {
+          "label": {
+            "value": "U.S. National Archives Identifier",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for the United States National Archives and Records Administration's online catalog",
+            "language": "en"
+          }
+        },
+        "label": "U.S. National Archives Identifier",
+        "description": "identifier for the United States National Archives and Records Administration's online catalog",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States National Archives Identifier"
+        },
+        "aliases": [
+          "United States National Archives Identifier"
+        ]
+      },
+      {
+        "id": "P1937",
+        "title": "Property:P1937",
+        "pageid": 21750525,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P1937",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1937",
+        "display": {
+          "label": {
+            "value": "UN/LOCODE",
+            "language": "en"
+          },
+          "description": {
+            "value": "geographic location code maintained by UNECE",
+            "language": "en"
+          }
+        },
+        "label": "UN/LOCODE",
+        "description": "geographic location code maintained by UNECE",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United Nations LOCODE"
+        },
+        "aliases": [
+          "United Nations LOCODE"
+        ]
+      },
+      {
+        "id": "P5454",
+        "title": "Property:P5454",
+        "pageid": 55471190,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P5454",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P5454",
+        "display": {
+          "label": {
+            "value": "USNPL ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier in the US Newspaper Links (USNPL) database for newspapers in the United States",
+            "language": "en"
+          }
+        },
+        "label": "USNPL ID",
+        "description": "identifier in the US Newspaper Links (USNPL) database for newspapers in the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States Newspaper Links ID"
+        },
+        "aliases": [
+          "United States Newspaper Links ID"
+        ]
+      },
+      {
+        "id": "P7063",
+        "title": "Property:P7063",
+        "pageid": 65550410,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P7063",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P7063",
+        "display": {
+          "label": {
+            "value": "U. S. Supreme Court docket number",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a case filed at the Supreme Court of the United States",
+            "language": "en"
+          }
+        },
+        "label": "U. S. Supreme Court docket number",
+        "description": "identifier for a case filed at the Supreme Court of the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States Supreme Court docket number"
+        },
+        "aliases": [
+          "United States Supreme Court docket number"
+        ]
+      },
+      {
+        "id": "P3147",
+        "title": "Property:P3147",
+        "pageid": 28745169,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P3147",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3147",
+        "display": {
+          "label": {
+            "value": "United States Reports ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "ID for US Supreme Court Opinions on OpenJurist website",
+            "language": "en"
+          }
+        },
+        "label": "United States Reports ID",
+        "description": "ID for US Supreme Court Opinions on OpenJurist website",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States Reports ID"
+        }
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634613409,
+  "ttl": 86400000,
+  "query": "fuzzy_United",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

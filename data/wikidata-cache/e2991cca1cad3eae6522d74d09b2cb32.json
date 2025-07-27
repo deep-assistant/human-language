@@ -1,0 +1,282 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q2526255",
+        "title": "Q2526255",
+        "pageid": 2438211,
+        "concepturi": "http://www.wikidata.org/entity/Q2526255",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2526255",
+        "display": {
+          "label": {
+            "value": "film director",
+            "language": "en"
+          },
+          "description": {
+            "value": "person who controls the artistic and dramatic aspects of a film production",
+            "language": "en"
+          }
+        },
+        "label": "film director",
+        "description": "person who controls the artistic and dramatic aspects of a film production",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "director"
+        },
+        "aliases": [
+          "director"
+        ]
+      },
+      {
+        "id": "Q3455803",
+        "title": "Q3455803",
+        "pageid": 3291970,
+        "concepturi": "http://www.wikidata.org/entity/Q3455803",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q3455803",
+        "display": {
+          "label": {
+            "value": "director",
+            "language": "en"
+          },
+          "description": {
+            "value": "director of a creative work",
+            "language": "en"
+          }
+        },
+        "label": "director",
+        "description": "director of a creative work",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "director"
+        }
+      },
+      {
+        "id": "Q3387717",
+        "title": "Q3387717",
+        "pageid": 3228494,
+        "concepturi": "http://www.wikidata.org/entity/Q3387717",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q3387717",
+        "display": {
+          "label": {
+            "value": "theatrical director",
+            "language": "en"
+          },
+          "description": {
+            "value": "person overseeing the mounting of a theatre production",
+            "language": "en"
+          }
+        },
+        "label": "theatrical director",
+        "description": "person overseeing the mounting of a theatre production",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "director"
+        },
+        "aliases": [
+          "director"
+        ]
+      },
+      {
+        "id": "Q1162163",
+        "title": "Q1162163",
+        "pageid": 1108300,
+        "concepturi": "http://www.wikidata.org/entity/Q1162163",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1162163",
+        "display": {
+          "label": {
+            "value": "director",
+            "language": "en"
+          },
+          "description": {
+            "value": "person who leads a particular area of a company or organization",
+            "language": "en"
+          }
+        },
+        "label": "director",
+        "description": "person who leads a particular area of a company or organization",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "director"
+        }
+      },
+      {
+        "id": "Q37293708",
+        "title": "Q37293708",
+        "pageid": 38670502,
+        "concepturi": "http://www.wikidata.org/entity/Q37293708",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q37293708",
+        "display": {
+          "label": {
+            "value": "Director",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Director",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Director"
+        }
+      }
+    ],
+    "properties": [
+      {
+        "id": "P57",
+        "title": "Property:P57",
+        "pageid": 3924006,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P57",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P57",
+        "display": {
+          "label": {
+            "value": "director",
+            "language": "en"
+          },
+          "description": {
+            "value": "director(s) of film, TV-series, stageplay, video game or similar",
+            "language": "en"
+          }
+        },
+        "label": "director",
+        "description": "director(s) of film, TV-series, stageplay, video game or similar",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "director"
+        }
+      },
+      {
+        "id": "P1037",
+        "title": "Property:P1037",
+        "pageid": 16872299,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1037",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1037",
+        "display": {
+          "label": {
+            "value": "director / manager",
+            "language": "en"
+          },
+          "description": {
+            "value": "person who manages any kind of group or organisation",
+            "language": "en"
+          }
+        },
+        "label": "director / manager",
+        "description": "person who manages any kind of group or organisation",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "director / manager"
+        }
+      },
+      {
+        "id": "P344",
+        "title": "Property:P344",
+        "pageid": 8040879,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P344",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P344",
+        "display": {
+          "label": {
+            "value": "director of photography",
+            "language": "en"
+          },
+          "description": {
+            "value": "person responsible for the framing, lighting, and filtration of the subject work",
+            "language": "en"
+          }
+        },
+        "label": "director of photography",
+        "description": "person responsible for the framing, lighting, and filtration of the subject work",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "director of photography"
+        }
+      },
+      {
+        "id": "P5297",
+        "title": "Property:P5297",
+        "pageid": 55019578,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P5297",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P5297",
+        "display": {
+          "label": {
+            "value": "Companies House officer ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for an officer (natural person or legal person) of companies registered with Companies House in the United Kingdom",
+            "language": "en"
+          }
+        },
+        "label": "Companies House officer ID",
+        "description": "identifier for an officer (natural person or legal person) of companies registered with Companies House in the United Kingdom",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "director ID, Companies House"
+        },
+        "aliases": [
+          "director ID, Companies House"
+        ]
+      },
+      {
+        "id": "P998",
+        "title": "Property:P998",
+        "pageid": 16766836,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P998",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P998",
+        "display": {
+          "label": {
+            "value": "Curlie ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "category path at Open Directory Project",
+            "language": "en"
+          }
+        },
+        "label": "Curlie ID",
+        "description": "category path at Open Directory Project",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "directory.mozilla"
+        },
+        "aliases": [
+          "directory.mozilla"
+        ]
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634798316,
+  "ttl": 86400000,
+  "query": "director",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

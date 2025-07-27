@@ -1,0 +1,159 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [
+      {
+        "id": "P279",
+        "title": "Property:P279",
+        "pageid": 6957550,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P279",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P279",
+        "display": {
+          "label": {
+            "value": "subclass of",
+            "language": "en"
+          },
+          "description": {
+            "value": "this item is a subclass (subset) of that item; ALL instances of this item are instances of that item; different from P31 (instance of), e.g.: volcano is a subclass of mountain (and an instance of volcanic landform); Everest is an instance of mountain",
+            "language": "en"
+          }
+        },
+        "label": "subclass of",
+        "description": "this item is a subclass (subset) of that item; ALL instances of this item are instances of that item; different from P31 (instance of), e.g.: volcano is a subclass of mountain (and an instance of volcanic landform); Everest is an instance of mountain",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "is thereby also a"
+        },
+        "aliases": [
+          "is thereby also a"
+        ]
+      },
+      {
+        "id": "P3373",
+        "title": "Property:P3373",
+        "pageid": 29633636,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P3373",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3373",
+        "display": {
+          "label": {
+            "value": "sibling",
+            "language": "en"
+          },
+          "description": {
+            "value": "the subject and the object have at least one common parent (brother, sister, etc. including half-siblings); use \"relative\" (P1038) for siblings-in-law (brother-in-law, sister-in-law, etc.) and step-siblings (step-brothers, step-sisters, etc.)",
+            "language": "en"
+          }
+        },
+        "label": "sibling",
+        "description": "the subject and the object have at least one common parent (brother, sister, etc. including half-siblings); use \"relative\" (P1038) for siblings-in-law (brother-in-law, sister-in-law, etc.) and step-siblings (step-brothers, step-sisters, etc.)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "is the sibling of"
+        },
+        "aliases": [
+          "is the sibling of"
+        ]
+      },
+      {
+        "id": "P460",
+        "title": "Property:P460",
+        "pageid": 13005702,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P460",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P460",
+        "display": {
+          "label": {
+            "value": "said to be the same as",
+            "language": "en"
+          },
+          "description": {
+            "value": "this item is said to be the same as that item, though this may be uncertain or disputed",
+            "language": "en"
+          }
+        },
+        "label": "said to be the same as",
+        "description": "this item is said to be the same as that item, though this may be uncertain or disputed",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "is the same as"
+        },
+        "aliases": [
+          "is the same as"
+        ]
+      },
+      {
+        "id": "P461",
+        "title": "Property:P461",
+        "pageid": 13017560,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P461",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P461",
+        "display": {
+          "label": {
+            "value": "opposite of",
+            "language": "en"
+          },
+          "description": {
+            "value": "item that is in some way the opposite of this item",
+            "language": "en"
+          }
+        },
+        "label": "opposite of",
+        "description": "item that is in some way the opposite of this item",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "is the opposite of"
+        },
+        "aliases": [
+          "is the opposite of"
+        ]
+      },
+      {
+        "id": "P4969",
+        "title": "Property:P4969",
+        "pageid": 51753389,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P4969",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P4969",
+        "display": {
+          "label": {
+            "value": "derivative work",
+            "language": "en"
+          },
+          "description": {
+            "value": "new work of art (film, book, software, etc.) derived from major part of this work",
+            "language": "en"
+          }
+        },
+        "label": "derivative work",
+        "description": "new work of art (film, book, software, etc.) derived from major part of this work",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "is the basis for"
+        },
+        "aliases": [
+          "is the basis for"
+        ]
+      }
+    ],
+    "total": 5
+  },
+  "timestamp": 1753634610744,
+  "ttl": 86400000,
+  "query": "is the",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}

@@ -1,0 +1,169 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q7540126",
+        "title": "Q7540126",
+        "pageid": 7456700,
+        "concepturi": "http://www.wikidata.org/entity/Q7540126",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7540126",
+        "display": {
+          "label": {
+            "value": "headquarters",
+            "language": "en"
+          },
+          "description": {
+            "value": "primary location of leadership and coordination of an organization",
+            "language": "en"
+          }
+        },
+        "label": "headquarters",
+        "description": "primary location of leadership and coordination of an organization",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "headquarters"
+        }
+      },
+      {
+        "id": "Q47272186",
+        "title": "Q47272186",
+        "pageid": 48318722,
+        "concepturi": "http://www.wikidata.org/entity/Q47272186",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q47272186",
+        "display": {
+          "label": {
+            "value": "headquarters",
+            "language": "en"
+          },
+          "description": {
+            "value": "military unit type designation",
+            "language": "en"
+          }
+        },
+        "label": "headquarters",
+        "description": "military unit type designation",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "headquarters"
+        }
+      },
+      {
+        "id": "Q754756",
+        "title": "Q754756",
+        "pageid": 710015,
+        "concepturi": "http://www.wikidata.org/entity/Q754756",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q754756",
+        "display": {
+          "label": {
+            "value": "Headquarters",
+            "language": "en"
+          },
+          "description": {
+            "value": "1967 studio album by The Monkees",
+            "language": "en"
+          }
+        },
+        "label": "Headquarters",
+        "description": "1967 studio album by The Monkees",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Headquarters"
+        }
+      },
+      {
+        "id": "Q28036410",
+        "title": "Q28036410",
+        "pageid": 29739485,
+        "concepturi": "http://www.wikidata.org/entity/Q28036410",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q28036410",
+        "display": {
+          "label": {
+            "value": "Headquarters",
+            "language": "en"
+          },
+          "description": {
+            "value": "painting by David Humphrey",
+            "language": "en"
+          }
+        },
+        "label": "Headquarters",
+        "description": "painting by David Humphrey",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Headquarters"
+        }
+      },
+      {
+        "id": "Q11208",
+        "title": "Q11208",
+        "pageid": 12698,
+        "concepturi": "http://www.wikidata.org/entity/Q11208",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q11208",
+        "display": {
+          "label": {
+            "value": "The Pentagon",
+            "language": "en"
+          },
+          "description": {
+            "value": "headquarters of the United States Department of Defense; named after the shape of the building, a polygon with five (greek: penta) sides",
+            "language": "en"
+          }
+        },
+        "label": "The Pentagon",
+        "description": "headquarters of the United States Department of Defense; named after the shape of the building, a polygon with five (greek: penta) sides",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Headquarters of the United States Department of Defense"
+        },
+        "aliases": [
+          "Headquarters of the United States Department of Defense"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P159",
+        "title": "Property:P159",
+        "pageid": 5185111,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P159",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P159",
+        "display": {
+          "label": {
+            "value": "headquarters location",
+            "language": "en"
+          },
+          "description": {
+            "value": "city or town where an organization's headquarters is or has been situated. Use P276 qualifier for specific building",
+            "language": "en"
+          }
+        },
+        "label": "headquarters location",
+        "description": "city or town where an organization's headquarters is or has been situated. Use P276 qualifier for specific building",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "headquarters location"
+        }
+      }
+    ],
+    "total": 6
+  },
+  "timestamp": 1753634746799,
+  "ttl": 86400000,
+  "query": "headquarters",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

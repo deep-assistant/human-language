@@ -1,0 +1,285 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q30",
+        "title": "Q30",
+        "pageid": 126,
+        "concepturi": "http://www.wikidata.org/entity/Q30",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30",
+        "display": {
+          "label": {
+            "value": "United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "country located primarily in North America",
+            "language": "en"
+          }
+        },
+        "label": "United States",
+        "description": "country located primarily in North America",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States"
+        }
+      },
+      {
+        "id": "Q637413",
+        "title": "Q637413",
+        "pageid": 599695,
+        "concepturi": "http://www.wikidata.org/entity/Q637413",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q637413",
+        "display": {
+          "label": {
+            "value": "United States Census Bureau",
+            "language": "en"
+          },
+          "description": {
+            "value": "U.S. agency responsible for the census and related statistics",
+            "language": "en"
+          }
+        },
+        "label": "United States Census Bureau",
+        "description": "U.S. agency responsible for the census and related statistics",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States Census Bureau"
+        }
+      },
+      {
+        "id": "Q11703",
+        "title": "Q11703",
+        "pageid": 13243,
+        "concepturi": "http://www.wikidata.org/entity/Q11703",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q11703",
+        "display": {
+          "label": {
+            "value": "United States Virgin Islands",
+            "language": "en"
+          },
+          "description": {
+            "value": "unincorporated territory of the United States of America",
+            "language": "en"
+          }
+        },
+        "label": "United States Virgin Islands",
+        "description": "unincorporated territory of the United States of America",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States Virgin Islands"
+        }
+      },
+      {
+        "id": "Q4917",
+        "title": "Q4917",
+        "pageid": 5869,
+        "concepturi": "http://www.wikidata.org/entity/Q4917",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q4917",
+        "display": {
+          "label": {
+            "value": "United States dollar",
+            "language": "en"
+          },
+          "description": {
+            "value": "official currency of the United States",
+            "language": "en"
+          }
+        },
+        "label": "United States dollar",
+        "description": "official currency of the United States",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States dollar"
+        }
+      },
+      {
+        "id": "Q214867",
+        "title": "Q214867",
+        "pageid": 210214,
+        "concepturi": "http://www.wikidata.org/entity/Q214867",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q214867",
+        "display": {
+          "label": {
+            "value": "National Gallery of Art",
+            "language": "en"
+          },
+          "description": {
+            "value": "national art museum in Washington, D.C.",
+            "language": "en"
+          }
+        },
+        "label": "National Gallery of Art",
+        "description": "national art museum in Washington, D.C.",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States. National Gallery of Art"
+        },
+        "aliases": [
+          "United States. National Gallery of Art"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P1225",
+        "title": "Property:P1225",
+        "pageid": 17602460,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P1225",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1225",
+        "display": {
+          "label": {
+            "value": "U.S. National Archives Identifier",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for the United States National Archives and Records Administration's online catalog",
+            "language": "en"
+          }
+        },
+        "label": "U.S. National Archives Identifier",
+        "description": "identifier for the United States National Archives and Records Administration's online catalog",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States National Archives Identifier"
+        },
+        "aliases": [
+          "United States National Archives Identifier"
+        ]
+      },
+      {
+        "id": "P5454",
+        "title": "Property:P5454",
+        "pageid": 55471190,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P5454",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P5454",
+        "display": {
+          "label": {
+            "value": "USNPL ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier in the US Newspaper Links (USNPL) database for newspapers in the United States",
+            "language": "en"
+          }
+        },
+        "label": "USNPL ID",
+        "description": "identifier in the US Newspaper Links (USNPL) database for newspapers in the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States Newspaper Links ID"
+        },
+        "aliases": [
+          "United States Newspaper Links ID"
+        ]
+      },
+      {
+        "id": "P7063",
+        "title": "Property:P7063",
+        "pageid": 65550410,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P7063",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P7063",
+        "display": {
+          "label": {
+            "value": "U. S. Supreme Court docket number",
+            "language": "en"
+          },
+          "description": {
+            "value": "identifier for a case filed at the Supreme Court of the United States",
+            "language": "en"
+          }
+        },
+        "label": "U. S. Supreme Court docket number",
+        "description": "identifier for a case filed at the Supreme Court of the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States Supreme Court docket number"
+        },
+        "aliases": [
+          "United States Supreme Court docket number"
+        ]
+      },
+      {
+        "id": "P3147",
+        "title": "Property:P3147",
+        "pageid": 28745169,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P3147",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P3147",
+        "display": {
+          "label": {
+            "value": "United States Reports ID",
+            "language": "en"
+          },
+          "description": {
+            "value": "ID for US Supreme Court Opinions on OpenJurist website",
+            "language": "en"
+          }
+        },
+        "label": "United States Reports ID",
+        "description": "ID for US Supreme Court Opinions on OpenJurist website",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States Reports ID"
+        }
+      },
+      {
+        "id": "P4063",
+        "title": "Property:P4063",
+        "pageid": 31925108,
+        "datatype": "external-id",
+        "concepturi": "http://www.wikidata.org/entity/P4063",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P4063",
+        "display": {
+          "label": {
+            "value": "TeamUSA.org athlete ID (archived)",
+            "language": "en"
+          },
+          "description": {
+            "value": "former identifier for an athlete (sportsperson) at TeamUSA.org, an official website of the United States Olympic & Paralympic Committee (USOPC)",
+            "language": "en"
+          }
+        },
+        "label": "TeamUSA.org athlete ID (archived)",
+        "description": "former identifier for an athlete (sportsperson) at TeamUSA.org, an official website of the United States Olympic & Paralympic Committee (USOPC)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States Olympic Committee athlete ID (archived)"
+        },
+        "aliases": [
+          "United States Olympic Committee athlete ID (archived)"
+        ]
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634613260,
+  "ttl": 86400000,
+  "query": "fuzzy_United States",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,288 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q7560",
+        "title": "Q7560",
+        "pageid": 8797,
+        "concepturi": "http://www.wikidata.org/entity/Q7560",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q7560",
+        "display": {
+          "label": {
+            "value": "mother",
+            "language": "en"
+          },
+          "description": {
+            "value": "female parent",
+            "language": "en"
+          }
+        },
+        "label": "mother",
+        "description": "female parent",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "mother"
+        }
+      },
+      {
+        "id": "Q30949692",
+        "title": "Q30949692",
+        "pageid": 32558946,
+        "concepturi": "http://www.wikidata.org/entity/Q30949692",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30949692",
+        "display": {
+          "label": {
+            "value": "Mother",
+            "language": "en"
+          },
+          "description": {
+            "value": "South Korean television series",
+            "language": "en"
+          }
+        },
+        "label": "Mother",
+        "description": "South Korean television series",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Mother"
+        }
+      },
+      {
+        "id": "Q345",
+        "title": "Q345",
+        "pageid": 539,
+        "concepturi": "http://www.wikidata.org/entity/Q345",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q345",
+        "display": {
+          "label": {
+            "value": "Mary",
+            "language": "en"
+          },
+          "description": {
+            "value": "mother of Jesus",
+            "language": "en"
+          }
+        },
+        "label": "Mary",
+        "description": "mother of Jesus",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Mother of God"
+        },
+        "aliases": [
+          "Mother of God"
+        ]
+      },
+      {
+        "id": "Q2",
+        "title": "Q2",
+        "pageid": 130,
+        "concepturi": "http://www.wikidata.org/entity/Q2",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2",
+        "display": {
+          "label": {
+            "value": "Earth",
+            "language": "en"
+          },
+          "description": {
+            "value": "third planet from the Sun in the Solar System",
+            "language": "en"
+          }
+        },
+        "label": "Earth",
+        "description": "third planet from the Sun in the Solar System",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Mother Earth"
+        },
+        "aliases": [
+          "Mother Earth"
+        ]
+      },
+      {
+        "id": "Q5465",
+        "title": "Q5465",
+        "pageid": 6427,
+        "concepturi": "http://www.wikidata.org/entity/Q5465",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q5465",
+        "display": {
+          "label": {
+            "value": "Cape Town",
+            "language": "en"
+          },
+          "description": {
+            "value": "city in the Western Cape, South Africa",
+            "language": "en"
+          }
+        },
+        "label": "Cape Town",
+        "description": "city in the Western Cape, South Africa",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Mother City"
+        },
+        "aliases": [
+          "Mother City"
+        ]
+      }
+    ],
+    "properties": [
+      {
+        "id": "P25",
+        "title": "Property:P25",
+        "pageid": 3918117,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P25",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P25",
+        "display": {
+          "label": {
+            "value": "mother",
+            "language": "en"
+          },
+          "description": {
+            "value": "female parent of the subject. For stepmother, use \"stepparent\" (P3448)",
+            "language": "en"
+          }
+        },
+        "label": "mother",
+        "description": "female parent of the subject. For stepmother, use \"stepparent\" (P3448)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "mother"
+        }
+      },
+      {
+        "id": "P40",
+        "title": "Property:P40",
+        "pageid": 3919593,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P40",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P40",
+        "display": {
+          "label": {
+            "value": "child",
+            "language": "en"
+          },
+          "description": {
+            "value": "subject has object as child. Do not use for stepchildren—use \"relative\" (P1038), qualified with \"type of kinship\" (P1039)",
+            "language": "en"
+          }
+        },
+        "label": "child",
+        "description": "subject has object as child. Do not use for stepchildren—use \"relative\" (P1038), qualified with \"type of kinship\" (P1039)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "mother of"
+        },
+        "aliases": [
+          "mother of"
+        ]
+      },
+      {
+        "id": "P103",
+        "title": "Property:P103",
+        "pageid": 4077228,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P103",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P103",
+        "display": {
+          "label": {
+            "value": "native language",
+            "language": "en"
+          },
+          "description": {
+            "value": "language or languages a person has learned from early childhood",
+            "language": "en"
+          }
+        },
+        "label": "native language",
+        "description": "language or languages a person has learned from early childhood",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "mother tongue"
+        },
+        "aliases": [
+          "mother tongue"
+        ]
+      },
+      {
+        "id": "P1038",
+        "title": "Property:P1038",
+        "pageid": 16872316,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P1038",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P1038",
+        "display": {
+          "label": {
+            "value": "relative",
+            "language": "en"
+          },
+          "description": {
+            "value": "family member (qualify with \"kinship to subject\", P1039; for direct family member please use specific property)",
+            "language": "en"
+          }
+        },
+        "label": "relative",
+        "description": "family member (qualify with \"kinship to subject\", P1039; for direct family member please use specific property)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "mother-in-law"
+        },
+        "aliases": [
+          "mother-in-law"
+        ]
+      },
+      {
+        "id": "P612",
+        "title": "Property:P612",
+        "pageid": 15102800,
+        "datatype": "wikibase-item",
+        "concepturi": "http://www.wikidata.org/entity/P612",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Property:P612",
+        "display": {
+          "label": {
+            "value": "mother house",
+            "language": "en"
+          },
+          "description": {
+            "value": "principal house or community for a religious institute",
+            "language": "en"
+          }
+        },
+        "label": "mother house",
+        "description": "principal house or community for a religious institute",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "mother house"
+        }
+      }
+    ],
+    "total": 10
+  },
+  "timestamp": 1753634801743,
+  "ttl": 86400000,
+  "query": "fuzzy_mother",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

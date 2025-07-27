@@ -1,0 +1,148 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q334486",
+        "title": "Q334486",
+        "pageid": 320572,
+        "concepturi": "http://www.wikidata.org/entity/Q334486",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q334486",
+        "display": {
+          "label": {
+            "value": "mother goddess",
+            "language": "en"
+          },
+          "description": {
+            "value": "goddess who represents or is a personification of nature, motherhood, fertility, creation",
+            "language": "en"
+          }
+        },
+        "label": "mother goddess",
+        "description": "goddess who represents or is a personification of nature, motherhood, fertility, creation",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "the Mother"
+        },
+        "aliases": [
+          "the Mother"
+        ]
+      },
+      {
+        "id": "Q169632",
+        "title": "Q169632",
+        "pageid": 170036,
+        "concepturi": "http://www.wikidata.org/entity/Q169632",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q169632",
+        "display": {
+          "label": {
+            "value": "Mat'",
+            "language": "en"
+          },
+          "description": {
+            "value": "novel by Maxim Gorky",
+            "language": "en"
+          }
+        },
+        "label": "Mat'",
+        "description": "novel by Maxim Gorky",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The Mother (Gorky novel)"
+        },
+        "aliases": [
+          "The Mother (Gorky novel)"
+        ]
+      },
+      {
+        "id": "Q464879",
+        "title": "Q464879",
+        "pageid": 438464,
+        "concepturi": "http://www.wikidata.org/entity/Q464879",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q464879",
+        "display": {
+          "label": {
+            "value": "Mirra Alfassa",
+            "language": "en"
+          },
+          "description": {
+            "value": "spiritual guru and collaborator of Sri Aurobindo (1878–1973)",
+            "language": "en"
+          }
+        },
+        "label": "Mirra Alfassa",
+        "description": "spiritual guru and collaborator of Sri Aurobindo (1878–1973)",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "The Mother"
+        },
+        "aliases": [
+          "The Mother"
+        ]
+      },
+      {
+        "id": "Q15362106",
+        "title": "Q15362106",
+        "pageid": 17009742,
+        "concepturi": "http://www.wikidata.org/entity/Q15362106",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q15362106",
+        "display": {
+          "label": {
+            "value": "The Mother",
+            "language": "en"
+          },
+          "description": {
+            "value": "eponymous character in the television series How I Met Your Mother",
+            "language": "en"
+          }
+        },
+        "label": "The Mother",
+        "description": "eponymous character in the television series How I Met Your Mother",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Mother"
+        }
+      },
+      {
+        "id": "Q1214942",
+        "title": "Q1214942",
+        "pageid": 1156721,
+        "concepturi": "http://www.wikidata.org/entity/Q1214942",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1214942",
+        "display": {
+          "label": {
+            "value": "The Mother",
+            "language": "en"
+          },
+          "description": {
+            "value": "2003 film by Roger Michell",
+            "language": "en"
+          }
+        },
+        "label": "The Mother",
+        "description": "2003 film by Roger Michell",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "The Mother"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634801651,
+  "ttl": 86400000,
+  "query": "fuzzy_the mother",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

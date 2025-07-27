@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634616250,
+  "ttl": 86400000,
+  "query": "in Hawaii and",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

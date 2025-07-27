@@ -1,0 +1,151 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q30",
+        "title": "Q30",
+        "pageid": 126,
+        "concepturi": "http://www.wikidata.org/entity/Q30",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q30",
+        "display": {
+          "label": {
+            "value": "United States",
+            "language": "en"
+          },
+          "description": {
+            "value": "country located primarily in North America",
+            "language": "en"
+          }
+        },
+        "label": "United States",
+        "description": "country located primarily in North America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States of America"
+        },
+        "aliases": [
+          "United States of America"
+        ]
+      },
+      {
+        "id": "Q104146934",
+        "title": "Q104146934",
+        "pageid": 99616542,
+        "concepturi": "http://www.wikidata.org/entity/Q104146934",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q104146934",
+        "display": {
+          "label": {
+            "value": "United States of America state-level electoral district",
+            "language": "en"
+          },
+          "description": {
+            "value": "state-level electoral district within the United States",
+            "language": "en"
+          }
+        },
+        "label": "United States of America state-level electoral district",
+        "description": "state-level electoral district within the United States",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "United States of America state-level electoral district"
+        }
+      },
+      {
+        "id": "Q470110",
+        "title": "Q470110",
+        "pageid": 443391,
+        "concepturi": "http://www.wikidata.org/entity/Q470110",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q470110",
+        "display": {
+          "label": {
+            "value": "American Red Cross",
+            "language": "en"
+          },
+          "description": {
+            "value": "National Red Cross Society in the United States",
+            "language": "en"
+          }
+        },
+        "label": "American Red Cross",
+        "description": "National Red Cross Society in the United States",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States of America Red Cross"
+        },
+        "aliases": [
+          "United States of America Red Cross"
+        ]
+      },
+      {
+        "id": "Q119515",
+        "title": "Q119515",
+        "pageid": 121873,
+        "concepturi": "http://www.wikidata.org/entity/Q119515",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q119515",
+        "display": {
+          "label": {
+            "value": "Canada–United States border",
+            "language": "en"
+          },
+          "description": {
+            "value": "international border between Canada and the USA",
+            "language": "en"
+          }
+        },
+        "label": "Canada–United States border",
+        "description": "international border between Canada and the USA",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States of America-Canada border"
+        },
+        "aliases": [
+          "United States of America-Canada border"
+        ]
+      },
+      {
+        "id": "Q1057263",
+        "title": "Q1057263",
+        "pageid": 1006114,
+        "concepturi": "http://www.wikidata.org/entity/Q1057263",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1057263",
+        "display": {
+          "label": {
+            "value": "Mexico–United States border",
+            "language": "en"
+          },
+          "description": {
+            "value": "international border between the two countries in North America",
+            "language": "en"
+          }
+        },
+        "label": "Mexico–United States border",
+        "description": "international border between the two countries in North America",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "United States of America-Mexico border"
+        },
+        "aliases": [
+          "United States of America-Mexico border"
+        ]
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634612517,
+  "ttl": 86400000,
+  "query": "United States of",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,142 @@
+{
+  "data": {
+    "entities": [
+      {
+        "id": "Q2958359",
+        "title": "Q2958359",
+        "pageid": 2829338,
+        "concepturi": "http://www.wikidata.org/entity/Q2958359",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q2958359",
+        "display": {
+          "label": {
+            "value": "Charles",
+            "language": "en"
+          },
+          "description": {
+            "value": "male given name",
+            "language": "en"
+          }
+        },
+        "label": "Charles",
+        "description": "male given name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Charles"
+        }
+      },
+      {
+        "id": "Q16865501",
+        "title": "Q16865501",
+        "pageid": 18467004,
+        "concepturi": "http://www.wikidata.org/entity/Q16865501",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q16865501",
+        "display": {
+          "label": {
+            "value": "Charles",
+            "language": "en"
+          },
+          "description": {
+            "value": "family name",
+            "language": "en"
+          }
+        },
+        "label": "Charles",
+        "description": "family name",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Charles"
+        }
+      },
+      {
+        "id": "Q984568",
+        "title": "Q984568",
+        "pageid": 934240,
+        "concepturi": "http://www.wikidata.org/entity/Q984568",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q984568",
+        "display": {
+          "label": {
+            "value": "Charles de Mazade",
+            "language": "en"
+          },
+          "description": {
+            "value": "French historian, journalist, and political editor of Revue des deux mondes (1820–1893)",
+            "language": "en"
+          }
+        },
+        "label": "Charles de Mazade",
+        "description": "French historian, journalist, and political editor of Revue des deux mondes (1820–1893)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Charles de Mazade"
+        }
+      },
+      {
+        "id": "Q8918",
+        "title": "Q8918",
+        "pageid": 10260,
+        "concepturi": "http://www.wikidata.org/entity/Q8918",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q8918",
+        "display": {
+          "label": {
+            "value": "Ursa Major",
+            "language": "en"
+          },
+          "description": {
+            "value": "constellation visible throughout the year in most of the northern hemisphere",
+            "language": "en"
+          }
+        },
+        "label": "Ursa Major",
+        "description": "constellation visible throughout the year in most of the northern hemisphere",
+        "match": {
+          "type": "alias",
+          "language": "en",
+          "text": "Charles's Wain"
+        },
+        "aliases": [
+          "Charles's Wain"
+        ]
+      },
+      {
+        "id": "Q1035",
+        "title": "Q1035",
+        "pageid": 1366,
+        "concepturi": "http://www.wikidata.org/entity/Q1035",
+        "repository": "wikidata",
+        "url": "//www.wikidata.org/wiki/Q1035",
+        "display": {
+          "label": {
+            "value": "Charles Darwin",
+            "language": "en"
+          },
+          "description": {
+            "value": "English naturalist and biologist (1809–1882)",
+            "language": "en"
+          }
+        },
+        "label": "Charles Darwin",
+        "description": "English naturalist and biologist (1809–1882)",
+        "match": {
+          "type": "label",
+          "language": "en",
+          "text": "Charles Darwin"
+        }
+      }
+    ],
+    "properties": [],
+    "total": 5
+  },
+  "timestamp": 1753634801809,
+  "ttl": 86400000,
+  "query": "fuzzy_Charles",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1753634607789,
+  "ttl": 86400000,
+  "query": "visited the",
+  "languages": "en",
+  "limit": 10,
+  "type": "property"
+}
