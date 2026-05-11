@@ -23,7 +23,13 @@
 
   <!-- Shared library modules. Reuse the same versions used by entities.html /
        properties.html / transformation/index.html, exposing the bits the
-       text/babel mode files need on window.HumanLanguageApp. -->
+       text/babel mode files need on window.HumanLanguageApp.
+
+       NOTE: The mode `.jsx` files run through Babel-standalone, which compiles
+       dynamic `import('./x.js')` calls into `require('./x.js')` — and `require`
+       is not defined in the browser. So every ES module the mode files need
+       has to be imported here (in a real `<script type="module">`) and exposed
+       on `window.HumanLanguageApp`. -->
   <script type="module">
     import { STORAGE_KEYS, saveToLocalStorage, loadFromLocalStorage, flagMap, getQuotesForLanguage }
       from './settings.js';
@@ -32,6 +38,8 @@
     import { MODES, DEFAULT_MODE, parseHash, serializeHash, subscribeToHash, navigate }
       from './app/routing.js';
     import * as ipa from './app/ipa.js';
+    import { TextToQPTransformer } from './transformation/text-to-qp-transformer.js';
+    import { TextTransformerTest, demonstrateTransformer } from './transformation/text-transformer-test.js';
 
     // Shared globals expected by the unified shell and legacy components
     // (statements.jsx, loading.jsx) that we re-mount inside the SPA.
@@ -59,6 +67,9 @@
       subscribeToHash,
       navigate,
       ipa,
+      TextToQPTransformer,
+      TextTransformerTest,
+      demonstrateTransformer,
       modes: {},
     };
   </script>

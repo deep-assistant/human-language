@@ -2,19 +2,18 @@
 // Transforms English text into sequences of Wikidata entities (Q) and properties (P)
 // with disambiguation support using [Q1 or Q2 or Q3] syntax
 
-// Import appropriate API based on environment
+// Pick the right Wikidata API at runtime: the browser version avoids Node's
+// `fs`/`path` imports that the file-cache backend pulls in.
 let WikidataAPIClient, WikidataSearchUtility;
 
 if (typeof window !== 'undefined') {
-  // Browser environment
-  const module = await import('../wikidata-api-browser.js');
-  WikidataAPIClient = module.WikidataAPIClient;
-  WikidataSearchUtility = module.WikidataSearchUtility;
+  const mod = await import('../wikidata-api-browser.js');
+  WikidataAPIClient = mod.WikidataAPIClient;
+  WikidataSearchUtility = mod.WikidataSearchUtility;
 } else {
-  // Node.js environment
-  const module = await import('../wikidata-api.js');
-  WikidataAPIClient = module.WikidataAPIClient;  
-  WikidataSearchUtility = module.WikidataSearchUtility;
+  const mod = await import('../wikidata-api.js');
+  WikidataAPIClient = mod.WikidataAPIClient;
+  WikidataSearchUtility = mod.WikidataSearchUtility;
 }
 
 /**

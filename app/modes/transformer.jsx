@@ -7,7 +7,13 @@
 // inline.
 
 (function attachTransformer() {
-  const { TestsPanel } = window.HumanLanguageApp;
+  // We deliberately read everything from `window.HumanLanguageApp` instead of
+  // using dynamic `import()` — Babel-standalone (which compiles this file in
+  // the browser) rewrites `import('./x.js')` to `require('./x.js')`, and
+  // `require` is not defined, so the load fails with
+  // "Failed to load transformer: require is not defined" (issue #35).
+  const { TestsPanel, TextToQPTransformer, TextTransformerTest, demonstrateTransformer } =
+    window.HumanLanguageApp;
 
   const EXAMPLES = [
     { title: 'Person and Birthplace',  text: 'Barack Obama was born in Hawaii' },
@@ -33,15 +39,14 @@
     const [transformer, setTransformer]   = React.useState(null);
 
     React.useEffect(() => {
-      let cancelled = false;
-      import('../transformation/text-to-qp-transformer.js')
-        .then((mod) => {
-          if (!cancelled) setTransformer(new mod.TextToQPTransformer());
-        })
-        .catch((e) => {
-          if (!cancelled) setError(`Failed to load transformer: ${e?.message || e}`);
-        });
-      return () => { cancelled = true; };
+      try {
+        if (!TextToQPTransformer) {
+          throw new Error('TextToQPTransformer not loaded by app.html');
+        }
+        setTransformer(new TextToQPTransformer());
+      } catch (e) {
+        setError(`Failed to load transformer: ${e?.message || e}`);
+      }
     }, []);
 
     const onTransform = async (e) => {
@@ -115,8 +120,7 @@
       {
         label: 'Run all transformer tests',
         run: async () => {
-          const mod = await import('../transformation/text-transformer-test.js');
-          const suite = new mod.TextTransformerTest();
+          const suite = new TextTransformerTest();
           const summary = await suite.runAllTests();
           console.log(`Result: ${summary?.passed}/${summary?.total} passed (${summary?.successRate?.toFixed?.(1)}%)`);
         },
@@ -124,8 +128,7 @@
       {
         label: 'Run feature tests',
         run: async () => {
-          const mod = await import('../transformation/text-transformer-test.js');
-          const suite = new mod.TextTransformerTest();
+          const suite = new TextTransformerTest();
           await suite.testSpecificFeatures();
           console.log('Feature tests completed.');
         },
@@ -133,8 +136,7 @@
       {
         label: 'Run demo',
         run: async () => {
-          const mod = await import('../transformation/text-transformer-test.js');
-          await mod.demonstrateTransformer();
+          await demonstrateTransformer();
           console.log('Demo completed.');
         },
       },
