@@ -24,3 +24,8 @@ https://medium\.com
 
 # Web Archive returns 502 to link checkers (bot protection)
 https://web\.archive\.org
+
+# Unified SPA mode deep-links (`app.html#mode=…`). Until this PR merges and
+# GitHub Pages publishes `app.html` from main, lychee 404s these. The HTML
+# itself is syntax-checked by the Tests workflow.
+https://link-assistant\.github\.io/human-language/app\.html
