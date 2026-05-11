@@ -1,0 +1,145 @@
+name: Release
+
+# Publishes the human-language package to npm and the Docker image to
+# GitHub Container Registry whenever package.json's version advances on
+# `main`. Adopted from js-ai-driven-development-pipeline-template's
+# release.yml, trimmed to what this repo currently needs.
+#
+# The Rust crate has its own pipeline at .github/workflows/rust.yml.
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'package.json'
+      - 'js/**'
+      - 'Dockerfile'
+      - '.dockerignore'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
+    inputs:
+      force_publish:
+        description: 'Publish even if package.json version is unchanged'
+        type: boolean
+        default: false
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  detect-version-bump:
+    name: Detect package.json version bump
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      should_publish: ${{ steps.diff.outputs.should_publish }}
+      version: ${{ steps.diff.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+      - id: diff
+        name: Compare versions
+        run: node js/scripts/check-package-version.mjs
+        env:
+          FORCE_PUBLISH: ${{ inputs.force_publish }}
+
+  unit-tests:
+    name: Unit tests (re-run as a publish gate)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [detect-version-bump]
+    if: needs.detect-version-bump.outputs.should_publish == 'true'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20.x'
+      - run: node js/scripts/run-unit-tests.mjs
+
+  publish-npm:
+    name: npm publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [detect-version-bump, unit-tests]
+    if: needs.detect-version-bump.outputs.should_publish == 'true'
+    permissions:
+      contents: read
+      id-token: write  # required for npm trusted publishing
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/human-language
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: npm publish --provenance
+        # `--access public` is required for scoped or first-time
+        # publishes. `--provenance` ties the published tarball to this
+        # workflow run via Sigstore (npm trusted publishing).
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish-docker:
+    name: Docker publish (ghcr.io)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: [detect-version-bump, unit-tests]
+    if: needs.detect-version-bump.outputs.should_publish == 'true'
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v6
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/human-language
+          tags: |
+            type=raw,value=latest
+            type=raw,value=${{ needs.detect-version-bump.outputs.version }}
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  create-release:
+    name: Create GitHub release
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [detect-version-bump, publish-npm, publish-docker]
+    if: needs.detect-version-bump.outputs.should_publish == 'true'
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.detect-version-bump.outputs.version }}
+        run: |
+          gh release create "v${VERSION}" \
+            --title "v${VERSION}" \
+            --generate-notes \
+            --latest
