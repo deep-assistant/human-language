@@ -29,3 +29,11 @@ https://web\.archive\.org
 # GitHub Pages publishes `app.html` from main, lychee 404s these. The HTML
 # itself is syntax-checked by the Tests workflow.
 https://link-assistant\.github\.io/human-language/app\.html
+
+# Rotted third-party demo hosts referenced in research notes
+# (research/searching-for-the-semantic-foundation.md). The rise4fun.com
+# service was retired by Microsoft Research, and the Lean 4 web editor
+# moved off this URL. These are informational pointers in research, not
+# user-facing demos — track them once a definitive replacement exists.
+https://rise4fun\.com/Z3
+https://leanprover\.github\.io/try-learn4/
