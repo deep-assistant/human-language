@@ -3,7 +3,7 @@
 // Test real Wikidata API with persistent caching - run twice to demonstrate speed improvement
 // Run with: bun cached-api-test.mjs
 
-import { TextToQPTransformer } from './text-to-qp-transformer.js';
+import { TextToQPTransformer } from '../src/transformation/text-to-qp-transformer.js';
 
 /**
  * Test suite for real API with caching

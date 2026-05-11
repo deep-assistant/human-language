@@ -32,14 +32,14 @@
        on `window.HumanLanguageApp`. -->
   <script type="module">
     import { STORAGE_KEYS, saveToLocalStorage, loadFromLocalStorage, flagMap, getQuotesForLanguage }
-      from './settings.js';
+      from './js/src/settings.js';
     import { client as apiClient, cache as cacheManager, processor as dataProcessor,
-             labelManager, searchUtility } from './wikidata-api-browser.js';
+             labelManager, searchUtility } from './js/src/wikidata-api-browser.js';
     import { MODES, DEFAULT_MODE, parseHash, serializeHash, subscribeToHash, navigate }
-      from './app/routing.js';
-    import * as ipa from './app/ipa.js';
-    import { TextToQPTransformer } from './transformation/text-to-qp-transformer.js';
-    import { TextTransformerTest, demonstrateTransformer } from './transformation/text-transformer-test.js';
+      from './js/src/app/routing.js';
+    import * as ipa from './js/src/app/ipa.js';
+    import { TextToQPTransformer } from './js/src/transformation/text-to-qp-transformer.js';
+    import { TextTransformerTest, demonstrateTransformer } from './js/src/transformation/text-transformer-test.js';
 
     // Shared globals expected by the unified shell and legacy components
     // (statements.jsx, loading.jsx) that we re-mount inside the SPA.
@@ -75,19 +75,19 @@
   </script>
 
   <!-- Component scripts (re-used verbatim from the existing pages). -->
-  <script type="text/babel" src="./statements.jsx"></script>
-  <script type="text/babel" src="./loading.jsx"></script>
+  <script type="text/babel" src="./js/src/statements.jsx"></script>
+  <script type="text/babel" src="./js/src/loading.jsx"></script>
 
   <!-- SPA shell + per-mode files. The order matters: shell.jsx defines the
        AppContext that every mode file imports through window.HumanLanguageApp. -->
-  <script type="text/babel" src="./app/shell.jsx"></script>
-  <script type="text/babel" src="./app/tests-panel.jsx"></script>
-  <script type="text/babel" src="./app/modes/alphabet.jsx"></script>
-  <script type="text/babel" src="./app/modes/dictionary.jsx"></script>
-  <script type="text/babel" src="./app/modes/ontology.jsx"></script>
-  <script type="text/babel" src="./app/modes/entity.jsx"></script>
-  <script type="text/babel" src="./app/modes/property.jsx"></script>
-  <script type="text/babel" src="./app/modes/transformer.jsx"></script>
+  <script type="text/babel" src="./js/src/app/shell.jsx"></script>
+  <script type="text/babel" src="./js/src/app/tests-panel.jsx"></script>
+  <script type="text/babel" src="./js/src/app/modes/alphabet.jsx"></script>
+  <script type="text/babel" src="./js/src/app/modes/dictionary.jsx"></script>
+  <script type="text/babel" src="./js/src/app/modes/ontology.jsx"></script>
+  <script type="text/babel" src="./js/src/app/modes/entity.jsx"></script>
+  <script type="text/babel" src="./js/src/app/modes/property.jsx"></script>
+  <script type="text/babel" src="./js/src/app/modes/transformer.jsx"></script>
 
   <!-- Mount the SPA. We wait until the next macrotask so every text/babel
        script above has been transformed and executed before App reads

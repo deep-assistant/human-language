@@ -12,12 +12,12 @@ The whole project is published to GitHub Pages as a single unified single-page a
 
 | Mode | Description | Source |
 | ---- | ----------- | ------ |
-| [Alphabet](https://link-assistant.github.io/human-language/app.html#mode=alphabet) | Each letter at ≥50 % of the viewport, with IPA pronunciation and keyboard navigation. | [`app/modes/alphabet.jsx`](app/modes/alphabet.jsx) |
-| [Dictionary](https://link-assistant.github.io/human-language/app.html#mode=dictionary) | Definitions merged from the Free Dictionary API and Wiktionary, with an IPA-only display toggle. | [`app/modes/dictionary.jsx`](app/modes/dictionary.jsx) |
-| [Ontology](https://link-assistant.github.io/human-language/app.html#mode=ontology) | Walk Wikidata's *subclass of* tree, rooted at <em>entity</em> (Q35120). Cycles are allowed and flagged. | [`app/modes/ontology.jsx`](app/modes/ontology.jsx) |
-| [Entities](https://link-assistant.github.io/human-language/app.html#mode=entity) | Browse any Wikidata Q-id, with IPA toggle and an inline test runner. | [`app/modes/entity.jsx`](app/modes/entity.jsx) |
-| [Properties](https://link-assistant.github.io/human-language/app.html#mode=property) | Same lens as Entities but for P-ids. | [`app/modes/property.jsx`](app/modes/property.jsx) |
-| [Text → Q/P Transformer](https://link-assistant.github.io/human-language/app.html#mode=transformer) | Turn English text into a sequence of Wikidata entities (Q) and properties (P), with n-gram support. | [`app/modes/transformer.jsx`](app/modes/transformer.jsx) |
+| [Alphabet](https://link-assistant.github.io/human-language/app.html#mode=alphabet) | Each letter at ≥50 % of the viewport, with IPA pronunciation and keyboard navigation. | [`js/src/app/modes/alphabet.jsx`](js/src/app/modes/alphabet.jsx) |
+| [Dictionary](https://link-assistant.github.io/human-language/app.html#mode=dictionary) | Definitions merged from the Free Dictionary API and Wiktionary, with an IPA-only display toggle. | [`js/src/app/modes/dictionary.jsx`](js/src/app/modes/dictionary.jsx) |
+| [Ontology](https://link-assistant.github.io/human-language/app.html#mode=ontology) | Walk Wikidata's *subclass of* tree, rooted at <em>entity</em> (Q35120). Cycles are allowed and flagged. | [`js/src/app/modes/ontology.jsx`](js/src/app/modes/ontology.jsx) |
+| [Entities](https://link-assistant.github.io/human-language/app.html#mode=entity) | Browse any Wikidata Q-id, with IPA toggle and an inline test runner. | [`js/src/app/modes/entity.jsx`](js/src/app/modes/entity.jsx) |
+| [Properties](https://link-assistant.github.io/human-language/app.html#mode=property) | Same lens as Entities but for P-ids. | [`js/src/app/modes/property.jsx`](js/src/app/modes/property.jsx) |
+| [Text → Q/P Transformer](https://link-assistant.github.io/human-language/app.html#mode=transformer) | Turn English text into a sequence of Wikidata entities (Q) and properties (P), with n-gram support. | [`js/src/app/modes/transformer.jsx`](js/src/app/modes/transformer.jsx) |
 
 The legacy URLs (`entities.html`, `properties.html`, `transformation/index.html`, and bare hashes like `entities.html#Q35120`) still work — they now redirect into the unified SPA preserving any parameters.
 
@@ -170,27 +170,27 @@ Based on our [GitHub issues](https://github.com/link-assistant/human-language/is
 
 ### Core Components
 
-1. **Wikidata API Client** (`wikidata-api.js`)
+1. **Wikidata API Client** (`js/src/wikidata-api.js`)
    - Handles all Wikidata API interactions
    - Configurable caching strategies
    - Batch request optimization
 
-2. **Text Transformer** (`transformation/text-to-qp-transformer.js`)
+2. **Text Transformer** (`js/src/transformation/text-to-qp-transformer.js`)
    - N-gram generation and matching
    - Parallel search execution
    - Priority-based result merging
 
-3. **Search Utilities** (`wikidata-api.js`)
+3. **Search Utilities** (`js/src/wikidata-api.js`)
    - Exact and fuzzy search algorithms
    - Context-aware ranking system
    - Multi-language support
 
-4. **Caching System** (`unified-cache.js`)
+4. **Caching System** (`js/src/unified-cache.js`)
    - Factory pattern for cache creation
    - File system cache for Node.js
    - IndexedDB cache for browsers
 
-5. **UI Components** (`statements.jsx`, `loading.jsx`)
+5. **UI Components** (`js/src/statements.jsx`, `js/src/loading.jsx`)
    - React 19 components with JSX
    - No build step required (Babel in-browser)
    - Responsive and theme-aware design
@@ -235,20 +235,21 @@ User Input → Text Transformer → N-gram Generator → Parallel Search
 
 ### For Developers
 ```bash
-# Run tests
-bun run-tests.mjs
+# Run gating unit tests (zero deps)
+npm run test:unit
 
-# Test n-gram features
-bun transformation/test-ngram-demo.mjs
+# Run gating E2E tests (boots a local static server + Playwright)
+npm run test:e2e:local
 
-# Run comprehensive tests
-bun comprehensive-test.mjs
+# Syntax-check every .mjs/.js module
+npm run test:syntax
 
-# Run E2E tests
-bun e2e-test.mjs
-
-# Check limitations
-bun limitation-test.mjs
+# Live integration test runners (hit the real Wikidata API)
+node js/scripts/run-tests.mjs
+node js/src/transformation/test-ngram-demo.mjs
+node js/scripts/comprehensive-test.mjs
+node js/scripts/e2e-test.mjs
+node js/scripts/limitation-test.mjs
 ```
 
 ### Interactive Demos

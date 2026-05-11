@@ -15,8 +15,8 @@ status in PR #36.
 
 | # | Requirement | Status |
 | --- | --- | --- |
-| 2.1 | Every section (alphabet, dictionary, ontology, entities, properties, transformer) needs an e2e smoke test. | **Done.** 9 tests in `tests/e2e/app.spec.mjs` cover the landing page + each mode + 3 transformer-specific regressions. |
-| 2.2 | E2E tests run in PRs *before* the GitHub Pages deploy. | **Done.** New `e2e-local` job in `.github/workflows/js.yml` runs the suite against `scripts/serve-static.mjs` and blocks the `pages-build`/`pages-deploy` jobs. |
+| 2.1 | Every section (alphabet, dictionary, ontology, entities, properties, transformer) needs an e2e smoke test. | **Done.** 9 tests in `js/tests/e2e/app.spec.mjs` cover the landing page + each mode + 3 transformer-specific regressions. |
+| 2.2 | E2E tests run in PRs *before* the GitHub Pages deploy. | **Done.** New `e2e-local` job in `.github/workflows/js.yml` runs the suite against `js/scripts/serve-static.mjs` and blocks the `pages-build`/`pages-deploy` jobs. |
 | 2.3 | E2E tests run after deploy against the live Pages URL. | **Done.** New `e2e-deployed` job in the same workflow re-runs the suite against `${{ needs.pages-deploy.outputs.page_url }}`. |
 | 2.4 | "Use http://github.com/link-foundation/browser-commander (if any features are missing repost issue there)". | **Partial / replaced with Playwright.** `browser-commander` is a thin wrapper around Playwright; it adds no semantics the e2e suite needs. We used Playwright directly to keep dependencies minimal and avoid the indirection. The same tests can be lifted to `browser-commander` later by changing the import. The README for `browser-commander` documents this as one of its intended use cases. No upstream issue filed because we hit no missing feature — see [`external-research.md`](./external-research.md). |
 
@@ -24,16 +24,16 @@ status in PR #36.
 
 | # | Requirement | Status |
 | --- | --- | --- |
-| 3.1 | Cover code that's currently untested with unit and integration tests. | **Partial.** Two new gating suites — `tests/unit/routing.test.mjs` (8 tests covering `parseHash`, `serializeHash`, mode validation, URI decoding) and `tests/unit/ipa.test.mjs` (7 tests covering `toIpa` and `toIpaForEntity` with stubbed `fetch`). The existing live-Wikidata scripts (`run-tests.mjs`, `cache-test.mjs`, `unified-cache-test.mjs`) keep running as informational. |
+| 3.1 | Cover code that's currently untested with unit and integration tests. | **Partial.** Two new gating suites — `js/tests/unit/routing.test.mjs` (8 tests covering `parseHash`, `serializeHash`, mode validation, URI decoding) and `js/tests/unit/ipa.test.mjs` (7 tests covering `toIpa` and `toIpaForEntity` with stubbed `fetch`). The existing live-Wikidata scripts (`js/scripts/run-tests.mjs`, `js/scripts/cache-test.mjs`, `js/scripts/unified-cache-test.mjs`) keep running as informational. |
 | 3.2 | Tests must run in PRs *and* on commit to default branch. | **Done.** The `unit-tests` job in `js.yml` triggers on both `push: branches: [main]` and `pull_request`. |
 
 ## 4. Repository / CI structure
 
 | # | Requirement | Status |
 | --- | --- | --- |
-| 4.1 | All JavaScript should live in `./js/`. | **Deferred to a follow-up PR.** The repo currently has top-level JS modules referenced by `app.html`, the demo HTML files, and the legacy test scripts. Moving them touches every import in the codebase + every `<script src>` in `app.html` + the README + the redirect shells; combining it with this PR would make the diff unreviewable. PR #36 already lands the more urgent pieces (transformer fix, tests, unified CI). The move is tracked as a follow-up; see the "Out of scope" section below. |
+| 4.1 | All JavaScript should live in `./js/`. | **Done.** Every `.js`, `.jsx`, and `.mjs` file moved out of the repository root into `js/src/` (application source) or `js/scripts/` (Node-only CI / integration scripts), and the unit / e2e tests moved into `js/tests/`. The deployed HTML pages stay at their public URLs and were updated to import from `./js/src/...`; deployed redirect / demo pages in `transformation/` (`index.html`, `test-ngram.html`, `README.md`, `ngram-feature-summary.md`) also stay so existing external links keep working. `_config.yml`'s `exclude` list was updated to keep `js/scripts`, `js/tests`, and the Node-only modules in `js/src/` out of the deployed Pages artifact. |
 | 4.2 | All CI/CD should be unified in a single `js.yml`. | **Done.** `.github/workflows/js.yml` subsumes the previous `test.yml`, `pages.yml`, and `links.yml`. The three legacy files are deleted in the same commit. |
-| 4.3 | Each specific CI/CD step should be an `.mjs` script in `./scripts/`. | **Done for the new pieces.** `scripts/check-mjs-syntax.mjs`, `scripts/run-unit-tests.mjs`, `scripts/run-e2e-local.mjs`, `scripts/serve-static.mjs`. The pre-existing `scripts/check-web-archive.mjs` already followed the pattern. |
+| 4.3 | Each specific CI/CD step should be an `.mjs` script in `./scripts/`. | **Done.** All CI scripts live in `js/scripts/`: `check-mjs-syntax.mjs`, `check-web-archive.mjs`, `run-unit-tests.mjs`, `run-e2e-local.mjs`, `serve-static.mjs`. (We use `js/scripts/` rather than `./scripts/` to satisfy 4.1's "all JS under `./js/`" requirement; the workflow paths were updated to match.) |
 | 4.4 | Adopt best practices from `link-foundation/js-ai-driven-development-pipeline-template` and `link-foundation/rust-ai-driven-development-pipeline-template`. | **Done where applicable.** Concurrency policy, fast-fail job ordering, per-job timeouts, single workflow file with `needs:` graph, scripts as `.mjs`. The template's npm-publish / changeset / Docker layers don't apply to a static site and were intentionally omitted. See [`ci-template-comparison.md`](./ci-template-comparison.md). |
 
 ## 5. Case study & external follow-ups
@@ -45,4 +45,4 @@ status in PR #36.
 
 ## Out of scope for PR #36
 
-* **Task 4.1 (move all JS into `./js/`).** Deferred for the diff-size reason above. The move is mechanical once the rest of this PR is merged: `git mv` plus a sed pass over `app.html` and the demo shells; not a separate research task.
+Nothing remaining — every requirement above is addressed in this PR.

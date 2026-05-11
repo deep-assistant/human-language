@@ -24,7 +24,7 @@ mechanism.
 
 ## 2. E2E tests for every section
 
-**Chosen:** Playwright, single Chromium project, `tests/e2e/app.spec.mjs`
+**Chosen:** Playwright, single Chromium project, `js/tests/e2e/app.spec.mjs`
 with one `test.describe` per mode. The suite runs against
 `http://localhost:8000` by default and against any `BASE_URL` override
 when invoked from CI's post-deploy step.
@@ -58,7 +58,9 @@ the modules that are pure and easy to test in isolation
 `link-foundation/js-ai-driven-development-pipeline-template/release.yml`,
 trimmed of npm-publish / changeset / Docker layers because we're a
 static site, not a library. Specific steps run as `.mjs` scripts in
-`./scripts/`.
+`./js/scripts/` (issue #35 also asks for "all JavaScript under `./js/`",
+so the CI scripts live alongside the application source rather than at
+the repo root).
 
 **Alternatives considered:**
 
@@ -70,24 +72,39 @@ static site, not a library. Specific steps run as `.mjs` scripts in
 
 ## 5. Move all JS into `./js/`
 
-**Chosen:** Deferred to a follow-up PR.
+**Chosen:** Two-folder split under `./js/`:
 
-**Why deferred, not done:**
+* **`js/src/`** — application source: everything `app.html` (and the
+  remaining demo HTML pages) imports at runtime. Subfolders mirror the
+  pre-move logical groupings: `js/src/app/` for the SPA shell and modes,
+  `js/src/transformation/` for the text-to-Q/P transformer, and
+  top-level files for the cache / Wikidata-API helpers.
+* **`js/scripts/`** — Node-only scripts: every CI/CD step
+  (`check-mjs-syntax.mjs`, `check-web-archive.mjs`, `run-unit-tests.mjs`,
+  `run-e2e-local.mjs`, `serve-static.mjs`) plus the long-standing
+  live-Wikidata integration runners (`run-tests.mjs`, `cache-test.mjs`,
+  `unified-cache-test.mjs`, etc.).
+* **`js/tests/`** — `node:test` unit suites (`unit/`) and Playwright
+  e2e specs (`e2e/`), so the test layout mirrors the template's
+  `./tests/` convention while still satisfying "all JavaScript under
+  `./js/`".
 
-* Every `.jsx` file currently lives at `app/modes/`. Every
-  `.js` module lives either at the repo root (`text-to-qp-transformer.js`
-  used to, now in `transformation/`) or under `app/`. Moving them into
-  a single `./js/` folder rewrites the import path of essentially
-  every module in the repo.
-* `app.html` references modules with relative paths from the repo
-  root; those references would all need to change too.
-* The legacy demo HTML files (the now-orphaned `index.html`,
-  `dictionary.html`, etc.) also reference these modules; they'd need
-  to be rewritten or deleted.
-* Bundling the move into the bug-fix PR makes the diff unreviewable
-  and increases the risk of a follow-on regression.
+The deployed HTML pages (`app.html`, `entities.html`, `properties.html`,
+`browser-cache-test.html`, `cache-demo.html`, `run-tests.html`,
+`search-demo.html`, plus the redirect / demo pages under
+`transformation/`) stay at their public URLs so existing external links
+keep working; their `<script>` and `import` tags were rewritten to
+reference the new `./js/src/...` paths.
 
-PR #36 already lands the *blocking* parts of issue #35 (the bug
-fix, the test coverage that prevents recurrence, the unified CI).
-The `./js/` move is mechanical once those are merged and is tracked
-as a follow-up.
+`_config.yml`'s `exclude` list was updated so Jekyll keeps `js/scripts`,
+`js/tests`, and the Node-only modules in `js/src/` (`unified-cache.js`,
+`persistent-cache.js`, `wikidata-api.js`) out of the deployed Pages
+artifact while still publishing the browser-side modules.
+
+**Alternatives considered:**
+
+| Option | Why rejected |
+| --- | --- |
+| Flat `./js/` with no subfolder split. | Drops the source / scripts / tests distinction and makes it ambiguous which files are deployed by Pages and which are Node-only. The `_config.yml` exclude list would have to enumerate individual files instead of whole folders. |
+| Template's flat `./src` + `./scripts` + `./tests` at the repo root (no `./js/`). | The issue text explicitly says "All JavaScript should live in `./js/`", so the template's layout is moved one level down. |
+| Defer the move to a follow-up PR (the original plan, see [PR #36 review feedback](https://github.com/link-assistant/human-language/pull/36)). | The reviewer asked for everything in a single PR. The mechanical risk is mitigated by the automated test gates — `npm run test:unit`, `node js/scripts/check-mjs-syntax.mjs`, the e2e suite — all of which run locally before the push. |

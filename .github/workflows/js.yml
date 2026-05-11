@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: '20.x'
       - name: Walk repo and run node --check
-        run: node scripts/check-mjs-syntax.mjs
+        run: node js/scripts/check-mjs-syntax.mjs
 
   unit-tests:
     name: Unit tests (Node)
@@ -63,7 +63,7 @@ jobs:
         # suites: routing.test.mjs, ipa.test.mjs) from informational
         # (live-Wikidata cache/transformer scripts). Only gating failures
         # set a non-zero exit code.
-        run: node scripts/run-unit-tests.mjs
+        run: node js/scripts/run-unit-tests.mjs
 
   link-check:
     name: Broken link check (lychee)
@@ -93,7 +93,7 @@ jobs:
       - name: Check broken links against Web Archive
         if: steps.lychee.outputs.exit_code != 0
         id: webarchive
-        run: node scripts/check-web-archive.mjs
+        run: node js/scripts/check-web-archive.mjs
         env:
           LYCHEE_OUTPUT: lychee/out.md
       - name: Fail if broken links found and no web archive fallback
@@ -123,8 +123,8 @@ jobs:
         run: npm install
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
-      - name: Run e2e suite (boots scripts/serve-static.mjs)
-        run: node scripts/run-e2e-local.mjs
+      - name: Run e2e suite (boots js/scripts/serve-static.mjs)
+        run: node js/scripts/run-e2e-local.mjs
       - name: Upload Playwright report on failure
         if: failure()
         uses: actions/upload-artifact@v4
@@ -200,7 +200,7 @@ jobs:
       - name: Run e2e suite against the deployed site
         env:
           BASE_URL: ${{ needs.pages-deploy.outputs.page_url || 'https://link-assistant.github.io/human-language' }}
-        run: npx playwright test --config tests/e2e/playwright.config.mjs
+        run: npx playwright test --config js/tests/e2e/playwright.config.mjs
       - name: Upload Playwright report on failure
         if: failure()
         uses: actions/upload-artifact@v4

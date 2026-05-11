@@ -10,15 +10,15 @@ import { spawn } from 'node:child_process';
 
 const FAST_SUITES = [
   // Pure-JS suites with no network dependency. Failures here gate the build.
-  'tests/unit/routing.test.mjs',
-  'tests/unit/ipa.test.mjs',
+  'js/tests/unit/routing.test.mjs',
+  'js/tests/unit/ipa.test.mjs',
 ];
 
 const INTEGRATION_SUITES = [
   // Hit the live Wikidata API. Reported but non-gating.
-  { file: 'run-tests.mjs',         label: 'transformer suite' },
-  { file: 'cache-test.mjs',        label: 'cache sanity' },
-  { file: 'unified-cache-test.mjs', label: 'unified cache' },
+  { file: 'js/scripts/run-tests.mjs',          label: 'transformer suite' },
+  { file: 'js/scripts/cache-test.mjs',         label: 'cache sanity' },
+  { file: 'js/scripts/unified-cache-test.mjs', label: 'unified cache' },
 ];
 
 const TIMEOUT_MS = 5 * 60 * 1000;

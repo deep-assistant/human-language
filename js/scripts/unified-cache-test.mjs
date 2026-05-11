@@ -3,8 +3,8 @@
 // Test unified cache system with different backends
 // Run with: bun unified-cache-test.mjs
 
-import { TextToQPTransformer } from './text-to-qp-transformer.js';
-import { CacheFactory } from './unified-cache.js';
+import { TextToQPTransformer } from '../src/transformation/text-to-qp-transformer.js';
+import { CacheFactory } from '../src/unified-cache.js';
 
 /**
  * Test suite for unified cache system

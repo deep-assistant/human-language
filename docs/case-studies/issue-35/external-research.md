@@ -39,7 +39,7 @@ Inspecting [`link-foundation/browser-commander`](https://github.com/link-foundat
 
 * The repo is a thin wrapper around Playwright that exposes a
   Playwright-Test-compatible CLI.
-* Every selector and action we use in `tests/e2e/app.spec.mjs`
+* Every selector and action we use in `js/tests/e2e/app.spec.mjs`
   (`getByRole`, `getByText`, `click`, `fill`, `expect(…).toBeVisible`)
   is *Playwright's* API; `browser-commander` doesn't add or remove
   any.

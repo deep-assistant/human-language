@@ -46,14 +46,14 @@ try {
   } else {
     serverProc = spawn(
       process.execPath,
-      ['scripts/serve-static.mjs'],
+      ['js/scripts/serve-static.mjs'],
       { stdio: ['ignore', 'inherit', 'inherit'], env: { ...process.env, PORT: String(PORT) } },
     );
     await waitForServer(URL);
   }
   const playwright = spawn(
     'npx',
-    ['playwright', 'test', '--config', 'tests/e2e/playwright.config.mjs'],
+    ['playwright', 'test', '--config', 'js/tests/e2e/playwright.config.mjs'],
     { stdio: 'inherit', env: { ...process.env, BASE_URL: URL } },
   );
   exitCode = await new Promise((res) => playwright.on('exit', res));

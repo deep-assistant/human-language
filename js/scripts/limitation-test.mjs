@@ -3,7 +3,7 @@
 // Fast limitation test using mock data to identify transformer problems
 // Run with: bun limitation-test.mjs
 
-import { TextToQPTransformer } from './text-to-qp-transformer.js';
+import { TextToQPTransformer } from '../src/transformation/text-to-qp-transformer.js';
 
 /**
  * Enhanced Mock API for testing edge cases and limitations

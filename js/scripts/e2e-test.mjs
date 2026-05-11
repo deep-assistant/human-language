@@ -3,7 +3,7 @@
 // End-to-End test for Text to Q/P Transformer using real Wikidata API
 // Run with: bun e2e-test.mjs
 
-import { TextToQPTransformer } from './transformation/text-to-qp-transformer.js';
+import { TextToQPTransformer } from '../src/transformation/text-to-qp-transformer.js';
 
 /**
  * E2E Test Suite using real Wikidata API

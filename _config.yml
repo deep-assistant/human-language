@@ -20,9 +20,11 @@ exclude:
   - data
   - api-patterns.json
   - limitations-found.json
-  - "*.mjs"
+  # CI/CD and integration-test scripts (Node only, never loaded by a page).
+  - js/scripts
+  - js/tests
   # Node-only modules (use the *-browser.js counterparts in the browser).
-  - persistent-cache.js
-  - unified-cache.js
-  - wikidata-api.js
+  - js/src/persistent-cache.js
+  - js/src/unified-cache.js
+  - js/src/wikidata-api.js
   - .gitkeep

@@ -5,12 +5,12 @@
   "type": "module",
   "description": "Human Language: a Wikidata-backed exploration of alphabets, dictionaries, ontologies, entities, properties and English-to-Q/P transformation.",
   "scripts": {
-    "serve": "node scripts/serve-static.mjs",
-    "test:e2e": "playwright test --config tests/e2e/playwright.config.mjs",
-    "test:e2e:local": "node scripts/run-e2e-local.mjs",
-    "test:unit": "node scripts/run-unit-tests.mjs",
-    "test:syntax": "node scripts/check-mjs-syntax.mjs",
-    "check:web-archive": "node scripts/check-web-archive.mjs"
+    "serve": "node js/scripts/serve-static.mjs",
+    "test:e2e": "playwright test --config js/tests/e2e/playwright.config.mjs",
+    "test:e2e:local": "node js/scripts/run-e2e-local.mjs",
+    "test:unit": "node js/scripts/run-unit-tests.mjs",
+    "test:syntax": "node js/scripts/check-mjs-syntax.mjs",
+    "check:web-archive": "node js/scripts/check-web-archive.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1"

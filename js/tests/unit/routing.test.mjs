@@ -1,12 +1,12 @@
-// Unit tests for app/routing.js — pure, no DOM required.
+// Unit tests for js/src/app/routing.js — pure, no DOM required.
 //
 // We use Node's built-in `node:test` so the suite has zero dependencies. Run
-// with `node tests/unit/routing.test.mjs` or via `scripts/run-unit-tests.mjs`.
+// with `node js/tests/unit/routing.test.mjs` or via `js/scripts/run-unit-tests.mjs`.
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { parseHash, serializeHash, MODES, DEFAULT_MODE } from '../../app/routing.js';
+import { parseHash, serializeHash, MODES, DEFAULT_MODE } from '../../src/app/routing.js';
 
 test('parseHash: empty hash returns DEFAULT_MODE with no params', () => {
   for (const h of ['', '#', undefined, null]) {

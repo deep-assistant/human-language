@@ -3,7 +3,7 @@
 // Test the persistent cache system
 // Run with: bun cache-test.mjs
 
-import { TextToQPTransformer } from './text-to-qp-transformer.js';
+import { TextToQPTransformer } from '../src/transformation/text-to-qp-transformer.js';
 
 async function testCache() {
   console.log('🗄️ Testing Persistent Cache System\n');

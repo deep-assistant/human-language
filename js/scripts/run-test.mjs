@@ -3,7 +3,7 @@
 // Node.js test runner for Text to Q/P Transformer
 // Run with: bun run-test.mjs
 
-import { TextToQPTransformer } from './text-to-qp-transformer.js';
+import { TextToQPTransformer } from '../src/transformation/text-to-qp-transformer.js';
 
 /**
  * Mock Wikidata API responses for testing - Updated based on E2E findings

@@ -16,13 +16,13 @@ the link-foundation templates.
 | **Concurrency: cancel-in-progress on main, queue on PR** so force-pushes don't cancel checks. | Same expression: `cancel-in-progress: ${{ github.ref == 'refs/heads/main' }}`. |
 | **Fast-fail job ordering** — cheap checks gate slow ones. | `syntax-check → unit-tests → e2e-local → pages-build → pages-deploy → e2e-deployed`. |
 | **Per-job `timeout-minutes`** with realistic budgets. | 5-15min per job. The template uses similar values (5 for syntax checks, 10 for lint/test, 30 for release). |
-| **All scripts live in `./scripts/`** and are called from the workflow YAML as `node scripts/X.mjs` or `bash scripts/X.sh`. | Same — `scripts/check-mjs-syntax.mjs`, `scripts/run-unit-tests.mjs`, `scripts/run-e2e-local.mjs`, `scripts/serve-static.mjs`, plus the pre-existing `scripts/check-web-archive.mjs`. We use `.mjs` for all of them. |
+| **All scripts live in `./scripts/`** and are called from the workflow YAML as `node scripts/X.mjs` or `bash scripts/X.sh`. | Adapted — same shape, but the scripts live under `js/scripts/` instead of `./scripts/` so the repo can satisfy issue #35's "all JavaScript under `./js/`" requirement at the same time. The workflow calls `node js/scripts/check-mjs-syntax.mjs`, `node js/scripts/run-unit-tests.mjs`, `node js/scripts/run-e2e-local.mjs`, `node js/scripts/serve-static.mjs`, and `node js/scripts/check-web-archive.mjs`. All `.mjs`. |
 | **Pin the action version (`@v6`, `@v5`)** rather than tracking `@main`. | Same — `actions/checkout@v6`, `actions/setup-node@v6`, `actions/configure-pages@v5`, `actions/deploy-pages@v4`. |
 | **Default minimal `permissions:` block** at the workflow level, widen per-job. | `permissions: contents: read` at the top; `pages-deploy` widens to `pages: write, id-token: write`. |
 | **`needs:` + `outputs:` pattern to thread state between jobs.** | `pages-deploy.outputs.page_url` is consumed by `e2e-deployed` to point Playwright at the just-deployed site. |
 | **`if: failure()` artefact upload** so a broken run leaves a debug-able report. | `playwright-report/` is uploaded on failure from both `e2e-local` and `e2e-deployed`. |
 | **`workflow_dispatch:` for manual triggers** alongside `push` and `pull_request`. | All three triggers wired up. |
-| **Use Node's built-in toolchain** wherever possible (no extra deps for CI scripts). | `serve-static.mjs` uses `node:http`, `run-unit-tests.mjs` uses `node:test`, `check-mjs-syntax.mjs` uses `node --check`. The only dev-dependency is `@playwright/test`. |
+| **Use Node's built-in toolchain** wherever possible (no extra deps for CI scripts). | `js/scripts/serve-static.mjs` uses `node:http`, `js/scripts/run-unit-tests.mjs` uses `node:test`, `js/scripts/check-mjs-syntax.mjs` uses `node --check`. The only dev-dependency is `@playwright/test`. |
 
 ## Patterns intentionally **not** adopted
 

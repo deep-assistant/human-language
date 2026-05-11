@@ -17,10 +17,11 @@ constructs the transformer crashed on the first line.
 In parallel the repo was missing the test coverage to catch this kind of
 regression: there were no e2e tests for any of the six modes (alphabet,
 dictionary, ontology, entities, properties, transformer) and only one of
-the JavaScript modules (`app/routing.js`) had any structural test
-coverage. CI was split across three workflow files
-(`test.yml`, `pages.yml`, `links.yml`) and didn't gate the Pages deploy
-on tests.
+the JavaScript modules (`app/routing.js`, now `js/src/app/routing.js`)
+had any structural test coverage. CI was split across three workflow
+files (`test.yml`, `pages.yml`, `links.yml`) and didn't gate the Pages
+deploy on tests. JavaScript files were also scattered across the repo
+root rather than living under a single `./js/` tree.
 
 ## Documents in this case study
 
@@ -36,12 +37,12 @@ on tests.
 
 ## The fix in one sentence
 
-`app.html` now `import`s `transformation/text-to-qp-transformer.js`,
-`transformation/text-transformer-test.js`, and the demo helper directly
-in a real ES Modules `<script type="module">` and exposes them on
-`window.HumanLanguageApp`; `app/modes/transformer.jsx` reads them off
-`window` instead of using the dynamic `import()` that babel-standalone
-silently rewrote to `require(...)`. See
+`app.html` now `import`s `js/src/transformation/text-to-qp-transformer.js`,
+`js/src/transformation/text-transformer-test.js`, and the demo helper
+directly in a real ES Modules `<script type="module">` and exposes them
+on `window.HumanLanguageApp`; `js/src/app/modes/transformer.jsx` reads
+them off `window` instead of using the dynamic `import()` that
+babel-standalone silently rewrote to `require(...)`. See
 [`root-cause.md`](./root-cause.md) for the proof.
 
 ## Headline before / after
@@ -51,7 +52,7 @@ silently rewrote to `require(...)`. See
 | ![Banner: "Failed to load transformer: require is not defined", Transform button disabled](../../screenshots/issue-35-transformer-before.png) | ![Transformer renders, button enabled, Q/P sequence shown after "Paris is the capital of France"](../../screenshots/issue-35-transformer-after.png) |
 
 The regression is now permanently guarded by a Playwright test
-(`tests/e2e/app.spec.mjs`) that asserts:
+(`js/tests/e2e/app.spec.mjs`) that asserts:
 * the `Transformer` heading is visible at `#mode=transformer`,
 * the body contains neither `Failed to load transformer` nor `require is not defined`,
 * the `Transform` button becomes enabled within 5s of page load,

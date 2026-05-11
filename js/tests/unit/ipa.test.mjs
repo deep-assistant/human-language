@@ -1,4 +1,4 @@
-// Unit tests for app/ipa.js.
+// Unit tests for js/src/app/ipa.js.
 //
 // `toIpa` calls out to network backends, so we stub `globalThis.fetch` to
 // make the tests deterministic and offline. `toIpaForEntity` is exercised
@@ -7,7 +7,7 @@
 import { test, mock } from 'node:test';
 import assert from 'node:assert/strict';
 
-const { toIpa, toIpaForEntity } = await import('../../app/ipa.js');
+const { toIpa, toIpaForEntity } = await import('../../src/app/ipa.js');
 
 function stubFetch(plan) {
   // `plan` is an object whose keys are URL substrings and values are the

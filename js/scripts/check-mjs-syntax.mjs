@@ -18,6 +18,7 @@ const IGNORE_DIRS = new Set([
 
 const SKIP_FILES = new Set([
   // Babel-standalone-compiled in the browser, not Node-parseable.
+  // (Listed by basename — these live in js/src/ but we match on basename.)
   'loading.jsx', 'statements.jsx',
 ]);
 

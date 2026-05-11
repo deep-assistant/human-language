@@ -2,7 +2,8 @@
 
 ## TL;DR
 
-`app/modes/transformer.jsx` was loading the transformer class with a
+`js/src/app/modes/transformer.jsx` (originally `app/modes/transformer.jsx`
+before the issue-35 file move) was loading the transformer class with a
 dynamic `import()` inside a React `useEffect`. The file is compiled in
 the browser by `@babel/standalone` with the `env` and `react` presets,
 because the deployed site has no build step. The `env` preset, with
@@ -16,7 +17,7 @@ default options, **rewrites dynamic `import()` to a CommonJS
 
 1. User opens `app.html#mode=transformer`.
 2. `app.html` includes `babel-standalone` and tags
-   `app/modes/transformer.jsx` with `data-presets="env,react"`.
+   `js/src/app/modes/transformer.jsx` with `data-presets="env,react"`.
 3. babel-standalone compiles the JSX in the browser. The compiled
    output contains, for the line that used to be
    `const mod = await import('../../transformation/text-to-qp-transformer.js')`:
@@ -48,8 +49,9 @@ default options, **rewrites dynamic `import()` to a CommonJS
 
 The same `text-to-qp-transformer.js` file *works under Node and Bun*,
 because Node natively understands `import()`. The legacy bun-based test
-suite in `run-tests.mjs` therefore passed all the way through — the
-test infrastructure had no signal that the deployed site was broken.
+suite in `js/scripts/run-tests.mjs` therefore passed all the way through
+— the test infrastructure had no signal that the deployed site was
+broken.
 
 This is why a new browser-level e2e test is critical: it's the only
 layer that exercises the babel-standalone-compiled code path. Without
@@ -67,9 +69,9 @@ never sees them. So:
 ```html
 <!-- app.html -->
 <script type="module">
-  import { TextToQPTransformer }  from './transformation/text-to-qp-transformer.js';
-  import { TextTransformerTest }  from './transformation/text-transformer-test.js';
-  import { demonstrateTransformer } from './transformation/transformer-demo.js';
+  import { TextToQPTransformer }  from './js/src/transformation/text-to-qp-transformer.js';
+  import { TextTransformerTest }  from './js/src/transformation/text-transformer-test.js';
+  import { demonstrateTransformer } from './js/src/transformation/transformer-demo.js';
   window.HumanLanguageApp = Object.assign(
     window.HumanLanguageApp || {},
     { TextToQPTransformer, TextTransformerTest, demonstrateTransformer },
@@ -78,7 +80,7 @@ never sees them. So:
 ```
 
 ```jsx
-// app/modes/transformer.jsx — babel-compiled, no dynamic import
+// js/src/app/modes/transformer.jsx — babel-compiled, no dynamic import
 const { TextToQPTransformer, TextTransformerTest, demonstrateTransformer } =
   (window.HumanLanguageApp || {});
 
