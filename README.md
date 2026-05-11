@@ -6,14 +6,28 @@
 
 ## 🎬 Demos
 
-Every demo is published to GitHub Pages and reachable from the [main page](https://link-assistant.github.io/human-language/).
+The whole project is published to GitHub Pages as a single unified single-page application — open <https://link-assistant.github.io/human-language/> and switch modes from the top tab bar.
 
-| Demo | Description | Source |
+### Unified SPA (the public app)
+
+| Mode | Description | Source |
 | ---- | ----------- | ------ |
-| [Text → Q/P Transformer](https://link-assistant.github.io/human-language/transformation/index.html) | Turn English text into a sequence of Wikidata entities (Q) and properties (P), with n-gram support. | [`transformation/index.html`](transformation/index.html) |
+| [Alphabet](https://link-assistant.github.io/human-language/app.html#mode=alphabet) | Each letter at ≥50 % of the viewport, with IPA pronunciation and keyboard navigation. | [`app/modes/alphabet.jsx`](app/modes/alphabet.jsx) |
+| [Dictionary](https://link-assistant.github.io/human-language/app.html#mode=dictionary) | Definitions merged from the Free Dictionary API and Wiktionary, with an IPA-only display toggle. | [`app/modes/dictionary.jsx`](app/modes/dictionary.jsx) |
+| [Ontology](https://link-assistant.github.io/human-language/app.html#mode=ontology) | Walk Wikidata's *subclass of* tree, rooted at <em>entity</em> (Q35120). Cycles are allowed and flagged. | [`app/modes/ontology.jsx`](app/modes/ontology.jsx) |
+| [Entities](https://link-assistant.github.io/human-language/app.html#mode=entity) | Browse any Wikidata Q-id, with IPA toggle and an inline test runner. | [`app/modes/entity.jsx`](app/modes/entity.jsx) |
+| [Properties](https://link-assistant.github.io/human-language/app.html#mode=property) | Same lens as Entities but for P-ids. | [`app/modes/property.jsx`](app/modes/property.jsx) |
+| [Text → Q/P Transformer](https://link-assistant.github.io/human-language/app.html#mode=transformer) | Turn English text into a sequence of Wikidata entities (Q) and properties (P), with n-gram support. | [`app/modes/transformer.jsx`](app/modes/transformer.jsx) |
+
+The legacy URLs (`entities.html`, `properties.html`, `transformation/index.html`, and bare hashes like `entities.html#Q35120`) still work — they now redirect into the unified SPA preserving any parameters.
+
+### Internal pages (for contributors)
+
+These are intentionally not linked from the main app, but remain on GitHub Pages so contributors can keep running them while we migrate everything into the SPA:
+
+| Page | Description | Source |
+| ---- | ----------- | ------ |
 | [N-gram Transformer Test](https://link-assistant.github.io/human-language/transformation/test-ngram.html) | Compare transformer results across n-gram sizes 1–5. | [`transformation/test-ngram.html`](transformation/test-ngram.html) |
-| [Entity Viewer](https://link-assistant.github.io/human-language/entities.html) | Browse any Wikidata entity (Q-id) with a theme-aware, multilingual UI. | [`entities.html`](entities.html) |
-| [Property Viewer](https://link-assistant.github.io/human-language/properties.html) | Inspect any Wikidata property (P-id), with usage examples and related entities. | [`properties.html`](properties.html) |
 | [Search & Disambiguation](https://link-assistant.github.io/human-language/search-demo.html) | Exact and fuzzy Wikidata search with context-aware ranking. | [`search-demo.html`](search-demo.html) |
 | [Caching Demo](https://link-assistant.github.io/human-language/cache-demo.html) | Visualize the unified cache layer (file-system + IndexedDB) in action. | [`cache-demo.html`](cache-demo.html) |
 | [Browser Cache Test](https://link-assistant.github.io/human-language/browser-cache-test.html) | Stress-test the IndexedDB-backed browser cache. | [`browser-cache-test.html`](browser-cache-test.html) |

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Language</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Babel-standalone transforms the .jsx scripts below in-browser. -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- React 19 from esm.sh, exposed on window so text/babel scripts can use it. -->
+  <script type="module">
+    import React from 'https://esm.sh/react@19';
+    import ReactDOM from 'https://esm.sh/react-dom@19/client';
+    window.React = React;
+    window.ReactDOM = ReactDOM;
+  </script>
+
+  <!-- Shared library modules. Reuse the same versions used by entities.html /
+       properties.html / transformation/index.html, exposing the bits the
+       text/babel mode files need on window.HumanLanguageApp. -->
+  <script type="module">
+    import { STORAGE_KEYS, saveToLocalStorage, loadFromLocalStorage, flagMap, getQuotesForLanguage }
+      from './settings.js';
+    import { client as apiClient, cache as cacheManager, processor as dataProcessor,
+             labelManager, searchUtility } from './wikidata-api-browser.js';
+    import { MODES, DEFAULT_MODE, parseHash, serializeHash, subscribeToHash, navigate }
+      from './app/routing.js';
+    import * as ipa from './app/ipa.js';
+
+    // Shared globals expected by the unified shell and legacy components
+    // (statements.jsx, loading.jsx) that we re-mount inside the SPA.
+    window.STORAGE_KEYS = STORAGE_KEYS;
+    window.saveToLocalStorage = saveToLocalStorage;
+    window.loadFromLocalStorage = loadFromLocalStorage;
+    window.flagMap = flagMap;
+    window.getQuotesForLanguage = getQuotesForLanguage;
+    window.apiClient = apiClient;
+    window.cacheManager = cacheManager;
+    window.dataProcessor = dataProcessor;
+    window.labelManager = labelManager;
+    window.searchUtility = searchUtility;
+
+    window.HumanLanguageApp = {
+      STORAGE_KEYS,
+      saveToLocalStorage,
+      loadFromLocalStorage,
+      flagMap,
+      getQuotesForLanguage,
+      MODES,
+      DEFAULT_MODE,
+      parseHash,
+      serializeHash,
+      subscribeToHash,
+      navigate,
+      ipa,
+      modes: {},
+    };
+  </script>
+
+  <!-- Component scripts (re-used verbatim from the existing pages). -->
+  <script type="text/babel" src="./statements.jsx"></script>
+  <script type="text/babel" src="./loading.jsx"></script>
+
+  <!-- SPA shell + per-mode files. The order matters: shell.jsx defines the
+       AppContext that every mode file imports through window.HumanLanguageApp. -->
+  <script type="text/babel" src="./app/shell.jsx"></script>
+  <script type="text/babel" src="./app/tests-panel.jsx"></script>
+  <script type="text/babel" src="./app/modes/alphabet.jsx"></script>
+  <script type="text/babel" src="./app/modes/dictionary.jsx"></script>
+  <script type="text/babel" src="./app/modes/ontology.jsx"></script>
+  <script type="text/babel" src="./app/modes/entity.jsx"></script>
+  <script type="text/babel" src="./app/modes/property.jsx"></script>
+  <script type="text/babel" src="./app/modes/transformer.jsx"></script>
+
+  <!-- Mount the SPA. We wait until the next macrotask so every text/babel
+       script above has been transformed and executed before App reads
+       `window.HumanLanguageApp.Shell` / `window.HumanLanguageApp.modes`. -->
+  <script type="text/babel">
+    (function bootApp() {
+      const { Shell, modes, parseHash, subscribeToHash } = window.HumanLanguageApp;
+
+      function App() {
+        const [{ mode, params }, setRoute] = React.useState(() => parseHash(window.location.hash));
+        React.useEffect(() => subscribeToHash(setRoute), []);
+        const Mode = modes[mode] || modes.entity;
+        return (
+          <Shell mode={mode} params={params}>
+            <Mode params={params} />
+          </Shell>
+        );
+      }
+
+      // Babel transforms scripts in order, but Babel registers the next script
+      // for execution via a microtask: wait one tick so the modes module
+      // assignments have happened before we render.
+      setTimeout(() => {
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+      }, 0);
+    })();
+  </script>
+</body>
+</html>

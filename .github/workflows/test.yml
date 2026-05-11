@@ -1,0 +1,38 @@
+name: Tests
+
+# Runs the Node-runnable test scripts that live at the repo root. This is the
+# minimal CI gate adapted from the JS template's release.yml — we only need
+# the test matrix because we don't publish to npm.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Test (Bun)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Run text-transformer tests
+        run: bun run-tests.mjs
+
+      - name: Run cache/API sanity scripts
+        # These scripts hit the live Wikidata API; treat them as informational
+        # because external availability could flap. They print rich logs but
+        # do not gate the build.
+        continue-on-error: true
+        run: |
+          bun cache-test.mjs || true
+          bun unified-cache-test.mjs || true
