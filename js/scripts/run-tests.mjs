@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { TextTransformerTest, demonstrateTransformer } from './transformation/text-transformer-test.js';
+import { TextTransformerTest, demonstrateTransformer } from '../src/transformation/text-transformer-test.js';
 
 async function main() {
   console.log('🚀 Running Text Transformer Tests...\n');

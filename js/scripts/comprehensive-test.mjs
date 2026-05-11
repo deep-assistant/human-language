@@ -3,7 +3,7 @@
 // Comprehensive test suite to find transformer limitations
 // Run with: bun comprehensive-test.mjs
 
-import { TextToQPTransformer } from './text-to-qp-transformer.js';
+import { TextToQPTransformer } from '../src/transformation/text-to-qp-transformer.js';
 
 /**
  * Comprehensive Test Suite to identify transformer limitations
