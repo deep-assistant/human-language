@@ -12,6 +12,10 @@ const FAST_SUITES = [
   // Pure-JS suites with no network dependency. Failures here gate the build.
   'js/tests/unit/routing.test.mjs',
   'js/tests/unit/ipa.test.mjs',
+  'js/tests/unit/config.test.mjs',
+  'js/tests/unit/lino-format.test.mjs',
+  'js/tests/unit/server.test.mjs',
+  'js/tests/unit/cli.test.mjs',
 ];
 
 const INTEGRATION_SUITES = [

@@ -1,16 +1,100 @@
 {
   "name": "human-language",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.1.0",
+  "description": "Human Language: a Wikidata-backed library, CLI and HTTP microservice for transforming English text into sequences of Wikidata entities (Q) and properties (P), with alphabet/dictionary/ontology browsing and IPA support.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/link-assistant/human-language.git"
+  },
+  "homepage": "https://link-assistant.github.io/human-language/",
+  "bugs": {
+    "url": "https://github.com/link-assistant/human-language/issues"
+  },
+  "author": "link-assistant",
+  "keywords": [
+    "wikidata",
+    "linked-data",
+    "semantic-web",
+    "ipa",
+    "ontology",
+    "transformer",
+    "knowledge-graph",
+    "natural-language",
+    "human-language"
+  ],
   "type": "module",
-  "description": "Human Language: a Wikidata-backed exploration of alphabets, dictionaries, ontologies, entities, properties and English-to-Q/P transformation.",
+  "main": "./js/src/index.js",
+  "types": "./js/src/index.d.ts",
+  "bin": {
+    "human-language": "./js/src/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./js/src/index.d.ts",
+      "import": "./js/src/index.js",
+      "default": "./js/src/index.js"
+    },
+    "./server": {
+      "import": "./js/src/server.js",
+      "default": "./js/src/server.js"
+    },
+    "./cli": {
+      "import": "./js/src/cli.js",
+      "default": "./js/src/cli.js"
+    },
+    "./transform": {
+      "import": "./js/src/transformation/text-to-qp-transformer.js"
+    },
+    "./transform/lino": {
+      "import": "./js/src/transformation/lino-format.js"
+    },
+    "./wikidata": {
+      "import": "./js/src/wikidata-api.js"
+    },
+    "./wikidata/browser": {
+      "import": "./js/src/wikidata-api-browser.js"
+    },
+    "./cache": {
+      "import": "./js/src/unified-cache.js"
+    },
+    "./cache/browser": {
+      "import": "./js/src/unified-cache-browser.js"
+    },
+    "./settings": {
+      "import": "./js/src/settings.js"
+    },
+    "./routing": {
+      "import": "./js/src/app/routing.js"
+    },
+    "./ipa": {
+      "import": "./js/src/app/ipa.js"
+    },
+    "./config": {
+      "import": "./js/src/config.js"
+    }
+  },
+  "files": [
+    "js/src/**/*.js",
+    "js/src/**/*.jsx",
+    "js/src/**/*.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "serve": "node js/scripts/serve-static.mjs",
+    "start": "node js/src/server.js",
+    "cli": "node js/src/cli.js",
+    "test": "node js/scripts/run-unit-tests.mjs",
     "test:e2e": "playwright test --config js/tests/e2e/playwright.config.mjs",
     "test:e2e:local": "node js/scripts/run-e2e-local.mjs",
     "test:unit": "node js/scripts/run-unit-tests.mjs",
     "test:syntax": "node js/scripts/check-mjs-syntax.mjs",
-    "check:web-archive": "node js/scripts/check-web-archive.mjs"
+    "check:web-archive": "node js/scripts/check-web-archive.mjs",
+    "prepack": "node js/scripts/check-mjs-syntax.mjs"
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1"
