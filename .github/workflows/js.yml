@@ -1,0 +1,210 @@
+name: JS
+
+# Single, unified pipeline that subsumes the previous test.yml, pages.yml,
+# and links.yml workflows. Structured to fail fast: cheap checks
+# (syntax-check, unit tests, link audit) gate the slower jobs (e2e against
+# a locally-served build, Pages deploy, e2e against the deployed site).
+#
+# Layout adopted from link-foundation/js-ai-driven-development-pipeline-template
+# (release.yml), trimmed for this repo:
+#   * no npm publish path — this is a static site, not a library
+#   * no changeset PR / manual release jobs
+#   * no Docker publish job
+# The template's `detect-changes` matrix is intentionally omitted: every job
+# below already either runs in <1 minute or is gated by a `needs:` chain,
+# so partial skipping wouldn't meaningfully improve wall time and would
+# add a lot of yaml.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+# Cancel in-flight runs for the same ref so the latest commit wins on
+# `main` and on PR force-pushes. Matches the template's policy.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref == 'refs/heads/main' }}
+
+# Default permissions are read-only; Pages deploy job widens scope below.
+permissions:
+  contents: read
+
+jobs:
+  # === Fast checks ============================================================
+
+  syntax-check:
+    name: Syntax check (node --check)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20.x'
+      - name: Walk repo and run node --check
+        run: node scripts/check-mjs-syntax.mjs
+
+  unit-tests:
+    name: Unit tests (Node)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [syntax-check]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20.x'
+      - name: Run unit and integration suites
+        # `run-unit-tests.mjs` distinguishes gating (zero-dep node:test
+        # suites: routing.test.mjs, ipa.test.mjs) from informational
+        # (live-Wikidata cache/transformer scripts). Only gating failures
+        # set a non-zero exit code.
+        run: node scripts/run-unit-tests.mjs
+
+  link-check:
+    name: Broken link check (lychee)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check links with lychee
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --cache
+            --max-cache-age 1d
+            --max-retries 3
+            --timeout 30
+            --exclude-path docs/case-studies
+            './**/*.md'
+            './**/*.html'
+          fail: false
+          output: lychee/out.md
+          jobSummary: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check broken links against Web Archive
+        if: steps.lychee.outputs.exit_code != 0
+        id: webarchive
+        run: node scripts/check-web-archive.mjs
+        env:
+          LYCHEE_OUTPUT: lychee/out.md
+      - name: Fail if broken links found and no web archive fallback
+        if: steps.lychee.outputs.exit_code != 0 && steps.webarchive.outputs.all_archived != 'true'
+        run: |
+          echo "::error::Broken links were detected with no Web Archive fallback available."
+          echo "See the 'Check links with lychee' step for the full list and lychee/out.md."
+          exit 1
+
+  # === E2E against locally-served build (PR + push gate) =====================
+
+  e2e-local:
+    name: E2E (Playwright @ localhost)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [unit-tests]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20.x'
+      - name: Install dependencies
+        # We don't have a deep dependency tree (only @playwright/test as a
+        # devDep), so a vanilla `npm install` is fast and produces a clean
+        # node_modules. `npm ci` would require a committed lockfile that
+        # matches package.json exactly — overkill for this repo.
+        run: npm install
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+      - name: Run e2e suite (boots scripts/serve-static.mjs)
+        run: node scripts/run-e2e-local.mjs
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
+
+  # === GitHub Pages build & deploy (main only) ===============================
+
+  pages-build:
+    name: Pages build (Jekyll)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [syntax-check, unit-tests, e2e-local, link-check]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+
+  pages-deploy:
+    name: Pages deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [pages-build]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    outputs:
+      # Exposed so the e2e-deployed job can reuse the freshly deployed URL.
+      page_url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # === Post-deploy e2e against the live GitHub Pages site ====================
+  # Runs the same Playwright suite against the just-deployed site. Most
+  # assertions are wiring/DOM checks that don't depend on live Wikidata,
+  # so they're stable on the public Pages URL.
+
+  e2e-deployed:
+    name: E2E (Playwright @ deployed Pages)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [pages-deploy]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20.x'
+      - name: Install dependencies
+        run: npm install
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+      - name: Wait for new content to propagate
+        # Pages CDN can lag the deploy step by a few seconds.
+        run: sleep 10
+      - name: Run e2e suite against the deployed site
+        env:
+          BASE_URL: ${{ needs.pages-deploy.outputs.page_url || 'https://link-assistant.github.io/human-language' }}
+        run: npx playwright test --config tests/e2e/playwright.config.mjs
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-deployed
+          path: playwright-report/
+          retention-days: 7
