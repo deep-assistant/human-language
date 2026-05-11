@@ -9,7 +9,7 @@
 //! - [`settings`]: Locale quote pairs + a (compact) flag map for the
 //!   language switcher.
 //! - [`lino`]: Renders Q/P sequences into the
-//!   [Links Notation](https://github.com/linksplatform/Documentation/blob/main/doc/LinksNotation.md)
+//!   [Links Notation](https://github.com/link-foundation/links-notation)
 //!   form used by the API and the CLI.
 
 pub mod lino;

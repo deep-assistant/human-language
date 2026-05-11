@@ -4,7 +4,7 @@ Rust crate that mirrors the pure-function helpers of the JavaScript package
 [`human-language`](https://www.npmjs.com/package/human-language). It powers the
 Rust CLI, future WASM builds for the SPA, and any downstream consumer that
 needs to tokenize text, parse the SPA hash, or render a Q/P sequence as
-[Links Notation](https://github.com/linksplatform/Documentation/blob/main/doc/LinksNotation.md)
+[Links Notation](https://github.com/link-foundation/links-notation)
 without spinning up a Node runtime.
 
 The crate is published to [crates.io](https://crates.io/crates/human-language)
