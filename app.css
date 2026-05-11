@@ -1,0 +1,439 @@
+/*
+ * Shared stylesheet for the unified Human Language SPA (app.html).
+ *
+ * The colour palette is lifted from entities.html / properties.html so the
+ * theme stays consistent with the pages that have already shipped. New tokens
+ * (mode tabs, badges, IPA accents) are layered on top.
+ */
+
+:root {
+  --background: #121212;
+  --text: #E0E0E0;
+  --neon: #00FF00;
+  --neon-selected: #00FFFF;
+  --header-bg: #222;
+  --description-text: #A0A0A0;
+  --watermark-color: #E0E0E0;
+  --neon-shadow: rgba(0, 255, 0, 0.4);
+  --neon-shadow-intense: rgba(0, 255, 0, 0.6);
+  --rule: rgba(0, 255, 0, 0.25);
+  --accent-bg: rgba(0, 255, 0, 0.08);
+  --badge-entity: #2563eb;
+  --badge-property: #ea7a14;
+  --badge-ambiguous: #c0392b;
+  --mode-tab-bg: rgba(0, 255, 0, 0.04);
+  --mode-tab-bg-active: rgba(0, 255, 0, 0.18);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --background: #FFFFFF;
+  --text: #333333;
+  --neon: #FF00FF;
+  --neon-selected: #FF007F;
+  --header-bg: #F0F0F0;
+  --description-text: #666666;
+  --watermark-color: #333333;
+  --neon-shadow: rgba(255, 0, 255, 0.4);
+  --neon-shadow-intense: rgba(255, 0, 255, 0.6);
+  --rule: rgba(255, 0, 255, 0.25);
+  --accent-bg: rgba(255, 0, 255, 0.08);
+  --mode-tab-bg: rgba(255, 0, 255, 0.06);
+  --mode-tab-bg-active: rgba(255, 0, 255, 0.18);
+  color-scheme: light;
+}
+
+html, body {
+  background-color: var(--background);
+  height: 100%;
+}
+body {
+  color: var(--text);
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+a { color: var(--neon); text-decoration: none; transition: color 0.2s ease; }
+a:hover { color: var(--neon-selected); text-decoration: underline; }
+
+button {
+  font-family: inherit;
+}
+
+/* Shell layout ------------------------------------------------------------ */
+
+.app-wrapper {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 70px 20px 130px; /* header height + footer language switcher height */
+  position: relative;
+  min-height: 100vh;
+  z-index: 2;
+}
+
+main { padding: 12px; }
+
+/* Headings ---------------------------------------------------------------- */
+
+h1, h2, h3 {
+  text-shadow: 0 0 10px var(--neon);
+  color: var(--neon);
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.5rem; color: var(--text); text-shadow: none; }
+h3 { font-size: 1.15rem; color: var(--text); text-shadow: none; }
+p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--description-text);
+  margin: 0 0 1em;
+}
+
+/* Mode tab bar ------------------------------------------------------------ */
+
+.mode-tabs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 10px 20px;
+  background-color: var(--header-bg);
+  z-index: 10;
+  border-bottom: 1px solid var(--rule);
+}
+.mode-tabs button {
+  background-color: var(--mode-tab-bg);
+  border: 1px solid var(--rule);
+  color: var(--text);
+  font-size: 0.85rem;
+  padding: 6px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  text-transform: lowercase;
+  letter-spacing: 0.05em;
+  font-family: inherit;
+}
+.mode-tabs button:hover { border-color: var(--neon); }
+.mode-tabs button.active {
+  background-color: var(--mode-tab-bg-active);
+  border-color: var(--neon);
+  color: var(--neon);
+}
+
+/* Theme toggle ------------------------------------------------------------ */
+
+.theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: var(--header-bg);
+  border: 2px solid var(--neon);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+  border-radius: 4px;
+  z-index: 11;
+}
+
+/* Language switcher (shared with entities.html / properties.html) --------- */
+
+.language-switcher {
+  position: fixed;
+  bottom: 0;
+  left: 20px;
+  right: 20px;
+  background-color: var(--header-bg);
+  padding: 8px;
+  text-align: center;
+  overflow-x: auto;
+  white-space: nowrap;
+  z-index: 9;
+  border-top: 1px solid var(--rule);
+}
+.language-switcher button {
+  background-color: transparent;
+  border: 1px solid var(--header-bg);
+  color: var(--text);
+  font-size: 1.2rem;
+  padding: 6px;
+  margin: 0 4px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.language-switcher button.selected {
+  color: var(--neon-selected);
+  border: 1px solid var(--neon-selected);
+}
+.language-switcher button.preferred:not(.selected) {
+  text-decoration: underline;
+  text-decoration-color: var(--neon);
+  text-decoration-thickness: 1px;
+}
+.language-switcher button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Statement link styling (shared with entities.html) --------------------- */
+
+.statement-link, .entity-info a, .crumb a {
+  color: var(--neon);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.statement-link:hover, .entity-info a:hover, .crumb a:hover {
+  color: var(--neon-selected);
+  text-decoration: underline;
+}
+
+.entity-info {
+  font-size: 0.9rem;
+  color: var(--text);
+  padding: 8px;
+  margin: 20px 0 0;
+  text-align: right;
+}
+
+/* Toolbar (per-mode tools row) -------------------------------------------- */
+
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.toolbar input[type="text"],
+.toolbar input[type="search"],
+.toolbar select {
+  background-color: var(--background);
+  color: var(--text);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  min-width: 0;
+}
+.toolbar input[type="text"]:focus,
+.toolbar input[type="search"]:focus,
+.toolbar select:focus {
+  outline: 1px solid var(--neon);
+  outline-offset: 0;
+}
+.toolbar button {
+  background-color: var(--accent-bg);
+  color: var(--text);
+  border: 1px solid var(--rule);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+}
+.toolbar button:hover { border-color: var(--neon); color: var(--neon); }
+.toolbar button.active { border-color: var(--neon); color: var(--neon); background-color: var(--mode-tab-bg-active); }
+.toolbar label { font-size: 0.9rem; color: var(--description-text); }
+
+/* Watermark --------------------------------------------------------------- */
+
+.watermark {
+  position: fixed;
+  bottom: 60px;
+  left: 30px;
+  font-size: 5rem;
+  color: var(--watermark-color);
+  opacity: 0.08;
+  pointer-events: none;
+  text-transform: uppercase;
+  font-weight: 700;
+  z-index: 1;
+}
+
+/* Statement card (re-used by statements.jsx through CSS variables) ------- */
+
+.statement-card {
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid var(--neon);
+  border-radius: 4px;
+  background-color: var(--accent-bg);
+}
+
+/* Inline tests panel ------------------------------------------------------ */
+
+.tests-panel {
+  margin-top: 24px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 12px 16px;
+  background: var(--accent-bg);
+}
+.tests-panel summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--neon);
+}
+.tests-panel pre {
+  max-height: 320px;
+  overflow: auto;
+  background: var(--background);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Badges (for the transformer Q/P sequence) ------------------------------ */
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  color: white;
+  margin: 2px 4px 2px 0;
+}
+.badge-entity { background-color: var(--badge-entity); }
+.badge-property { background-color: var(--badge-property); }
+.badge-ambiguous { background-color: var(--badge-ambiguous); }
+
+/* Alphabet mode ----------------------------------------------------------- */
+
+.alphabet-mode {
+  display: grid;
+  grid-template-rows: 1fr 1fr auto;
+  height: calc(100vh - 200px);
+  min-height: 480px;
+  align-items: center;
+  justify-items: center;
+  text-align: center;
+}
+.alphabet-glyph {
+  font-size: clamp(8rem, 50vmin, 24rem);
+  line-height: 1;
+  color: var(--neon);
+  text-shadow: 0 0 30px var(--neon-shadow-intense);
+  font-weight: 700;
+  user-select: text;
+}
+.alphabet-glyph.lower { color: var(--neon-selected); text-shadow: 0 0 30px var(--neon-shadow); }
+.alphabet-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  margin-top: 20px;
+}
+.alphabet-details .ipa {
+  font-size: 1.5rem;
+  color: var(--neon-selected);
+  font-style: italic;
+}
+.alphabet-nav {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 12px;
+}
+.alphabet-nav button { padding: 8px 16px; }
+
+/* Dictionary mode --------------------------------------------------------- */
+
+.dictionary-result {
+  margin-top: 20px;
+  border-top: 1px solid var(--rule);
+  padding-top: 16px;
+}
+.dictionary-headword {
+  font-size: 2rem;
+  color: var(--neon);
+  margin-bottom: 4px;
+}
+.dictionary-pos {
+  margin: 16px 0;
+}
+.dictionary-pos h3 { color: var(--neon-selected); margin-bottom: 8px; }
+.dictionary-definition { margin: 6px 0 6px 18px; color: var(--text); }
+.dictionary-example { color: var(--description-text); font-style: italic; margin-left: 32px; }
+.dictionary-source {
+  display: inline-block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-left: 8px;
+  color: var(--description-text);
+  border: 1px solid var(--rule);
+  padding: 1px 6px;
+  border-radius: 999px;
+}
+
+/* Ontology mode ----------------------------------------------------------- */
+
+.ontology-node { margin: 6px 0; }
+.ontology-node summary {
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 4px;
+}
+.ontology-node summary:hover { background-color: var(--accent-bg); }
+.ontology-children { margin-left: 22px; border-left: 1px dashed var(--rule); padding-left: 12px; }
+.ontology-cycle {
+  font-size: 0.9rem;
+  color: var(--description-text);
+  font-style: italic;
+  padding-left: 8px;
+}
+.ontology-node-id { font-size: 0.85rem; color: var(--description-text); margin-left: 8px; }
+
+/* IPA accents ------------------------------------------------------------- */
+
+.ipa-token {
+  color: var(--neon-selected);
+  font-family: 'Charis SIL', 'Doulos SIL', 'Gentium Plus', serif;
+}
+.ipa-missing {
+  color: var(--description-text);
+  font-style: italic;
+}
+
+/* Responsive -------------------------------------------------------------- */
+
+@media (max-width: 600px) {
+  .app-wrapper { padding: 96px 12px 130px; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.2rem; }
+  .mode-tabs { right: 50px; padding: 8px 10px; }
+  .mode-tabs button { font-size: 0.75rem; padding: 4px 8px; }
+  .theme-toggle { top: 6px; right: 6px; width: 32px; height: 32px; font-size: 1.1rem; }
+  .language-switcher { left: 10px; right: 10px; padding: 6px; }
+  .language-switcher button { font-size: 1rem; padding: 4px; margin: 0 2px; }
+  .watermark { font-size: 3rem; left: 10px; bottom: 60px; }
+}
+
+/* Keyframes (re-used by loading.jsx through CSS variables) ---------------- */
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 30px var(--neon-shadow); }
+  50% { box-shadow: 0 0 40px var(--neon-shadow-intense); }
+  100% { box-shadow: 0 0 30px var(--neon-shadow); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes fadeInScale { from { opacity: 0; transform: scale(0.95);} to { opacity: 1; transform: scale(1);} }
