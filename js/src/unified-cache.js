@@ -75,9 +75,13 @@ class CacheInterface {
  * File-based Cache Adapter (Node.js environments)
  */
 class FileCacheAdapter extends CacheInterface {
-  constructor(cacheDir = ROOT_DATA_DIR) {
+  constructor(cacheDir = ROOT_DATA_DIR, options = {}) {
     super();
-    this.cache = new PersistentCacheManager(cacheDir);
+    if (typeof cacheDir === 'object' && cacheDir !== null) {
+      options = cacheDir;
+      cacheDir = options.cacheDir || ROOT_DATA_DIR;
+    }
+    this.cache = new PersistentCacheManager(cacheDir, options);
   }
 
   async get(key, languages = 'en', limit = 50, type = 'both') {
@@ -380,7 +384,7 @@ class CacheFactory {
   static create(type = 'auto', options = {}) {
     switch (type) {
       case 'file':
-        return new FileCacheAdapter(options.cacheDir);
+        return new FileCacheAdapter(options.cacheDir, options);
         
       case 'indexeddb':
         return new IndexedDBCacheAdapter(options.dbName, options.version);

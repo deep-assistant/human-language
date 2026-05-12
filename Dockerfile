@@ -3,9 +3,7 @@
 # Multi-stage build for the `human-language` microservice.
 #
 # Stage 1 ("deps") installs production npm dependencies into a fresh layer
-# so the resulting image only contains what the runtime needs. The current
-# `package.json` has no runtime deps (the HTTP server uses node:http and
-# node:url only) so this layer is mostly a placeholder for the future.
+# so the resulting image only contains what the runtime needs.
 #
 # Stage 2 ("runtime") starts from a minimal node base image, drops to a
 # non-root user, and runs `human-language serve`. Configuration is read

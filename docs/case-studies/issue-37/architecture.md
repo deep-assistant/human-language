@@ -22,23 +22,23 @@ parallel implementation under `rust/`).
 │             (js/src/)                 │ │       (rust/src/)     │
 │                                       │ │                       │
 │ ┌─────────────────────────────────┐   │ │ ┌─────────────────┐   │
-│ │ transformation/                 │   │ │ │ transform.rs    │   │
+│ │ transformation/                 │   │ │ │ tokenize.rs     │   │
 │ │   text-to-qp-transformer.js     │◀──┼─┤ │   tokenize,     │   │
-│ │   lino-format.js   (new)        │   │ │ │   generate_ngr  │   │
+│ │   lino-format.js                │   │ │ │   generate_ngr  │   │
 │ └─────────────────────────────────┘   │ │ │   is_property…  │   │
 │ ┌─────────────────────────────────┐   │ │ └─────────────────┘   │
 │ │ wikidata-api[-browser].js       │   │ │ ┌─────────────────┐   │
-│ │ unified-cache[-browser].js      │   │ │ │ wikidata.rs     │   │
-│ │ persistent-cache.js             │   │ │ │   (feature      │   │
-│ └─────────────────────────────────┘   │ │ │    "wikidata")  │   │
+│ │ unified-cache[-browser].js      │   │ │ │ lino.rs         │   │
+│ │ persistent-cache.js             │   │ │ │ settings.rs     │   │
+│ └─────────────────────────────────┘   │ │ │                 │   │
 │ ┌─────────────────────────────────┐   │ │ └─────────────────┘   │
 │ │ app/routing.js                  │◀──┼─┤ ┌─────────────────┐   │
 │ │ app/ipa.js                      │   │ │ │ routing.rs      │   │
-│ │ settings.js                     │   │ │ │ locale.rs       │   │
+│ │ settings.js                     │   │ │ │                 │   │
 │ └─────────────────────────────────┘   │ │ └─────────────────┘   │
 │ ┌─────────────────────────────────┐   │ │ ┌─────────────────┐   │
 │ │ index.js  ◀── re-exports        │   │ │ │ lib.rs          │   │
-│ │ server.js (new)                 │   │ │ │ bin/main.rs     │   │
+│ │ server.js (new)                 │   │ │ │ bin/cli.rs      │   │
 │ │ cli.js    (new)                 │   │ │ └─────────────────┘   │
 │ │ config.js (new)                 │   │ │                       │
 │ └─────────────────────────────────┘   │ │                       │
@@ -47,12 +47,12 @@ parallel implementation under `rust/`).
                   │ depends on                      │ depends on
                   │                                 │
        ┌──────────┴────────────┐        ┌───────────┴─────────────┐
-       │ optional npm deps     │        │ optional crate deps     │
+       │ npm deps              │        │ crate deps              │
        │   lino-objects-codec  │        │   lino-arguments        │
-       │   links-notation      │        │   serde / serde_json    │
-       │   doublets-web        │        │   reqwest (feature)     │
-       └───────────────────────┘        │   doublets-rs (planned) │
-                                        │   links-notation (rs)   │
+       │   lino-arguments      │        │   lino-objects-codec    │
+       │                       │        │   reqwest (feature)     │
+       └───────────────────────┘        │   serde / serde_json    │
+                                        │                         │
                                         └─────────────────────────┘
 ```
 
@@ -78,12 +78,12 @@ parallel implementation under `rust/`).
 | `js/src/statements.jsx` | SPA-only | SPA |
 | `js/src/loading.jsx` | SPA-only | SPA |
 | `js/src/app/tests-panel.jsx` | SPA-only | SPA |
-| `rust/src/transform.rs` | Rust core | crate `[lib]`, `[[bin]]` |
+| `rust/src/tokenize.rs` | Rust core | crate `[lib]`, `[[bin]]` |
 | `rust/src/routing.rs` | Rust core | crate `[lib]` |
-| `rust/src/locale.rs` | Rust core | crate `[lib]` |
-| `rust/src/wikidata.rs` | Rust core | crate `[lib]` (feature `wikidata`) |
+| `rust/src/settings.rs` | Rust core | crate `[lib]` |
+| `rust/src/lino.rs` | Rust core | crate `[lib]`, `[[bin]]` |
 | `rust/src/lib.rs` | Rust core | crate `[lib]` |
-| `rust/src/bin/main.rs` | Rust CLI | crate `[[bin]]` |
+| `rust/src/bin/cli.rs` | Rust CLI | crate `[[bin]]` |
 
 ## Data flow (POST /transform under Docker)
 
@@ -100,7 +100,7 @@ js/src/transformation/text-to-qp-transformer.js
         ├─ generateNgrams() ──────────────────┐│
         ├─ searchNgrams() ── WikidataAPI ── unified-cache
         ├─ matchTokensWithPriority() ────────┘│
-        └─ format() ─ optional lino-format.js┘
+        └─ LiNo response formatting when requested
         │
         ▼
 HTTP 200 { tokens, sequence, formatted, alternatives }
@@ -109,30 +109,27 @@ HTTP 200 { tokens, sequence, formatted, alternatives }
 ## Versioning & release flow
 
 ```
-PR merged → release.yml on main
+PR merged -> js.yml on main
         │
-        ├─ detect-changes
-        ├─ test
-        ├─ check-version  ── compares package.json#version to last npm tag
-        ├─ validate-changeset
-        ├─ build
-        ├─ npm publish (OIDC trusted publisher)
-        ├─ wait-for-npm
-        ├─ docker-publish (if vars.DOCKERHUB_IMAGE set)
-        ├─ create-github-release
-        └─ format-github-release
+        ├─ syntax-check
+        ├─ unit-tests
+        ├─ link-check
+        ├─ e2e-local
+        ├─ Pages build/deploy + deployed e2e
+        ├─ detect-version-bump
+        ├─ npm publish --provenance
+        ├─ Docker publish to GHCR
+        └─ create GitHub release
 ```
 
 For Rust:
 
 ```
-PR merged → rust.yml on main
+PR merged -> rust.yml on main
         │
-        ├─ detect-changes
-        ├─ lint (rustfmt + clippy)
-        ├─ test (cargo test, ubuntu only in PR #38)
-        ├─ coverage (cargo-llvm-cov; continue-on-error)
-        ├─ check-version
-        ├─ build
-        └─ manual-release (workflow_dispatch) ── publishes to crates.io
+        ├─ cargo fmt --check
+        ├─ cargo clippy --all-targets -- -D warnings
+        ├─ cargo test --all-targets (Linux/macOS/Windows)
+        ├─ detect Cargo.toml version bump
+        └─ cargo publish --locked
 ```

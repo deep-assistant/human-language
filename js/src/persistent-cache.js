@@ -4,14 +4,28 @@
 import { promises as fs } from 'fs';
 import { createHash } from 'crypto';
 import path from 'path';
+import { encode, decode } from 'lino-objects-codec';
+
+const CODEC_EXTENSIONS = Object.freeze({
+  json: 'json',
+  lino: 'lino',
+});
 
 /**
  * Persistent File-Based Cache Manager
  * Stores API responses in JSON files in the /data directory
  */
 class PersistentCacheManager {
-  constructor(cacheDir = './data') {
+  constructor(cacheDir = './data', options = {}) {
+    if (typeof cacheDir === 'object' && cacheDir !== null) {
+      options = cacheDir;
+      cacheDir = options.cacheDir || './data';
+    }
     this.cacheDir = cacheDir;
+    this.codec = options.codec || 'json';
+    if (!CODEC_EXTENSIONS[this.codec]) {
+      throw new Error(`unsupported cache codec: ${this.codec}`);
+    }
     this.memoryCache = new Map(); // In-memory cache for faster access
     this.maxMemorySize = 1000; // Maximum items in memory cache
     this.ensureCacheDir();
@@ -40,7 +54,27 @@ class PersistentCacheManager {
    * Get cache file path for a given key
    */
   getCacheFilePath(key) {
-    return path.join(this.cacheDir, `${key}.json`);
+    return path.join(this.cacheDir, `${key}.${CODEC_EXTENSIONS[this.codec]}`);
+  }
+
+  /**
+   * Serialize a cache entry using the configured on-disk codec.
+   */
+  serializeCacheEntry(entry) {
+    if (this.codec === 'lino') {
+      return encode({ obj: entry });
+    }
+    return JSON.stringify(entry, null, 2);
+  }
+
+  /**
+   * Deserialize a cache entry using the configured on-disk codec.
+   */
+  deserializeCacheEntry(content) {
+    if (this.codec === 'lino') {
+      return decode({ notation: content });
+    }
+    return JSON.parse(content);
   }
 
   /**
@@ -63,7 +97,7 @@ class PersistentCacheManager {
     try {
       const filePath = this.getCacheFilePath(key);
       const fileContent = await fs.readFile(filePath, 'utf8');
-      const cached = JSON.parse(fileContent);
+      const cached = this.deserializeCacheEntry(fileContent);
       
       if (this.isCacheValid(cached)) {
         // Add to memory cache
@@ -101,7 +135,7 @@ class PersistentCacheManager {
     // Store in file cache
     try {
       const filePath = this.getCacheFilePath(key);
-      await fs.writeFile(filePath, JSON.stringify(cacheEntry, null, 2));
+      await fs.writeFile(filePath, this.serializeCacheEntry(cacheEntry));
     } catch (error) {
       console.warn('Failed to write cache file:', error.message);
     }
@@ -159,10 +193,10 @@ class PersistentCacheManager {
     // Clear file cache
     try {
       const files = await fs.readdir(this.cacheDir);
-      const jsonFiles = files.filter(file => file.endsWith('.json'));
+      const cacheFiles = files.filter(file => Object.values(CODEC_EXTENSIONS).some(ext => file.endsWith(`.${ext}`)));
       
       await Promise.all(
-        jsonFiles.map(file => 
+        cacheFiles.map(file =>
           fs.unlink(path.join(this.cacheDir, file)).catch(() => {})
         )
       );
@@ -184,10 +218,10 @@ class PersistentCacheManager {
     
     try {
       const files = await fs.readdir(this.cacheDir);
-      const jsonFiles = files.filter(file => file.endsWith('.json'));
-      fileCount = jsonFiles.length;
+      const cacheFiles = files.filter(file => file.endsWith(`.${CODEC_EXTENSIONS[this.codec]}`));
+      fileCount = cacheFiles.length;
       
-      for (const file of jsonFiles) {
+      for (const file of cacheFiles) {
         try {
           const filePath = path.join(this.cacheDir, file);
           const stats = await fs.stat(filePath);
@@ -245,13 +279,13 @@ class PersistentCacheManager {
     // Clean file cache
     try {
       const files = await fs.readdir(this.cacheDir);
-      const jsonFiles = files.filter(file => file.endsWith('.json'));
+      const cacheFiles = files.filter(file => file.endsWith(`.${CODEC_EXTENSIONS[this.codec]}`));
       
-      for (const file of jsonFiles) {
+      for (const file of cacheFiles) {
         try {
           const filePath = path.join(this.cacheDir, file);
           const fileContent = await fs.readFile(filePath, 'utf8');
-          const cached = JSON.parse(fileContent);
+          const cached = this.deserializeCacheEntry(fileContent);
           
           if (!this.isCacheValid(cached)) {
             await fs.unlink(filePath);
@@ -300,13 +334,13 @@ class PersistentCacheManager {
     
     try {
       const files = await fs.readdir(this.cacheDir);
-      const jsonFiles = files.filter(file => file.endsWith('.json'));
+      const cacheFiles = files.filter(file => file.endsWith(`.${CODEC_EXTENSIONS[this.codec]}`));
       
-      for (const file of jsonFiles) {
+      for (const file of cacheFiles) {
         try {
           const filePath = path.join(this.cacheDir, file);
           const fileContent = await fs.readFile(filePath, 'utf8');
-          const cached = JSON.parse(fileContent);
+          const cached = this.deserializeCacheEntry(fileContent);
           
           if (this.isCacheValid(cached)) {
             allEntries[cached.query] = cached;

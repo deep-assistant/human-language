@@ -1,8 +1,8 @@
 // HTTP microservice that exposes the public `human-language` API.
 //
-// The server has no third-party HTTP dependencies — it uses Node's
-// built-in `http` module. That keeps the published tarball and the
-// Docker image lean (the only runtime dependency is Node itself).
+// The server has no third-party HTTP dependency; it uses Node's built-in
+// `http` module and the shared runtime dependencies already used by the CLI
+// and cache layers.
 //
 // Routes:
 //   GET  /healthz                          -> { ok: true }

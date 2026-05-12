@@ -62,25 +62,26 @@ in subsequent PRs because each requires a Wikidata-shaped fixture).
 - **JS library** — `package.json` is no longer `private`, declares
   `main` / `types` / `exports`, ships `bin` for the CLI, and is ready
   to publish as `human-language` on npm (the actual publish step is
-  gated behind the new `release.yml` workflow — see
+  gated inside `.github/workflows/js.yml` — see
   [`ci-template-comparison.md`](./ci-template-comparison.md)).
 - **JS CLI** — `js/src/cli.js` exposes
   `human-language transform "Albert Einstein was born in Ulm"` and
-  uses `lino-arguments`-style precedence (CLI > env > defaults).
+  uses `lino-arguments` for CLI > env > defaults precedence.
 - **JS microservice** — `js/src/server.js` exposes
   `POST /transform`, `GET /entity/:id`, `GET /property/:id`,
   `GET /healthz`. Same precedence rules as the CLI.
 - **Dockerfile** — a small multi-stage image that runs
   `node js/src/server.js` and exposes port 8080.
 - **Rust crate** — `rust/Cargo.toml` declares `human-language` with
-  both `[lib]` and `[[bin]]`, depends on `lino-arguments`, and ports
-  the tokenizer / n-gram generator / property-indicator detector from
-  `js/src/transformation/text-to-qp-transformer.js`. The Wikidata
-  HTTP client is sketched out behind a `reqwest` feature flag; the
-  library currently exposes deterministic operations only.
-- **CI/CD** — `.github/workflows/release.yml` (JS) and
+  both `[lib]` and `[[bin]]`, depends on `lino-arguments` and
+  `lino-objects-codec`, and ports the tokenizer / n-gram generator /
+  property-indicator detector, routing helpers, locale helpers, and
+  LiNo formatting from `js/src/`. The Wikidata HTTP client is sketched
+  out behind a `reqwest` feature flag; the library currently exposes
+  deterministic operations only.
+- **CI/CD** — `.github/workflows/js.yml` and
   `.github/workflows/rust.yml` are adapted from the two templates.
-  The existing `js.yml` keeps gating the Pages deploy.
+  JS release jobs live in `js.yml` per PR review.
 - **Case study** — this folder.
 
 ## What does not ship in this PR
@@ -90,13 +91,12 @@ These are tracked as follow-up issues so the PR stays reviewable:
 - Actual npm OIDC trusted-publishing config (requires a repo-level
   toggle outside Git).
 - Actual crates.io token (requires a `CARGO_REGISTRY_TOKEN` secret).
-- Docker Hub publishing (requires `DOCKERHUB_IMAGE` repo var + creds).
+- Docker Hub publishing (PR #38 publishes the Docker image to GHCR).
 - Full Wikidata HTTP client in Rust (port deferred until the JS
   fixture suite is exported).
-- Adoption of `links-notation` / `lino-objects-codec` as the on-disk
-  cache format — the JS cache and the Rust crate both _accept_ LiNo
-  strings via a feature flag, but the in-tree cache still uses JSON
-  for compatibility with existing snapshots.
+- Inbound Links Notation parsing for HTTP requests. PR #38 serializes
+  transformer output and cache entries as LiNo, but does not yet accept
+  LiNo request bodies.
 
 See [`solution-plans.md`](./solution-plans.md) for the per-requirement
 status.

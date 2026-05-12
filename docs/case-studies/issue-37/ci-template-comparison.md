@@ -1,99 +1,74 @@
 # CI/CD template comparison for issue #37
 
-This file follows the convention of [`../issue-33/ci-template-comparison.md`](../issue-33/ci-template-comparison.md)
-and [`../issue-35/ci-template-comparison.md`](../issue-35/ci-template-comparison.md):
-a file-by-file inventory of each template, marking each entry as
-**adopted**, **adapted**, or **deferred**.
+This file records the file-tree comparison requested in issue #37. It
+uses **adopted**, **adapted**, and **deferred** to distinguish what PR
+#38 actually ships from what remains follow-up work.
+
+## Workflow shape in PR #38
+
+PR review requested the repository to expose two language workflows:
+
+- `.github/workflows/js.yml`
+- `.github/workflows/rust.yml`
+
+The JS and Rust template repositories both use `release.yml` internally,
+but PR #38 folds the adapted behavior into those language-named
+workflows so this repository has one workflow per language surface.
 
 ## JS template — `link-foundation/js-ai-driven-development-pipeline-template`
 
-### Workflows (`.github/workflows/`)
+### Workflows
 
-| Template file | Adopted in PR #38 | Notes |
+| Template file | PR #38 status | Notes |
 | --- | --- | --- |
-| `release.yml` | **adapted** as `release.yml` | Subsetted to: detect-changes, lint, test, build, npm-publish, docker-publish (gated on `vars.DOCKERHUB_IMAGE`), changeset-pr. Manual-release and instant-release branches kept; matrix reduced to Node 20 x ubuntu (the project's only supported runtime). |
-| `links.yml` | **deferred** | The current `js.yml` already runs lychee; running a second workflow would double-bill. |
-| `pages.yml` | **n/a** | The template publishes to npm, not Pages. `js.yml` handles Pages. |
-| `auto-merge.yml` | **deferred** | Not needed yet. |
-| `bom-check.yml` | **deferred** | Project has no software bill of materials yet. |
+| `.github/workflows/release.yml` | **adapted into `js.yml`** | Syntax check, unit tests, local Playwright e2e, Pages build/deploy, live Pages e2e, npm publish on `package.json` version bumps, GHCR Docker publish, and GitHub release creation. |
+| `.github/workflows/links.yml` | **adapted into `js.yml`** | `js.yml` runs lychee and then checks Web Archive fallback before failing. |
+| `.github/actions/publish-dockerhub/action.yml` | **deferred** | PR #38 publishes to GHCR inline. A composite action is useful once a second workflow needs the same Docker setup. |
 
-### `scripts/` (24 mjs / sh)
+### Scripts
 
-| Template script | Adopted in PR #38 | Notes |
+| Template script | PR #38 status | Notes |
 | --- | --- | --- |
-| `check-mjs-syntax.mjs` | **adopted previously** in PR #36 | Used by `js.yml`. |
-| `check-web-archive.mjs` | **adopted previously** | Used by `js.yml`. |
-| `detect-code-changes.mjs` | **adapted** | Trimmed to the file paths we ship (no Bun/Deno matrix yet). |
-| `check-version.mjs` | **adopted** | Required by `release.yml`. |
-| `validate-changeset.mjs` | **adopted** | Required by changeset-pr job. |
-| `merge-changesets.mjs` | **adopted** | Required by changeset-pr job. |
-| `setup-npm.mjs` | **adopted** | OIDC trusted-publishing setup. |
-| `publish-to-npm.mjs` | **adopted** | Drop-in. |
-| `wait-for-npm.mjs` | **adopted** | Used by docker-publish job. |
-| `check-docker-publish.mjs` | **adopted** | Gates docker-publish job on `vars.DOCKERHUB_IMAGE`. |
-| `create-github-release.mjs` | **adopted** | After successful npm publish. |
-| `format-github-release.mjs` | **adopted** | Companion. |
-| `version-and-commit.mjs` | **adopted** | Companion. |
-| `check-file-line-limits.sh` | **deferred** | The project has files >1500 lines (`app.html`, generated `api-patterns.json`); adopting this gate would require a sweep that is out-of-scope. |
-| `simulate-fresh-merge.sh` | **deferred** | Local dev aid; not needed in CI. |
+| `check-mjs-syntax.sh` | **adapted** as `js/scripts/check-mjs-syntax.mjs` | Existing repo check, used by `js.yml` and `prepack`. |
+| `check-web-archive.mjs` | **adapted** as `js/scripts/check-web-archive.mjs` | Existing repo check, used after lychee failures. |
+| `check-version.mjs` | **adapted** as `js/scripts/check-package-version.mjs` | Gates npm/Docker release jobs on `package.json` version changes. |
+| `detect-code-changes.mjs` | **deferred** | Current jobs are already cheap or gated by `needs`; path-based skipping would add complexity with little benefit. |
+| Changeset and release-note scripts | **deferred** | This repo does not yet use changesets. |
+| `publish-to-npm.mjs`, `setup-npm.mjs`, `wait-for-npm.mjs`, DockerHub helpers | **deferred** | The workflow inlines the few publish steps it currently needs. |
+| `check-file-line-limits.sh` | **deferred** | Existing large files need a separate lint cleanup before this can become a gate. |
 
 ### ESLint flat config
 
-**Deferred.** Adopting the template's flat config would surface ~30
-ESLint violations in `js/src/transformation/text-to-qp-transformer.js`
-and the SPA mode files that predate the rules. PR #38 does not lint.
-Tracked as a follow-up.
+**Deferred.** The template's ESLint config would surface pre-existing
+violations in the SPA and transformer files. That cleanup is tracked as
+a follow-up so the packaging/API PR does not mix in a broad lint sweep.
 
 ## Rust template — `link-foundation/rust-ai-driven-development-pipeline-template`
 
 ### Workflows
 
-| Template file | Adopted in PR #38 | Notes |
+| Template file | PR #38 status | Notes |
 | --- | --- | --- |
-| `release.yml` | **adapted** as `rust.yml` | Subsetted to: detect-changes, lint, test matrix (ubuntu-latest only in PR #38, matrix to widen in a follow-up), build, manual-release. Coverage (`cargo-llvm-cov` + Codecov) is wired but the Codecov upload step needs a `CODECOV_TOKEN` secret and is set to `continue-on-error: true`. |
-| `auto-merge.yml` | **deferred** | Not needed yet. |
-| `bom-check.yml` | **deferred** | |
+| `.github/workflows/release.yml` | **adapted as `rust.yml`** | PRs run `cargo fmt --check`, `cargo clippy --all-targets -- -D warnings`, and `cargo test --all-targets` on Linux/macOS/Windows. Main pushes publish to crates.io when `rust/Cargo.toml` version changes. |
 
-### `scripts/` (16 rust-script `.rs` files)
+### Scripts and crate metadata
 
-| Template script | Adopted in PR #38 | Notes |
+| Template file/script | PR #38 status | Notes |
 | --- | --- | --- |
-| `detect-changes.rs` | **adapted** | Smaller diff scope. |
-| `check-version.rs` | **adopted** | |
-| `lint.rs` | **adopted** | Calls `cargo fmt --check` and `cargo clippy --all-targets --all-features`. |
-| `file-size-check.rs` | **deferred** | Same reason as the JS counterpart. |
-| `publish-crate.rs` | **adopted** | Used by manual-release. |
-| `wait-for-crate.rs` | **adopted** | Used by docker-publish. |
-| `changelog-fragment-check.rs` | **adopted** | Used by changeset-pr job; placeholder fragment under `rust/changelog.d/` ships in PR #38. |
+| Cargo package metadata | **adopted** | `name`, `version`, `license`, `repository`, `readme`, `keywords`, `categories`, `rust-version`, `[lib]`, and `[[bin]]` are present. |
+| `check-version.rs` | **adapted** as `rust/scripts/check-cargo-version.mjs` | Gates `cargo publish` on a Cargo.toml version change. |
+| Rust lint script | **inlined** | `rust.yml` calls `cargo fmt` and `cargo clippy` directly. |
+| Publish script | **inlined** | `rust.yml` calls `cargo publish --locked` directly. |
+| Changelog fragment scripts | **deferred** | `rust/changelog.d/README.md` documents the convention; enforcing fragments is follow-up work. |
+| `check-file-size.rs` | **deferred** | Same reason as the JS file-line gate. |
 
-### `Cargo.toml`
+## Current PR #38 workflows
 
-The template's lint set (`clippy::pedantic + nursery`, `unsafe_code = "forbid"`)
-is adopted. The release profile tuning (`lto = true`,
-`codegen-units = 1`, `strip = true`) is adopted.
+- `js.yml`: JS syntax, unit, link, e2e, Pages, npm release, Docker
+  release, GitHub release.
+- `rust.yml`: Rust fmt, clippy, test matrix, crates.io release.
 
-The `dependencies` block in the template depends on
-`lino-arguments = "0.3"` + `clap`. PR #38 keeps both. The template
-also depends on `serde + serde_json` for output formatting; we keep
-both because the HTTP path uses them.
+## Upstream gaps
 
-## Composite actions (`.github/actions/`)
-
-Both templates ship reusable composite actions
-(`setup-npm-publish/`, `setup-rust-toolchain/`, `publish-dockerhub/`).
-In PR #38 we **inline** the steps rather than create the composite
-actions: the inlined version is shorter than the wrapper for a single
-caller. The composite actions will be extracted once `release.yml`
-gains a second caller (e.g. a Rust+JS combined release flow).
-
-## Summary of jobs in PR #38
-
-`/.github/workflows/`:
-
-- `js.yml` — unchanged (gates Pages deploy).
-- `release.yml` — new: npm publish + optional Docker publish.
-- `rust.yml` — new: Rust lint + test + (manual) crates.io publish.
-
-## Upstream gaps reported back to templates
-
-Captured in [`external-research.md#upstream-gaps-issues-to-file`](./external-research.md#upstream-gaps-issues-to-file).
+Potential upstream issues are listed in
+[`external-research.md#upstream-gaps-issues-to-file`](./external-research.md#upstream-gaps-issues-to-file).

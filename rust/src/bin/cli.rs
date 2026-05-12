@@ -9,6 +9,28 @@
 use std::process::ExitCode;
 
 use human_language::{lino, parse_hash, serialize_hash, tokenize, VERSION};
+use lino_arguments::{Parser, Subcommand};
+
+#[derive(Debug, Parser)]
+#[command(name = "human-language", version, about = "Human Language CLI")]
+struct Cli {
+    #[command(subcommand)]
+    command: Option<Command>,
+}
+
+#[derive(Debug, Subcommand)]
+enum Command {
+    /// Print tokens for the input text (one per line).
+    Tokenize { text: Vec<String> },
+    /// Parse a `#mode=...&...` SPA hash and print key/values.
+    ParseHash { hash: String },
+    /// Render IDs as Links Notation. Use [A,B] for an ambiguous slot.
+    LinoSequence { ids: Vec<String> },
+    /// Print the version.
+    Version,
+    /// Print usage.
+    Help,
+}
 
 const USAGE: &str = "\
 Usage: human-language <command> [options] [args]
@@ -27,18 +49,23 @@ provided by the JavaScript CLI and the Docker microservice. Build with
 ";
 
 fn main() -> ExitCode {
-    let args: Vec<String> = std::env::args().skip(1).collect();
-    if args.is_empty() || matches!(args[0].as_str(), "help" | "--help" | "-h") {
+    let cli = Cli::parse();
+    let Some(command) = cli.command else {
         println!("{USAGE}");
         return ExitCode::SUCCESS;
-    }
-    match args[0].as_str() {
-        "version" | "--version" | "-V" => {
+    };
+
+    match command {
+        Command::Help => {
+            println!("{USAGE}");
+            ExitCode::SUCCESS
+        }
+        Command::Version => {
             println!("human-language {VERSION}");
             ExitCode::SUCCESS
         }
-        "tokenize" => {
-            let text = args[1..].join(" ");
+        Command::Tokenize { text } => {
+            let text = text.join(" ");
             if text.is_empty() {
                 eprintln!("error: `tokenize` requires a text argument");
                 return ExitCode::from(2);
@@ -48,12 +75,8 @@ fn main() -> ExitCode {
             }
             ExitCode::SUCCESS
         }
-        "parse-hash" => {
-            let Some(hash) = args.get(1) else {
-                eprintln!("error: `parse-hash` requires a hash string");
-                return ExitCode::from(2);
-            };
-            let parsed = parse_hash(hash);
+        Command::ParseHash { hash } => {
+            let parsed = parse_hash(&hash);
             println!("mode={}", parsed.mode);
             for (k, v) in &parsed.params {
                 println!("{k}={v}");
@@ -61,12 +84,12 @@ fn main() -> ExitCode {
             println!("# canonical: {}", serialize_hash(&parsed));
             ExitCode::SUCCESS
         }
-        "lino-sequence" => {
-            if args.len() <= 1 {
+        Command::LinoSequence { ids } => {
+            if ids.is_empty() {
                 eprintln!("error: `lino-sequence` requires at least one id");
                 return ExitCode::from(2);
             }
-            let items: Vec<lino::SeqItem> = args[1..]
+            let items: Vec<lino::SeqItem> = ids
                 .iter()
                 .map(|raw| {
                     if let Some(inner) = raw.strip_prefix('[').and_then(|s| s.strip_suffix(']')) {
@@ -80,10 +103,6 @@ fn main() -> ExitCode {
                 .collect();
             print!("{}", lino::format_sequence_as_lino(&items));
             ExitCode::SUCCESS
-        }
-        cmd => {
-            eprintln!("error: unknown command '{cmd}'\n\n{USAGE}");
-            ExitCode::from(2)
         }
     }
 }

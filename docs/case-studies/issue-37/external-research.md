@@ -20,8 +20,8 @@ future audits.
 - **What we imitate:** the dual `js/` + `rust/` directory split with a
   shared `scripts/` directory; the precedence rules; the `bin` /
   `exports` structure of its `package.json`.
-- **What we depend on:** the **Rust** crate is depended on directly;
-  the **JS** package is shimmed (see requirements R6).
+- **What we depend on:** both the JS package and the Rust crate are
+  direct dependencies (see requirements R6).
 
 ### 2. `link-foundation/lino-objects-codec`
 
@@ -32,9 +32,9 @@ future audits.
 - **What we imitate:** the four-language parity model with identical
   API. The README's "registry badge matrix" idea is borrowed for our
   README.
-- **What we depend on:** a tiny adapter under
-  `js/src/transformation/lino-format.js` that uses `encode` /
-  `formatIndented` _if_ the optional dependency is installed.
+- **What we depend on:** the JS package is used by
+  `js/src/persistent-cache.js` for LiNo cache persistence, and the
+  Rust crate is used by `rust/src/lino.rs` helpers.
 
 ### 3. `link-foundation/links-notation`
 

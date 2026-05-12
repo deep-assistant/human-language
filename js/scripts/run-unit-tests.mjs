@@ -14,6 +14,7 @@ const FAST_SUITES = [
   'js/tests/unit/ipa.test.mjs',
   'js/tests/unit/config.test.mjs',
   'js/tests/unit/lino-format.test.mjs',
+  'js/tests/unit/persistent-cache.test.mjs',
   'js/tests/unit/server.test.mjs',
   'js/tests/unit/cli.test.mjs',
 ];

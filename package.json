@@ -98,5 +98,9 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1"
+  },
+  "dependencies": {
+    "lino-arguments": "^0.3.0",
+    "lino-objects-codec": "^0.4.0"
   }
 }

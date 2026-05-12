@@ -10,13 +10,13 @@ our public API.
 | --- | --- |
 | `link-assistant/meta-expression` | `package.json` shape (`exports['.','./server','./cli']`, `bin`, `files`), `src/server.js`, `src/cli.js`, Dockerfile pattern. |
 | `link-foundation/lino-arguments` | dual-runtime layout (`js/`, `rust/`), `.changeset/` versioning. |
-| `link-foundation/js-ai-driven-development-pipeline-template` | `release.yml` (instant-release path, npm OIDC), the 24-script `scripts/` directory. |
+| `link-foundation/js-ai-driven-development-pipeline-template` | Release workflow patterns adapted into `.github/workflows/js.yml`: tests, npm provenance publish, Docker publish, GitHub release. |
 
 ## R3 — crates.io publishing patterns
 
 | Crate / template | What we reuse |
 | --- | --- |
-| `link-foundation/rust-ai-driven-development-pipeline-template` | `Cargo.toml` shape, `[profile.release]` tuning, rustfmt / clippy gates, `changelog.d/`, `release.yml` with `cargo-llvm-cov + Codecov`, `publish-crate.rs`, `wait-for-crate.rs`. |
+| `link-foundation/rust-ai-driven-development-pipeline-template` | `Cargo.toml` shape, rustfmt / clippy gates, `changelog.d/` convention, and crates.io publish pattern adapted into `.github/workflows/rust.yml`. |
 | `link-assistant/calculator` | `crate-type = ["cdylib","rlib"]`, `[[bin]]`-and-`[lib]` coexistence. |
 | `link-foundation/lino-arguments` (rust/) | `clap` integration, `getenv_*` helpers — depended on directly. |
 
@@ -31,15 +31,15 @@ our public API.
 
 | Library | Used by | Status |
 | --- | --- | --- |
-| `lino-arguments` (Rust) | `rust/src/bin/main.rs` | Direct dependency. |
-| `lino-arguments` (JS) | `js/src/config.js` | Shimmed locally — see R6 in `solution-plans.md`. |
+| `lino-arguments` (Rust) | `rust/src/bin/cli.rs` | Direct dependency. |
+| `lino-arguments` (JS) | `js/src/config.js` | Direct dependency. |
 
 ## R7 — Stored state codec
 
 | Library | Used by | Status |
 | --- | --- | --- |
-| `lino-objects-codec` (JS) | `js/src/unified-cache.js` (codec adapter) | Optional dependency. Falls back to JSON. |
-| `lino-objects-codec` (Rust) | `rust/src/lino.rs` | Optional dependency behind `lino` feature flag. |
+| `lino-objects-codec` (JS) | `js/src/persistent-cache.js` (codec adapter) | Direct dependency. JSON remains the default cache codec. |
+| `lino-objects-codec` (Rust) | `rust/src/lino.rs` | Direct dependency. |
 
 ## R8 — Links Notation
 
@@ -53,7 +53,7 @@ our public API.
 | Library | Status |
 | --- | --- |
 | `link-cli` | Deferred follow-up. |
-| `doublets-rs` | Deferred follow-up. Cache interface widened in PR #38 so this can drop in. |
+| `doublets-rs` | Deferred follow-up. |
 | `doublets-web` | Deferred follow-up. |
 
 ## Wikidata clients (comparison)

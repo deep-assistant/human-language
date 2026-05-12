@@ -1,14 +1,14 @@
-// In-tree shim that reproduces the precedence rules of
-// `link-foundation/lino-arguments`:
+// Configuration backed by `link-foundation/lino-arguments`.
 //
+// Precedence:
 //   1. Explicit `argv` (CLI flags, including short aliases).
-//   2. Environment variables, prefixed `HUMAN_LANGUAGE_…`.
+//   2. Environment variables, prefixed `HUMAN_LANGUAGE_...`.
 //   3. Built-in defaults (`CONFIG_DEFAULTS`).
 //
-// The shim is intentionally tiny: < 100 LOC, no external dependency. The
-// real `lino-arguments` npm package will replace it once its published
-// tarball stops doing eager `node:fs` imports — tracked in
-// docs/case-studies/issue-37/external-research.md.
+// `resolveConfig` accepts an injected `env` object so unit tests and callers can
+// resolve config without mutating the process environment permanently.
+
+import { makeConfig } from 'lino-arguments';
 
 export const CONFIG_DEFAULTS = Object.freeze({
   port: 8080,
@@ -44,6 +44,46 @@ function parseInteger(v) {
   return n;
 }
 
+function collectPositionals(argv) {
+  const positional = [];
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === '--') {
+      positional.push(...argv.slice(i + 1));
+      break;
+    }
+    if (arg.startsWith('--')) {
+      if (!arg.includes('=')) i += 1;
+      continue;
+    }
+    if (arg.startsWith('-') && arg.length > 1) {
+      i += 1;
+      continue;
+    }
+    positional.push(arg);
+  }
+  return positional;
+}
+
+function withInjectedEnv(env, fn) {
+  if (env === process.env) return fn();
+  const keys = new Set([...SPEC.map((item) => item.env), ...Object.keys(env)]);
+  const previous = new Map();
+  for (const key of keys) {
+    previous.set(key, process.env[key]);
+    if (env[key] === undefined) delete process.env[key];
+    else process.env[key] = env[key];
+  }
+  try {
+    return fn();
+  } finally {
+    for (const [key, value] of previous) {
+      if (value === undefined) delete process.env[key];
+      else process.env[key] = value;
+    }
+  }
+}
+
 /**
  * Resolve configuration with `lino-arguments` precedence.
  *
@@ -55,52 +95,46 @@ function parseInteger(v) {
  *   The resolved config plus `_`, the array of positional arguments.
  */
 export function resolveConfig({ argv = [], env = {}, defaults = {} } = {}) {
-  const config = { ...CONFIG_DEFAULTS, ...defaults };
+  const mergedDefaults = { ...CONFIG_DEFAULTS, ...defaults };
 
-  // Read env vars (precedence: env over defaults).
-  for (const item of SPEC) {
-    const raw = env[item.env];
-    if (raw !== undefined && raw !== '') {
-      config[item.key] = item.parse(raw);
-    }
-  }
+  return withInjectedEnv(env, () => {
+    const parsed = makeConfig({
+      argv: ['node', 'human-language', ...argv],
+      lenv: { enabled: false },
+      env: { enabled: false },
+      yargs: ({ yargs, getenv }) => {
+        let builder = yargs
+          .help(false)
+          .version(false)
+          .exitProcess(false)
+          .showHelpOnFail(false)
+          .fail((message, error) => {
+            const text = error?.message || message || 'argument parsing failed';
+            if (/Unknown argument/.test(text)) {
+              throw new Error(`unknown flag: ${text}`);
+            }
+            throw error || new Error(text);
+          })
+          .strictOptions();
 
-  // Walk argv (precedence: CLI flags over env).
-  const positional = [];
-  for (let i = 0; i < argv.length; i++) {
-    const a = argv[i];
-    if (a === '--' ) {
-      positional.push(...argv.slice(i + 1));
-      break;
-    }
-    if (a.startsWith('--')) {
-      const eq = a.indexOf('=');
-      const name = eq === -1 ? a.slice(2) : a.slice(2, eq);
-      const item = SPEC.find((s) => s.long === name);
-      if (!item) {
-        throw new Error(`unknown flag --${name}`);
-      }
-      let raw;
-      if (eq !== -1) raw = a.slice(eq + 1);
-      else {
-        raw = argv[++i];
-        if (raw === undefined) throw new Error(`flag --${name} expects a value`);
-      }
-      config[item.key] = item.parse(raw);
-    } else if (a.startsWith('-') && a.length > 1) {
-      const name = a.slice(1);
-      const item = SPEC.find((s) => s.short === name);
-      if (!item) {
-        throw new Error(`unknown flag -${name}`);
-      }
-      const raw = argv[++i];
-      if (raw === undefined) throw new Error(`flag -${name} expects a value`);
-      config[item.key] = item.parse(raw);
-    } else {
-      positional.push(a);
-    }
-  }
+        for (const item of SPEC) {
+          builder = builder.option(item.long, {
+            alias: item.short || undefined,
+            type: item.key === 'port' ? 'number' : 'string',
+            default: getenv(item.env, mergedDefaults[item.key]),
+          });
+        }
+        return builder;
+      },
+    });
 
-  config._ = positional;
-  return config;
+    const config = { ...mergedDefaults };
+    for (const item of SPEC) {
+      if (parsed[item.key] !== undefined && parsed[item.key] !== '') {
+        config[item.key] = item.parse(parsed[item.key]);
+      }
+    }
+    config._ = collectPositionals(argv);
+    return config;
+  });
 }

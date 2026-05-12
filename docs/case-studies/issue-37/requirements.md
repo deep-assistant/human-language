@@ -63,10 +63,10 @@ ships as a follow-up issue once the JS HTTP fixtures are exportable.
 
 **Status:** 🟡 Both packages are publishable in principle (locally
 `npm pack` and `cargo package` succeed). The publish workflows in
-`.github/workflows/release.yml` and `.github/workflows/rust.yml`
-require repo-level secrets (`CARGO_REGISTRY_TOKEN`, optional Docker
-Hub vars) and the npm OIDC trusted-publisher toggle, which we cannot
-flip from Git. See `ci-template-comparison.md`.
+`.github/workflows/js.yml` and `.github/workflows/rust.yml` require
+repo-level secrets (`NPM_TOKEN`, `CARGO_REGISTRY_TOKEN`) and the npm
+trusted-publisher toggle, which cannot be flipped from Git. See
+`ci-template-comparison.md`.
 
 ## R4 — Expose maximum useful functions as public APIs
 
@@ -106,41 +106,35 @@ configuration — see `ci-template-comparison.md`.
 
 > "https://github.com/link-foundation/lino-arguments (for all arguments and configuration)"
 
-`js/src/config.js` is a small, dependency-free port of `lino-arguments`
-precedence rules:
+`js/src/config.js` uses the upstream `lino-arguments` package for
+argument parsing and environment-backed defaults:
 
 1. Explicit `argv` (CLI flags, including aliases).
 2. Environment variables, prefixed `HUMAN_LANGUAGE_…`.
 3. Built-in defaults (`HUMAN_LANGUAGE_PORT=8080`,
    `HUMAN_LANGUAGE_CACHE_DIR=./data/wikidata-cache`,
-   `HUMAN_LANGUAGE_USER_AGENT=human-language/<version>`).
+   `HUMAN_LANGUAGE_USER_AGENT=human-language`).
 
 The Rust binary directly depends on the `lino-arguments` crate.
 
-**Status:** 🟡 JS shims `lino-arguments` instead of depending on it.
-The dependency is added behind a `LINO_ARGS` opt-in in
-`package.json#optionalDependencies` so the runtime still works without
-network access during tests; the Rust crate uses the real crate.
-Adopting the real npm package is tracked as a follow-up because the
-package is currently published only as an ESM-with-internal-imports
-module that does not parse under Node's `node --check` without an
-installed `node_modules/` — outside the scope of this PR.
+**Status:** ✅ `package.json` depends on `lino-arguments@^0.3.0`;
+`rust/Cargo.toml` depends on `lino-arguments = "0.3.0"`. JS tests
+cover defaults, env precedence, CLI precedence, aliases, positionals
+and error paths.
 
 ## R7 — Use `lino-objects-codec` for stored state, configuration, data
 
 > "https://github.com/link-foundation/lino-objects-codec (for stored state, configuration, data)"
 
-The unified cache (`js/src/unified-cache.js`) gains a pluggable
-serializer interface. The default serializer is still JSON for
-backwards compatibility; passing `{ codec: 'lino' }` switches to a
-`lino-objects-codec` adapter.
+The file cache gains a pluggable serializer interface. The default
+serializer is still JSON for backwards compatibility; passing
+`{ codec: 'lino' }` switches to `lino-objects-codec`.
 
-**Status:** 🟡 The serializer interface and the JSON default ship in
-PR #38; the LiNo adapter is a 30-line wrapper around `encode`/`decode`
-when the optional dependency is installed. CI only exercises the JSON
-serializer because the LiNo package, like `lino-arguments`, ships as
-ESM-with-internal-imports today. The opt-in is documented in
-`docs/case-studies/issue-37/solution-plans.md#r7`.
+**Status:** ✅ `package.json` depends on `lino-objects-codec@^0.4.0`;
+`rust/Cargo.toml` depends on `lino-objects-codec = "0.2.1"`.
+`js/tests/unit/persistent-cache.test.mjs` verifies `.lino` cache
+persistence and round-trip reads. `rust/src/lino.rs` exposes
+string-pair encode/decode helpers backed by the crate.
 
 ## R8 — Use Links Notation
 
@@ -165,20 +159,13 @@ follow-up issue.
 
 > "http://github.com/link-foundation/link-cli (database for all all kinds of data and knowledge, which can also be used as cache store and web database), see https://github.com/linksplatform/doublets-rs and https://github.com/linksplatform/doublets-web"
 
-Two integration paths are documented in `solution-plans.md`:
+Two integration paths are documented in `solution-plans.md`: a future
+cache backend and a future knowledge-store representation for the
+Wikidata cache.
 
-- **As a cache backend.** The unified cache gains a `doublets` backend
-  alongside `file`, `indexeddb` and `null`. It depends on
-  `doublets-web` (npm) in browser context and on `doublets-rs` (crates)
-  in Rust context. Both expose comparable `create_point` / `create_link`
-  primitives.
-- **As a knowledge store.** Eventually the Wikidata cache can be
-  represented as a doublets graph, which `link-cli` can query.
-
-**Status:** 🔵 Deferred. The cache backend interface is widened in
-PR #38 to accept arbitrary `{ get, set, has, delete }` adapters so the
-doublets backend can be added in a follow-up without touching the
-caller sites. No code in this PR depends on `doublets-*`.
+**Status:** 🔵 Deferred. No code in this PR depends on `doublets-*`.
+The existing cache API still supports `file`, `indexeddb`, `none`, and
+`auto`; the graph-backed design needs a dedicated follow-up.
 
 ## R10 — Compare features with similar libraries; report missing features upstream
 
@@ -192,10 +179,9 @@ worse than our planned API.
 `external-research.md` lists the gaps observed in the four
 `link-foundation` repos referenced from the issue. For each gap, the
 plan is to file an issue upstream once we hit it in practice (e.g.
-`lino-arguments` does not yet have a Yargs-style sub-command DSL,
 `links-notation` JS parser does not yet expose a streaming reader,
-`doublets-web` ships only ESM `bundler` target — no `browser` target
-yet).
+and `doublets-web` ships only ESM `bundler` target — no `browser`
+target yet).
 
 **Status:** 🟡 Comparison table is in `known-components.md`. The
 specific upstream issues to file are listed under "Upstream gaps" in
@@ -216,9 +202,10 @@ projects can interoperate by import.
 (`human-language` on crates.io) directly, or pull the WASM bundle that
 falls out of `wasm-pack build` on `rust/` (added as a follow-up).
 
-**Status:** ✅ The public API shape of PR #38 matches `meta-expression`
-(same `exports` keys, same precedence rules in CLI / server). A live
-import sample is in `examples/meta-expression-bridge.mjs`.
+**Status:** 🟡 The public API shape of PR #38 matches the reusable
+parts of `meta-expression` (root export, subpath exports, CLI, server,
+and config precedence). Runnable downstream bridge examples are
+tracked as follow-up work.
 
 ## R12 — Use CI/CD best practices from the two templates
 
@@ -228,15 +215,12 @@ import sample is in `examples/meta-expression-bridge.mjs`.
 `scripts/*` script in each template and lists the ones we adopt in
 PR #38, the ones we adapt, and the ones we defer.
 
-**Status:** 🟡 We add `.github/workflows/release.yml` (JS) and
-`.github/workflows/rust.yml` (Rust), adapted from the templates. We
-keep the existing `.github/workflows/js.yml` because it gates the
-Pages deploy on tests. The reusable composite actions
-(`.github/actions/publish-dockerhub`, `setup-rust-toolchain`) and the
-twenty-four `scripts/*.mjs` from the JS template are partially
-imitated (only the ones needed by the new workflows). The remaining
-scripts are tracked under "deferred from template" in
-`ci-template-comparison.md`.
+**Status:** 🟡 We keep exactly the reviewed workflow split:
+`.github/workflows/js.yml` for JS tests, Pages, npm publish and Docker
+publish; `.github/workflows/rust.yml` for Rust fmt, clippy, tests and
+crates.io publish. The reusable composite actions and broad template
+script suites are deferred until this repo has multiple callers that
+need them.
 
 ## R13 — Compile case study under `./docs/case-studies/issue-{id}`
 

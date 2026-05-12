@@ -25,13 +25,15 @@ flag so the crate compiles and tests pass without network access.
 
 Ports done in PR #38:
 
-- `js/src/transformation/text-to-qp-transformer.js` → `rust/src/transform.rs`
+- `js/src/transformation/text-to-qp-transformer.js` -> `rust/src/tokenize.rs`
   (functions: `tokenize`, `generate_ngrams`, `is_property_indicator`,
   `is_stop_word`).
-- `js/src/app/routing.js` → `rust/src/routing.rs`
+- `js/src/app/routing.js` -> `rust/src/routing.rs`
   (functions: `parse_hash`, `serialize_hash`).
-- `js/src/settings.js` → `rust/src/locale.rs`
+- `js/src/settings.js` -> `rust/src/settings.rs`
   (functions: `flag_for_language`, `quotes_for_language`).
+- `js/src/transformation/lino-format.js` -> `rust/src/lino.rs`
+  (sequence rendering plus `lino-objects-codec` string-pair helpers).
 
 **Rejected alternatives.**
 - _Wrap the JS library via a Node-in-Rust bridge_ — would force the
@@ -67,12 +69,15 @@ Ports done in PR #38:
 
 - `[package]` with `name = "human-language"`, `version = "0.1.0"`,
   `license = "MIT"`, `repository`, `description`, `categories`,
-  `keywords`, `rust-version = "1.83"`, `readme = "../README.md"`.
+  `keywords`, `rust-version = "1.74"`, `readme = "README.md"`.
 - `[lib]` exposes `human_language::*`.
-- `[[bin]] name = "human-language"` with `path = "src/bin/main.rs"`.
-- `[dependencies] lino-arguments = "0.3"`, `serde = …`, `serde_json = …`.
-- `[features] default = []`, `wikidata = ["reqwest", "tokio"]`,
-  `lino = ["dep:lino-objects-codec"]`.
+- `[[bin]] name = "human-language"` with `path = "src/bin/cli.rs"`.
+- `[dependencies] lino-arguments = "0.3.0"`,
+  `lino-objects-codec = "0.2.1"`, `clap = "4.6.1"` with derives,
+  plus the small parsing/runtime dependencies used by the pure helpers
+  and optional Wikidata feature.
+- `[features] default = []`,
+  `wikidata-client = ["reqwest", "tokio", "serde", "serde_json"]`.
 
 **Rejected alternatives.**
 - _Publish as ESM-only via TypeScript build_ — would require a build
@@ -82,32 +87,15 @@ Ports done in PR #38:
 
 ## R4 — Expose maximum useful functions as public APIs
 
-**Chosen plan.** `js/src/index.js` re-exports:
+**Chosen plan.** `js/src/index.js` re-exports the browser-safe public
+API: Wikidata client/search helpers, browser cache helpers,
+`TextToQPTransformer`, LiNo formatting, settings/localization helpers,
+routing helpers, IPA helpers, config resolution, and package metadata.
+Node-specific surfaces are available through package subpaths:
+`human-language/server`, `human-language/cli`, `human-language/cache`,
+`human-language/transform`, and `human-language/transform/lino`.
 
-```js
-export {
-  WikidataAPIClient,
-  WikidataSearchUtility,
-} from './wikidata-api-browser.js';
-export {
-  CacheInterface, IndexedDBCache, NullCache,
-  BrowserCacheFactory,
-} from './unified-cache-browser.js';
-export { TextToQPTransformer } from './transformation/text-to-qp-transformer.js';
-export { toIpa, toIpaForEntity } from './app/ipa.js';
-export {
-  MODES, DEFAULT_MODE,
-  parseHash, serializeHash, navigate, subscribeToHash,
-} from './app/routing.js';
-export {
-  STORAGE_KEYS, saveToLocalStorage, loadFromLocalStorage,
-  flagMap, getQuotesForLanguage, localeQuotes,
-} from './settings.js';
-export { createServer } from './server.js';
-export { transform, transformCli } from './cli.js';
-```
-
-UI/JSX modules are deliberately not re-exported.
+UI/JSX modules are deliberately not re-exported from the root entry.
 
 ## R5 — Provide the same public API in Docker as a microservice
 
@@ -139,26 +127,28 @@ A `Dockerfile` at repo root uses `node:22-alpine` as base, copies
 
 **Chosen plan.**
 
-- **Rust.** Depend directly on `lino-arguments = "0.3"`. The binary
-  (`rust/src/bin/main.rs`) calls `lino_arguments::make_config!`.
-- **JS.** Ship a tiny in-tree shim at `js/src/config.js` that
-  duplicates the precedence rules (CLI > env > defaults). The shim
-  is < 80 LOC and has no runtime dependency. The README documents
-  swapping it for the upstream package once the ESM-import-of-`fs`
-  bug in the published tarball is fixed (see `external-research.md`
-  → upstream gaps).
+- **JS.** Depend directly on `lino-arguments = "^0.3.0"`.
+  `js/src/config.js` calls `makeConfig` with `.lenv` / `.env` loading
+  disabled for deterministic tests, while preserving CLI > env >
+  defaults precedence and the existing injectable `env` test hook.
+- **Rust.** Depend directly on `lino-arguments = "0.3.0"`.
+  `rust/src/bin/cli.rs` uses the re-exported `Parser` and `Subcommand`
+  derive macros for command parsing.
 
 ## R7 — `lino-objects-codec` for stored state
 
-**Chosen plan.** `js/src/unified-cache.js` accepts an optional
-`{ codec }` argument with a default of `'json'`. The `'lino'` value
-loads `lino-objects-codec` lazily (`await import('lino-objects-codec')`)
-and uses `encode` / `decode` for `set` / `get`. If the import fails
-(package not installed), the cache logs a warning and falls back to
-JSON.
+**Chosen plan.** Depend directly on `lino-objects-codec` for both JS
+and Rust.
 
-This keeps the optional dependency truly optional: the existing test
-suite continues to pass without it.
+- `js/src/persistent-cache.js` accepts `{ codec: 'json' | 'lino' }`.
+  JSON remains the default for backward compatibility. The LiNo codec
+  writes `.lino` files with `encode({ obj })` and reads them with
+  `decode({ notation })`.
+- `js/src/unified-cache.js` passes the codec option through to the
+  file-cache adapter.
+- `rust/src/lino.rs` exposes `encode_string_pairs_as_lino` and
+  `decode_string_pairs_from_lino` using the `lino-objects-codec`
+  crate, so Rust callers have the same storage primitive available.
 
 ## R8 — Links Notation for the transformer output
 
@@ -166,7 +156,8 @@ suite continues to pass without it.
 LiNo string of the form:
 
 ```
-sequence (q35120 p31 q5 p21 q6581097)
+sequence:
+  ((Q35120) (P31) (Q5))
 ```
 
 The serializer is a thin function in
@@ -177,11 +168,11 @@ follow-up).
 
 ## R9 — `link-cli` / `doublets-rs` / `doublets-web` as cache backend
 
-**Chosen plan (deferred).** The cache interface in
-`js/src/unified-cache.js` is widened to accept arbitrary
-`{ get, set, has, delete }` adapters via a `BrowserCacheFactory.create`
-overload. The doublets backend can be added in a follow-up without
-touching call sites. No `doublets-*` dependency in PR #38.
+**Chosen plan (deferred).** Keep the current `file`, `indexeddb`,
+`none`, and `auto` cache backends in PR #38. The doublets backend
+needs separate design because the existing cache API keys by Wikidata
+query parameters, while `doublets-*` exposes graph primitives. No
+`doublets-*` dependency ships in PR #38.
 
 ## R10 — Comparison + upstream gap reports
 
@@ -193,10 +184,11 @@ external maintainers.
 
 ## R11 — Reuse-by `meta-expression` / `calculator`
 
-**Chosen plan.** Model `package.json` on `meta-expression`. Ship
-`examples/meta-expression-bridge.mjs` and
-`examples/calculator-bridge.mjs` as runnable demos that import the
-library exactly like the two downstream projects will.
+**Chosen plan.** Model `package.json` on `meta-expression`: a root
+library entry, stable export subpaths, a CLI binary, and a Node server
+subpath. `calculator` can consume the Rust crate directly once this
+package is published. Runnable bridge examples are left as follow-up
+work so this PR does not add unverified downstream code.
 
 ## R12 — Adopt CI/CD best practices from the templates
 
@@ -218,21 +210,17 @@ PR #38.
 
 Tracked separately so each is reviewable on its own:
 
-1. Adopt the upstream `lino-arguments` JS package once its
-   `node:fs` import bug is fixed.
-2. Adopt the upstream `lino-objects-codec` JS package for cache
-   serialization by default (rather than opt-in).
-3. Parse inbound LiNo documents in `js/src/server.js` and `rust/`.
-4. Add `doublets-*` as a cache backend.
-5. Adopt the ESLint flat config from the JS template; sweep
+1. Parse inbound LiNo documents in `js/src/server.js` and `rust/`.
+2. Add `doublets-*` as a cache backend.
+3. Adopt the ESLint flat config from the JS template; sweep
    existing files for `max-lines`, `complexity`, `max-depth`
    violations.
-6. Adopt the `check-file-line-limits.sh` and rust-script
-   `file-size-check.rs` once item 5 is done.
-7. Build the WASM bundle from `rust/` via `wasm-pack` and publish
+4. Adopt the `check-file-line-limits.sh` and rust-script
+   `file-size-check.rs` once the lint sweep is done.
+5. Build the WASM bundle from `rust/` via `wasm-pack` and publish
    it as a second npm tarball (`human-language-wasm`).
-8. Add the `update-screenshots.yml` periodic workflow to refresh
+6. Add the `update-screenshots.yml` periodic workflow to refresh
    the SPA screenshots after each release.
-9. Extract `.github/actions/publish-dockerhub` once `release.yml`
-   gains a second caller.
-10. File the upstream gap reports listed in `external-research.md`.
+7. Extract reusable `.github/actions/*` only after a second workflow
+   needs the same publish setup.
+8. File the upstream gap reports listed in `external-research.md`.
