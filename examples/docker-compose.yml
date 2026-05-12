@@ -1,0 +1,37 @@
+# Bring up the `human-language` microservice locally.
+#
+# Usage:
+#   docker compose -f examples/docker-compose.yml up --build
+#
+# Then:
+#   curl http://localhost:8080/healthz
+#   curl http://localhost:8080/version
+#   curl -X POST http://localhost:8080/transform \
+#     -H 'content-type: application/json' \
+#     -d '{"text":"Albert Einstein was born in Ulm"}'
+#
+# Pass `-H 'accept: text/plain;codec=lino'` to receive Links Notation
+# instead of JSON.
+
+services:
+  human-language:
+    build:
+      context: ..
+      dockerfile: Dockerfile
+    image: human-language:dev
+    container_name: human-language
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      HUMAN_LANGUAGE_HOST: 0.0.0.0
+      HUMAN_LANGUAGE_PORT: "8080"
+      HUMAN_LANGUAGE_CACHE_TYPE: file
+      HUMAN_LANGUAGE_CACHE_DIR: /app/data/wikidata-cache
+    volumes:
+      # Persist the Wikidata cache between container restarts so cold
+      # starts are quick.
+      - human-language-cache:/app/data/wikidata-cache
+
+volumes:
+  human-language-cache:
