@@ -4,6 +4,46 @@
 
 Abstract Wikipedia, launched with Wikifunctions in July 2023, offers valuable lessons for the human-language project. This analysis identifies key improvements and strategies that could accelerate development or enhance the semantic transformation approach.
 
+> **Companion document:** For the concrete, actionable output of this analysis — a feature-gap map and per-service quality improvements — see [`missing-features-and-improvements.md`](./missing-features-and-improvements.md).
+
+## 2025–2026 Status Update (Fresh Research)
+
+*This section reflects research gathered in June 2026 and supersedes the older training-data-based notes below where they conflict. Full source links are listed in [Sources](#sources).*
+
+### Where the project stands now
+
+- **Wikifunctions** went live to the public on **26 July 2023** — the first new Wikimedia project since 2012. By 2025 contributors from **50+ countries** had created **2,400+ functions**, with names and descriptions in **100+ languages**.
+- **2025 focus is the technical foundation for Natural Language Generation (NLG).** The team is building "**semantic fragments**" — small, reusable functions that turn Wikidata data plus a language code into a sentence (e.g. function `Z26039` renders *"Berlin is a city" / "Berlín es una ciudad" / "Flughafen Berlin Brandenburg ist ein Flughafen"*). Progress is tracked across the **"UN 6" languages**: English, Arabic, Spanish, French, Russian, and Chinese.
+- A **Natural Language Generation Special Interest Group (NLG SIG)** now meets roughly monthly (4th meeting July 2025, 5th in Sept 2025, continuing into late 2025) to converge on how grammatical features are represented.
+
+### Published roadmap
+
+| Date | Milestone |
+|------|-----------|
+| Aug 2022 | Wikifunctions Beta |
+| Jul 2023 | Wikifunctions in production |
+| Apr 2025 | Embedded function-call results enabled on select wikis |
+| **Late 2025** | First **live functions for generating simple sentences** in natural languages |
+| **2026** | **Soft launch** of Abstract Wikipedia |
+
+### The NLG architecture (the part most relevant to us)
+
+Abstract Wikipedia separates **language-independent meaning** from **language-specific rendering** — the same goal as this project's Q/P sequences, but with a fuller pipeline:
+
+1. **Constructors** — language-agnostic containers of arguments (e.g. `Existence(subject)`); they carry no logic and are community-extensible. Roughly analogous to our Q/P sequence, but **typed and role-labelled** rather than a flat list.
+2. **Renderers** — one **templatic renderer per constructor-per-language**, written by the community. Templates mix static text with slots filled by arguments, Wikidata **lexemes**, or other renderers' output.
+3. **Syntactic tree** — renderers emit **Universal Dependencies** (or Surface-Syntactic UD) trees of *non-inflected lemmas* with morphological constraints.
+4. **Morphological inflection** — grammar specifications inflect lemmas using **Wikidata lexeme** forms / inflection tables; dependency relations use **feature unification** (e.g. a subject relation unifies noun–verb number and person agreement).
+5. **Phonotactics** — language-specific sandhi (English *a/an*, French *de + le → du*).
+6. **Text assembler** — final spacing, capitalization, and punctuation.
+
+The reference implementation pair is **Ninai** (high-level constructors and item→sense resolution) and **Udiron** (low-level, per-language text manipulation), with grammar logic written in **Lua**.
+
+### Documented risks and criticism (lessons to internalize)
+
+- A **January 2023 Google.org Fellows evaluation** rated the project at **"substantial risk of failure"** for thin technical planning, and recommended (a) decoupling Abstract Wikipedia from Wikifunctions, (b) refining **Lua** rather than inventing new languages, and (c) converging on an existing NLG framework. The Wikimedia Foundation **rejected** these recommendations.
+- WMF declined existing frameworks such as **Grammatical Framework**, arguing they under-serve **Niger-Congo B** languages and risk replicating an "English-focused Western-thinking" bias. The trade-off chosen — community-editable templates that **prioritize accessibility over guaranteed grammaticality** — means poorly designed templates *can* emit ungrammatical text. This is a direct, real-world data point on the equity-vs-correctness tension we also face.
+
 ## Abstract Wikipedia Project Overview
 
 ### Core Architecture
@@ -266,3 +306,16 @@ The human-language project is well-positioned to learn from Abstract Wikipedia's
 5. Plan for multi-language support architecture from the outset
 
 These improvements could significantly accelerate the project's development while avoiding pitfalls encountered by Abstract Wikipedia.
+
+## Sources
+
+Fresh research gathered June 2026:
+
+- [Abstract Wikipedia — Meta-Wiki](https://meta.wikimedia.org/wiki/Abstract_Wikipedia) (roadmap, timeline, project goals)
+- [Abstract Wikipedia — Wikipedia](https://en.wikipedia.org/wiki/Abstract_Wikipedia) (launch, architecture, criticism)
+- [Natural language generation system architecture proposal — Meta-Wiki](https://meta.wikimedia.org/wiki/Abstract_Wikipedia/Natural_language_generation_system_architecture_proposal) (6-stage NLG pipeline)
+- [Wikifunctions:Abstract Wikipedia/2025 fragment experiments](https://www.wikifunctions.org/wiki/Wikifunctions:Abstract_Wikipedia/2025_fragment_experiments) (semantic fragments, `Z26039`, UN 6 languages)
+- [Wikifunctions:NLG SIG](https://www.wikifunctions.org/wiki/Wikifunctions:NLG_SIG) (Natural Language Generation Special Interest Group)
+- [Using Wikidata Lexemes and Items to Generate Text from Abstract Representations — Mahir Morshed, 2024 (Semantic Web Journal)](https://content.iospress.com/articles/semantic-web/sw243564) (Ninai/Udiron, constructors, renderers)
+- [Abstract Wikipedia/Google.org Fellows evaluation — Meta-Wiki](https://meta.wikimedia.org/wiki/Abstract_Wikipedia/Google.org_Fellows_evaluation) (risk-of-failure assessment)
+- [Wikifunctions status updates (2025)](https://www.wikifunctions.org/wiki/Wikifunctions:Status_updates/2025-06-21)
