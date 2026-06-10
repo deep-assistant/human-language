@@ -35,16 +35,22 @@
     { title: 'Paris is in France',      type: 'located_in',  subject: 'Paris',    object: 'France' },
     { title: 'An apple is a fruit',     type: 'instance_of', subject: 'apple',    object: 'fruit' },
     { title: 'Whale is not a fish',     type: 'instance_of', subject: 'Whale',    object: 'fish', negated: true },
+    { title: 'Berlin is a city (fem.)', type: 'instance_of', subject: 'Berlin',   object: 'ciudad', gender: 'feminine' },
     { title: 'Einstein wrote books',    type: 'relation',    subject: 'Einstein', predicate: 'wrote', object: 'books', tense: 'past' },
+    { title: 'Everest is 8848 m tall',  type: 'quantity',    subject: 'Mount Everest', value: '8848', unit: 'meters' },
   ];
 
   const TENSES = ['present', 'past', 'future'];
+  const GENDERS = ['masculine', 'feminine'];
 
   function GenerationMode() {
     const [type, setType]           = React.useState('instance_of');
     const [subject, setSubject]     = React.useState('Berlin');
     const [predicate, setPredicate] = React.useState('');
     const [object, setObject]       = React.useState('city');
+    const [value, setValue]         = React.useState('');
+    const [unit, setUnit]           = React.useState('');
+    const [gender, setGender]       = React.useState('masculine');
     const [negated, setNegated]     = React.useState(false);
     const [tense, setTense]         = React.useState('present');
     const [result, setResult]       = React.useState(null);
@@ -62,12 +68,25 @@
     }, []);
 
     const spec = CONSTRUCTORS[type];
-    const usesPredicate = spec?.roles?.includes('predicate');
+    const roleSet = spec?.roles || [];
+    const usesPredicate = roleSet.includes('predicate');
+    const usesObject = roleSet.includes('object');
+    const usesValue = roleSet.includes('value');
+    const usesUnit = roleSet.includes('unit');
+    // Gender only drives the Romance indefinite article, which only appears
+    // in templates that interpolate `{article}` (today: instance_of).
+    const usesGender = !!spec && Object.values(spec.templates || {})
+      .some((t) => JSON.stringify(t).includes('{article}'));
 
     const buildCurrent = () => {
-      const roles = { subject, object };
+      const roles = { subject };
+      if (usesObject) roles.object = object;
       if (usesPredicate) roles.predicate = predicate;
-      return buildConstructor(type, roles, { negated, tense });
+      if (usesValue) roles.value = value;
+      if (usesUnit) roles.unit = unit;
+      const modifiers = { negated, tense };
+      if (usesGender) modifiers.gender = gender;
+      return buildConstructor(type, roles, modifiers);
     };
 
     const onGenerate = async (e) => {
@@ -89,8 +108,9 @@
     };
 
     const onClear = () => {
-      setSubject(''); setPredicate(''); setObject('');
-      setNegated(false); setTense('present'); setResult(null); setError('');
+      setSubject(''); setPredicate(''); setObject(''); setValue(''); setUnit('');
+      setGender('masculine'); setNegated(false); setTense('present');
+      setResult(null); setError('');
     };
 
     const loadExample = (ex) => {
@@ -98,6 +118,9 @@
       setSubject(ex.subject || '');
       setPredicate(ex.predicate || '');
       setObject(ex.object || '');
+      setValue(ex.value || '');
+      setUnit(ex.unit || '');
+      setGender(ex.gender || 'masculine');
       setNegated(!!ex.negated);
       setTense(ex.tense || 'present');
     };
@@ -134,16 +157,40 @@
           console.log('negative:', await r.render(buildConstructor('instance_of', { subject: 'Whale', object: 'fish' }, { negated: true }), 'en'));
         },
       },
+      {
+        label: 'Romance gender agreement (un / una · un / une)',
+        run: async () => {
+          const r = new QPRenderer();
+          const masc = buildConstructor('instance_of', { subject: 'Berlín', object: 'pueblo' }, { gender: 'masculine' });
+          const fem = buildConstructor('instance_of', { subject: 'Berlín', object: 'ciudad' }, { gender: 'feminine' });
+          console.log('es masculine:', await r.render(masc, 'es'));
+          console.log('es feminine:', await r.render(fem, 'es'));
+          console.log('fr feminine:', await r.render(buildConstructor('instance_of', { subject: 'Berlin', object: 'ville' }, { gender: 'feminine' }), 'fr'));
+        },
+      },
+      {
+        label: 'Render a quantity (measurement) across the UN 6',
+        run: async () => {
+          const r = new QPRenderer();
+          const c = buildConstructor('quantity', { subject: 'Mount Everest', value: '8848', unit: 'meters' });
+          const out = await r.renderAll(c, UN6_LANGUAGES);
+          for (const lang of UN6_LANGUAGES) {
+            console.log(`${lang}: ${out[lang]}`);
+          }
+        },
+      },
     ];
 
     return (
       <section aria-label="Generation">
         <h1>Generation</h1>
         <p>
-          Render a typed constructor (subject · predicate · object, with
-          negation and tense) into natural-language sentences across the six
-          official UN languages — the reverse of the Transformer. Role values
-          may be Wikidata ids (resolved to labels per language) or plain text.
+          Render a typed constructor (subject · predicate · object — or a
+          subject · value · unit measurement — with negation, tense and
+          Romance gender agreement) into natural-language sentences across the
+          six official UN languages — the reverse of the Transformer. Role
+          values may be Wikidata ids (resolved to labels per language) or plain
+          text.
         </p>
 
         <form className="toolbar" onSubmit={onGenerate} style={{ flexDirection: 'column', alignItems: 'stretch' }}>
@@ -164,7 +211,15 @@
             {usesPredicate ? (
               <label>Predicate <input value={predicate} onChange={(e) => setPredicate(e.target.value)} placeholder="wrote or P800" style={fieldStyle} /></label>
             ) : null}
-            <label>Object <input value={object} onChange={(e) => setObject(e.target.value)} placeholder="city or Q515" style={fieldStyle} /></label>
+            {usesObject ? (
+              <label>Object <input value={object} onChange={(e) => setObject(e.target.value)} placeholder="city or Q515" style={fieldStyle} /></label>
+            ) : null}
+            {usesValue ? (
+              <label>Value <input value={value} onChange={(e) => setValue(e.target.value)} placeholder="8848" style={fieldStyle} /></label>
+            ) : null}
+            {usesUnit ? (
+              <label>Unit <input value={unit} onChange={(e) => setUnit(e.target.value)} placeholder="meters" style={fieldStyle} /></label>
+            ) : null}
           </div>
 
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
@@ -177,6 +232,14 @@
                 {TENSES.map((t) => <option key={t} value={t}>{t}</option>)}
               </select>
             </label>
+            {usesGender ? (
+              <label title="Drives Romance indefinite-article agreement (es un/una, fr un/une)">
+                Object gender{' '}
+                <select value={gender} onChange={(e) => setGender(e.target.value)} style={fieldStyle}>
+                  {GENDERS.map((g) => <option key={g} value={g}>{g}</option>)}
+                </select>
+              </label>
+            ) : null}
           </div>
 
           <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>

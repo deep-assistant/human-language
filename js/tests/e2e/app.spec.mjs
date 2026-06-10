@@ -173,4 +173,20 @@ test.describe('Generation mode (Q/P → text)', () => {
     await expect(page.locator('body')).toContainText('Chinese');
     expect(errors).toEqual([]);
   });
+
+  test('quantity constructor exposes value/unit fields and renders a measurement offline', async ({ page }) => {
+    const errors = await attachErrorCollectors(page);
+    await page.goto(`${APP}#mode=generation`);
+    await page.getByRole('button', { name: 'Generate', exact: true }).waitFor({ state: 'visible' });
+
+    // Switching to the quantity constructor swaps Object out for Value + Unit.
+    await page.getByRole('combobox').first().selectOption('quantity');
+    await page.getByRole('textbox', { name: 'Subject' }).fill('Mount Everest');
+    await page.getByRole('textbox', { name: 'Value' }).fill('8848');
+    await page.getByRole('textbox', { name: 'Unit' }).fill('meters');
+    await page.getByRole('button', { name: 'Generate', exact: true }).click();
+
+    await expect(page.locator('body')).toContainText('Mount Everest is 8848 meters', { timeout: 10000 });
+    expect(errors).toEqual([]);
+  });
 });
