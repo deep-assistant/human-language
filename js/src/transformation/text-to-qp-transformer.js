@@ -2,6 +2,8 @@
 // Transforms English text into sequences of Wikidata entities (Q) and properties (P)
 // with disambiguation support using [Q1 or Q2 or Q3] syntax
 
+import { buildConstructor } from '../generation/constructors.js';
+
 // Pick the right Wikidata API at runtime: the browser version avoids Node's
 // `fs`/`path` imports that the file-cache backend pulls in.
 let WikidataAPIClient, WikidataSearchUtility;
@@ -37,6 +39,26 @@ class TextToQPTransformer {
     
     // Words to skip entirely
     this.stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'];
+
+    // Tense markers. Today the flat-list output silently drops these (see
+    // limitations-found.json), so "discovered" and "discovers" collapse to
+    // the same sequence. The typed constructor keeps them as a `tense` slot.
+    this.pastTenseWords = ['was', 'were', 'had', 'did'];
+    this.futureTenseWords = ['will', 'shall'];
+
+    // A small set of common irregular past-tense verbs the regular `-ed`
+    // rule cannot catch. Not exhaustive — a documented seed, the same way
+    // Abstract Wikipedia grows its lexicon incrementally.
+    this.irregularPastWords = [
+      'wrote', 'built', 'made', 'found', 'bought', 'taught', 'sought',
+      'brought', 'came', 'ran', 'went', 'saw', 'took', 'gave', 'led',
+      'held', 'drew', 'became', 'won', 'lost', 'met', 'kept', 'sent',
+      'spent', 'told', 'sold', 'paid', 'said', 'began', 'wore', 'knew',
+    ];
+
+    // `instance of` indicators that map a generic relation onto the
+    // specialised `instance_of` constructor the renderer knows about.
+    this.instanceOfWords = ['is', 'was', 'are', 'were', 'instance of'];
   }
 
   /**
@@ -407,6 +429,115 @@ class TextToQPTransformer {
     }
     
     return alternatives;
+  }
+
+  /**
+   * Extract structural modifiers (negation, tense) from the input text.
+   *
+   * The flat Q/P list drops meaning-bearing words like "not" and tense
+   * markers — exactly the cluster of failures documented in
+   * `limitations-found.json`. Abstract Wikipedia keeps these structurally
+   * (in the constructor), so we capture them as explicit flags rather than
+   * discarding the tokens.
+   *
+   * @param {string} text - The original input text
+   * @returns {{negated: boolean, tense: 'past'|'present'|'future'}}
+   */
+  extractModifiers(text) {
+    const lower = ` ${(text || '').toLowerCase()} `;
+    const tokens = this.tokenize(text || '').map((t) => t.toLowerCase());
+
+    // Negation: "not", contracted "n't", or "never".
+    const negated = /\bnot\b|n't|\bnever\b/.test(lower);
+
+    // Tense: explicit markers first, then a regular `-ed` past-tense fallback.
+    let tense = 'present';
+    if (tokens.some((t) => this.futureTenseWords.includes(t))) {
+      tense = 'future';
+    } else if (
+      tokens.some((t) => this.pastTenseWords.includes(t)) ||
+      tokens.some((t) => this.irregularPastWords.includes(t)) ||
+      tokens.some((t) => /[a-z]{3,}ed$/.test(t))
+    ) {
+      tense = 'past';
+    }
+
+    return { negated, tense };
+  }
+
+  /**
+   * Convert a transform() result into a typed, role-labelled constructor —
+   * the representation the multi-language generation service consumes. This
+   * is the bridge that makes the round-trip `text → Q/P → text` possible.
+   *
+   * It reads the sequence left-to-right, taking the first entity (Q) as the
+   * subject, the first property (P) as the predicate, and the next entity
+   * (Q) as the object. A `P31` predicate (or an `is/was` indicator) maps to
+   * the specialised `instance_of` constructor; anything else becomes the
+   * generic `relation` constructor. Negation and tense are preserved as
+   * modifier flags.
+   *
+   * @param {Object} result - The return value of `transform`
+   * @returns {Object|null} - A typed constructor, or null if no subject was found
+   */
+  toConstructor(result) {
+    if (!result || !Array.isArray(result.sequence)) return null;
+
+    // Collapse the sequence to its primary ids (first candidate of any
+    // ambiguous match), keeping the textual order.
+    const items = result.sequence
+      .filter(Boolean)
+      .map((item) => {
+        if (item.type === 'ambiguous' && item.alternatives && item.alternatives.length) {
+          return { id: item.alternatives[0].id };
+        }
+        return { id: item.id };
+      })
+      .filter((item) => /^[QP]\d+$/.test(item.id));
+
+    let subject = null;
+    let predicate = null;
+    let object = null;
+    for (const { id } of items) {
+      if (id.startsWith('Q')) {
+        if (subject == null) subject = id;
+        else if (object == null) object = id;
+      } else if (id.startsWith('P') && predicate == null) {
+        predicate = id;
+      }
+    }
+
+    if (subject == null) return null;
+
+    const { negated, tense } = this.extractModifiers(result.original || '');
+
+    const lower = (result.original || '').toLowerCase();
+    const isInstanceOf = predicate === 'P31'
+      || this.instanceOfWords.some((w) => new RegExp(`\\b${w}\\b`).test(lower));
+
+    if (isInstanceOf && object != null) {
+      return buildConstructor('instance_of', { subject, object }, { negated, tense });
+    }
+    if (predicate != null && object != null) {
+      return buildConstructor('relation', { subject, predicate, object }, { negated, tense });
+    }
+    // Not enough structure for a full relation — still surface what we have.
+    return buildConstructor('relation', { subject, predicate: predicate || null, object: object || null }, { negated, tense });
+  }
+
+  /**
+   * Transform text and additionally return the typed constructor.
+   *
+   * @param {string} text - Text to transform
+   * @param {Object} options - Transformation options
+   * @returns {Promise<Object>} - The transform() result with a `constructor`
+   *   field and a `modifiers` field added.
+   */
+  async transformToConstructor(text, options = {}) {
+    const result = await this.transform(text, options);
+    result.modifiers = this.extractModifiers(text);
+    result.constructor = this.toConstructor(result);
+    return result;
   }
 
   /**
