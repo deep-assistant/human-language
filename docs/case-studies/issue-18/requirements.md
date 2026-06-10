@@ -35,7 +35,7 @@ Extracted from the issue body and the binding follow-up comments on PR #19.
 | R8 | Reverse generation (Q/P → text) | ✅ `js/src/generation/qp-to-text.js` |
 | R9 | Typed, role-labelled constructors | ✅ `js/src/generation/constructors.js` + `transformToConstructor` |
 | R10 | Multi-language rendering (UN 6) | ✅ `renderAll` across en/ar/es/fr/ru/zh |
-| R11 | Grammatical features + phonotactics | ✅ English `a`/`an`, negation, tense, Romance gender agreement (`un`/`una`, `un`/`une`) |
+| R11 | Grammatical features + phonotactics | ✅ English `a`/`an`, negation, tense, Romance gender agreement (`un`/`una`, `un`/`une`), Russian prepositional case (Германия → Германии) |
 | R12 | Wikidata Lexeme integration | ✅ `searchLexemes` on both API clients |
 | R13 | Follow the established style (library export, types, SPA mode, redirect shell, tests, demo) | ✅ See `architecture.md` |
 | R14 | Single PR (#19), branch `issue-18-ef8b353c` | ✅ |
@@ -53,6 +53,14 @@ Extracted from the issue body and the binding follow-up comments on PR #19.
 | R18 | Fix clearly-wrong tests | ✅ Corrected the ungrammatical es/fr gender assertions (`una ciudad`, `une ville`) in `qp-to-text.test.mjs` |
 | R19 | Make the limitation harness reflect the structural handling | ✅ `limitation-test.mjs` now scores `transformToConstructor`; documented problems 12 → 4 (remaining are knowledge-base/data limits, not logic) |
 | R20 | Wire the new features into the SPA + docs | ✅ Role-aware Generation mode (value/unit, gender selector), README + case-study updates |
+
+> **"Make sure our roadmap, vision and all requirements listed in the
+> repository are fully and correctly implemented. Double check tests for
+> obviously wrong cases and fix them also."**
+
+| # | Requirement | Status |
+| --- | --- | --- |
+| R21 | Fix the obviously-wrong Russian locative output | ✅ `russianPrepositional` inflects the `located_in` object after «в» (Германия → Германии); the test that blessed the nominative form is corrected and the helper is unit-tested with its indeclinable/abbreviation guards |
 
 ## Established-style checklist (R13 in detail)
 

@@ -23,6 +23,7 @@ existing transformer so the two directions are symmetric.
    • fillTemplate / validateConstructor
    • englishIndefiniteArticle (a/an)
    • romanceIndefiniteArticle (un/una · un/une)
+   • russianPrepositional (Германия → Германии)
 ```
 
 ### `constructors.js` — the pure data layer
@@ -44,7 +45,9 @@ round-trip. It holds:
 - **`fillTemplate`** — pick the tense forms (`constructor.tense`, falling
   back to the present `positive`/`negative` when a language has no variant),
   substitute the role tokens (`{subject}`/`{predicate}`/`{object}`,
-  `{value}`/`{unit}`) and the `{article}` phonotactics token, collapsing the
+  `{value}`/`{unit}`) — applying any per-role morphological inflection the
+  template declares via `inflect` (e.g. Russian prepositional case on the
+  locative object) — and the `{article}` phonotactics token, collapsing the
   whitespace an empty article leaves behind. Tense variants are added only
   where they stay grammatical without noun-case morphology (copula tense in
   en/es/fr, the locative verb in en/es/fr/ru/ar); cases that would need
@@ -54,6 +57,11 @@ round-trip. It holds:
   indefinite article (`un`/`una`, `un`/`une`) with the object noun's
   grammatical gender (the constructor's `gender`, ultimately a Wikidata
   Lexeme P5185 statement), defaulting to masculine when none is supplied.
+- **`russianPrepositional`** — the third: inflects the `located_in` object
+  to the prepositional case the preposition «в» governs (Германия →
+  Германии). A documented heuristic seed that leaves indeclinable foreign
+  endings, abbreviations and gender-ambiguous soft-sign nouns untouched, so
+  it only ever improves output.
 
 ### `qp-to-text.js` — the renderer
 

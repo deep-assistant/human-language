@@ -71,6 +71,48 @@ export function romanceIndefiniteArticle(lang, gender) {
 }
 
 /**
+ * Russian prepositional-case inflection for the object of a locative phrase —
+ * the third grammatical feature of the renderer. The preposition «в» ("in")
+ * governs the prepositional case, so the nominative Wikidata label is
+ * ungrammatical: «Берлин находится в Германия» must become «…в Германии».
+ *
+ * Like the article helpers above this is a documented heuristic seed, not a
+ * full morphology engine (that awaits the Wikidata Lexeme integration tracked
+ * in `research/`). It applies the regular prepositional endings and — crucially
+ * — leaves a word untouched whenever inflecting it would be *wrong*, so it can
+ * only ever improve output, never regress it:
+ *   - «-ия» → «-ии» (Германия → Германии, Россия → России)
+ *   - «-а»  → «-е»  (Москва → Москве, Америка → Америке)
+ *   - «-я»  → «-е»  (земля → земле)
+ *   - «-й»  → «-е»  (Китай → Китае, Уругвай → Уругвае)
+ *   - a consonant-final masculine noun → «+е» (город → городе, Лондон → Лондоне)
+ *   - indeclinable vowel endings (о/е/у/ю/и/э/ы): unchanged (Токио, Чикаго, Осло)
+ *   - gender-ambiguous soft-sign («-ь») endings: unchanged (avoid guessing)
+ *   - all-caps abbreviations (США, ООН) and non-Cyrillic words: unchanged
+ *
+ * @param {string} word - The nominative Russian label
+ * @returns {string} - The prepositional-case form (or the input unchanged)
+ */
+export function russianPrepositional(word) {
+  if (!word) return word;
+  const w = String(word).trim();
+  if (!w) return w;
+  // Non-Cyrillic words (Latin labels, numbers) are not Russian — leave them.
+  if (!/[а-яёА-ЯЁ]/.test(w)) return w;
+  // All-caps abbreviations are indeclinable (США, ООН, ЕС).
+  if (/^[А-ЯЁA-Z]{2,}$/.test(w)) return w;
+  if (/ия$/.test(w)) return `${w.slice(0, -2)}ии`;
+  if (/[ая]$/.test(w)) return `${w.slice(0, -1)}е`;
+  if (/й$/.test(w)) return `${w.slice(0, -1)}е`;
+  // Indeclinable foreign vowel endings stay as-is (Токио, Перу, Чили, Осло).
+  if (/[оеуюиэы]$/.test(w)) return w;
+  // Soft-sign endings are gender-ambiguous (m → -е, f → -и); don't guess.
+  if (/ь$/.test(w)) return w;
+  // Otherwise a consonant-final masculine noun takes «+е».
+  return `${w}е`;
+}
+
+/**
  * Constructor catalogue. Each constructor is a typed container with named
  * argument roles and one templatic renderer per supported language.
  *
@@ -127,9 +169,11 @@ export const CONSTRUCTORS = {
     },
   },
 
-  // X is located in Y — Wikidata P131 / P276. Here the object stays in the
-  // same case across tenses in every language below, so tense is safe to
-  // inflect on the verb everywhere it inflects.
+  // X is located in Y — Wikidata P131 / P276. The object's case is constant
+  // across tenses in every language below, so tense is safe to inflect on the
+  // verb everywhere it inflects. Russian additionally needs the object in the
+  // prepositional case after «в» (Германия → Германии); the ru template marks
+  // the object for `russianPrepositional` inflection (see `inflect` below).
   located_in: {
     roles: ['subject', 'object'],
     description: 'X is located in Y (Wikidata P131/P276)',
@@ -153,6 +197,8 @@ export const CONSTRUCTORS = {
         positive: '{subject} находится в {object}', negative: '{subject} не находится в {object}',
         past: { positive: '{subject} находился в {object}', negative: '{subject} не находился в {object}' },
         future: { positive: '{subject} будет в {object}', negative: '{subject} не будет в {object}' },
+        // «в» governs the prepositional case: inflect the object's label.
+        inflect: { object: russianPrepositional },
       },
       zh: { positive: '{subject}在{object}', negative: '{subject}不在{object}' },
       ar: {
@@ -258,7 +304,11 @@ export function fillTemplate(spec, template, constructor, labels) {
   let out = pattern;
   for (const role of spec.roles) {
     const value = constructor[role];
-    const label = (labels && labels[value]) || value || '';
+    let label = (labels && labels[value]) || value || '';
+    // Apply any per-role morphological inflection the template declares
+    // (e.g. Russian prepositional case on the located_in object).
+    const inflector = template.inflect && template.inflect[role];
+    if (inflector && label) label = inflector(label);
     out = out.split(`{${role}}`).join(label);
   }
 
@@ -289,6 +339,7 @@ export default {
   CONSTRUCTORS,
   englishIndefiniteArticle,
   romanceIndefiniteArticle,
+  russianPrepositional,
   buildConstructor,
   validateConstructor,
   fillTemplate,

@@ -18,7 +18,7 @@ The whole project is published to GitHub Pages as a single unified single-page a
 | [Entities](https://link-assistant.github.io/human-language/app.html#mode=entity) | Browse any Wikidata Q-id, with IPA toggle and an inline test runner. | [`js/src/app/modes/entity.jsx`](js/src/app/modes/entity.jsx) |
 | [Properties](https://link-assistant.github.io/human-language/app.html#mode=property) | Same lens as Entities but for P-ids. | [`js/src/app/modes/property.jsx`](js/src/app/modes/property.jsx) |
 | [Text → Q/P Transformer](https://link-assistant.github.io/human-language/app.html#mode=transformer) | Turn English text into a sequence of Wikidata entities (Q) and properties (P), with n-gram support. | [`js/src/app/modes/transformer.jsx`](js/src/app/modes/transformer.jsx) |
-| [Q/P → Text Generation](https://link-assistant.github.io/human-language/app.html#mode=generation) | The reverse direction: render a typed constructor (subject · predicate · object, or a subject · value · unit measurement, with negation, tense and Romance gender agreement) into sentences across the six official UN languages. | [`js/src/app/modes/generation.jsx`](js/src/app/modes/generation.jsx) |
+| [Q/P → Text Generation](https://link-assistant.github.io/human-language/app.html#mode=generation) | The reverse direction: render a typed constructor (subject · predicate · object, or a subject · value · unit measurement, with negation, tense, Romance gender agreement and Russian prepositional case) into sentences across the six official UN languages. | [`js/src/app/modes/generation.jsx`](js/src/app/modes/generation.jsx) |
 
 The legacy URLs (`entities.html`, `properties.html`, `transformation/index.html`, `generation/index.html`, and bare hashes like `entities.html#Q35120`) still work — they now redirect into the unified SPA preserving any parameters.
 
@@ -67,7 +67,7 @@ This project will fundamentally transform how we store, access, and verify human
 - **Closes the round-trip**: the reverse of the transformer — typed meaning → natural-language text
 - **Abstract-Wikipedia-style constructors**: typed containers (`instance_of`, `located_in`, `relation`, `quantity`) with named roles — including a `quantity` measurement constructor (`subject` · `value` · `unit`) mirroring a Wikidata quantity claim
 - **Multi-language rendering**: one templatic renderer per constructor-per-language across the six official UN languages (en, ar, es, fr, ru, zh)
-- **Grammatical features**: negation, tense, English `a`/`an` indefinite-article phonotactics, and Romance gender agreement (es `un`/`una`, fr `un`/`une`)
+- **Grammatical features**: negation, tense, English `a`/`an` indefinite-article phonotactics, Romance gender agreement (es `un`/`una`, fr `un`/`une`), and Russian prepositional-case inflection for the locative object (Германия → Германии)
 - **Offline-friendly**: role values may be Wikidata ids (resolved to labels) or plain text (rendered verbatim, no network)
 - Interactive web demo at `app.html#mode=generation`; library entry point [`human-language/generate`](js/src/generation/qp-to-text.js)
 
@@ -193,7 +193,7 @@ Based on our [GitHub issues](https://github.com/link-assistant/human-language/is
 3. **Q/P → Text Renderer** (`js/src/generation/qp-to-text.js`, `js/src/generation/constructors.js`)
    - Typed constructors with named roles (Abstract-Wikipedia-style), including a `quantity` measurement constructor
    - One templatic renderer per constructor-per-language across the UN 6 languages
-   - Negation, tense, English `a`/`an` phonotactics and Romance gender agreement (`un`/`una`, `un`/`une`)
+   - Negation, tense, English `a`/`an` phonotactics, Romance gender agreement (`un`/`una`, `un`/`une`) and Russian prepositional-case inflection on the locative object (`russianPrepositional`)
    - Batch label resolution via the Wikidata client (`getLabels`), pluggable for offline use
 
 4. **Search Utilities** (`js/src/wikidata-api.js`)

@@ -59,11 +59,12 @@ unified-SPA mode, a legacy redirect shell, and e2e coverage.
   natural-language-generation "semantic fragments" (e.g. Z26039 "Berlin
   is a city").
 * **Grow the grammar incrementally** — we deliberately start with a
-  handful of high-value constructors plus English `a`/`an` phonotactics
-  and Romance gender agreement (es `un`/`una`, fr `un`/`une`, driven by
-  the object noun's grammatical gender — Wikidata P5185) as the first
-  grammatical features, exactly the way Abstract Wikipedia grew its
-  grammar.
+  handful of high-value constructors plus English `a`/`an` phonotactics,
+  Romance gender agreement (es `un`/`una`, fr `un`/`une`, driven by
+  the object noun's grammatical gender — Wikidata P5185) and Russian
+  prepositional-case inflection on the locative object (Германия →
+  Германии) as the first grammatical features, exactly the way Abstract
+  Wikipedia grew its grammar.
 
 ## Round-trip in one example
 

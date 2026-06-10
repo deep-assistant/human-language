@@ -4,6 +4,7 @@ import assert from 'node:assert/strict';
 import {
   englishIndefiniteArticle,
   romanceIndefiniteArticle,
+  russianPrepositional,
   fillTemplate,
   validateConstructor,
   buildConstructor,
@@ -45,6 +46,26 @@ test('romanceIndefiniteArticle agrees with gender and falls back to masculine', 
   assert.equal(romanceIndefiniteArticle('fr', 'feminine'), 'une');
   assert.equal(romanceIndefiniteArticle('fr', undefined), 'un');
   assert.equal(romanceIndefiniteArticle('de', 'feminine'), ''); // unsupported language
+});
+
+test('russianPrepositional inflects declinable nouns and leaves the rest untouched', () => {
+  // Regular prepositional endings.
+  assert.equal(russianPrepositional('Германия'), 'Германии');
+  assert.equal(russianPrepositional('Россия'), 'России');
+  assert.equal(russianPrepositional('Москва'), 'Москве');
+  assert.equal(russianPrepositional('Китай'), 'Китае');
+  assert.equal(russianPrepositional('город'), 'городе');
+  assert.equal(russianPrepositional('Лондон'), 'Лондоне');
+  // Indeclinable foreign vowel endings stay as-is — inflecting them is wrong.
+  assert.equal(russianPrepositional('Токио'), 'Токио');
+  assert.equal(russianPrepositional('Чикаго'), 'Чикаго');
+  assert.equal(russianPrepositional('Перу'), 'Перу');
+  // Abbreviations, non-Cyrillic words and gender-ambiguous soft signs: untouched.
+  assert.equal(russianPrepositional('США'), 'США');
+  assert.equal(russianPrepositional('Germany'), 'Germany');
+  assert.equal(russianPrepositional('Тверь'), 'Тверь');
+  assert.equal(russianPrepositional(''), '');
+  assert.equal(russianPrepositional(undefined), undefined);
 });
 
 // ---------------------------------------------------------------------------
@@ -148,9 +169,19 @@ test('renderWithLabels inflects located_in tense across en/es/fr/ru/ar', () => {
   assert.equal(r.renderWithLabels(past, LABELS.en, 'en'), 'Berlin was in Germany');
   assert.equal(r.renderWithLabels(past, LABELS.es, 'es'), 'Berlín estaba en Alemania');
   assert.equal(r.renderWithLabels(past, LABELS.fr, 'fr'), 'Berlin était en Allemagne');
-  assert.equal(r.renderWithLabels(past, LABELS.ru, 'ru'), 'Берлин находился в Германия');
+  // Russian «в» governs the prepositional case: Германия → Германии.
+  assert.equal(r.renderWithLabels(past, LABELS.ru, 'ru'), 'Берлин находился в Германии');
   const future = { type: 'located_in', subject: 'Q64', object: 'Q183', tense: 'future' };
   assert.equal(r.renderWithLabels(future, LABELS.en, 'en'), 'Berlin will be in Germany');
+  assert.equal(r.renderWithLabels(future, LABELS.ru, 'ru'), 'Берлин будет в Германии');
+});
+
+test('renderWithLabels puts the Russian located_in object in the prepositional case', () => {
+  const r = new QPRenderer();
+  const c = { type: 'located_in', subject: 'Q64', object: 'Q183' };
+  assert.equal(r.renderWithLabels(c, LABELS.ru, 'ru'), 'Берлин находится в Германии');
+  const neg = { type: 'located_in', subject: 'Q64', object: 'Q183', negated: true };
+  assert.equal(r.renderWithLabels(neg, LABELS.ru, 'ru'), 'Берлин не находится в Германии');
 });
 
 test('renderWithLabels treats an explicit present tense like the default', () => {
