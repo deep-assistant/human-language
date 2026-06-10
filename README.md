@@ -275,7 +275,7 @@ See the [🎬 Demos](#-demos) section above for the full table — every demo is
 - **Entity Viewer** — [`entities.html`](https://link-assistant.github.io/human-language/entities.html)
 - **Property Viewer** — [`properties.html`](https://link-assistant.github.io/human-language/properties.html)
 - **Text Transformer** — [`transformation/index.html`](https://link-assistant.github.io/human-language/transformation/index.html)
-- **Q/P → Text Generation** — [`generation/index.html`](https://link-assistant.github.io/human-language/generation/index.html)
+- **Q/P → Text Generation** — [`app.html#mode=generation`](https://link-assistant.github.io/human-language/app.html#mode=generation)
 - **N-gram Test** — [`transformation/test-ngram.html`](https://link-assistant.github.io/human-language/transformation/test-ngram.html)
 - **Search Demo** — [`search-demo.html`](https://link-assistant.github.io/human-language/search-demo.html)
 - **Caching Demo** — [`cache-demo.html`](https://link-assistant.github.io/human-language/cache-demo.html)
