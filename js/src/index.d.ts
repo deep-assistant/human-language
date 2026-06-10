@@ -39,6 +39,28 @@ export interface TransformOptions {
   searchLimit?: number;
   preferProperties?: boolean;
   maxNgramSize?: number;
+  /** Collapse adjacent duplicate ids in the sequence (default true). */
+  dedupe?: boolean;
+}
+
+export type QuestionType =
+  | 'entity' | 'thing' | 'time' | 'place' | 'reason' | 'manner' | 'quantity' | 'polar';
+
+export interface QuestionInfo {
+  isQuestion: boolean;
+  word: string | null;
+  type: QuestionType | null;
+}
+
+export interface Quantity {
+  value: number;
+  unit: string | null;
+  raw: string;
+}
+
+export interface Modifiers {
+  negated: boolean;
+  tense: Tense;
 }
 
 export interface TransformResult {
@@ -47,16 +69,26 @@ export interface TransformResult {
   sequence: Array<string | { type: string; alternatives: Array<{ id: string; description?: string }> }>;
   formatted: string;
   alternatives: unknown[];
+  modifiers?: Modifiers;
+  question?: QuestionInfo;
+  quantities?: Quantity[];
+  constructor?: Constructor | null;
 }
 
 export class TextToQPTransformer {
   constructor();
   transform(text: string, options?: TransformOptions): Promise<TransformResult>;
+  transformToConstructor(text: string, options?: TransformOptions): Promise<TransformResult>;
   transformWithContext(
     text: string,
     context?: Record<string, string>,
     options?: TransformOptions,
   ): Promise<TransformResult>;
+  extractModifiers(text: string): Modifiers;
+  detectQuestion(text: string): QuestionInfo;
+  extractQuantities(text: string): Quantity[];
+  dedupeSequence(sequence: TransformResult['sequence']): TransformResult['sequence'];
+  toConstructor(result: TransformResult): Constructor | null;
 }
 
 export function formatSequenceAsLino(sequence: TransformResult['sequence']): string;

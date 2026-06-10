@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1781084312772,
+  "ttl": 86400000,
+  "query": "the United States",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

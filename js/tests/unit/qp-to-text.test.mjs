@@ -249,6 +249,48 @@ test('extractModifiers detects tense', () => {
   assert.equal(t.extractModifiers('She will travel').tense, 'future');
 });
 
+test('detectQuestion classifies wh-, polar and non-questions', () => {
+  const t = new TextToQPTransformer();
+  assert.deepEqual(t.detectQuestion('Who discovered America?'), { isQuestion: true, word: 'who', type: 'entity' });
+  assert.deepEqual(t.detectQuestion('What is the capital of Japan?'), { isQuestion: true, word: 'what', type: 'thing' });
+  assert.deepEqual(t.detectQuestion('When was Einstein born?'), { isQuestion: true, word: 'when', type: 'time' });
+  assert.deepEqual(t.detectQuestion('Where is Berlin?'), { isQuestion: true, word: 'where', type: 'place' });
+  assert.deepEqual(t.detectQuestion('How many moons does Mars have?'), { isQuestion: true, word: 'how', type: 'quantity' });
+  assert.deepEqual(t.detectQuestion('Is Berlin a city?'), { isQuestion: true, word: 'is', type: 'polar' });
+  assert.equal(t.detectQuestion('Berlin is a city').isQuestion, false);
+  assert.equal(t.detectQuestion('').isQuestion, false);
+});
+
+test('extractQuantities keeps numbers and units instead of dropping them', () => {
+  const t = new TextToQPTransformer();
+  assert.deepEqual(t.extractQuantities('Mount Everest is 8848 meters tall'), [
+    { value: 8848, unit: 'meters', raw: '8848 meters' },
+  ]);
+  assert.deepEqual(t.extractQuantities('Speed of light is 299792458 meters per second'), [
+    { value: 299792458, unit: 'meters per second', raw: '299792458 meters per second' },
+  ]);
+  assert.deepEqual(t.extractQuantities('World War II ended in 1945'), [
+    { value: 1945, unit: null, raw: '1945' },
+  ]);
+  // Grouped thousands are normalised to a single numeric value.
+  assert.deepEqual(t.extractQuantities('It costs 1,200 dollars'), [
+    { value: 1200, unit: 'dollars', raw: '1,200 dollars' },
+  ]);
+  assert.deepEqual(t.extractQuantities('Berlin is a city'), []);
+});
+
+test('dedupeSequence collapses adjacent duplicate ids but keeps distinct ones', () => {
+  const t = new TextToQPTransformer();
+  const seq = [{ id: 'Q90' }, { id: 'Q90' }, { id: 'Q142' }, { id: 'Q142' }];
+  assert.deepEqual(t.dedupeSequence(seq).map((i) => i.id), ['Q90', 'Q142']);
+  // Non-adjacent repetition is preserved (it carries meaning).
+  const seq2 = [{ id: 'Q90' }, { id: 'Q142' }, { id: 'Q90' }];
+  assert.deepEqual(t.dedupeSequence(seq2).map((i) => i.id), ['Q90', 'Q142', 'Q90']);
+  // Ambiguous matches are never merged.
+  const amb = { type: 'ambiguous', id: '[Q43 or Q4229558]', alternatives: [{ id: 'Q43' }] };
+  assert.deepEqual(t.dedupeSequence([amb, amb]).length, 2);
+});
+
 test('toConstructor builds an instance_of constructor preserving negation', () => {
   const t = new TextToQPTransformer();
   const result = {

@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1781084312675,
+  "ttl": 86400000,
+  "query": "United Nations",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

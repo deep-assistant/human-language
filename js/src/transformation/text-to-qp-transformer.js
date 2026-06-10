@@ -73,7 +73,8 @@ class TextToQPTransformer {
       includeLabels = false,
       searchLimit = 10,
       preferProperties = false,
-      maxNgramSize = 3 // Configurable max n-gram size
+      maxNgramSize = 3, // Configurable max n-gram size
+      dedupe = true // Collapse adjacent duplicate ids (see dedupeSequence)
     } = options;
 
     const result = {
@@ -98,8 +99,9 @@ class TextToQPTransformer {
       // Match tokens using longest-first priority
       const matches = this.matchTokensWithPriority(tokens, ngramResults, maxCandidates, includeLabels);
       
-      // Build the final sequence
-      result.sequence = matches;
+      // Build the final sequence, collapsing adjacent duplicate ids unless
+      // the caller opts out.
+      result.sequence = dedupe ? this.dedupeSequence(matches) : matches;
 
       // Format the final sequence
       result.formatted = this.formatSequence(result.sequence);
@@ -466,6 +468,120 @@ class TextToQPTransformer {
   }
 
   /**
+   * Detect whether the input is a question and classify it.
+   *
+   * Questions are the second cluster of failures documented in
+   * `limitations-found.json` ("Who/What/When question" are *treated as
+   * statements*). A flat Q/P list cannot express interrogation; Abstract
+   * Wikipedia keeps it structurally. We capture it as an explicit flag plus a
+   * coarse semantic type so a downstream renderer (or query layer) knows what
+   * is being asked for, rather than silently dropping the wh-word.
+   *
+   * @param {string} text - The original input text
+   * @returns {{isQuestion: boolean, word: string|null, type: string|null}}
+   *   `type` is one of entity / thing / time / place / reason / manner /
+   *   quantity / polar (yes-no), or null when not a question.
+   */
+  detectQuestion(text) {
+    const trimmed = (text || '').trim();
+    if (!trimmed) return { isQuestion: false, word: null, type: null };
+
+    const lower = trimmed.toLowerCase();
+    const first = this.tokenize(lower)[0] || '';
+
+    // Wh-words map to the kind of thing being asked for.
+    const whTypes = {
+      who: 'entity', whom: 'entity', whose: 'entity',
+      what: 'thing', which: 'thing',
+      when: 'time', where: 'place', why: 'reason', how: 'manner',
+    };
+    // "How many / how much" asks for a quantity.
+    if (first === 'how' && /^how\s+(many|much)\b/.test(lower)) {
+      return { isQuestion: true, word: 'how', type: 'quantity' };
+    }
+    if (Object.prototype.hasOwnProperty.call(whTypes, first)) {
+      return { isQuestion: true, word: first, type: whTypes[first] };
+    }
+
+    // Yes/no (polar) questions open with an auxiliary/copula verb, or any
+    // sentence ending in a question mark we have not otherwise classified.
+    const auxiliaries = [
+      'is', 'are', 'was', 'were', 'am', 'be',
+      'do', 'does', 'did', 'has', 'have', 'had',
+      'can', 'could', 'will', 'would', 'shall', 'should', 'may', 'might', 'must',
+    ];
+    if (auxiliaries.includes(first) && trimmed.endsWith('?')) {
+      return { isQuestion: true, word: first, type: 'polar' };
+    }
+    if (trimmed.endsWith('?')) {
+      return { isQuestion: true, word: null, type: 'polar' };
+    }
+
+    return { isQuestion: false, word: null, type: null };
+  }
+
+  /**
+   * Extract numeric quantities (with their units) from the input.
+   *
+   * "Numerical values lost in transformation" is the third documented
+   * limitation: "Mount Everest is 8848 meters tall" produced an empty
+   * sequence because bare numbers match no Wikidata entity. Rather than drop
+   * them, we surface them as structured `{ value, unit }` pairs the way
+   * Wikidata models a quantity statement (P1082 population, P2048 height, …)
+   * with a unit (Q-item) — and the way the new `quantity` constructor renders
+   * them back to text.
+   *
+   * @param {string} text - The original input text
+   * @returns {Array<{value: number, unit: string|null, raw: string}>}
+   */
+  extractQuantities(text) {
+    if (!text) return [];
+    const out = [];
+    // A number (optionally grouped with commas / a decimal point) followed by
+    // an optional unit word, which may itself be a "<unit> per <unit>" rate.
+    const re = /(-?\d[\d,]*(?:\.\d+)?)\s*([a-zA-Z%°]+(?:\s+per\s+[a-zA-Z]+)?)?/g;
+    let m;
+    while ((m = re.exec(text)) !== null) {
+      const value = parseFloat(m[1].replace(/,/g, ''));
+      if (Number.isNaN(value)) continue;
+      let unit = (m[2] || '').trim() || null;
+      // A trailing word that is a stop word ("a", "the", …) is not a unit.
+      if (unit && this.stopWords.includes(unit.toLowerCase())) unit = null;
+      out.push({ value, unit, raw: m[0].trim() });
+    }
+    return out;
+  }
+
+  /**
+   * Collapse consecutive identical ids in a matched sequence.
+   *
+   * "Repeated entities not properly deduplicated" is the final documented
+   * limitation: "Paris Paris France France" produced "Q90 Q90 Q142 Q142".
+   * Adjacent repetition of the *same* id is almost always an analysis
+   * artefact rather than meaning, so we collapse runs of it. Ambiguous
+   * matches are never merged (their alternatives may differ even when the
+   * bracketed text looks the same).
+   *
+   * @param {Array} sequence - Matched Q/P items
+   * @returns {Array} - The sequence with adjacent duplicates removed
+   */
+  dedupeSequence(sequence) {
+    const out = [];
+    for (const item of sequence) {
+      const prev = out[out.length - 1];
+      if (
+        prev && item &&
+        prev.type !== 'ambiguous' && item.type !== 'ambiguous' &&
+        prev.id === item.id
+      ) {
+        continue;
+      }
+      out.push(item);
+    }
+    return out;
+  }
+
+  /**
    * Convert a transform() result into a typed, role-labelled constructor —
    * the representation the multi-language generation service consumes. This
    * is the bridge that makes the round-trip `text → Q/P → text` possible.
@@ -536,6 +652,8 @@ class TextToQPTransformer {
   async transformToConstructor(text, options = {}) {
     const result = await this.transform(text, options);
     result.modifiers = this.extractModifiers(text);
+    result.question = this.detectQuestion(text);
+    result.quantities = this.extractQuantities(text);
     result.constructor = this.toConstructor(result);
     return result;
   }

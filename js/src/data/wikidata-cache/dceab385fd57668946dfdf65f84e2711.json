@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1781084312775,
+  "ttl": 86400000,
+  "query": "President of the",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1781084312533,
+  "ttl": 86400000,
+  "query": "president Barack",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

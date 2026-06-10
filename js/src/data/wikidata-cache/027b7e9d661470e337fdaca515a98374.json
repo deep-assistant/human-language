@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1781084312139,
+  "ttl": 86400000,
+  "query": "fuzzy_theory of",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}

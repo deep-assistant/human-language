@@ -1,0 +1,13 @@
+{
+  "data": {
+    "entities": [],
+    "properties": [],
+    "total": 0
+  },
+  "timestamp": 1781084312052,
+  "ttl": 86400000,
+  "query": "relativity",
+  "languages": "en",
+  "limit": 10,
+  "type": "both"
+}
