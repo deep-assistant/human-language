@@ -27,6 +27,17 @@ export {
 
 export { TextToQPTransformer } from './transformation/text-to-qp-transformer.js';
 
+export { QPRenderer } from './generation/qp-to-text.js';
+
+export {
+  CONSTRUCTORS,
+  UN6_LANGUAGES,
+  LANGUAGE_NAMES,
+  buildConstructor,
+  validateConstructor,
+  englishIndefiniteArticle,
+} from './generation/constructors.js';
+
 export {
   formatSequenceAsLino,
   formatTransformResultAsLino,

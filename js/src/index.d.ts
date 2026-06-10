@@ -63,6 +63,44 @@ export function formatSequenceAsLino(sequence: TransformResult['sequence']): str
 export function formatTransformResultAsLino(result: TransformResult): string;
 
 // ---------------------------------------------------------------------------
+// Generation (reverse: Q/P -> text)
+// ---------------------------------------------------------------------------
+
+export type Tense = 'past' | 'present' | 'future';
+
+/** A typed, role-labelled constructor consumed by the renderer. */
+export interface Constructor {
+  type: string;
+  subject?: string;
+  predicate?: string | null;
+  object?: string | null;
+  negated?: boolean;
+  tense?: Tense;
+  [role: string]: unknown;
+}
+
+export interface QPRendererOptions {
+  labelProvider?: (ids: string[], lang: string) => Promise<Record<string, string>>;
+  apiClient?: WikidataAPIClient;
+}
+
+export class QPRenderer {
+  constructor(options?: QPRendererOptions);
+  readonly languages: string[];
+  readonly constructorTypes: string[];
+  renderWithLabels(constructor: Constructor, labels: Record<string, string>, lang?: string): string;
+  render(constructor: Constructor, lang?: string): Promise<string>;
+  renderAll(constructor: Constructor, langs?: string[]): Promise<Record<string, string>>;
+}
+
+export const CONSTRUCTORS: Record<string, { roles: string[]; description: string; templates: Record<string, unknown> }>;
+export const UN6_LANGUAGES: readonly string[];
+export const LANGUAGE_NAMES: Record<string, string>;
+export function buildConstructor(type: string, roles?: Record<string, unknown>, modifiers?: Record<string, unknown>): Constructor;
+export function validateConstructor(constructor: Constructor): boolean;
+export function englishIndefiniteArticle(word: string): 'a' | 'an';
+
+// ---------------------------------------------------------------------------
 // Wikidata API
 // ---------------------------------------------------------------------------
 
@@ -72,6 +110,8 @@ export class WikidataAPIClient {
   fetchEntities(ids: string | string[], props?: string, languages?: string): Promise<unknown>;
   fetchProperty(id: string, languages?: string): Promise<unknown>;
   fetchLabels(ids: string[], languages?: string): Promise<unknown>;
+  getLabels(ids: string[] | string, language?: string): Promise<Record<string, string>>;
+  searchLexemes(term: string, language?: string, limit?: number): Promise<Array<{ id: string; label: string; description: string }>>;
   searchExactMatch(query: string, languages?: string, limit?: number, type?: string): Promise<unknown>;
   searchFuzzy(query: string, languages?: string, limit?: number, type?: string): Promise<unknown>;
   setCacheType(cacheType: string, cacheOptions?: Record<string, unknown>): void;

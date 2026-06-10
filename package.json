@@ -1,6 +1,6 @@
 {
   "name": "human-language",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Human Language: a Wikidata-backed library, CLI and HTTP microservice for transforming English text into sequences of Wikidata entities (Q) and properties (P), with alphabet/dictionary/ontology browsing and IPA support.",
   "license": "MIT",
   "repository": {
@@ -48,6 +48,12 @@
     },
     "./transform/lino": {
       "import": "./js/src/transformation/lino-format.js"
+    },
+    "./generate": {
+      "import": "./js/src/generation/qp-to-text.js"
+    },
+    "./generate/constructors": {
+      "import": "./js/src/generation/constructors.js"
     },
     "./wikidata": {
       "import": "./js/src/wikidata-api.js"
