@@ -163,6 +163,26 @@ export const CONSTRUCTORS = {
     },
   },
 
+  // X measures VALUE UNIT — a quantity/measurement statement. Mirrors a
+  // Wikidata quantity claim (e.g. P2048 height, P2052 speed) carrying a
+  // numeric value and a unit. This closes the "numerical values lost in
+  // transformation" limitation: the transformer's extractQuantities() feeds
+  // { value, unit } straight into this constructor. The verb is the canonical
+  // measurement verb per language (en copula "is", es "mide", fr "mesure"),
+  // documented as a generic seed the way the other templates are.
+  quantity: {
+    roles: ['subject', 'value', 'unit'],
+    description: 'X measures VALUE UNIT (Wikidata quantity claim)',
+    templates: {
+      en: { positive: '{subject} is {value} {unit}', negative: '{subject} is not {value} {unit}' },
+      es: { positive: '{subject} mide {value} {unit}', negative: '{subject} no mide {value} {unit}' },
+      fr: { positive: '{subject} mesure {value} {unit}', negative: '{subject} ne mesure pas {value} {unit}' },
+      ru: { positive: '{subject} — {value} {unit}', negative: '{subject} — не {value} {unit}' },
+      zh: { positive: '{subject}是{value}{unit}', negative: '{subject}不是{value}{unit}' },
+      ar: { positive: '{subject} يساوي {value} {unit}', negative: '{subject} لا يساوي {value} {unit}' },
+    },
+  },
+
   // Generic fallback: subject — predicate — object, where the predicate is
   // itself a (property) label. This lets the round-trip render *any*
   // text → Q/P result, not only the two specialised constructors above.

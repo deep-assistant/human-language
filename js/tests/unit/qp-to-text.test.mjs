@@ -172,6 +172,29 @@ test('renderWithLabels supports the generic relation constructor with a predicat
   assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin author book');
 });
 
+test('renderWithLabels renders the quantity constructor across the UN 6 languages', () => {
+  const r = new QPRenderer();
+  const c = { type: 'quantity', subject: 'Mount Everest', value: 8848, unit: 'meters' };
+  assert.equal(r.renderWithLabels(c, {}, 'en'), 'Mount Everest is 8848 meters');
+  assert.equal(r.renderWithLabels(c, {}, 'es'), 'Mount Everest mide 8848 meters');
+  assert.equal(r.renderWithLabels(c, {}, 'fr'), 'Mount Everest mesure 8848 meters');
+  assert.equal(r.renderWithLabels(c, {}, 'ru'), 'Mount Everest — 8848 meters');
+  assert.equal(r.renderWithLabels(c, {}, 'zh'), 'Mount Everest是8848meters');
+  assert.equal(r.renderWithLabels(c, {}, 'ar'), 'Mount Everest يساوي 8848 meters');
+});
+
+test('renderWithLabels honours negation on the quantity constructor', () => {
+  const r = new QPRenderer();
+  const c = { type: 'quantity', subject: 'X', value: 5, unit: 'kg', negated: true };
+  assert.equal(r.renderWithLabels(c, {}, 'en'), 'X is not 5 kg');
+  assert.equal(r.renderWithLabels(c, {}, 'fr'), 'X ne mesure pas 5 kg');
+});
+
+test('validateConstructor enforces the quantity roles', () => {
+  assert.equal(validateConstructor({ type: 'quantity', subject: 'X', value: 5, unit: 'kg' }), true);
+  assert.throws(() => validateConstructor({ type: 'quantity', subject: 'X', value: 5 }), /missing role "unit"/);
+});
+
 test('renderWithLabels throws for an unsupported language', () => {
   const r = new QPRenderer();
   assert.throws(
@@ -302,6 +325,30 @@ test('toConstructor builds an instance_of constructor preserving negation', () =
   assert.equal(c.subject, 'Q64');
   assert.equal(c.object, 'Q532');
   assert.equal(c.negated, true);
+});
+
+test('toConstructor builds a quantity constructor when a measurement is present', () => {
+  const t = new TextToQPTransformer();
+  const original = 'Mount Everest is 8848 meters tall';
+  const result = {
+    original,
+    sequence: [{ id: 'Q513' }],
+    quantities: t.extractQuantities(original),
+  };
+  const c = t.toConstructor(result);
+  assert.equal(c.type, 'quantity');
+  assert.equal(c.subject, 'Q513');
+  assert.equal(c.value, 8848);
+  assert.equal(c.unit, 'meters');
+});
+
+test('round-trip: a measurement survives text → quantity constructor → text', () => {
+  const t = new TextToQPTransformer();
+  const r = new QPRenderer();
+  const original = 'Mount Everest is 8848 meters tall';
+  const result = { original, sequence: [{ id: 'Q513' }], quantities: t.extractQuantities(original) };
+  const c = t.toConstructor(result);
+  assert.equal(r.renderWithLabels(c, { Q513: 'Mount Everest' }, 'en'), 'Mount Everest is 8848 meters');
 });
 
 test('toConstructor falls back to a generic relation', () => {

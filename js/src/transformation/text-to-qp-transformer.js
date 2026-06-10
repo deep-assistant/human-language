@@ -627,6 +627,20 @@ class TextToQPTransformer {
 
     const { negated, tense } = this.extractModifiers(result.original || '');
 
+    // A measurement ("Mount Everest is 8848 meters tall") maps to the
+    // quantity constructor rather than a bare instance_of/relation, so the
+    // number and unit survive the round-trip instead of being dropped.
+    const quantity = Array.isArray(result.quantities)
+      ? result.quantities.find((q) => q.unit)
+      : null;
+    if (quantity) {
+      return buildConstructor(
+        'quantity',
+        { subject, value: quantity.value, unit: quantity.unit },
+        { negated, tense },
+      );
+    }
+
     const lower = (result.original || '').toLowerCase();
     const isInstanceOf = predicate === 'P31'
       || this.instanceOfWords.some((w) => new RegExp(`\\b${w}\\b`).test(lower));
