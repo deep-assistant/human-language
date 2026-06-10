@@ -50,8 +50,9 @@ unified-SPA mode, a legacy redirect shell, and e2e coverage.
 ## The Abstract-Wikipedia concepts we adopted
 
 * **Constructors** — typed containers with named argument *roles*
-  (`instance_of`, `located_in`, `relation`). Our `CONSTRUCTORS`
-  catalogue mirrors this.
+  (`instance_of`, `located_in`, `relation`, and the `quantity`
+  measurement constructor `subject` · `value` · `unit`). Our
+  `CONSTRUCTORS` catalogue mirrors this.
 * **Templatic renderers** — one template per constructor *per language*.
   We ship the six official UN languages (en, ar, es, fr, ru, zh), the
   same demonstration set Abstract Wikipedia uses for its first
@@ -59,8 +60,10 @@ unified-SPA mode, a legacy redirect shell, and e2e coverage.
   is a city").
 * **Grow the grammar incrementally** — we deliberately start with a
   handful of high-value constructors plus English `a`/`an` phonotactics
-  as the first grammatical feature, exactly the way Abstract Wikipedia
-  grew its grammar.
+  and Romance gender agreement (es `un`/`una`, fr `un`/`une`, driven by
+  the object noun's grammatical gender — Wikidata P5185) as the first
+  grammatical features, exactly the way Abstract Wikipedia grew its
+  grammar.
 
 ## Round-trip in one example
 

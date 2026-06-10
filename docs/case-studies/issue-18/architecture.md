@@ -22,6 +22,7 @@ existing transformer so the two directions are symmetric.
    • templates per constructor-per-language        • searchLexemes(term, lang)
    • fillTemplate / validateConstructor
    • englishIndefiniteArticle (a/an)
+   • romanceIndefiniteArticle (un/una · un/une)
 ```
 
 ### `constructors.js` — the pure data layer
@@ -34,17 +35,25 @@ round-trip. It holds:
   a `positive` and (where the language differs) a `negative` pattern, plus
   optional `past`/`future` variants that inflect the verb for tense. This
   is the direct analogue of an Abstract Wikipedia *constructor* plus its
-  per-language *templatic renderers*.
+  per-language *templatic renderers*. The catalogue includes a `quantity`
+  constructor (`subject` · `value` · `unit`) that renders a measurement in
+  all six languages — the direct analogue of a Wikidata quantity claim
+  (e.g. P2048 height), closing the numerical round-trip.
 - **`buildConstructor` / `validateConstructor`** — construct and check an
   instance against the catalogue (unknown type / missing role throw).
 - **`fillTemplate`** — pick the tense forms (`constructor.tense`, falling
   back to the present `positive`/`negative` when a language has no variant),
-  substitute `{subject}`/`{predicate}`/`{object}` and the `{article}`
-  phonotactics token, collapsing the whitespace an empty article leaves
-  behind. Tense variants are added only where they stay grammatical without
-  noun-case morphology (copula tense in en/es/fr, the locative verb in
-  en/es/fr/ru/ar); cases that would need morphology fall back to present.
+  substitute the role tokens (`{subject}`/`{predicate}`/`{object}`,
+  `{value}`/`{unit}`) and the `{article}` phonotactics token, collapsing the
+  whitespace an empty article leaves behind. Tense variants are added only
+  where they stay grammatical without noun-case morphology (copula tense in
+  en/es/fr, the locative verb in en/es/fr/ru/ar); cases that would need
+  morphology fall back to present.
 - **`englishIndefiniteArticle`** — the first grammatical feature (`a`/`an`).
+- **`romanceIndefiniteArticle`** — the second: agrees the Spanish/French
+  indefinite article (`un`/`una`, `un`/`une`) with the object noun's
+  grammatical gender (the constructor's `gender`, ultimately a Wikidata
+  Lexeme P5185 statement), defaulting to masculine when none is supplied.
 
 ### `qp-to-text.js` — the renderer
 
@@ -70,10 +79,16 @@ Wikidata client (browser vs Node) exactly like the transformer does.
 `text-to-qp-transformer.js` gained `transformToConstructor(text)`, which
 runs the normal analysis and then folds the flat Q/P sequence into a typed
 constructor: first Q → `subject`, first P → `predicate`, next Q →
-`object`. It also extracts **modifiers** — `negated` (via `not`/`n't`/
-`never`) and `tense` (`present`/`past`/`future`, handling `-ed` and a set
-of irregular past forms). This is what makes the round-trip
-`text → Q/P → text` possible.
+`object` — or, when a measurement is present, a `quantity` constructor
+(`subject` · `value` · `unit`). It also extracts **modifiers** — `negated`
+(via `not`/`n't`/`never`) and `tense` (`present`/`past`/`future`, handling
+`-ed` and a set of irregular past forms) — classifies **questions**
+(`detectQuestion`: wh-word → `entity`/`thing`/`time`/`place`/`reason`/
+`manner`/`quantity`, plus polar questions), pulls out **quantities**
+(`extractQuantities`: number + unit), and collapses adjacent duplicate ids
+(`dedupeSequence`). This is what makes the round-trip `text → Q/P → text`
+possible and closes the negation / question / numerical / repetition gaps
+the analysis surfaced.
 
 ## Why this shape
 

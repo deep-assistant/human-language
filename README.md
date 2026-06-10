@@ -18,7 +18,7 @@ The whole project is published to GitHub Pages as a single unified single-page a
 | [Entities](https://link-assistant.github.io/human-language/app.html#mode=entity) | Browse any Wikidata Q-id, with IPA toggle and an inline test runner. | [`js/src/app/modes/entity.jsx`](js/src/app/modes/entity.jsx) |
 | [Properties](https://link-assistant.github.io/human-language/app.html#mode=property) | Same lens as Entities but for P-ids. | [`js/src/app/modes/property.jsx`](js/src/app/modes/property.jsx) |
 | [Text → Q/P Transformer](https://link-assistant.github.io/human-language/app.html#mode=transformer) | Turn English text into a sequence of Wikidata entities (Q) and properties (P), with n-gram support. | [`js/src/app/modes/transformer.jsx`](js/src/app/modes/transformer.jsx) |
-| [Q/P → Text Generation](https://link-assistant.github.io/human-language/app.html#mode=generation) | The reverse direction: render a typed constructor (subject · predicate · object, with negation and tense) into sentences across the six official UN languages. | [`js/src/app/modes/generation.jsx`](js/src/app/modes/generation.jsx) |
+| [Q/P → Text Generation](https://link-assistant.github.io/human-language/app.html#mode=generation) | The reverse direction: render a typed constructor (subject · predicate · object, or a subject · value · unit measurement, with negation, tense and Romance gender agreement) into sentences across the six official UN languages. | [`js/src/app/modes/generation.jsx`](js/src/app/modes/generation.jsx) |
 
 The legacy URLs (`entities.html`, `properties.html`, `transformation/index.html`, `generation/index.html`, and bare hashes like `entities.html#Q35120`) still work — they now redirect into the unified SPA preserving any parameters.
 
@@ -65,9 +65,9 @@ This project will fundamentally transform how we store, access, and verify human
 
 ### 2. Q/P-to-Text Generation (reverse renderer)
 - **Closes the round-trip**: the reverse of the transformer — typed meaning → natural-language text
-- **Abstract-Wikipedia-style constructors**: typed containers (`instance_of`, `located_in`, `relation`) with named roles
+- **Abstract-Wikipedia-style constructors**: typed containers (`instance_of`, `located_in`, `relation`, `quantity`) with named roles — including a `quantity` measurement constructor (`subject` · `value` · `unit`) mirroring a Wikidata quantity claim
 - **Multi-language rendering**: one templatic renderer per constructor-per-language across the six official UN languages (en, ar, es, fr, ru, zh)
-- **Grammatical features**: negation, tense, and English `a`/`an` indefinite-article phonotactics
+- **Grammatical features**: negation, tense, English `a`/`an` indefinite-article phonotactics, and Romance gender agreement (es `un`/`una`, fr `un`/`une`)
 - **Offline-friendly**: role values may be Wikidata ids (resolved to labels) or plain text (rendered verbatim, no network)
 - Interactive web demo at `app.html#mode=generation`; library entry point [`human-language/generate`](js/src/generation/qp-to-text.js)
 
@@ -188,12 +188,12 @@ Based on our [GitHub issues](https://github.com/link-assistant/human-language/is
    - N-gram generation and matching
    - Parallel search execution
    - Priority-based result merging
-   - Typed-constructor output (`transformToConstructor`) with negation and tense detection
+   - Typed-constructor output (`transformToConstructor`) with negation, tense, question (`detectQuestion`) and quantity (`extractQuantities`) detection, plus adjacent-duplicate collapsing (`dedupeSequence`)
 
 3. **Q/P → Text Renderer** (`js/src/generation/qp-to-text.js`, `js/src/generation/constructors.js`)
-   - Typed constructors with named roles (Abstract-Wikipedia-style)
+   - Typed constructors with named roles (Abstract-Wikipedia-style), including a `quantity` measurement constructor
    - One templatic renderer per constructor-per-language across the UN 6 languages
-   - Negation, tense and English `a`/`an` phonotactics
+   - Negation, tense, English `a`/`an` phonotactics and Romance gender agreement (`un`/`una`, `un`/`une`)
    - Batch label resolution via the Wikidata client (`getLabels`), pluggable for offline use
 
 4. **Search Utilities** (`js/src/wikidata-api.js`)
