@@ -56,6 +56,19 @@ export function englishIndefiniteArticle(word) {
  *
  * A template provides a `positive` pattern and, where the language differs,
  * a `negative` pattern used when the constructor carries `negated: true`.
+ *
+ * Tense (`past` / `future`) is optional and inflects the verb only. We add
+ * a tense variant *only* where it is grammatically correct without the noun
+ * morphology this renderer does not yet have (that awaits the Wikidata
+ * Lexeme integration tracked in `research/`). Concretely:
+ *   - copula tense (en/es/fr "is→was→will be") leaves the predicate noun
+ *     unchanged, so it is safe;
+ *   - Russian/Arabic *instance_of* past needs case changes on the noun
+ *     (instrumental / accusative), so those fall back to the present copula;
+ *   - Chinese copulas (是 / 在) do not inflect for tense, so the present form
+ *     is already correct for every tense and needs no variant.
+ * When a language has no variant for the requested tense, `fillTemplate`
+ * falls back to the (always-present) `positive`/`negative` patterns.
  */
 export const CONSTRUCTORS = {
   // X is an instance of Y — Wikidata P31. Mirrors Abstract Wikipedia's
@@ -64,26 +77,62 @@ export const CONSTRUCTORS = {
     roles: ['subject', 'object'],
     description: 'X is an instance of Y (Wikidata P31)',
     templates: {
-      en: { positive: '{subject} is {article} {object}', negative: '{subject} is not {article} {object}', article: 'en-indefinite' },
-      es: { positive: '{subject} es un {object}', negative: '{subject} no es un {object}' },
-      fr: { positive: '{subject} est un {object}', negative: "{subject} n'est pas un {object}" },
+      en: {
+        positive: '{subject} is {article} {object}', negative: '{subject} is not {article} {object}', article: 'en-indefinite',
+        past: { positive: '{subject} was {article} {object}', negative: '{subject} was not {article} {object}' },
+        future: { positive: '{subject} will be {article} {object}', negative: '{subject} will not be {article} {object}' },
+      },
+      es: {
+        positive: '{subject} es un {object}', negative: '{subject} no es un {object}',
+        past: { positive: '{subject} era un {object}', negative: '{subject} no era un {object}' },
+        future: { positive: '{subject} será un {object}', negative: '{subject} no será un {object}' },
+      },
+      fr: {
+        positive: '{subject} est un {object}', negative: "{subject} n'est pas un {object}",
+        past: { positive: '{subject} était un {object}', negative: "{subject} n'était pas un {object}" },
+        future: { positive: '{subject} sera un {object}', negative: '{subject} ne sera pas un {object}' },
+      },
+      // ru/ar instance_of past needs noun case morphology we lack — fall back
+      // to the present copula rather than emit ungrammatical case.
       ru: { positive: '{subject} — {object}', negative: '{subject} — не {object}' },
       zh: { positive: '{subject}是{object}', negative: '{subject}不是{object}' },
       ar: { positive: '{subject} {object}', negative: '{subject} ليس {object}' },
     },
   },
 
-  // X is located in Y — Wikidata P131 / P276.
+  // X is located in Y — Wikidata P131 / P276. Here the object stays in the
+  // same case across tenses in every language below, so tense is safe to
+  // inflect on the verb everywhere it inflects.
   located_in: {
     roles: ['subject', 'object'],
     description: 'X is located in Y (Wikidata P131/P276)',
     templates: {
-      en: { positive: '{subject} is in {object}', negative: '{subject} is not in {object}' },
-      es: { positive: '{subject} está en {object}', negative: '{subject} no está en {object}' },
-      fr: { positive: '{subject} est en {object}', negative: "{subject} n'est pas en {object}" },
-      ru: { positive: '{subject} находится в {object}', negative: '{subject} не находится в {object}' },
+      en: {
+        positive: '{subject} is in {object}', negative: '{subject} is not in {object}',
+        past: { positive: '{subject} was in {object}', negative: '{subject} was not in {object}' },
+        future: { positive: '{subject} will be in {object}', negative: '{subject} will not be in {object}' },
+      },
+      es: {
+        positive: '{subject} está en {object}', negative: '{subject} no está en {object}',
+        past: { positive: '{subject} estaba en {object}', negative: '{subject} no estaba en {object}' },
+        future: { positive: '{subject} estará en {object}', negative: '{subject} no estará en {object}' },
+      },
+      fr: {
+        positive: '{subject} est en {object}', negative: "{subject} n'est pas en {object}",
+        past: { positive: '{subject} était en {object}', negative: "{subject} n'était pas en {object}" },
+        future: { positive: '{subject} sera en {object}', negative: '{subject} ne sera pas en {object}' },
+      },
+      ru: {
+        positive: '{subject} находится в {object}', negative: '{subject} не находится в {object}',
+        past: { positive: '{subject} находился в {object}', negative: '{subject} не находился в {object}' },
+        future: { positive: '{subject} будет в {object}', negative: '{subject} не будет в {object}' },
+      },
       zh: { positive: '{subject}在{object}', negative: '{subject}不在{object}' },
-      ar: { positive: '{subject} في {object}', negative: '{subject} ليس في {object}' },
+      ar: {
+        positive: '{subject} في {object}', negative: '{subject} ليس في {object}',
+        past: { positive: '{subject} كان في {object}', negative: '{subject} لم يكن في {object}' },
+        future: { positive: '{subject} سيكون في {object}', negative: '{subject} لن يكون في {object}' },
+      },
     },
   },
 
@@ -151,9 +200,13 @@ export function validateConstructor(constructor) {
  * @returns {string}
  */
 export function fillTemplate(spec, template, constructor, labels) {
+  // Select the verb forms for the requested tense, falling back to the
+  // always-present (present-tense) patterns when a language has no variant.
+  const tense = constructor.tense;
+  const forms = (tense && tense !== 'present' && template[tense]) || template;
   const pattern = constructor.negated
-    ? (template.negative || template.positive)
-    : template.positive;
+    ? (forms.negative || forms.positive)
+    : forms.positive;
 
   let out = pattern;
   for (const role of spec.roles) {

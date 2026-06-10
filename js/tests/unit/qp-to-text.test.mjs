@@ -95,6 +95,42 @@ test('renderWithLabels honours the negated flag', () => {
   assert.equal(r.renderWithLabels(c, LABELS.ru, 'ru'), 'Берлин — не город');
 });
 
+test('renderWithLabels inflects tense on the copula where it is grammatical', () => {
+  const r = new QPRenderer();
+  // instance_of: en/es/fr inflect; ru/zh/ar keep the present copula form.
+  const past = { type: 'instance_of', subject: 'Q64', object: 'Q515', tense: 'past' };
+  assert.equal(r.renderWithLabels(past, LABELS.en, 'en'), 'Berlin was a city');
+  assert.equal(r.renderWithLabels(past, LABELS.es, 'es'), 'Berlín era un ciudad');
+  assert.equal(r.renderWithLabels(past, LABELS.fr, 'fr'), 'Berlin était un ville');
+  assert.equal(r.renderWithLabels(past, LABELS.ru, 'ru'), 'Берлин — город'); // graceful fallback
+  const future = { type: 'instance_of', subject: 'Q64', object: 'Q1', tense: 'future' };
+  assert.equal(r.renderWithLabels(future, LABELS.en, 'en'), 'Berlin will be an island');
+});
+
+test('renderWithLabels combines tense and negation', () => {
+  const r = new QPRenderer();
+  const c = { type: 'instance_of', subject: 'Q64', object: 'Q515', tense: 'past', negated: true };
+  assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin was not a city');
+  assert.equal(r.renderWithLabels(c, LABELS.fr, 'fr'), "Berlin n'était pas un ville");
+});
+
+test('renderWithLabels inflects located_in tense across en/es/fr/ru/ar', () => {
+  const r = new QPRenderer();
+  const past = { type: 'located_in', subject: 'Q64', object: 'Q183', tense: 'past' };
+  assert.equal(r.renderWithLabels(past, LABELS.en, 'en'), 'Berlin was in Germany');
+  assert.equal(r.renderWithLabels(past, LABELS.es, 'es'), 'Berlín estaba en Alemania');
+  assert.equal(r.renderWithLabels(past, LABELS.fr, 'fr'), 'Berlin était en Allemagne');
+  assert.equal(r.renderWithLabels(past, LABELS.ru, 'ru'), 'Берлин находился в Германия');
+  const future = { type: 'located_in', subject: 'Q64', object: 'Q183', tense: 'future' };
+  assert.equal(r.renderWithLabels(future, LABELS.en, 'en'), 'Berlin will be in Germany');
+});
+
+test('renderWithLabels treats an explicit present tense like the default', () => {
+  const r = new QPRenderer();
+  const c = { type: 'instance_of', subject: 'Q64', object: 'Q515', tense: 'present' };
+  assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin is a city');
+});
+
 test('renderWithLabels supports the located_in constructor', () => {
   const r = new QPRenderer();
   const c = { type: 'located_in', subject: 'Q64', object: 'Q183' };
@@ -211,4 +247,17 @@ test('round-trip: a transformer constructor renders back to text', () => {
   const c = t.toConstructor(result);
   assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin is a city');
   assert.equal(r.renderWithLabels(c, LABELS.ru, 'ru'), 'Берлин — город');
+});
+
+test('round-trip: past tense survives text → Q/P → text', () => {
+  const t = new TextToQPTransformer();
+  const r = new QPRenderer();
+  const result = {
+    original: 'Berlin was a city',
+    sequence: [{ id: 'Q64' }, { id: 'P31' }, { id: 'Q515' }],
+  };
+  const c = t.toConstructor(result);
+  assert.equal(c.type, 'instance_of');
+  assert.equal(c.tense, 'past');
+  assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin was a city');
 });

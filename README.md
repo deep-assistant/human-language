@@ -288,7 +288,7 @@ The text transformation system currently has some limitations:
 
 1. **Negation handling**: The raw Q/P sequence does not encode negation — but `transformToConstructor` now detects it and the generation renderer expresses it ("X is not a Y")
 2. **Question parsing**: Direct questions (who, what, when) aren't supported
-3. **Verb tenses**: The raw sequence drops tense — `transformToConstructor` detects past/present/future, though the renderer's surface forms are still tense-light
+3. **Verb tenses**: The raw sequence drops tense — `transformToConstructor` detects past/present/future and the renderer inflects the copula where grammatical (e.g. English "X was a Y", "X will be a Y", and the Spanish/French/Russian/Arabic equivalents). Languages that need noun-case morphology for a given tense (e.g. Russian/Arabic *instance_of* past) fall back to the present form, pending the Wikidata Lexeme integration tracked in `research/`
 4. **Pronoun resolution**: Cannot resolve pronouns like "he", "she", "it"
 5. **Complex sentences**: Struggles with subordinate clauses
 

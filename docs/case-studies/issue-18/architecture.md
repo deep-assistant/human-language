@@ -31,14 +31,19 @@ round-trip. It holds:
 
 - **`CONSTRUCTORS`** — the typed catalogue. Each entry has `roles` (named
   argument slots), a `description`, and `templates` keyed by language with
-  a `positive` and (where the language differs) a `negative` pattern. This
+  a `positive` and (where the language differs) a `negative` pattern, plus
+  optional `past`/`future` variants that inflect the verb for tense. This
   is the direct analogue of an Abstract Wikipedia *constructor* plus its
   per-language *templatic renderers*.
 - **`buildConstructor` / `validateConstructor`** — construct and check an
   instance against the catalogue (unknown type / missing role throw).
-- **`fillTemplate`** — substitute `{subject}`/`{predicate}`/`{object}` and
-  the `{article}` phonotactics token, collapsing the whitespace an empty
-  article leaves behind.
+- **`fillTemplate`** — pick the tense forms (`constructor.tense`, falling
+  back to the present `positive`/`negative` when a language has no variant),
+  substitute `{subject}`/`{predicate}`/`{object}` and the `{article}`
+  phonotactics token, collapsing the whitespace an empty article leaves
+  behind. Tense variants are added only where they stay grammatical without
+  noun-case morphology (copula tense in en/es/fr, the locative verb in
+  en/es/fr/ru/ar); cases that would need morphology fall back to present.
 - **`englishIndefiniteArticle`** — the first grammatical feature (`a`/`an`).
 
 ### `qp-to-text.js` — the renderer
