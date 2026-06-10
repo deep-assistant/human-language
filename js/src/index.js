@@ -36,6 +36,7 @@ export {
   buildConstructor,
   validateConstructor,
   englishIndefiniteArticle,
+  romanceIndefiniteArticle,
 } from './generation/constructors.js';
 
 export {

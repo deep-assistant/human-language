@@ -46,13 +46,40 @@ export function englishIndefiniteArticle(word) {
 }
 
 /**
+ * Grammatical-gender agreement for the Romance indefinite article — the
+ * second grammatical feature of the renderer. Spanish and French inflect the
+ * indefinite article for the *object* noun's gender (es *un/una*, fr
+ * *un/une*), so "Berlín es un ciudad" is ungrammatical: *ciudad* is feminine
+ * and requires *una*.
+ *
+ * The gender of a Wikidata noun ultimately comes from its Lexeme's
+ * grammatical-gender statement (Wikidata P5185), the same source Abstract
+ * Wikipedia uses; until that integration lands (tracked in `research/`), the
+ * caller supplies it via the constructor's `gender` modifier. When no gender
+ * is given we fall back to masculine — the unmarked default in both languages
+ * — and document that as a known approximation rather than emit nothing.
+ *
+ * @param {string} lang - 'es' or 'fr'
+ * @param {string} [gender] - 'feminine' | 'f' | 'masculine' | 'm' (default masculine)
+ * @returns {string} - The indefinite article, or '' for an unsupported language
+ */
+export function romanceIndefiniteArticle(lang, gender) {
+  const feminine = gender === 'feminine' || gender === 'f';
+  if (lang === 'es') return feminine ? 'una' : 'un';
+  if (lang === 'fr') return feminine ? 'une' : 'un';
+  return '';
+}
+
+/**
  * Constructor catalogue. Each constructor is a typed container with named
  * argument roles and one templatic renderer per supported language.
  *
  * Template placeholders:
  *   {subject} {predicate} {object} - replaced by the role's resolved label
  *   {article}                      - replaced by the language's indefinite
- *                                    article (English a/an phonotactics)
+ *                                    article (English a/an phonotactics; the
+ *                                    gender-agreeing Romance un/una, un/une
+ *                                    keyed off the constructor's `gender`)
  *
  * A template provides a `positive` pattern and, where the language differs,
  * a `negative` pattern used when the constructor carries `negated: true`.
@@ -83,14 +110,14 @@ export const CONSTRUCTORS = {
         future: { positive: '{subject} will be {article} {object}', negative: '{subject} will not be {article} {object}' },
       },
       es: {
-        positive: '{subject} es un {object}', negative: '{subject} no es un {object}',
-        past: { positive: '{subject} era un {object}', negative: '{subject} no era un {object}' },
-        future: { positive: '{subject} será un {object}', negative: '{subject} no será un {object}' },
+        positive: '{subject} es {article} {object}', negative: '{subject} no es {article} {object}', article: 'es-indefinite',
+        past: { positive: '{subject} era {article} {object}', negative: '{subject} no era {article} {object}' },
+        future: { positive: '{subject} será {article} {object}', negative: '{subject} no será {article} {object}' },
       },
       fr: {
-        positive: '{subject} est un {object}', negative: "{subject} n'est pas un {object}",
-        past: { positive: '{subject} était un {object}', negative: "{subject} n'était pas un {object}" },
-        future: { positive: '{subject} sera un {object}', negative: '{subject} ne sera pas un {object}' },
+        positive: '{subject} est {article} {object}', negative: "{subject} n'est pas {article} {object}", article: 'fr-indefinite',
+        past: { positive: '{subject} était {article} {object}', negative: "{subject} n'était pas {article} {object}" },
+        future: { positive: '{subject} sera {article} {object}', negative: '{subject} ne sera pas {article} {object}' },
       },
       // ru/ar instance_of past needs noun case morphology we lack — fall back
       // to the present copula rather than emit ungrammatical case.
@@ -217,9 +244,18 @@ export function fillTemplate(spec, template, constructor, labels) {
 
   if (out.includes('{article}')) {
     const objectLabel = (labels && labels[constructor.object]) || constructor.object || '';
-    const article = template.article === 'en-indefinite'
-      ? englishIndefiniteArticle(objectLabel)
-      : '';
+    let article = '';
+    switch (template.article) {
+      case 'en-indefinite':
+        article = englishIndefiniteArticle(objectLabel);
+        break;
+      case 'es-indefinite':
+        article = romanceIndefiniteArticle('es', constructor.gender);
+        break;
+      case 'fr-indefinite':
+        article = romanceIndefiniteArticle('fr', constructor.gender);
+        break;
+    }
     out = out.split('{article}').join(article);
   }
 
@@ -232,6 +268,7 @@ export default {
   LANGUAGE_NAMES,
   CONSTRUCTORS,
   englishIndefiniteArticle,
+  romanceIndefiniteArticle,
   buildConstructor,
   validateConstructor,
   fillTemplate,

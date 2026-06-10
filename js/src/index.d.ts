@@ -67,6 +67,7 @@ export function formatTransformResultAsLino(result: TransformResult): string;
 // ---------------------------------------------------------------------------
 
 export type Tense = 'past' | 'present' | 'future';
+export type Gender = 'masculine' | 'feminine' | 'm' | 'f';
 
 /** A typed, role-labelled constructor consumed by the renderer. */
 export interface Constructor {
@@ -74,8 +75,12 @@ export interface Constructor {
   subject?: string;
   predicate?: string | null;
   object?: string | null;
+  value?: string | number | null;
+  unit?: string | null;
   negated?: boolean;
   tense?: Tense;
+  /** Grammatical gender of the object noun (drives Romance article agreement). */
+  gender?: Gender;
   [role: string]: unknown;
 }
 
@@ -99,6 +104,7 @@ export const LANGUAGE_NAMES: Record<string, string>;
 export function buildConstructor(type: string, roles?: Record<string, unknown>, modifiers?: Record<string, unknown>): Constructor;
 export function validateConstructor(constructor: Constructor): boolean;
 export function englishIndefiniteArticle(word: string): 'a' | 'an';
+export function romanceIndefiniteArticle(lang: string, gender?: Gender): string;
 
 // ---------------------------------------------------------------------------
 // Wikidata API

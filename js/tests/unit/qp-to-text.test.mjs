@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 
 import {
   englishIndefiniteArticle,
+  romanceIndefiniteArticle,
   fillTemplate,
   validateConstructor,
   buildConstructor,
@@ -15,8 +16,8 @@ import { TextToQPTransformer } from '../../src/transformation/text-to-qp-transfo
 // A small offline label dictionary so the renderer never touches the network.
 const LABELS = {
   en: { Q64: 'Berlin', Q515: 'city', Q183: 'Germany', Q1: 'island', P50: 'author', Q571: 'book' },
-  es: { Q64: 'Berlín', Q515: 'ciudad', Q183: 'Alemania' },
-  fr: { Q64: 'Berlin', Q515: 'ville', Q183: 'Allemagne' },
+  es: { Q64: 'Berlín', Q515: 'ciudad', Q183: 'Alemania', Q571: 'libro' },
+  fr: { Q64: 'Berlin', Q515: 'ville', Q183: 'Allemagne', Q571: 'livre' },
   ru: { Q64: 'Берлин', Q515: 'город', Q183: 'Германия' },
   zh: { Q64: '柏林', Q515: '城市', Q183: '德国' },
   ar: { Q64: 'برلين', Q515: 'مدينة', Q183: 'ألمانيا' },
@@ -34,6 +35,16 @@ test('englishIndefiniteArticle picks "an" before a vowel and "a" otherwise', () 
   assert.equal(englishIndefiniteArticle('city'), 'a');
   assert.equal(englishIndefiniteArticle(''), 'a');
   assert.equal(englishIndefiniteArticle(undefined), 'a');
+});
+
+test('romanceIndefiniteArticle agrees with gender and falls back to masculine', () => {
+  assert.equal(romanceIndefiniteArticle('es', 'feminine'), 'una');
+  assert.equal(romanceIndefiniteArticle('es', 'f'), 'una');
+  assert.equal(romanceIndefiniteArticle('es', 'masculine'), 'un');
+  assert.equal(romanceIndefiniteArticle('es', undefined), 'un'); // documented fallback
+  assert.equal(romanceIndefiniteArticle('fr', 'feminine'), 'une');
+  assert.equal(romanceIndefiniteArticle('fr', undefined), 'un');
+  assert.equal(romanceIndefiniteArticle('de', 'feminine'), ''); // unsupported language
 });
 
 // ---------------------------------------------------------------------------
@@ -78,13 +89,30 @@ test('fillTemplate applies English a/an phonotactics', () => {
 
 test('renderWithLabels renders instance_of across the UN 6 languages', () => {
   const r = new QPRenderer();
-  const c = { type: 'instance_of', subject: 'Q64', object: 'Q515' };
+  // ciudad/ville are feminine, so the Romance article agrees: una/une.
+  const c = { type: 'instance_of', subject: 'Q64', object: 'Q515', gender: 'feminine' };
   assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin is a city');
-  assert.equal(r.renderWithLabels(c, LABELS.es, 'es'), 'Berlín es un ciudad');
-  assert.equal(r.renderWithLabels(c, LABELS.fr, 'fr'), 'Berlin est un ville');
+  assert.equal(r.renderWithLabels(c, LABELS.es, 'es'), 'Berlín es una ciudad');
+  assert.equal(r.renderWithLabels(c, LABELS.fr, 'fr'), 'Berlin est une ville');
   assert.equal(r.renderWithLabels(c, LABELS.ru, 'ru'), 'Берлин — город');
   assert.equal(r.renderWithLabels(c, LABELS.zh, 'zh'), '柏林是城市');
   assert.equal(r.renderWithLabels(c, LABELS.ar, 'ar'), 'برلين مدينة');
+});
+
+test('renderWithLabels agrees the Romance indefinite article with grammatical gender', () => {
+  const r = new QPRenderer();
+  // Feminine object -> una / une.
+  const fem = { type: 'instance_of', subject: 'Q64', object: 'Q515', gender: 'feminine' };
+  assert.equal(r.renderWithLabels(fem, LABELS.es, 'es'), 'Berlín es una ciudad');
+  assert.equal(r.renderWithLabels(fem, LABELS.fr, 'fr'), 'Berlin est une ville');
+  // Masculine object (libro/livre) -> un / un.
+  const masc = { type: 'instance_of', subject: 'Q64', object: 'Q571', gender: 'masculine' };
+  assert.equal(r.renderWithLabels(masc, LABELS.es, 'es'), 'Berlín es un libro');
+  assert.equal(r.renderWithLabels(masc, LABELS.fr, 'fr'), 'Berlin est un livre');
+  // No gender supplied -> documented masculine fallback (un), not a crash.
+  const dflt = { type: 'instance_of', subject: 'Q64', object: 'Q571' };
+  assert.equal(r.renderWithLabels(dflt, LABELS.es, 'es'), 'Berlín es un libro');
+  assert.equal(r.renderWithLabels(dflt, LABELS.fr, 'fr'), 'Berlin est un livre');
 });
 
 test('renderWithLabels honours the negated flag', () => {
@@ -98,10 +126,10 @@ test('renderWithLabels honours the negated flag', () => {
 test('renderWithLabels inflects tense on the copula where it is grammatical', () => {
   const r = new QPRenderer();
   // instance_of: en/es/fr inflect; ru/zh/ar keep the present copula form.
-  const past = { type: 'instance_of', subject: 'Q64', object: 'Q515', tense: 'past' };
+  const past = { type: 'instance_of', subject: 'Q64', object: 'Q515', tense: 'past', gender: 'feminine' };
   assert.equal(r.renderWithLabels(past, LABELS.en, 'en'), 'Berlin was a city');
-  assert.equal(r.renderWithLabels(past, LABELS.es, 'es'), 'Berlín era un ciudad');
-  assert.equal(r.renderWithLabels(past, LABELS.fr, 'fr'), 'Berlin était un ville');
+  assert.equal(r.renderWithLabels(past, LABELS.es, 'es'), 'Berlín era una ciudad');
+  assert.equal(r.renderWithLabels(past, LABELS.fr, 'fr'), 'Berlin était une ville');
   assert.equal(r.renderWithLabels(past, LABELS.ru, 'ru'), 'Берлин — город'); // graceful fallback
   const future = { type: 'instance_of', subject: 'Q64', object: 'Q1', tense: 'future' };
   assert.equal(r.renderWithLabels(future, LABELS.en, 'en'), 'Berlin will be an island');
@@ -109,9 +137,9 @@ test('renderWithLabels inflects tense on the copula where it is grammatical', ()
 
 test('renderWithLabels combines tense and negation', () => {
   const r = new QPRenderer();
-  const c = { type: 'instance_of', subject: 'Q64', object: 'Q515', tense: 'past', negated: true };
+  const c = { type: 'instance_of', subject: 'Q64', object: 'Q515', tense: 'past', negated: true, gender: 'feminine' };
   assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin was not a city');
-  assert.equal(r.renderWithLabels(c, LABELS.fr, 'fr'), "Berlin n'était pas un ville");
+  assert.equal(r.renderWithLabels(c, LABELS.fr, 'fr'), "Berlin n'était pas une ville");
 });
 
 test('renderWithLabels inflects located_in tense across en/es/fr/ru/ar', () => {
@@ -158,8 +186,8 @@ test('renderWithLabels throws for an unsupported language', () => {
 
 test('render resolves labels via the injected provider', async () => {
   const r = new QPRenderer({ labelProvider });
-  const sentence = await r.render({ type: 'instance_of', subject: 'Q64', object: 'Q515' }, 'es');
-  assert.equal(sentence, 'Berlín es un ciudad');
+  const sentence = await r.render({ type: 'instance_of', subject: 'Q64', object: 'Q515', gender: 'feminine' }, 'es');
+  assert.equal(sentence, 'Berlín es una ciudad');
 });
 
 test('renderAll renders every UN 6 language', async () => {
