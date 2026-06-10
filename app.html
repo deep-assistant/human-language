@@ -40,6 +40,9 @@
     import * as ipa from './js/src/app/ipa.js';
     import { TextToQPTransformer } from './js/src/transformation/text-to-qp-transformer.js';
     import { TextTransformerTest, demonstrateTransformer } from './js/src/transformation/text-transformer-test.js';
+    import { QPRenderer } from './js/src/generation/qp-to-text.js';
+    import { CONSTRUCTORS, UN6_LANGUAGES, LANGUAGE_NAMES, buildConstructor, validateConstructor }
+      from './js/src/generation/constructors.js';
 
     // Shared globals expected by the unified shell and legacy components
     // (statements.jsx, loading.jsx) that we re-mount inside the SPA.
@@ -70,6 +73,12 @@
       TextToQPTransformer,
       TextTransformerTest,
       demonstrateTransformer,
+      QPRenderer,
+      CONSTRUCTORS,
+      UN6_LANGUAGES,
+      LANGUAGE_NAMES,
+      buildConstructor,
+      validateConstructor,
       modes: {},
     };
   </script>
@@ -88,6 +97,7 @@
   <script type="text/babel" src="./js/src/app/modes/entity.jsx"></script>
   <script type="text/babel" src="./js/src/app/modes/property.jsx"></script>
   <script type="text/babel" src="./js/src/app/modes/transformer.jsx"></script>
+  <script type="text/babel" src="./js/src/app/modes/generation.jsx"></script>
 
   <!-- Mount the SPA. We wait until the next macrotask so every text/babel
        script above has been transformed and executed before App reads
