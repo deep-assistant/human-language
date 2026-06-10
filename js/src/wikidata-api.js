@@ -97,6 +97,76 @@ class WikidataAPIClient {
   }
 
   /**
+   * Fetch entity/property labels in batch and flatten them into a simple
+   * `{ id: label }` map for the requested language. This is the round-trip
+   * counterpart used by the multi-language generation service, which needs
+   * to turn a list of Q/P ids into human-readable words with a single API
+   * round-trip rather than one request per id.
+   *
+   * @param {Array<string>|string} ids - One or more Q/P ids
+   * @param {string} language - A single language code (e.g. 'en', 'es')
+   * @returns {Promise<Object>} - Map of `{ id: label }`; ids without a label
+   *                              in the requested language fall back to the id
+   */
+  async getLabels(ids, language = 'en') {
+    const idList = Array.isArray(ids) ? ids : [ids];
+    const unique = [...new Set(idList.filter(Boolean))];
+    const out = {};
+    if (unique.length === 0) {
+      return out;
+    }
+
+    const entities = await this.fetchLabels(unique, language);
+    for (const id of unique) {
+      const entity = entities[id];
+      const label = entity && entity.labels && entity.labels[language]
+        ? entity.labels[language].value
+        : null;
+      out[id] = label || id;
+    }
+    return out;
+  }
+
+  /**
+   * Search Wikidata Lexemes (L-ids) by a search term. Lexemes are
+   * first-class lexical units in Wikidata — distinct from items (Q) and
+   * properties (P) — and carry the morphological forms and senses that the
+   * generation service and morphology-aware search rely on. The existing
+   * search only covers items and properties; this closes that gap.
+   *
+   * @param {string} term - Search term (a word/lemma)
+   * @param {string} language - Language to search in (default: 'en')
+   * @param {number} limit - Maximum number of results (default: 10)
+   * @returns {Promise<Array>} - Array of `{ id, label, description }` lexeme matches
+   */
+  async searchLexemes(term, language = 'en', limit = 10) {
+    if (!term) {
+      return [];
+    }
+
+    const url = this.buildApiUrl({
+      action: 'wbsearchentities',
+      search: term,
+      language: language,
+      type: 'lexeme',
+      limit: limit,
+      format: 'json'
+    });
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return (data.search || []).map((item) => ({
+      id: item.id,
+      label: item.label,
+      description: item.description || ''
+    }));
+  }
+
+  /**
    * Fetch property data
    * @param {string} propertyId - Property ID (e.g., 'P31')
    * @param {string} languages - Languages to fetch
