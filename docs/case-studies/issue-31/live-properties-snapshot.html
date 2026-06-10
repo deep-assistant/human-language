@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wikidata Property Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #121212;
+      --text: #E0E0E0;
+      --neon: #00FF00;
+      --neon-selected: #00FFFF;
+      --header-bg: #222;
+      --description-text: #A0A0A0;
+      --watermark-color: #E0E0E0;
+    }
+
+    [data-theme="light"] {
+      --background: #FFFFFF;
+      --text: #333333;
+      --neon: #FF00FF;
+      --neon-selected: #FF007F;
+      --header-bg: #F0F0F0;
+      --description-text: #666666;
+      --watermark-color: #333333;
+    }
+
+    html, body {
+      background-color: var(--background);
+      height: 100%;
+    }
+
+    body {
+      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    .app-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      min-height: 100vh;
+      z-index: 2;
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      left: 30px;
+      font-size: 6rem;
+      color: var(--watermark-color);
+      opacity: 0.1;
+      pointer-events: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      z-index: 1; /* Changed from -1 to 1 to be above root background */
+      max-width: 800px;
+    }
+
+    main {
+      padding: 20px;
+      padding-bottom: 130px; /* Add extra bottom padding to avoid content being hidden behind language switcher */
+    }
+
+    h1, h2 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px var(--neon);
+      color: var(--neon);
+      margin-bottom: 30px;
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      color: var(--description-text);
+    }
+
+    .property-info {
+      position: relative;
+      font-size: 1rem;
+      color: var(--text);
+      padding: 8px;
+      margin: 20px 0;
+      text-align: right;
+      padding-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .property-info {
+        font-size: 0.9rem;
+        padding: 6px;
+        margin: 15px 0;
+        padding-top: 15px;
+      }
+    }
+
+    .property-info a {
+      color: var(--neon);
+      text-decoration: none;
+      pointer-events: auto;
+      transition: color 0.3s ease;
+    }
+
+    .property-info a:hover {
+      color: var(--neon-selected);
+      text-decoration: underline;
+    }
+
+    /* Statement link hover effects */
+    .statement-link {
+      color: var(--neon);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .statement-link:hover {
+      color: var(--neon-selected);
+      text-decoration: underline;
+    }
+
+    .language-switcher {
+      position: fixed;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      padding: 8px;
+      text-align: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .language-switcher button {
+      background-color: transparent;
+      border: 1px solid var(--header-bg);
+      color: var(--text);
+      font-size: 1.2rem;
+      padding: 8px;
+      margin: 0 8px;
+      cursor: pointer;
+    }
+
+    .language-switcher button.selected {
+      color: var(--neon-selected);
+      border: 1px solid var(--neon-selected);
+      border-radius: 4px;
+    }
+
+    .language-switcher button.preferred:not(.selected) {
+      text-decoration: underline;
+      text-decoration-color: var(--neon);
+      text-decoration-thickness: 1px;
+    }
+
+    .language-switcher button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      border: 2px solid var(--neon);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 8px;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { margin-bottom: 25px; font-size: 1.2rem; }
+      p { font-size: 1rem; margin-bottom: 30px; }
+      .language-switcher { left: 10px; right: 10px; padding: 6px; }
+      .language-switcher button { font-size: 1rem; padding: 6px; margin: 0 4px; }
+      .theme-toggle { top: 10px; right: 10px; width: 30px; height: 30px; font-size: 1.2rem; padding: 6px; margin: 0 4px; }
+      .watermark { font-size: 4rem; left: 10px; bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="module">
+    // Import React and ReactDOM as ES Modules
+    import React from 'https://esm.sh/react@19';
+    import ReactDOM from 'https://esm.sh/react-dom@19/client';
+
+    // Make React and ReactDOM available globally for the text/babel script
+    window.React = React;
+    window.ReactDOM = ReactDOM;
+  </script>
+  <script type="module">
+    // Import settings and Wikidata API utilities
+    import { STORAGE_KEYS, saveToLocalStorage, loadFromLocalStorage, flagMap } from './settings.js';
+    import { client as apiClient, cache as cacheManager, processor as dataProcessor, labelManager, searchUtility } from './wikidata-api-browser.js';
+
+    // Make them available globally for the text/babel script
+    window.STORAGE_KEYS = STORAGE_KEYS;
+    window.saveToLocalStorage = saveToLocalStorage;
+    window.loadFromLocalStorage = loadFromLocalStorage;
+    window.flagMap = flagMap;
+    window.apiClient = apiClient;
+    window.cacheManager = cacheManager;
+    window.dataProcessor = dataProcessor;
+    window.labelManager = labelManager;
+    window.searchUtility = searchUtility;
+  </script>
+  <script type="text/babel" src="statements.jsx"></script>
+  <script type="text/babel" src="loading.jsx"></script>
+  <script type="text/babel">
+
+    // Use Wikidata API utilities from global window object
+    const { 
+      apiClient,
+      cacheManager,
+      dataProcessor,
+      labelManager,
+      loadFromLocalStorage,
+      STORAGE_KEYS,
+    } = window;
+
+    function PropertyPage() {
+      const [propertyId, setPropertyId] = React.useState(window.location.hash.slice(1) || 'P31');
+      const [labels, setLabels] = React.useState({});
+      const [descriptions, setDescriptions] = React.useState({});
+      const [preferredLanguages, setPreferredLanguages] = React.useState([]);
+      const [availableLanguages, setAvailableLanguages] = React.useState([]);
+      const [selectedLanguage, setSelectedLanguage] = React.useState('');
+      const [isLoading, setIsLoading] = React.useState(true);
+      const [theme, setTheme] = React.useState(() => {
+        const savedTheme = loadFromLocalStorage(STORAGE_KEYS.THEME, 'dark');
+        return savedTheme;
+      });
+      const [statements, setStatements] = React.useState({});
+      const [propertyLabels, setPropertyLabels] = React.useState({});
+      const [entityLabels, setEntityLabels] = React.useState({});
+
+      React.useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+      }, [theme]);
+
+      React.useEffect(() => {
+        // Load saved theme or use system preference
+        const savedTheme = loadFromLocalStorage(STORAGE_KEYS.THEME, null);
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          setTheme(systemTheme);
+        }
+      }, []);
+
+      React.useEffect(() => {
+        const handleHashChange = () => {
+          setPropertyId(window.location.hash.slice(1) || 'P31');
+          setIsLoading(true);
+        };
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+      }, []);
+
+      React.useEffect(() => {
+        const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
+        const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
+        setPreferredLanguages(uniquePreferredLangs);
+        const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
+        const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
+        const languages = allLanguages.join('|');
+
+        setIsLoading(true);
+        
+        // Try to get property data from cache first
+        let cachedData = null;
+        cacheManager.getFromCache(cacheManager.stores.PROPERTIES, propertyId)
+          .then(cached => {
+            cachedData = cached;
+            if (cached && cacheManager.isCachedDataComplete(cached, languages)) {
+              console.log('Using cached property data for:', propertyId);
+              return cached.data;
+            } else {
+              console.log('Fetching fresh property data for:', propertyId);
+              return apiClient.fetchProperty(propertyId, languages);
+            }
+          })
+          .then(property => {
+            if (property) {
+              // Save to cache if it's fresh data
+              if (!cachedData || !cacheManager.isCachedDataComplete(cachedData, languages)) {
+                cacheManager.saveToCache(cacheManager.stores.PROPERTIES, propertyId, property);
+              }
+              
+              setLabels(property.labels || {});
+              setDescriptions(property.descriptions || {});
+              setStatements(property.claims || {});
+              console.log('Property claims loaded:', property.claims);
+              const langSet = new Set([...Object.keys(property.labels || {}), ...Object.keys(property.descriptions || {})]);
+              setAvailableLanguages(Array.from(langSet).sort());
+              // Load saved language or use preferred language
+              const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+              const initialLang = savedLanguage && langSet.has(savedLanguage) 
+                ? savedLanguage 
+                : uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
+              setSelectedLanguage(initialLang);
+              
+              // Load all labels using the centralized label manager
+              return labelManager.loadAllLabels(property.claims, languages);
+            } else {
+              setLabels({});
+              setDescriptions({});
+              setStatements({});
+              setAvailableLanguages([]);
+              const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+              setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
+              return { propertyLabels: {}, entityLabels: {} };
+            }
+          })
+          .then(({ propertyLabels: newPropertyLabels, entityLabels: newEntityLabels }) => {
+            setPropertyLabels(newPropertyLabels);
+            setEntityLabels(newEntityLabels);
+            setIsLoading(false);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+            setLabels({});
+            setDescriptions({});
+            setStatements({});
+            setAvailableLanguages([]);
+            const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+            setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
+            setIsLoading(false);
+          });
+      }, [propertyId]);
+
+      const toggleTheme = () => {
+        setTheme(prevTheme => {
+          const newTheme = prevTheme === 'dark' ? 'light' : 'dark';
+          saveToLocalStorage(STORAGE_KEYS.THEME, newTheme);
+          return newTheme;
+        });
+      };
+
+      // Create unified getLabel function using the label manager
+      const getLabel = labelManager.createGetLabelFunction(propertyId, labels, entityLabels, propertyLabels, selectedLanguage);
+
+      // Use statement components from external module
+      const { StatementsSection } = window.StatementComponents;
+      const { LoadingComponent } = window.LoadingComponents;
+
+      const currentLabel = labels[selectedLanguage]?.value || 'No label available';
+      const otherLabels = preferredLanguages.filter(lang => lang !== selectedLanguage && labels[lang]);
+      const sortedLanguages = [selectedLanguage, ...otherLabels];
+      const descriptionsList = sortedLanguages.map(lang => descriptions[lang]?.value).filter(desc => desc);
+
+
+      if (isLoading) {
+        return <LoadingComponent />;
+      }
+
+      return (
+        <div className="app-wrapper">
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+          <main>
+            <h1>{currentLabel}</h1>
+            {otherLabels.map(lang => (
+              <h2 key={lang}>{labels[lang]?.value || 'No label available'}</h2>
+            ))}
+            {descriptionsList.length > 0 ? (
+              descriptionsList.map((desc, index) => (
+                <p key={index}>{desc}</p>
+              ))
+            ) : (
+              <p>No description available</p>
+            )}
+            
+            <StatementsSection
+              statements={statements}
+              subjectId={propertyId}
+              getLabel={getLabel}
+              onEntityClick={(entityId) => {
+                window.location.href = `entities.html#${entityId}`;
+              }}
+              onPropertyClick={(propertyId) => {
+                window.location.hash = propertyId;
+              }}
+              selectedLanguage={selectedLanguage}
+            />
+            
+            <div className="property-info">
+              <span>Data source: </span>
+              <a href={`https://www.wikidata.org/wiki/${propertyId}`} target="_blank" rel="noopener noreferrer">{propertyId}</a>
+            </div>
+          </main>
+          <div className="language-switcher">
+            {availableLanguages.map(lang => (
+              <button
+                key={lang}
+                className={`${lang === selectedLanguage ? 'selected' : ''} ${
+                  preferredLanguages.includes(lang) && lang !== selectedLanguage ? 'preferred' : ''
+                }`}
+                onClick={() => {
+                  setSelectedLanguage(lang);
+                  saveToLocalStorage(STORAGE_KEYS.LANGUAGE, lang);
+                }}
+              >
+                {flagMap[lang] || lang}
+              </button>
+            ))}
+          </div>
+          <div className="watermark">property</div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<PropertyPage />);
+  </script>
+</body>
+</html>

@@ -1,46 +1,52 @@
 # Text to Wikidata Q/P Transformation
 
-This folder contains all the code related to transforming English text into sequences of Wikidata entities (Q) and properties (P).
+This folder contains the **deployed pages** for the text-to-Q/P transformer. The
+transformation source code itself lives in [`/js/src/transformation/`](../js/src/transformation/);
+see [the issue #35 case study](../docs/case-studies/issue-35/) for the rationale
+behind the layout.
 
-## Files
+## Files in this folder (deployed by GitHub Pages)
 
-- **index.html** - Interactive web demo for the text transformer
-- **text-to-qp-transformer.js** - Main transformation logic with n-gram support
-- **text-transformer-test.js** - Test suite for the transformer
-- **test-ngram.html** - HTML test page for n-gram functionality
-- **test-ngram-demo.mjs** - Node.js demo script for n-gram features
-- **ngram-feature-summary.md** - Documentation of the n-gram feature
+- **index.html** — redirect shim that forwards to the unified SPA
+  (`app.html#mode=transformer`), preserving any `?text=…` parameters.
+- **test-ngram.html** — standalone HTML test page for n-gram functionality.
+- **ngram-feature-summary.md** — documentation of the n-gram feature.
+
+## Source code (in `/js/src/transformation/`)
+
+- **text-to-qp-transformer.js** — main transformation logic with n-gram support.
+- **text-transformer-test.js** — test suite for the transformer.
+- **test-ngram-demo.mjs** — Node.js demo script for n-gram features.
 
 ## Usage
 
-### Web Demo
-Open `index.html` in a web browser to use the interactive demo.
+### Web demo
+Open `index.html` in a browser; you will be redirected to the unified SPA
+(`app.html#mode=transformer`).
 
 ### Node.js
 ```javascript
-import { TextToQPTransformer } from './text-to-qp-transformer.js';
+import { TextToQPTransformer } from './js/src/transformation/text-to-qp-transformer.js';
 
 const transformer = new TextToQPTransformer();
 const result = await transformer.transform("Barack Obama was president", {
-  maxNgramSize: 3  // Consider up to 3-word phrases
+  maxNgramSize: 3  // consider up to 3-word phrases
 });
 ```
 
 ## Features
 
-- **N-gram matching**: Recognizes multi-word phrases as single entities
-- **Priority-based search**: Longer matches take precedence
-- **Configurable**: Adjust maxNgramSize (1-5) for different matching behavior
-- **Caching**: Uses the shared cache in the root `/data/wikidata-cache/` directory
+- **N-gram matching**: recognises multi-word phrases as single entities.
+- **Priority-based search**: longer matches take precedence.
+- **Configurable**: adjust `maxNgramSize` (1–5) for different matching behaviour.
+- **Caching**: uses the shared cache in `/data/wikidata-cache/`.
 
-## Tests
+## Running tests
 
-Run tests from the project root:
+From the project root:
+
 ```bash
-bun run-tests.mjs
-```
-
-Or run the n-gram demo:
-```bash
-bun transformation/test-ngram-demo.mjs
+node js/scripts/run-tests.mjs              # full transformer suite (live Wikidata)
+node js/src/transformation/test-ngram-demo.mjs  # n-gram-only demo
+npm run test:unit                          # gating unit suites
 ```

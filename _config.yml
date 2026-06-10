@@ -1,0 +1,30 @@
+title: Human Language Project
+description: A new kind of language for all people on earth
+url: https://link-assistant.github.io
+baseurl: /human-language
+repository: link-assistant/human-language
+github:
+  repository_url: https://github.com/link-assistant/human-language
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-seo-tag
+
+# Files at repo root that aren't site content.
+#
+# Only exclude files that are NOT loaded by any HTML page served from
+# GitHub Pages. JS / JSX modules imported (statically or dynamically) by a
+# demo page MUST be published, otherwise the demo 404s in production. See
+# docs/case-studies/issue-31 for the regression that motivated this list.
+exclude:
+  - node_modules
+  - data
+  - api-patterns.json
+  - limitations-found.json
+  # CI/CD and integration-test scripts (Node only, never loaded by a page).
+  - js/scripts
+  - js/tests
+  # Node-only modules (use the *-browser.js counterparts in the browser).
+  - js/src/persistent-cache.js
+  - js/src/unified-cache.js
+  - js/src/wikidata-api.js
+  - .gitkeep
