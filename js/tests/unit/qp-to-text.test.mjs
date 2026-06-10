@@ -170,6 +170,30 @@ test('renderAll renders every UN 6 language', async () => {
   assert.equal(all.ru, 'Берлин — город');
 });
 
+test('render resolves id-shaped roles through an injected apiClient.getLabels', async () => {
+  const calls = [];
+  const apiClient = {
+    async getLabels(ids, lang) {
+      calls.push({ ids: [...ids], lang });
+      return LABELS[lang] || {};
+    },
+  };
+  const r = new QPRenderer({ apiClient });
+  const sentence = await r.render({ type: 'instance_of', subject: 'Q64', object: 'Q515' }, 'en');
+  assert.equal(sentence, 'Berlin is a city');
+  // Only id-shaped roles (Q64, Q515) are looked up — not plain text.
+  assert.deepEqual(calls, [{ ids: ['Q64', 'Q515'], lang: 'en' }]);
+});
+
+test('render skips label lookup entirely for plain-text roles', async () => {
+  let called = false;
+  const apiClient = { async getLabels() { called = true; return {}; } };
+  const r = new QPRenderer({ apiClient });
+  const sentence = await r.render({ type: 'instance_of', subject: 'Berlin', object: 'city' }, 'en');
+  assert.equal(sentence, 'Berlin is a city');
+  assert.equal(called, false);
+});
+
 test('QPRenderer exposes its languages and constructor types', () => {
   const r = new QPRenderer();
   assert.deepEqual(r.languages, UN6_LANGUAGES);
