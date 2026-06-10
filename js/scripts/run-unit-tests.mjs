@@ -17,6 +17,7 @@ const FAST_SUITES = [
   'js/tests/unit/persistent-cache.test.mjs',
   'js/tests/unit/server.test.mjs',
   'js/tests/unit/cli.test.mjs',
+  'js/tests/unit/qp-to-text.test.mjs',
 ];
 
 const INTEGRATION_SUITES = [

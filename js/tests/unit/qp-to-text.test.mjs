@@ -1,0 +1,214 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+
+import {
+  englishIndefiniteArticle,
+  fillTemplate,
+  validateConstructor,
+  buildConstructor,
+  CONSTRUCTORS,
+  UN6_LANGUAGES,
+} from '../../src/generation/constructors.js';
+import { QPRenderer } from '../../src/generation/qp-to-text.js';
+import { TextToQPTransformer } from '../../src/transformation/text-to-qp-transformer.js';
+
+// A small offline label dictionary so the renderer never touches the network.
+const LABELS = {
+  en: { Q64: 'Berlin', Q515: 'city', Q183: 'Germany', Q1: 'island', P50: 'author', Q571: 'book' },
+  es: { Q64: 'Berlín', Q515: 'ciudad', Q183: 'Alemania' },
+  fr: { Q64: 'Berlin', Q515: 'ville', Q183: 'Allemagne' },
+  ru: { Q64: 'Берлин', Q515: 'город', Q183: 'Германия' },
+  zh: { Q64: '柏林', Q515: '城市', Q183: '德国' },
+  ar: { Q64: 'برلين', Q515: 'مدينة', Q183: 'ألمانيا' },
+};
+
+const labelProvider = async (_ids, lang) => LABELS[lang] || {};
+
+// ---------------------------------------------------------------------------
+// Phonotactics
+// ---------------------------------------------------------------------------
+
+test('englishIndefiniteArticle picks "an" before a vowel and "a" otherwise', () => {
+  assert.equal(englishIndefiniteArticle('island'), 'an');
+  assert.equal(englishIndefiniteArticle('apple'), 'an');
+  assert.equal(englishIndefiniteArticle('city'), 'a');
+  assert.equal(englishIndefiniteArticle(''), 'a');
+  assert.equal(englishIndefiniteArticle(undefined), 'a');
+});
+
+// ---------------------------------------------------------------------------
+// Constructor validation
+// ---------------------------------------------------------------------------
+
+test('validateConstructor accepts a well-formed constructor', () => {
+  assert.equal(validateConstructor({ type: 'instance_of', subject: 'Q64', object: 'Q515' }), true);
+});
+
+test('validateConstructor rejects unknown types and missing roles', () => {
+  assert.throws(() => validateConstructor({ type: 'nope', subject: 'Q1' }), /Unknown constructor/);
+  assert.throws(() => validateConstructor({ type: 'instance_of', subject: 'Q64' }), /missing role "object"/);
+  assert.throws(() => validateConstructor(null), /must be an object/);
+});
+
+test('buildConstructor merges roles and modifiers', () => {
+  const c = buildConstructor('instance_of', { subject: 'Q64', object: 'Q515' }, { negated: true });
+  assert.deepEqual(c, { type: 'instance_of', subject: 'Q64', object: 'Q515', negated: true });
+});
+
+// ---------------------------------------------------------------------------
+// fillTemplate (pure)
+// ---------------------------------------------------------------------------
+
+test('fillTemplate applies English a/an phonotactics', () => {
+  const spec = CONSTRUCTORS.instance_of;
+  const tpl = spec.templates.en;
+  assert.equal(
+    fillTemplate(spec, tpl, { type: 'instance_of', subject: 'Q64', object: 'Q515' }, LABELS.en),
+    'Berlin is a city',
+  );
+  assert.equal(
+    fillTemplate(spec, tpl, { type: 'instance_of', subject: 'Q64', object: 'Q1' }, LABELS.en),
+    'Berlin is an island',
+  );
+});
+
+// ---------------------------------------------------------------------------
+// QPRenderer.renderWithLabels — multi-language + negation
+// ---------------------------------------------------------------------------
+
+test('renderWithLabels renders instance_of across the UN 6 languages', () => {
+  const r = new QPRenderer();
+  const c = { type: 'instance_of', subject: 'Q64', object: 'Q515' };
+  assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin is a city');
+  assert.equal(r.renderWithLabels(c, LABELS.es, 'es'), 'Berlín es un ciudad');
+  assert.equal(r.renderWithLabels(c, LABELS.fr, 'fr'), 'Berlin est un ville');
+  assert.equal(r.renderWithLabels(c, LABELS.ru, 'ru'), 'Берлин — город');
+  assert.equal(r.renderWithLabels(c, LABELS.zh, 'zh'), '柏林是城市');
+  assert.equal(r.renderWithLabels(c, LABELS.ar, 'ar'), 'برلين مدينة');
+});
+
+test('renderWithLabels honours the negated flag', () => {
+  const r = new QPRenderer();
+  const c = { type: 'instance_of', subject: 'Q64', object: 'Q515', negated: true };
+  assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin is not a city');
+  assert.equal(r.renderWithLabels(c, LABELS.zh, 'zh'), '柏林不是城市');
+  assert.equal(r.renderWithLabels(c, LABELS.ru, 'ru'), 'Берлин — не город');
+});
+
+test('renderWithLabels supports the located_in constructor', () => {
+  const r = new QPRenderer();
+  const c = { type: 'located_in', subject: 'Q64', object: 'Q183' };
+  assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin is in Germany');
+  assert.equal(r.renderWithLabels(c, LABELS.fr, 'fr'), 'Berlin est en Allemagne');
+});
+
+test('renderWithLabels supports the generic relation constructor with a predicate label', () => {
+  const r = new QPRenderer();
+  const c = { type: 'relation', subject: 'Q64', predicate: 'P50', object: 'Q571' };
+  assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin author book');
+});
+
+test('renderWithLabels throws for an unsupported language', () => {
+  const r = new QPRenderer();
+  assert.throws(
+    () => r.renderWithLabels({ type: 'instance_of', subject: 'Q64', object: 'Q515' }, LABELS.en, 'de'),
+    /No "de" renderer/,
+  );
+});
+
+// ---------------------------------------------------------------------------
+// QPRenderer.render / renderAll — async, label-provider injected (offline)
+// ---------------------------------------------------------------------------
+
+test('render resolves labels via the injected provider', async () => {
+  const r = new QPRenderer({ labelProvider });
+  const sentence = await r.render({ type: 'instance_of', subject: 'Q64', object: 'Q515' }, 'es');
+  assert.equal(sentence, 'Berlín es un ciudad');
+});
+
+test('renderAll renders every UN 6 language', async () => {
+  const r = new QPRenderer({ labelProvider });
+  const all = await r.renderAll({ type: 'instance_of', subject: 'Q64', object: 'Q515' });
+  assert.deepEqual(Object.keys(all).sort(), [...UN6_LANGUAGES].sort());
+  assert.equal(all.en, 'Berlin is a city');
+  assert.equal(all.ru, 'Берлин — город');
+});
+
+test('QPRenderer exposes its languages and constructor types', () => {
+  const r = new QPRenderer();
+  assert.deepEqual(r.languages, UN6_LANGUAGES);
+  assert.ok(r.constructorTypes.includes('instance_of'));
+  assert.ok(r.constructorTypes.includes('relation'));
+});
+
+// ---------------------------------------------------------------------------
+// Transformer: modifier extraction + typed constructor (offline, pure logic)
+// ---------------------------------------------------------------------------
+
+test('extractModifiers detects negation', () => {
+  const t = new TextToQPTransformer();
+  assert.equal(t.extractModifiers('Einstein did not discover gravity').negated, true);
+  assert.equal(t.extractModifiers("Berlin isn't a village").negated, true);
+  assert.equal(t.extractModifiers('Einstein never slept').negated, true);
+  assert.equal(t.extractModifiers('Berlin is a city').negated, false);
+});
+
+test('extractModifiers detects tense', () => {
+  const t = new TextToQPTransformer();
+  assert.equal(t.extractModifiers('Berlin is a city').tense, 'present');
+  assert.equal(t.extractModifiers('Einstein discovered radium').tense, 'past');
+  assert.equal(t.extractModifiers('Caesar was a general').tense, 'past');
+  assert.equal(t.extractModifiers('She will travel').tense, 'future');
+});
+
+test('toConstructor builds an instance_of constructor preserving negation', () => {
+  const t = new TextToQPTransformer();
+  const result = {
+    original: 'Berlin is not a village',
+    sequence: [{ id: 'Q64' }, { id: 'P31' }, { id: 'Q532' }],
+  };
+  const c = t.toConstructor(result);
+  assert.equal(c.type, 'instance_of');
+  assert.equal(c.subject, 'Q64');
+  assert.equal(c.object, 'Q532');
+  assert.equal(c.negated, true);
+});
+
+test('toConstructor falls back to a generic relation', () => {
+  const t = new TextToQPTransformer();
+  const result = {
+    original: 'Einstein wrote books',
+    sequence: [{ id: 'Q937' }, { id: 'P50' }, { id: 'Q571' }],
+  };
+  const c = t.toConstructor(result);
+  assert.equal(c.type, 'relation');
+  assert.equal(c.predicate, 'P50');
+  assert.equal(c.tense, 'past');
+});
+
+test('toConstructor resolves ambiguous matches to their first candidate', () => {
+  const t = new TextToQPTransformer();
+  const result = {
+    original: 'Berlin is a city',
+    sequence: [
+      { type: 'ambiguous', alternatives: [{ id: 'Q64' }, { id: 'Q4115712' }] },
+      { id: 'P31' },
+      { id: 'Q515' },
+    ],
+  };
+  const c = t.toConstructor(result);
+  assert.equal(c.subject, 'Q64');
+  assert.equal(c.type, 'instance_of');
+});
+
+test('round-trip: a transformer constructor renders back to text', () => {
+  const t = new TextToQPTransformer();
+  const r = new QPRenderer();
+  const result = {
+    original: 'Berlin is a city',
+    sequence: [{ id: 'Q64' }, { id: 'P31' }, { id: 'Q515' }],
+  };
+  const c = t.toConstructor(result);
+  assert.equal(r.renderWithLabels(c, LABELS.en, 'en'), 'Berlin is a city');
+  assert.equal(r.renderWithLabels(c, LABELS.ru, 'ru'), 'Берлин — город');
+});

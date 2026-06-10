@@ -61,8 +61,8 @@ test('serializeHash: drops empty / nullish params', () => {
   assert.equal(hash, '#mode=entity&id=Q1');
 });
 
-test('MODES contains exactly the six expected modes', () => {
+test('MODES contains exactly the seven expected modes', () => {
   assert.deepEqual([...MODES].sort(), [
-    'alphabet', 'dictionary', 'entity', 'ontology', 'property', 'transformer',
+    'alphabet', 'dictionary', 'entity', 'generation', 'ontology', 'property', 'transformer',
   ]);
 });
