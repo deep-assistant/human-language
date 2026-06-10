@@ -21,17 +21,17 @@ depth. We currently do **text → Q/P** (analysis only); Abstract Wikipedia inve
 **meaning → text** (generation), with a typed, grammar-aware pipeline. The biggest opportunities sit
 in the parts of their pipeline we have no equivalent for.
 
-| # | Missing feature | What Abstract Wikipedia does | Where it would live here | Priority |
-|---|-----------------|------------------------------|--------------------------|----------|
-| 1 | **Reverse generation (Q/P → text)** | Renderers turn a constructor into a sentence in any language (`Z26039` → "Berlin is a city" / "Berlín es una ciudad") | New `generation/qp-to-text.js` service | **High** |
-| 2 | **Wikidata Lexeme integration** | Lexemes drive disambiguation and morphological inflection | `wikidata-api.js` (`searchLexemes`), used by transformer + search | **High** |
-| 3 | **Typed, role-labelled representation** | Constructors are typed containers with named argument roles, not flat lists | Output schema of `text-to-qp-transformer.js` | **High** |
-| 4 | **Universal Dependencies parsing** | Renderers emit/consume UD (or Surface-Syntactic UD) trees | New parsing layer feeding the transformer | Medium |
-| 5 | **Multi-language rendering (UN 6)** | Same meaning rendered in English, Arabic, Spanish, French, Russian, Chinese | Generation service templates | Medium |
-| 6 | **Modular function composition** | Wikifunctions composes small reusable functions; one templatic renderer per constructor-per-language | `SemanticFunctionLibrary` (sketched in analysis doc) | Medium |
-| 7 | **Grammatical features + phonotactics** | Feature unification for agreement; sandhi rules (English *a/an*, French *de+le→du*) | Generation service | Medium |
-| 8 | **Embedded live function results** | Function-call results embedded in wiki pages (since Apr 2025) | Demo pages (`entities.html`, etc.) | Low |
-| 9 | **Community validation process** | NLG SIG + community-editable templates/grammar | Contribution docs + validation hooks | Low |
+| # | Missing feature | What Abstract Wikipedia does | Where it would live here | Priority | Status |
+|---|-----------------|------------------------------|--------------------------|----------|--------|
+| 1 | **Reverse generation (Q/P → text)** | Renderers turn a constructor into a sentence in any language (`Z26039` → "Berlin is a city" / "Berlín es una ciudad") | New `generation/qp-to-text.js` service | **High** | ✅ Done (PR #19) |
+| 2 | **Wikidata Lexeme integration** | Lexemes drive disambiguation and morphological inflection | `wikidata-api.js` (`searchLexemes`), used by transformer + search | **High** | ✅ `searchLexemes` (PR #19) |
+| 3 | **Typed, role-labelled representation** | Constructors are typed containers with named argument roles, not flat lists | Output schema of `text-to-qp-transformer.js` | **High** | ✅ `transformToConstructor` (PR #19) |
+| 4 | **Universal Dependencies parsing** | Renderers emit/consume UD (or Surface-Syntactic UD) trees | New parsing layer feeding the transformer | Medium | ⬜ Open |
+| 5 | **Multi-language rendering (UN 6)** | Same meaning rendered in English, Arabic, Spanish, French, Russian, Chinese | Generation service templates | Medium | ✅ Done (PR #19) |
+| 6 | **Modular function composition** | Wikifunctions composes small reusable functions; one templatic renderer per constructor-per-language | `SemanticFunctionLibrary` (sketched in analysis doc) | Medium | 🟡 Partial — one templatic renderer per constructor-per-language (PR #19) |
+| 7 | **Grammatical features + phonotactics** | Feature unification for agreement; sandhi rules (English *a/an*, French *de+le→du*) | Generation service | Medium | 🟡 Partial — English *a/an* + negation/tense (PR #19) |
+| 8 | **Embedded live function results** | Function-call results embedded in wiki pages (since Apr 2025) | Demo pages (`entities.html`, etc.) | Low | ⬜ Open |
+| 9 | **Community validation process** | NLG SIG + community-editable templates/grammar | Contribution docs + validation hooks | Low | ⬜ Open |
 
 ### The single highest-leverage gap: reverse generation
 
