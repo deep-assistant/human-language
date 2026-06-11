@@ -16,6 +16,7 @@ export const MODES = [
   'entity',
   'property',
   'transformer',
+  'generation',
 ];
 
 export const DEFAULT_MODE = 'entity';

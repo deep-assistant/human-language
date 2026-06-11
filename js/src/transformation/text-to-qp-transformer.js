@@ -2,6 +2,8 @@
 // Transforms English text into sequences of Wikidata entities (Q) and properties (P)
 // with disambiguation support using [Q1 or Q2 or Q3] syntax
 
+import { buildConstructor } from '../generation/constructors.js';
+
 // Pick the right Wikidata API at runtime: the browser version avoids Node's
 // `fs`/`path` imports that the file-cache backend pulls in.
 let WikidataAPIClient, WikidataSearchUtility;
@@ -37,6 +39,26 @@ class TextToQPTransformer {
     
     // Words to skip entirely
     this.stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'];
+
+    // Tense markers. Today the flat-list output silently drops these (see
+    // limitations-found.json), so "discovered" and "discovers" collapse to
+    // the same sequence. The typed constructor keeps them as a `tense` slot.
+    this.pastTenseWords = ['was', 'were', 'had', 'did'];
+    this.futureTenseWords = ['will', 'shall'];
+
+    // A small set of common irregular past-tense verbs the regular `-ed`
+    // rule cannot catch. Not exhaustive — a documented seed, the same way
+    // Abstract Wikipedia grows its lexicon incrementally.
+    this.irregularPastWords = [
+      'wrote', 'built', 'made', 'found', 'bought', 'taught', 'sought',
+      'brought', 'came', 'ran', 'went', 'saw', 'took', 'gave', 'led',
+      'held', 'drew', 'became', 'won', 'lost', 'met', 'kept', 'sent',
+      'spent', 'told', 'sold', 'paid', 'said', 'began', 'wore', 'knew',
+    ];
+
+    // `instance of` indicators that map a generic relation onto the
+    // specialised `instance_of` constructor the renderer knows about.
+    this.instanceOfWords = ['is', 'was', 'are', 'were', 'instance of'];
   }
 
   /**
@@ -51,7 +73,8 @@ class TextToQPTransformer {
       includeLabels = false,
       searchLimit = 10,
       preferProperties = false,
-      maxNgramSize = 3 // Configurable max n-gram size
+      maxNgramSize = 3, // Configurable max n-gram size
+      dedupe = true // Collapse adjacent duplicate ids (see dedupeSequence)
     } = options;
 
     const result = {
@@ -76,8 +99,9 @@ class TextToQPTransformer {
       // Match tokens using longest-first priority
       const matches = this.matchTokensWithPriority(tokens, ngramResults, maxCandidates, includeLabels);
       
-      // Build the final sequence
-      result.sequence = matches;
+      // Build the final sequence, collapsing adjacent duplicate ids unless
+      // the caller opts out.
+      result.sequence = dedupe ? this.dedupeSequence(matches) : matches;
 
       // Format the final sequence
       result.formatted = this.formatSequence(result.sequence);
@@ -407,6 +431,245 @@ class TextToQPTransformer {
     }
     
     return alternatives;
+  }
+
+  /**
+   * Extract structural modifiers (negation, tense) from the input text.
+   *
+   * The flat Q/P list drops meaning-bearing words like "not" and tense
+   * markers — exactly the cluster of failures documented in
+   * `limitations-found.json`. Abstract Wikipedia keeps these structurally
+   * (in the constructor), so we capture them as explicit flags rather than
+   * discarding the tokens.
+   *
+   * @param {string} text - The original input text
+   * @returns {{negated: boolean, tense: 'past'|'present'|'future'}}
+   */
+  extractModifiers(text) {
+    const lower = ` ${(text || '').toLowerCase()} `;
+    const tokens = this.tokenize(text || '').map((t) => t.toLowerCase());
+
+    // Negation: "not", contracted "n't", or "never".
+    const negated = /\bnot\b|n't|\bnever\b/.test(lower);
+
+    // Tense: explicit markers first, then a regular `-ed` past-tense fallback.
+    let tense = 'present';
+    if (tokens.some((t) => this.futureTenseWords.includes(t))) {
+      tense = 'future';
+    } else if (
+      tokens.some((t) => this.pastTenseWords.includes(t)) ||
+      tokens.some((t) => this.irregularPastWords.includes(t)) ||
+      tokens.some((t) => /[a-z]{3,}ed$/.test(t))
+    ) {
+      tense = 'past';
+    }
+
+    return { negated, tense };
+  }
+
+  /**
+   * Detect whether the input is a question and classify it.
+   *
+   * Questions are the second cluster of failures documented in
+   * `limitations-found.json` ("Who/What/When question" are *treated as
+   * statements*). A flat Q/P list cannot express interrogation; Abstract
+   * Wikipedia keeps it structurally. We capture it as an explicit flag plus a
+   * coarse semantic type so a downstream renderer (or query layer) knows what
+   * is being asked for, rather than silently dropping the wh-word.
+   *
+   * @param {string} text - The original input text
+   * @returns {{isQuestion: boolean, word: string|null, type: string|null}}
+   *   `type` is one of entity / thing / time / place / reason / manner /
+   *   quantity / polar (yes-no), or null when not a question.
+   */
+  detectQuestion(text) {
+    const trimmed = (text || '').trim();
+    if (!trimmed) return { isQuestion: false, word: null, type: null };
+
+    const lower = trimmed.toLowerCase();
+    const first = this.tokenize(lower)[0] || '';
+
+    // Wh-words map to the kind of thing being asked for.
+    const whTypes = {
+      who: 'entity', whom: 'entity', whose: 'entity',
+      what: 'thing', which: 'thing',
+      when: 'time', where: 'place', why: 'reason', how: 'manner',
+    };
+    // "How many / how much" asks for a quantity.
+    if (first === 'how' && /^how\s+(many|much)\b/.test(lower)) {
+      return { isQuestion: true, word: 'how', type: 'quantity' };
+    }
+    if (Object.prototype.hasOwnProperty.call(whTypes, first)) {
+      return { isQuestion: true, word: first, type: whTypes[first] };
+    }
+
+    // Yes/no (polar) questions open with an auxiliary/copula verb, or any
+    // sentence ending in a question mark we have not otherwise classified.
+    const auxiliaries = [
+      'is', 'are', 'was', 'were', 'am', 'be',
+      'do', 'does', 'did', 'has', 'have', 'had',
+      'can', 'could', 'will', 'would', 'shall', 'should', 'may', 'might', 'must',
+    ];
+    if (auxiliaries.includes(first) && trimmed.endsWith('?')) {
+      return { isQuestion: true, word: first, type: 'polar' };
+    }
+    if (trimmed.endsWith('?')) {
+      return { isQuestion: true, word: null, type: 'polar' };
+    }
+
+    return { isQuestion: false, word: null, type: null };
+  }
+
+  /**
+   * Extract numeric quantities (with their units) from the input.
+   *
+   * "Numerical values lost in transformation" is the third documented
+   * limitation: "Mount Everest is 8848 meters tall" produced an empty
+   * sequence because bare numbers match no Wikidata entity. Rather than drop
+   * them, we surface them as structured `{ value, unit }` pairs the way
+   * Wikidata models a quantity statement (P1082 population, P2048 height, …)
+   * with a unit (Q-item) — and the way the new `quantity` constructor renders
+   * them back to text.
+   *
+   * @param {string} text - The original input text
+   * @returns {Array<{value: number, unit: string|null, raw: string}>}
+   */
+  extractQuantities(text) {
+    if (!text) return [];
+    const out = [];
+    // A number (optionally grouped with commas / a decimal point) followed by
+    // an optional unit word, which may itself be a "<unit> per <unit>" rate.
+    const re = /(-?\d[\d,]*(?:\.\d+)?)\s*([a-zA-Z%°]+(?:\s+per\s+[a-zA-Z]+)?)?/g;
+    let m;
+    while ((m = re.exec(text)) !== null) {
+      const value = parseFloat(m[1].replace(/,/g, ''));
+      if (Number.isNaN(value)) continue;
+      let unit = (m[2] || '').trim() || null;
+      // A trailing word that is a stop word ("a", "the", …) is not a unit.
+      if (unit && this.stopWords.includes(unit.toLowerCase())) unit = null;
+      out.push({ value, unit, raw: m[0].trim() });
+    }
+    return out;
+  }
+
+  /**
+   * Collapse consecutive identical ids in a matched sequence.
+   *
+   * "Repeated entities not properly deduplicated" is the final documented
+   * limitation: "Paris Paris France France" produced "Q90 Q90 Q142 Q142".
+   * Adjacent repetition of the *same* id is almost always an analysis
+   * artefact rather than meaning, so we collapse runs of it. Ambiguous
+   * matches are never merged (their alternatives may differ even when the
+   * bracketed text looks the same).
+   *
+   * @param {Array} sequence - Matched Q/P items
+   * @returns {Array} - The sequence with adjacent duplicates removed
+   */
+  dedupeSequence(sequence) {
+    const out = [];
+    for (const item of sequence) {
+      const prev = out[out.length - 1];
+      if (
+        prev && item &&
+        prev.type !== 'ambiguous' && item.type !== 'ambiguous' &&
+        prev.id === item.id
+      ) {
+        continue;
+      }
+      out.push(item);
+    }
+    return out;
+  }
+
+  /**
+   * Convert a transform() result into a typed, role-labelled constructor —
+   * the representation the multi-language generation service consumes. This
+   * is the bridge that makes the round-trip `text → Q/P → text` possible.
+   *
+   * It reads the sequence left-to-right, taking the first entity (Q) as the
+   * subject, the first property (P) as the predicate, and the next entity
+   * (Q) as the object. A `P31` predicate (or an `is/was` indicator) maps to
+   * the specialised `instance_of` constructor; anything else becomes the
+   * generic `relation` constructor. Negation and tense are preserved as
+   * modifier flags.
+   *
+   * @param {Object} result - The return value of `transform`
+   * @returns {Object|null} - A typed constructor, or null if no subject was found
+   */
+  toConstructor(result) {
+    if (!result || !Array.isArray(result.sequence)) return null;
+
+    // Collapse the sequence to its primary ids (first candidate of any
+    // ambiguous match), keeping the textual order.
+    const items = result.sequence
+      .filter(Boolean)
+      .map((item) => {
+        if (item.type === 'ambiguous' && item.alternatives && item.alternatives.length) {
+          return { id: item.alternatives[0].id };
+        }
+        return { id: item.id };
+      })
+      .filter((item) => /^[QP]\d+$/.test(item.id));
+
+    let subject = null;
+    let predicate = null;
+    let object = null;
+    for (const { id } of items) {
+      if (id.startsWith('Q')) {
+        if (subject == null) subject = id;
+        else if (object == null) object = id;
+      } else if (id.startsWith('P') && predicate == null) {
+        predicate = id;
+      }
+    }
+
+    if (subject == null) return null;
+
+    const { negated, tense } = this.extractModifiers(result.original || '');
+
+    // A measurement ("Mount Everest is 8848 meters tall") maps to the
+    // quantity constructor rather than a bare instance_of/relation, so the
+    // number and unit survive the round-trip instead of being dropped.
+    const quantity = Array.isArray(result.quantities)
+      ? result.quantities.find((q) => q.unit)
+      : null;
+    if (quantity) {
+      return buildConstructor(
+        'quantity',
+        { subject, value: quantity.value, unit: quantity.unit },
+        { negated, tense },
+      );
+    }
+
+    const lower = (result.original || '').toLowerCase();
+    const isInstanceOf = predicate === 'P31'
+      || this.instanceOfWords.some((w) => new RegExp(`\\b${w}\\b`).test(lower));
+
+    if (isInstanceOf && object != null) {
+      return buildConstructor('instance_of', { subject, object }, { negated, tense });
+    }
+    if (predicate != null && object != null) {
+      return buildConstructor('relation', { subject, predicate, object }, { negated, tense });
+    }
+    // Not enough structure for a full relation — still surface what we have.
+    return buildConstructor('relation', { subject, predicate: predicate || null, object: object || null }, { negated, tense });
+  }
+
+  /**
+   * Transform text and additionally return the typed constructor.
+   *
+   * @param {string} text - Text to transform
+   * @param {Object} options - Transformation options
+   * @returns {Promise<Object>} - The transform() result with a `constructor`
+   *   field and a `modifiers` field added.
+   */
+  async transformToConstructor(text, options = {}) {
+    const result = await this.transform(text, options);
+    result.modifiers = this.extractModifiers(text);
+    result.question = this.detectQuestion(text);
+    result.quantities = this.extractQuantities(text);
+    result.constructor = this.toConstructor(result);
+    return result;
   }
 
   /**

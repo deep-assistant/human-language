@@ -186,7 +186,10 @@ class LimitationTest {
       
       try {
         const startTime = Date.now();
-        const result = await this.transformer.transform(testCase.input, {
+        // Use the structured pipeline so detected modifiers (negation/tense),
+        // questions, quantities and the typed constructor are available to the
+        // analysis below — the flat transform() loses all of that signal.
+        const result = await this.transformer.transformToConstructor(testCase.input, {
           maxCandidates: 3,
           includeLabels: false,
           searchLimit: 5
@@ -246,15 +249,17 @@ class LimitationTest {
         break;
         
       case "should_handle_negation":
-        // Current system ignores "not" - this is a known limitation
-        if (result.sequence.length > 0) {
+        // Negation is now detected by extractModifiers() and carried on the
+        // typed constructor (negated: true), so the meaning is preserved.
+        if (!result.modifiers?.negated && !result.constructor?.negated) {
           issues.push('Negation not properly handled - "not" should affect meaning');
         }
         break;
-        
+
       case "should_handle_questions":
-        // Questions should be handled differently
-        if (result.sequence.length > 0) {
+        // Questions are now classified by detectQuestion() (wh-word + type),
+        // so they are no longer silently treated as plain statements.
+        if (!result.question?.isQuestion) {
           issues.push('Questions treated as statements - need special handling');
         }
         break;
@@ -268,9 +273,12 @@ class LimitationTest {
         break;
         
       case "numerical":
-        // Should handle quantities differently
-        const hasQuantity = result.formatted.match(/\d/);
-        if (!hasQuantity) {
+        // Quantities are now extracted with their unit and surfaced as a
+        // typed 'quantity' constructor, so the value is no longer lost.
+        const capturedQuantity =
+          (Array.isArray(result.quantities) && result.quantities.some(q => q.unit)) ||
+          result.constructor?.type === 'quantity';
+        if (!capturedQuantity) {
           issues.push('Numerical values lost in transformation');
         }
         break;
@@ -361,18 +369,18 @@ class LimitationTest {
       });
     }
     
-    console.log('\n💡 PRIORITY IMPROVEMENTS NEEDED:');
+    console.log('\n💡 IMPROVEMENT STATUS:');
     const improvements = [
-      '1. Implement negation handling ("not", "never", etc.)',
-      '2. Add question detection and special processing',
-      '3. Improve temporal expression recognition',
-      '4. Handle numerical values and units properly',
-      '5. Add multi-language support for non-Latin scripts',
-      '6. Implement entity deduplication for repeated terms',
-      '7. Add confidence scoring to reduce ambiguous results',
-      '8. Optimize phrase detection to reduce over-segmentation'
+      '✅ Negation handling ("not", "never", etc.) — extractModifiers()',
+      '✅ Question detection and classification — detectQuestion()',
+      '✅ Temporal/tense recognition — extractModifiers() tense',
+      '✅ Numerical values and units — extractQuantities() + quantity constructor',
+      '✅ Entity deduplication for repeated terms — dedupeSequence()',
+      '⬜ Multi-language support for non-Latin scripts (knowledge-base dependent)',
+      '⬜ Confidence scoring to reduce ambiguous results',
+      '⬜ Phrase detection tuning to reduce over-segmentation'
     ];
-    
+
     improvements.forEach(improvement => console.log(improvement));
   }
 

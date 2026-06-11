@@ -35,7 +35,7 @@ async function attachErrorCollectors(page) {
 }
 
 test.describe('Unified SPA - app.html', () => {
-  test('landing page renders with all six mode tabs', async ({ page }) => {
+  test('landing page renders with all seven mode tabs', async ({ page }) => {
     const errors = await attachErrorCollectors(page);
     await page.goto(APP);
     await expect(page.getByRole('button', { name: 'Alphabet' })).toBeVisible();
@@ -44,6 +44,7 @@ test.describe('Unified SPA - app.html', () => {
     await expect(page.getByRole('button', { name: 'Entities' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Properties' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Transformer' })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Generation' })).toBeVisible();
     expect(errors).toEqual([]);
   });
 });
@@ -140,5 +141,52 @@ test.describe('Transformer mode - regression for issue #35', () => {
     await ta.fill('Hello world');
     await page.getByRole('button', { name: 'Clear', exact: true }).click();
     await expect(ta).toHaveValue('');
+  });
+});
+
+test.describe('Generation mode (Q/P → text)', () => {
+  test('mode boots and the Generate button is enabled', async ({ page }) => {
+    const errors = await attachErrorCollectors(page);
+    await page.goto(`${APP}#mode=generation`);
+
+    await expect(page.getByRole('heading', { name: 'Generation', exact: false })).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('body')).not.toContainText('Failed to load renderer');
+    await expect(page.locator('body')).not.toContainText('require is not defined');
+
+    const generateBtn = page.getByRole('button', { name: 'Generate', exact: true });
+    await expect(generateBtn).toBeVisible();
+    await expect(generateBtn).toBeEnabled({ timeout: 5000 });
+    expect(errors).toEqual([]);
+  });
+
+  test('Generate renders the default constructor across the UN 6 languages offline', async ({ page }) => {
+    const errors = await attachErrorCollectors(page);
+    await page.goto(`${APP}#mode=generation`);
+    await page.getByRole('button', { name: 'Generate', exact: true }).waitFor({ state: 'visible' });
+    await page.getByRole('button', { name: 'Generate', exact: true }).click();
+
+    // Plain-text role values render with no Wikidata round-trip, so the
+    // English sentence is deterministic.
+    await expect(page.locator('body')).toContainText('Sentences', { timeout: 10000 });
+    await expect(page.locator('body')).toContainText('Berlin is a city');
+    await expect(page.locator('body')).toContainText('English');
+    await expect(page.locator('body')).toContainText('Chinese');
+    expect(errors).toEqual([]);
+  });
+
+  test('quantity constructor exposes value/unit fields and renders a measurement offline', async ({ page }) => {
+    const errors = await attachErrorCollectors(page);
+    await page.goto(`${APP}#mode=generation`);
+    await page.getByRole('button', { name: 'Generate', exact: true }).waitFor({ state: 'visible' });
+
+    // Switching to the quantity constructor swaps Object out for Value + Unit.
+    await page.getByRole('combobox').first().selectOption('quantity');
+    await page.getByRole('textbox', { name: 'Subject' }).fill('Mount Everest');
+    await page.getByRole('textbox', { name: 'Value' }).fill('8848');
+    await page.getByRole('textbox', { name: 'Unit' }).fill('meters');
+    await page.getByRole('button', { name: 'Generate', exact: true }).click();
+
+    await expect(page.locator('body')).toContainText('Mount Everest is 8848 meters', { timeout: 10000 });
+    expect(errors).toEqual([]);
   });
 });

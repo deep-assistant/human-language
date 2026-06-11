@@ -39,6 +39,28 @@ export interface TransformOptions {
   searchLimit?: number;
   preferProperties?: boolean;
   maxNgramSize?: number;
+  /** Collapse adjacent duplicate ids in the sequence (default true). */
+  dedupe?: boolean;
+}
+
+export type QuestionType =
+  | 'entity' | 'thing' | 'time' | 'place' | 'reason' | 'manner' | 'quantity' | 'polar';
+
+export interface QuestionInfo {
+  isQuestion: boolean;
+  word: string | null;
+  type: QuestionType | null;
+}
+
+export interface Quantity {
+  value: number;
+  unit: string | null;
+  raw: string;
+}
+
+export interface Modifiers {
+  negated: boolean;
+  tense: Tense;
 }
 
 export interface TransformResult {
@@ -47,20 +69,74 @@ export interface TransformResult {
   sequence: Array<string | { type: string; alternatives: Array<{ id: string; description?: string }> }>;
   formatted: string;
   alternatives: unknown[];
+  modifiers?: Modifiers;
+  question?: QuestionInfo;
+  quantities?: Quantity[];
+  constructor?: Constructor | null;
 }
 
 export class TextToQPTransformer {
   constructor();
   transform(text: string, options?: TransformOptions): Promise<TransformResult>;
+  transformToConstructor(text: string, options?: TransformOptions): Promise<TransformResult>;
   transformWithContext(
     text: string,
     context?: Record<string, string>,
     options?: TransformOptions,
   ): Promise<TransformResult>;
+  extractModifiers(text: string): Modifiers;
+  detectQuestion(text: string): QuestionInfo;
+  extractQuantities(text: string): Quantity[];
+  dedupeSequence(sequence: TransformResult['sequence']): TransformResult['sequence'];
+  toConstructor(result: TransformResult): Constructor | null;
 }
 
 export function formatSequenceAsLino(sequence: TransformResult['sequence']): string;
 export function formatTransformResultAsLino(result: TransformResult): string;
+
+// ---------------------------------------------------------------------------
+// Generation (reverse: Q/P -> text)
+// ---------------------------------------------------------------------------
+
+export type Tense = 'past' | 'present' | 'future';
+export type Gender = 'masculine' | 'feminine' | 'm' | 'f';
+
+/** A typed, role-labelled constructor consumed by the renderer. */
+export interface Constructor {
+  type: string;
+  subject?: string;
+  predicate?: string | null;
+  object?: string | null;
+  value?: string | number | null;
+  unit?: string | null;
+  negated?: boolean;
+  tense?: Tense;
+  /** Grammatical gender of the object noun (drives Romance article agreement). */
+  gender?: Gender;
+  [role: string]: unknown;
+}
+
+export interface QPRendererOptions {
+  labelProvider?: (ids: string[], lang: string) => Promise<Record<string, string>>;
+  apiClient?: WikidataAPIClient;
+}
+
+export class QPRenderer {
+  constructor(options?: QPRendererOptions);
+  readonly languages: string[];
+  readonly constructorTypes: string[];
+  renderWithLabels(constructor: Constructor, labels: Record<string, string>, lang?: string): string;
+  render(constructor: Constructor, lang?: string): Promise<string>;
+  renderAll(constructor: Constructor, langs?: string[]): Promise<Record<string, string>>;
+}
+
+export const CONSTRUCTORS: Record<string, { roles: string[]; description: string; templates: Record<string, unknown> }>;
+export const UN6_LANGUAGES: readonly string[];
+export const LANGUAGE_NAMES: Record<string, string>;
+export function buildConstructor(type: string, roles?: Record<string, unknown>, modifiers?: Record<string, unknown>): Constructor;
+export function validateConstructor(constructor: Constructor): boolean;
+export function englishIndefiniteArticle(word: string): 'a' | 'an';
+export function romanceIndefiniteArticle(lang: string, gender?: Gender): string;
 
 // ---------------------------------------------------------------------------
 // Wikidata API
@@ -72,6 +148,8 @@ export class WikidataAPIClient {
   fetchEntities(ids: string | string[], props?: string, languages?: string): Promise<unknown>;
   fetchProperty(id: string, languages?: string): Promise<unknown>;
   fetchLabels(ids: string[], languages?: string): Promise<unknown>;
+  getLabels(ids: string[] | string, language?: string): Promise<Record<string, string>>;
+  searchLexemes(term: string, language?: string, limit?: number): Promise<Array<{ id: string; label: string; description: string }>>;
   searchExactMatch(query: string, languages?: string, limit?: number, type?: string): Promise<unknown>;
   searchFuzzy(query: string, languages?: string, limit?: number, type?: string): Promise<unknown>;
   setCacheType(cacheType: string, cacheOptions?: Record<string, unknown>): void;

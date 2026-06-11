@@ -63,6 +63,7 @@
     entity: 'Entities',
     property: 'Properties',
     transformer: 'Transformer',
+    generation: 'Generation',
   };
 
   function ModeTabs({ mode, params }) {
