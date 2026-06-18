@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wikidata Word Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #121212;
+      --text: #E0E0E0;
+      --neon: #00FF00;
+      --neon-selected: #00FFFF;
+      --header-bg: #222;
+      --description-text: #A0A0A0;
+      --watermark-color: #E0E0E0;
+      --input-bg: #333;
+      --input-border: #555;
+      --word-card-bg: #1a1a1a;
+      --ipa-color: #FFD700;
+    }
+
+    [data-theme="light"] {
+      --background: #FFFFFF;
+      --text: #333333;
+      --neon: #FF00FF;
+      --neon-selected: #FF007F;
+      --header-bg: #F0F0F0;
+      --description-text: #666666;
+      --watermark-color: #333333;
+      --input-bg: #FFFFFF;
+      --input-border: #DDD;
+      --word-card-bg: #F8F9FA;
+      --ipa-color: #FF8C00;
+    }
+
+    html, body {
+      background-color: var(--background);
+      height: 100%;
+    }
+
+    body {
+      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    .app-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      min-height: 100vh;
+      z-index: 2;
+    }
+
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      left: 30px;
+      font-size: 6rem;
+      color: var(--watermark-color);
+      opacity: 0.1;
+      pointer-events: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      z-index: 1;
+      max-width: 800px;
+    }
+
+    main {
+      padding: 20px;
+      padding-bottom: 130px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px var(--neon);
+      color: var(--neon);
+      margin-bottom: 30px;
+      line-height: 1;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .search-container {
+      background-color: var(--word-card-bg);
+      padding: 25px;
+      border-radius: 10px;
+      margin-bottom: 30px;
+      border: 1px solid var(--input-border);
+    }
+
+    .search-form {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid var(--input-border);
+      border-radius: 5px;
+      font-size: 16px;
+      min-width: 200px;
+      background-color: var(--input-bg);
+      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--neon);
+      box-shadow: 0 0 5px var(--neon);
+    }
+
+    .search-button {
+      padding: 12px 24px;
+      background: var(--neon);
+      color: var(--background);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .search-button:hover {
+      background: var(--neon-selected);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 8px rgba(0, 255, 255, 0.3);
+    }
+
+    .word-display {
+      margin-top: 30px;
+    }
+
+    .word-card {
+      background-color: var(--word-card-bg);
+      border: 1px solid var(--input-border);
+      border-radius: 10px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
+
+    .word-title {
+      font-size: 2rem;
+      color: var(--neon);
+      margin-bottom: 10px;
+      text-shadow: 0 0 5px var(--neon);
+    }
+
+    .word-ipa {
+      font-size: 1.5rem;
+      color: var(--ipa-color);
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .word-language {
+      font-size: 1rem;
+      color: var(--description-text);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .entities-section {
+      margin-top: 20px;
+    }
+
+    .entities-title {
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--input-border);
+      padding-bottom: 8px;
+    }
+
+    .entity-item {
+      background-color: var(--input-bg);
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border-left: 4px solid var(--neon);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .entity-item:hover {
+      background-color: var(--header-bg);
+      transform: translateX(5px);
+      box-shadow: 0 2px 8px rgba(0, 255, 255, 0.2);
+    }
+
+    .entity-label {
+      font-weight: bold;
+      color: var(--text);
+      margin-bottom: 5px;
+      font-size: 1.1rem;
+    }
+
+    .entity-id {
+      color: var(--neon);
+      font-family: monospace;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+
+    .entity-description {
+      color: var(--description-text);
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--description-text);
+      font-size: 1.2rem;
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 40px;
+      color: var(--description-text);
+      font-size: 1.1rem;
+    }
+
+    .error-message {
+      background-color: #ff4444;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      border: 2px solid var(--neon);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 8px;
+      margin: 0 8px;
+    }
+
+    .language-switcher {
+      position: fixed;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      padding: 8px;
+      text-align: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .language-switcher button {
+      background-color: transparent;
+      border: 1px solid var(--header-bg);
+      color: var(--text);
+      font-size: 1.2rem;
+      padding: 8px;
+      margin: 0 8px;
+      cursor: pointer;
+    }
+
+    .language-switcher button.selected {
+      color: var(--neon-selected);
+      border: 1px solid var(--neon-selected);
+      border-radius: 4px;
+    }
+
+    .language-switcher button.preferred:not(.selected) {
+      text-decoration: underline;
+      text-decoration-color: var(--neon);
+      text-decoration-thickness: 1px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .search-form { flex-direction: column; }
+      .search-input { min-width: auto; }
+      .word-title { font-size: 1.5rem; }
+      .word-ipa { font-size: 1.2rem; }
+      .language-switcher { left: 10px; right: 10px; padding: 6px; }
+      .language-switcher button { font-size: 1rem; padding: 6px; margin: 0 4px; }
+      .theme-toggle { top: 10px; right: 10px; width: 30px; height: 30px; font-size: 1.2rem; padding: 6px; margin: 0 4px; }
+      .watermark { font-size: 4rem; left: 10px; bottom: 10px; }
+      .app-wrapper { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="module">
+    import React from 'https://esm.sh/react@19';
+    import ReactDOM from 'https://esm.sh/react-dom@19/client';
+    window.React = React;
+    window.ReactDOM = ReactDOM;
+  </script>
+  <script type="module">
+    import { STORAGE_KEYS, saveToLocalStorage, loadFromLocalStorage, flagMap } from './settings.js';
+    import { client as apiClient, cache as cacheManager, processor as dataProcessor, labelManager, searchUtility } from './wikidata-api-browser.js';
+
+    window.STORAGE_KEYS = STORAGE_KEYS;
+    window.saveToLocalStorage = saveToLocalStorage;
+    window.loadFromLocalStorage = loadFromLocalStorage;
+    window.flagMap = flagMap;
+    window.apiClient = apiClient;
+    window.cacheManager = cacheManager;
+    window.dataProcessor = dataProcessor;
+    window.labelManager = labelManager;
+    window.searchUtility = searchUtility;
+  </script>
+  <script type="text/babel" src="loading.jsx"></script>
+  <script type="text/babel">
+    const {
+      apiClient,
+      cacheManager,
+      dataProcessor,
+      labelManager,
+      searchUtility,
+      loadFromLocalStorage,
+      saveToLocalStorage,
+      flagMap,
+      STORAGE_KEYS,
+    } = window;
+
+    const { LoadingComponent } = window.LoadingComponents;
+
+    function WordsPage() {
+      const [searchQuery, setSearchQuery] = React.useState('');
+      const [searchResults, setSearchResults] = React.useState([]);
+      const [isLoading, setIsLoading] = React.useState(false);
+      const [error, setError] = React.useState(null);
+      const [selectedLanguage, setSelectedLanguage] = React.useState('en');
+      const [availableLanguages, setAvailableLanguages] = React.useState(['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko']);
+      const [preferredLanguages, setPreferredLanguages] = React.useState([]);
+      const [theme, setTheme] = React.useState(() => {
+        const savedTheme = loadFromLocalStorage(STORAGE_KEYS.THEME, 'dark');
+        return savedTheme;
+      });
+
+      React.useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+      }, [theme]);
+
+      React.useEffect(() => {
+        const savedTheme = loadFromLocalStorage(STORAGE_KEYS.THEME, null);
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          setTheme(systemTheme);
+        }
+
+        const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
+        const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
+        setPreferredLanguages(uniquePreferredLangs);
+        
+        const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+        const initialLang = savedLanguage || uniquePreferredLangs[0] || 'en';
+        setSelectedLanguage(initialLang);
+      }, []);
+
+      const toggleTheme = () => {
+        const newTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+        saveToLocalStorage(STORAGE_KEYS.THEME, newTheme);
+      };
+
+      const handleSearch = async (e) => {
+        e.preventDefault();
+        if (!searchQuery.trim()) return;
+
+        setIsLoading(true);
+        setError(null);
+        setSearchResults([]);
+
+        try {
+          const results = await searchUtility.searchExactMatch(
+            searchQuery.trim(), 
+            selectedLanguage, 
+            50, 
+            'item'
+          );
+
+          if (results.entities && results.entities.length > 0) {
+            const enhancedResults = await Promise.all(
+              results.entities.map(async (entity) => {
+                try {
+                  const fullEntity = await apiClient.fetchEntity(entity.id, selectedLanguage);
+                  return {
+                    ...entity,
+                    fullData: fullEntity,
+                    ipa: extractIPA(fullEntity, entity.label),
+                    language: selectedLanguage
+                  };
+                } catch (err) {
+                  console.warn(`Failed to fetch full data for ${entity.id}:`, err);
+                  return {
+                    ...entity,
+                    ipa: null,
+                    language: selectedLanguage
+                  };
+                }
+              })
+            );
+            setSearchResults(enhancedResults);
+          } else {
+            setSearchResults([]);
+          }
+        } catch (err) {
+          console.error('Search error:', err);
+          setError(`Search failed: ${err.message}`);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      const extractIPA = (entityData, label) => {
+        if (!entityData || !entityData.claims) return null;
+        
+        // Look for IPA property (P898) in claims
+        const ipaClaims = entityData.claims['P898'];
+        if (ipaClaims && ipaClaims.length > 0) {
+          const ipaValue = ipaClaims[0].mainsnak?.datavalue?.value;
+          if (ipaValue) return `/${ipaValue}/`;
+        }
+
+        // If no IPA found, return null (we won't generate fake IPA)
+        return null;
+      };
+
+      const handleEntityClick = (entityId) => {
+        window.location.href = `entities.html#${entityId}`;
+      };
+
+      const renderWordCard = (result) => {
+        return (
+          <div key={result.id} className="word-card">
+            <div className="word-title">{result.label}</div>
+            {result.ipa && <div className="word-ipa">{result.ipa}</div>}
+            <div className="word-language">{flagMap[result.language] || result.language}</div>
+            
+            <div className="entities-section">
+              <div className="entities-title">Entities this word can represent:</div>
+              <div 
+                className="entity-item" 
+                onClick={() => handleEntityClick(result.id)}
+              >
+                <div className="entity-label">{result.label}</div>
+                <div className="entity-id">{result.id}</div>
+                {result.description && (
+                  <div className="entity-description">{result.description}</div>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      };
+
+      return (
+        <div className="app-wrapper">
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+          
+          <main>
+            <h1>Word Explorer</h1>
+            
+            <div className="search-container">
+              <form onSubmit={handleSearch} className="search-form">
+                <input
+                  type="text"
+                  className="search-input"
+                  placeholder="Enter a word to explore..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button type="submit" className="search-button">
+                  Search
+                </button>
+              </form>
+              
+              <p style={{color: 'var(--description-text)', fontSize: '0.9rem', margin: '10px 0 0 0'}}>
+                Enter any word to see how it's represented in Wikidata, including IPA pronunciation and all entities it can represent.
+              </p>
+            </div>
+
+            {error && (
+              <div className="error-message">
+                {error}
+              </div>
+            )}
+
+            {isLoading && <LoadingComponent />}
+
+            <div className="word-display">
+              {!isLoading && searchResults.length === 0 && searchQuery && !error && (
+                <div className="no-results">
+                  No results found for "{searchQuery}". Try a different word or check the spelling.
+                </div>
+              )}
+
+              {searchResults.map(renderWordCard)}
+            </div>
+          </main>
+
+          <div className="language-switcher">
+            {availableLanguages.map(lang => (
+              <button
+                key={lang}
+                className={`${lang === selectedLanguage ? 'selected' : ''} ${
+                  preferredLanguages.includes(lang) && lang !== selectedLanguage ? 'preferred' : ''
+                }`}
+                onClick={() => {
+                  setSelectedLanguage(lang);
+                  saveToLocalStorage(STORAGE_KEYS.LANGUAGE, lang);
+                }}
+              >
+                {flagMap[lang] || lang}
+              </button>
+            ))}
+          </div>
+          
+          <div className="watermark">words</div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<WordsPage />);
+  </script>
+</body>
+</html>
