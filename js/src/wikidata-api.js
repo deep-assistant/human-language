@@ -178,6 +178,51 @@ class WikidataAPIClient {
   }
 
   /**
+   * Get IPA transcription for an entity from P898 property
+   * @param {string} entityId - Entity ID (e.g., 'Q35120')
+   * @param {string} languages - Languages to fetch
+   * @returns {Promise<Array>} - Array of IPA transcriptions
+   */
+  async getIpaTranscription(entityId, languages = 'en') {
+    try {
+      const entity = await this.fetchEntity(entityId, languages);
+      const ipa = [];
+      
+      if (entity && entity.claims && entity.claims.P898) {
+        entity.claims.P898.forEach(claim => {
+          if (claim.mainsnak && claim.mainsnak.datavalue) {
+            const transcription = {
+              value: claim.mainsnak.datavalue.value,
+              language: null,
+              variety: null
+            };
+            
+            // Check qualifiers for language and pronunciation variety
+            if (claim.qualifiers) {
+              // Language qualifier (P407)
+              if (claim.qualifiers.P407 && claim.qualifiers.P407[0] && claim.qualifiers.P407[0].datavalue) {
+                transcription.language = claim.qualifiers.P407[0].datavalue.value.id;
+              }
+              
+              // Pronunciation variety qualifier (P5237)
+              if (claim.qualifiers.P5237 && claim.qualifiers.P5237[0] && claim.qualifiers.P5237[0].datavalue) {
+                transcription.variety = claim.qualifiers.P5237[0].datavalue.value.id;
+              }
+            }
+            
+            ipa.push(transcription);
+          }
+        });
+      }
+      
+      return ipa;
+    } catch (error) {
+      console.error('Error fetching IPA transcription:', error);
+      return [];
+    }
+  }
+
+  /**
    * Search for entities and properties that match an exact word sequence
    * @param {string} query - Exact word sequence to search for
    * @param {string} languages - Languages to search in (default: 'en')

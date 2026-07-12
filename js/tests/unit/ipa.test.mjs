@@ -68,6 +68,18 @@ test('toIpaForEntity: keeps existing slashes in P898 value', async () => {
   assert.equal(out, '/ˈleɪbəl/');
 });
 
+test('toIpaForEntity: prefers the P898 transcription matching the display language', async () => {
+  const entity = {
+    claims: {
+      P898: [
+        { mainsnak: { datavalue: { value: { text: 'kæt', language: 'en' } } } },
+        { mainsnak: { datavalue: { value: { text: 'ʃa', language: 'fr' } } } },
+      ],
+    },
+  };
+  assert.equal(await toIpaForEntity(entity, 'fr-FR'), '/ʃa/');
+});
+
 test('toIpaForEntity: falls back to label-driven toIpa when no P898', async () => {
   globalThis.fetch = stubFetch({
     '/api/v2/entries/en/cat': [{ phonetic: '/kæt/' }],

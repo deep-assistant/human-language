@@ -138,9 +138,18 @@ export async function toIpa(text, lang = 'en') {
 export async function toIpaForEntity(entity, lang = 'en') {
   const p898 = entity?.claims?.P898;
   if (Array.isArray(p898)) {
-    for (const claim of p898) {
-      const value = claim?.mainsnak?.datavalue?.value?.text || claim?.mainsnak?.datavalue?.value;
-      if (typeof value === 'string' && value) return value.startsWith('/') ? value : `/${value}/`;
+    const requestedLanguage = String(lang || 'en').toLowerCase().split('-')[0];
+    const transcriptions = p898.flatMap((claim) => {
+      const dataValue = claim?.mainsnak?.datavalue?.value;
+      const text = dataValue?.text || dataValue;
+      if (typeof text !== 'string' || !text) return [];
+      return [{ text, language: dataValue?.language?.toLowerCase().split('-')[0] || null }];
+    });
+    const selected = transcriptions.find((item) => item.language === requestedLanguage)
+      || transcriptions.find((item) => item.language === null)
+      || transcriptions[0];
+    if (selected) {
+      return selected.text.startsWith('/') ? selected.text : `/${selected.text}/`;
     }
   }
   const label = entity?.labels?.[lang]?.value || entity?.labels?.en?.value || '';
