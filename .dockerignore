@@ -1,0 +1,45 @@
+# Keep the build context tight — Docker uploads the whole working
+# directory to the daemon otherwise, which is slow on big repos.
+
+# VCS + tooling
+.git
+.github
+.gitignore
+.lycheeignore
+
+# Local builds / artefacts
+node_modules
+data
+target
+rust/target
+*.log
+coverage
+.nyc_output
+
+# Docs and large assets we don't need inside the image
+docs
+research
+*.png
+*.jpg
+*.pdf
+SEARCH_README.md
+
+# Non-runtime artefacts
+api-patterns.json
+limitations-found.json
+*.html
+*.css
+*.jsx
+
+# Tests / scripts that don't ship in the container
+js/tests
+js/scripts
+rust/src
+rust/tests
+rust/Cargo.*
+rust/changelog.d
+rust/README.md
+rust/rust-toolchain.toml
+rust/rustfmt.toml
+examples
+experiments

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wikidata Q/P to Text Generation — Human Language</title>
+  <meta http-equiv="refresh" content="0;url=../app.html#mode=generation">
+  <link rel="canonical" href="../app.html#mode=generation">
+  <style>
+    body { font-family: system-ui, sans-serif; background: #121212; color: #E0E0E0; padding: 40px; text-align: center; }
+    a { color: #00FF00; }
+  </style>
+</head>
+<body>
+  <p>Redirecting to the unified <a href="../app.html">Human Language SPA</a>…</p>
+  <script>
+    // Preserve any query/hash params when redirecting into the SPA.
+    (function redirect() {
+      const hash = (window.location.hash || '').replace(/^#/, '');
+      let target = '../app.html#mode=generation';
+      if (hash.includes('=')) {
+        const params = new URLSearchParams(hash);
+        params.set('mode', 'generation');
+        target = `../app.html#${params.toString()}`;
+      } else if (window.location.search) {
+        const params = new URLSearchParams(window.location.search);
+        params.set('mode', 'generation');
+        target = `../app.html#${params.toString()}`;
+      }
+      window.location.replace(target);
+    })();
+  </script>
+</body>
+</html>

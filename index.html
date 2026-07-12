@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Human Language Project</title>
+  <meta name="description" content="A new kind of language for all people on earth — a unified SPA over Wikidata for alphabet, dictionary, ontology, entity, property, transformer and generation exploration.">
+  <link rel="canonical" href="https://link-assistant.github.io/human-language/">
+  <meta property="og:title" content="Human Language Project">
+  <meta property="og:description" content="A new kind of language for all people on earth.">
+  <meta property="og:url" content="https://link-assistant.github.io/human-language/">
+  <meta property="og:type" content="website">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --accent: #2563eb;
+      --accent-strong: #1d4ed8;
+      --border: #e5e7eb;
+      --shadow: 0 1px 2px rgba(15, 23, 42, .04), 0 8px 24px rgba(15, 23, 42, .06);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b1020;
+        --card: #111733;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --accent: #60a5fa;
+        --accent-strong: #93c5fd;
+        --border: #1f2a44;
+        --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .5);
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 24px 64px; }
+    header { text-align: center; margin-bottom: 40px; }
+    header .eyebrow {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--card);
+    }
+    header h1 {
+      font-size: clamp(28px, 4vw, 44px);
+      margin: 16px 0 8px;
+      letter-spacing: -.02em;
+    }
+    header p.lead {
+      max-width: 720px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    .actions { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+    .actions a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 10px 16px; border-radius: 8px; text-decoration: none;
+      font-weight: 500; font-size: 14px;
+      border: 1px solid var(--border); background: var(--card); color: var(--text);
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .actions a.primary { background: var(--accent); color: white; border-color: var(--accent); }
+    .actions a:hover { transform: translateY(-1px); border-color: var(--accent); }
+    .actions a.primary:hover { background: var(--accent-strong); border-color: var(--accent-strong); }
+
+    section h2 { font-size: 20px; margin: 40px 0 16px; letter-spacing: -.01em; }
+    section h2 .count { font-size: 13px; color: var(--muted); font-weight: 400; margin-left: 8px; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      display: block; padding: 18px 20px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      box-shadow: var(--shadow); text-decoration: none; color: inherit;
+      transition: transform .15s ease, border-color .15s ease;
+    }
+    .card:hover { transform: translateY(-2px); border-color: var(--accent); }
+    .card .tag {
+      display: inline-block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 8px;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 17px; letter-spacing: -.01em; }
+    .card p { margin: 0; color: var(--muted); font-size: 14px; }
+    .card .file {
+      display: block; margin-top: 12px;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 12px; color: var(--muted);
+    }
+
+    .docs ul {
+      list-style: none; padding: 0; margin: 0;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px;
+    }
+    .docs a {
+      display: block; padding: 10px 14px;
+      border-radius: 8px; border: 1px solid var(--border);
+      background: var(--card); color: inherit; text-decoration: none; font-size: 14px;
+    }
+    .docs a:hover { border-color: var(--accent); }
+
+    footer {
+      margin-top: 56px; padding-top: 24px;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 13px; text-align: center;
+    }
+    footer a { color: inherit; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <span class="eyebrow">Human Language Project</span>
+      <h1>A new kind of language for all people on earth</h1>
+      <p class="lead">
+        A unified browser-based companion to Wikidata: explore the alphabet, look up words, walk the ontology, browse entities and properties, and transform any English sentence into a Wikidata Q/P sequence — all from a single, theme-aware SPA.
+      </p>
+      <div class="actions">
+        <a class="primary" href="app.html">Open the Human Language SPA →</a>
+        <a href="https://github.com/link-assistant/human-language">View on GitHub</a>
+        <a href="https://github.com/link-assistant/human-language/blob/main/README.md">Read the README</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>The six unified modes <span class="count">single-page app</span></h2>
+      <div class="grid">
+        <a class="card" href="app.html#mode=alphabet">
+          <span class="tag">Alphabet</span>
+          <h3>Alphabet</h3>
+          <p>Each letter rendered larger than half the viewport, with IPA pronunciation, keyboard navigation, and direct links into Wikidata.</p>
+          <span class="file">app.html#mode=alphabet</span>
+        </a>
+        <a class="card" href="app.html#mode=dictionary">
+          <span class="tag">Dictionary</span>
+          <h3>Dictionary</h3>
+          <p>Merged definitions from the Free Dictionary API and Wiktionary, with multilingual support and an "IPA-only" toggle to render meanings phonetically.</p>
+          <span class="file">app.html#mode=dictionary</span>
+        </a>
+        <a class="card" href="app.html#mode=ontology">
+          <span class="tag">Ontology</span>
+          <h3>Ontology browser</h3>
+          <p>An expandable tree rooted at <em>entity</em> (Q35120), walking Wikidata's <code>subclass of</code> graph. Cycles are allowed and clearly flagged.</p>
+          <span class="file">app.html#mode=ontology</span>
+        </a>
+        <a class="card" href="app.html#mode=entity">
+          <span class="tag">Entities</span>
+          <h3>Entity browser</h3>
+          <p>Inspect any Wikidata Q-id with multilingual labels, statements, an IPA toggle, and an inline tests button — all theme-aware.</p>
+          <span class="file">app.html#mode=entity</span>
+        </a>
+        <a class="card" href="app.html#mode=property">
+          <span class="tag">Properties</span>
+          <h3>Property browser</h3>
+          <p>Same lens as the entity browser but for P-ids: definitions, related properties and IPA rendering, with cache-first loading.</p>
+          <span class="file">app.html#mode=property</span>
+        </a>
+        <a class="card" href="app.html#mode=transformer">
+          <span class="tag">Transformer</span>
+          <h3>Text → Q/P transformer</h3>
+          <p>Paste any English sentence and watch it become a sequence of Wikidata entities and properties, with n-gram support for multi-word terms.</p>
+          <span class="file">app.html#mode=transformer</span>
+        </a>
+        <a class="card" href="app.html#mode=generation">
+          <span class="tag">Generation</span>
+          <h3>Q/P → text generation</h3>
+          <p>The reverse direction: render a typed constructor (subject · predicate · object, with negation and tense) into sentences across the six official UN languages — an Abstract-Wikipedia-style renderer.</p>
+          <span class="file">app.html#mode=generation</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="docs">
+      <h2>📚 Documentation</h2>
+      <ul>
+        <li><a href="https://github.com/link-assistant/human-language/blob/main/README.md">Project README</a></li>
+        <li><a href="https://github.com/link-assistant/human-language/blob/main/SEARCH_README.md">Search &amp; Disambiguation API</a></li>
+        <li><a href="https://github.com/link-assistant/human-language/blob/main/transformation/README.md">Text Transformation Guide</a></li>
+        <li><a href="https://github.com/link-assistant/human-language/blob/main/transformation/ngram-feature-summary.md">N-gram Feature Summary</a></li>
+        <li><a href="https://github.com/link-assistant/human-language/tree/main/research">Research notes</a></li>
+        <li><a href="https://github.com/link-assistant/human-language/tree/main/docs/case-studies">Case studies</a></li>
+      </ul>
+    </section>
+
+    <footer>
+      <p>
+        Open source, public domain · <a href="https://github.com/link-assistant/human-language">link-assistant/human-language</a>
+        · <a href="https://github.com/link-assistant/human-language/issues">Issues</a>
+        · <a href="https://github.com/link-assistant/human-language/blob/main/LICENSE">License</a>
+      </p>
+    </footer>
+  </main>
+</body>
+</html>

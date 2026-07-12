@@ -1,0 +1,118 @@
+name: Rust
+
+# Lint, test, and release pipeline for the Rust crate that lives under
+# `rust/`. Mirrors the cadence of `js.yml`: PRs are gated on fmt+clippy+test;
+# `main` pushes additionally publish a crates.io release when the version
+# in `rust/Cargo.toml` advances.
+#
+# Adopted from rust-ai-driven-development-pipeline-template, trimmed to
+# the surface this repo actually uses.
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'rust/**'
+      - '.github/workflows/rust.yml'
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'rust/**'
+      - '.github/workflows/rust.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref == 'refs/heads/main' }}
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: rust
+
+jobs:
+  fmt:
+    name: cargo fmt --check
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - run: cargo fmt --all -- --check
+
+  clippy:
+    name: cargo clippy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [fmt]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+      - run: cargo clippy --all-targets -- -D warnings
+
+  test:
+    name: cargo test
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    needs: [fmt]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+      - run: cargo test --all-targets
+
+  # === Publish to crates.io on version-advancing pushes to main =============
+
+  publish-check:
+    name: Detect Cargo.toml version bump
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    needs: [clippy, test]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    outputs:
+      should_publish: ${{ steps.diff.outputs.should_publish }}
+      version: ${{ steps.diff.outputs.version }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 2
+      - id: diff
+        name: Compare versions
+        working-directory: .
+        run: node rust/scripts/check-cargo-version.mjs
+
+  publish:
+    name: cargo publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: [publish-check]
+    if: needs.publish-check.outputs.should_publish == 'true'
+    environment:
+      name: crates-io
+      url: https://crates.io/crates/human-language
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+      - name: cargo publish --token $CARGO_REGISTRY_TOKEN
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
+        run: cargo publish --locked

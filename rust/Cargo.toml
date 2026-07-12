@@ -1,0 +1,43 @@
+[package]
+name = "human-language"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.74"
+description = "Transform English text into sequences of Wikidata Q/P identifiers, with shared pure-function helpers (tokenization, n-grams, IPA routing, hash-route parsing) used by the npm package, the Docker microservice, and the in-browser SPA."
+license = "MIT"
+repository = "https://github.com/link-assistant/human-language"
+homepage = "https://github.com/link-assistant/human-language"
+documentation = "https://docs.rs/human-language"
+readme = "README.md"
+keywords = ["wikidata", "nlp", "links-notation", "lino", "tokenizer"]
+categories = ["text-processing", "parser-implementations", "command-line-utilities"]
+authors = ["link-assistant"]
+
+[lib]
+name = "human_language"
+crate-type = ["cdylib", "rlib"]
+
+[[bin]]
+name = "human-language"
+path = "src/bin/cli.rs"
+
+[features]
+default = []
+# Network-backed Wikidata client (reqwest + tokio). Kept opt-in so the core
+# crate compiles without an async runtime when used only for pure helpers.
+wikidata-client = ["reqwest", "tokio", "serde", "serde_json"]
+
+[dependencies]
+clap = { version = "4.6.1", features = ["derive"] }
+lino-arguments = "0.3.0"
+lino-objects-codec = "0.2.1"
+once_cell = "1"
+percent-encoding = "2"
+regex = "1"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"], optional = true }
+serde = { version = "1", features = ["derive"], optional = true }
+serde_json = { version = "1", optional = true }
+tokio = { version = "1", features = ["rt", "rt-multi-thread", "macros"], optional = true }
+
+[dev-dependencies]
+serde_json = "1"

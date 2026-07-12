@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wikidata Entity Viewer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --background: #121212;
+      --text: #E0E0E0;
+      --neon: #00FF00;
+      --neon-selected: #00FFFF;
+      --header-bg: #222;
+      --description-text: #A0A0A0;
+      --watermark-color: #E0E0E0;
+    }
+
+    /* Ensure watermark is above the root background */
+    .watermark {
+      position: fixed;
+      bottom: 20px;
+      left: 30px;
+      font-size: 6rem;
+      color: var(--watermark-color);
+      opacity: 0.1;
+      pointer-events: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      z-index: 1; /* Changed from -1 to 1 to be above root background */
+      max-width: 800px;
+    }
+
+    [data-theme="light"] {
+      --background: #FFFFFF;
+      --text: #333333;
+      --neon: #FF00FF;
+      --neon-selected: #FF007F;
+      --header-bg: #F0F0F0;
+      --description-text: #666666;
+      --watermark-color: #333333;
+    }
+
+    html, body {
+      background-color: var(--background);
+      height: 100%;
+    }
+
+    body {
+      color: var(--text);
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
+
+    .app-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      min-height: 100vh;
+      z-index: 2;
+    }
+
+
+
+    main {
+      padding: 20px;
+      padding-bottom: 130px; /* Add extra bottom padding to avoid content being hidden behind language switcher */
+    }
+
+    h1, h2 {
+      font-size: 2.5rem;
+      text-shadow: 0 0 10px var(--neon);
+      color: var(--neon);
+      margin-bottom: 30px;
+      line-height: 1;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      margin-bottom: 40px;
+      color: var(--description-text);
+    }
+
+    .entity-info {
+      position: relative;
+      font-size: 1rem;
+      color: var(--text);
+      padding: 8px;
+      margin: 20px 0;
+      text-align: right;
+      padding-top: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .entity-info {
+        font-size: 0.9rem;
+        padding: 6px;
+        margin: 15px 0;
+        padding-top: 15px;
+      }
+    }
+
+    .entity-info a {
+      color: var(--neon);
+      text-decoration: none;
+      pointer-events: auto;
+      transition: color 0.3s ease;
+    }
+
+    .entity-info a:hover {
+      color: var(--neon-selected);
+      text-decoration: underline;
+    }
+
+    /* Statement link hover effects */
+    .statement-link {
+      color: var(--neon);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .statement-link:hover {
+      color: var(--neon-selected);
+      text-decoration: underline;
+    }
+
+    .language-switcher {
+      position: fixed;
+      bottom: 0;
+      left: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      padding: 8px;
+      text-align: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .language-switcher button {
+      background-color: transparent;
+      border: 1px solid var(--header-bg);
+      color: var(--text);
+      font-size: 1.2rem;
+      padding: 8px;
+      margin: 0 8px;
+      cursor: pointer;
+    }
+
+    .language-switcher button.selected {
+      color: var(--neon-selected);
+      border: 1px solid var(--neon-selected);
+      border-radius: 4px;
+    }
+
+    .language-switcher button.preferred:not(.selected) {
+      text-decoration: underline;
+      text-decoration-color: var(--neon);
+      text-decoration-thickness: 1px;
+    }
+
+    .language-switcher button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--header-bg);
+      border: 2px solid var(--neon);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 4px;
+      padding: 8px;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      h2 { margin-bottom: 25px; font-size: 1.2rem; }
+      p { font-size: 1rem; margin-bottom: 30px; }
+      .language-switcher { left: 10px; right: 10px; padding: 6px; }
+      .language-switcher button { font-size: 1rem; padding: 6px; margin: 0 4px; }
+      .theme-toggle { top: 10px; right: 10px; width: 30px; height: 30px; font-size: 1.2rem; padding: 6px; margin: 0 4px; }
+      .watermark { font-size: 4rem; left: 10px; bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="module">
+    // Import React and ReactDOM as ES Modules
+    import React from 'https://esm.sh/react@19';
+    import ReactDOM from 'https://esm.sh/react-dom@19/client';
+
+    // Make React and ReactDOM available globally for the text/babel script
+    window.React = React;
+    window.ReactDOM = ReactDOM;
+  </script>
+  <script type="module">
+    // Import settings and Wikidata API utilities
+    import { STORAGE_KEYS, saveToLocalStorage, loadFromLocalStorage, flagMap } from './settings.js';
+    import { client as apiClient, cache as cacheManager, processor as dataProcessor, labelManager, searchUtility } from './wikidata-api-browser.js';
+
+    // Make them available globally for the text/babel script
+    window.STORAGE_KEYS = STORAGE_KEYS;
+    window.saveToLocalStorage = saveToLocalStorage;
+    window.loadFromLocalStorage = loadFromLocalStorage;
+    window.flagMap = flagMap;
+    window.apiClient = apiClient;
+    window.cacheManager = cacheManager;
+    window.dataProcessor = dataProcessor;
+    window.labelManager = labelManager;
+    window.searchUtility = searchUtility;
+  </script>
+  <script type="text/babel" src="statements.jsx"></script>
+  <script type="text/babel" src="loading.jsx"></script>
+  <script type="text/babel">
+
+
+    const {
+      apiClient,
+      cacheManager,
+      dataProcessor,
+      labelManager,
+      searchUtility,
+      loadFromLocalStorage,
+      flagMap,
+      STORAGE_KEYS,
+    } = window;
+
+    // Use statement components from external module
+    const { StatementsSection } = window.StatementComponents;
+    const { LoadingComponent } = window.LoadingComponents;
+
+    function EntityPage() {
+      const [entityId, setEntityId] = React.useState(window.location.hash.slice(1) || 'Q35120');
+      const [labels, setLabels] = React.useState({});
+      const [descriptions, setDescriptions] = React.useState({});
+      const [statements, setStatements] = React.useState([]);
+      const [preferredLanguages, setPreferredLanguages] = React.useState([]);
+      const [availableLanguages, setAvailableLanguages] = React.useState([]);
+      const [selectedLanguage, setSelectedLanguage] = React.useState('');
+      const [isLoading, setIsLoading] = React.useState(true);
+      const [theme, setTheme] = React.useState(() => {
+        const savedTheme = loadFromLocalStorage(STORAGE_KEYS.THEME, 'dark');
+        return savedTheme;
+      });
+      const [propertyLabels, setPropertyLabels] = React.useState({});
+      const [entityLabels, setEntityLabels] = React.useState({});
+
+      React.useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+      }, [theme]);
+
+      React.useEffect(() => {
+        // Load saved theme or use system preference
+        const savedTheme = loadFromLocalStorage(STORAGE_KEYS.THEME, null);
+        if (savedTheme) {
+          setTheme(savedTheme);
+        } else {
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          setTheme(systemTheme);
+        }
+      }, []);
+
+      React.useEffect(() => {
+        const handleHashChange = () => {
+          const newEntityId = window.location.hash.slice(1) || 'Q35120';
+          console.log('Hash changed to:', newEntityId);
+          setEntityId(newEntityId);
+          setIsLoading(true);
+          setPropertyLabels({});
+          setEntityLabels({});
+          setStatements({});
+          setLabels({});
+          setDescriptions({});
+          setAvailableLanguages([]);
+        };
+        window.addEventListener('hashchange', handleHashChange);
+        return () => window.removeEventListener('hashchange', handleHashChange);
+      }, []);
+
+      React.useEffect(() => {
+        const loadEntityData = async () => {
+          const preferredLangs = navigator.languages.map(lang => lang.split('-')[0]);
+          const uniquePreferredLangs = [...new Set([...preferredLangs, 'en'])];
+          setPreferredLanguages(uniquePreferredLangs);
+          const commonLanguages = ['en', 'fr', 'de', 'es', 'it', 'pt', 'ru', 'zh', 'ja', 'ko', 'ar', 'hi', 'bn', 'ta', 'te', 'ml', 'ur', 'fa', 'tr', 'vi'];
+          const allLanguages = [...new Set([...preferredLangs, ...commonLanguages])];
+          const languages = allLanguages.join('|');
+
+          setIsLoading(true);
+
+          try {
+            // Try to get entity data from cache first
+            let cachedEntityData = await cacheManager.getFromCache(cacheManager.stores.ENTITIES, entityId);
+            console.log('Cached entity data for:', entityId, cachedEntityData);
+            
+            // Check if cached data is complete
+            const isCachedDataComplete = cacheManager.isCachedDataComplete(cachedEntityData, languages);
+            
+            let entityData;
+            if (!cachedEntityData || !isCachedDataComplete) {
+              // Cache miss or incomplete data, fetch from API
+              console.log('Fetching fresh data for entity:', entityId);
+              entityData = await apiClient.fetchEntity(entityId, languages);
+              
+              // Save to cache
+              if (entityData) {
+                await cacheManager.saveToCache(cacheManager.stores.ENTITIES, entityId, entityData);
+              }
+            } else {
+              console.log('Using cached data for entity:', entityId);
+              entityData = cachedEntityData.data;
+            }
+
+            if (entityData) {
+              console.log('Setting entity data for:', entityId, entityData);
+              console.log('Claims count:', Object.keys(entityData.claims || {}).length);
+              console.log('Entity data keys:', Object.keys(entityData));
+              console.log('Claims object:', entityData.claims);
+              setLabels(entityData.labels || {});
+              setDescriptions(entityData.descriptions || {});
+              setStatements(entityData.claims || {});
+              const langSet = new Set([...Object.keys(entityData.labels || {}), ...Object.keys(entityData.descriptions || {})]);
+              setAvailableLanguages(Array.from(langSet).sort());
+              // Load saved language or use preferred language
+              const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+              const initialLang = savedLanguage && langSet.has(savedLanguage) 
+                ? savedLanguage 
+                : uniquePreferredLangs.find(lang => langSet.has(lang)) || 'en';
+              setSelectedLanguage(initialLang);
+              
+              // Load all labels using the centralized label manager
+              const { propertyLabels: newPropertyLabels, entityLabels: newEntityLabels } = await labelManager.loadAllLabels(entityData.claims, languages);
+              setPropertyLabels(newPropertyLabels);
+              setEntityLabels(newEntityLabels);
+            } else {
+              console.log('No entity data found for:', entityId);
+              setLabels({});
+              setDescriptions({});
+              setStatements({});
+              setAvailableLanguages([]);
+              const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+              setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
+            }
+            
+            setIsLoading(false);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+            setLabels({});
+            setDescriptions({});
+            setStatements({});
+            setAvailableLanguages([]);
+            const savedLanguage = loadFromLocalStorage(STORAGE_KEYS.LANGUAGE, null);
+            setSelectedLanguage(savedLanguage || uniquePreferredLangs[0] || 'en');
+            setIsLoading(false);
+          }
+        };
+
+        loadEntityData();
+      }, [entityId]);
+
+      const toggleTheme = () => {
+        setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
+        saveToLocalStorage(STORAGE_KEYS.THEME, prevTheme === 'dark' ? 'light' : 'dark');
+      };
+
+      // Create unified getLabel function using the label manager
+      const getLabel = labelManager.createGetLabelFunction(entityId, labels, entityLabels, propertyLabels, selectedLanguage);
+
+      console.log('Loading state:', { isLoading, propertyLabelsCount: Object.keys(propertyLabels).length, entityLabelsCount: Object.keys(entityLabels).length, statementsCount: Object.keys(statements).length });
+      
+      const currentLabel = labels[selectedLanguage]?.value || 'No label available';
+      const otherLabels = preferredLanguages.filter(lang => lang !== selectedLanguage && labels[lang]);
+      const sortedLanguages = [selectedLanguage, ...otherLabels];
+      const descriptionsList = sortedLanguages.map(lang => descriptions[lang]?.value).filter(desc => desc);
+
+      if (isLoading) {
+        return <LoadingComponent />;
+      }
+
+      return (
+        <div className="app-wrapper">
+          <button className="theme-toggle" onClick={toggleTheme}>
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+          <main>
+            <h1>{currentLabel}</h1>
+            {otherLabels.map(lang => (
+              <h2 key={lang}>{labels[lang]?.value || 'No label available'}</h2>
+            ))}
+            {descriptionsList.length > 0 ? (
+              descriptionsList.map((desc, index) => (
+                <p key={index}>{desc}</p>
+              ))
+            ) : (
+              <p>No description available</p>
+            )}
+            
+            <StatementsSection
+              statements={statements}
+              subjectId={entityId}
+              getLabel={getLabel}
+              onEntityClick={(entityId) => {
+                window.location.hash = entityId;
+              }}
+              onPropertyClick={(propertyId) => {
+                window.location.href = `properties.html#${propertyId}`;
+              }}
+              selectedLanguage={selectedLanguage}
+            />
+            
+            <div className="entity-info">
+              <span>Data source: </span>
+              <a href={`https://www.wikidata.org/wiki/${entityId}`} target="_blank" rel="noopener noreferrer">{entityId}</a>
+            </div>
+          </main>
+          <div className="language-switcher">
+            {availableLanguages.map(lang => (
+              <button
+                key={lang}
+                className={`${lang === selectedLanguage ? 'selected' : ''} ${
+                  preferredLanguages.includes(lang) && lang !== selectedLanguage ? 'preferred' : ''
+                }`}
+                onClick={() => {
+                  setSelectedLanguage(lang);
+                  saveToLocalStorage(STORAGE_KEYS.LANGUAGE, lang);
+                }}
+              >
+                {flagMap[lang] || lang}
+              </button>
+            ))}
+          </div>
+          <div className="watermark">entity</div>
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<EntityPage />);
+  </script>
+</body>
+</html>
