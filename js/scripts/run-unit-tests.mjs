@@ -19,6 +19,7 @@ const FAST_SUITES = [
   'js/tests/unit/cli.test.mjs',
   'js/tests/unit/qp-to-text.test.mjs',
   'js/tests/unit/release-workflow.test.mjs',
+  'js/tests/unit/ghcr-visibility.test.mjs',
 ];
 
 const INTEGRATION_SUITES = [
