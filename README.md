@@ -268,6 +268,19 @@ node js/scripts/e2e-test.mjs
 node js/scripts/limitation-test.mjs
 ```
 
+### GHCR release bootstrap
+
+Docker publishing fails closed unless GHCR grants an anonymous pull token for
+`ghcr.io/link-assistant/human-language`. A package created by its first workflow
+push may initially be private. In that case, the publishing job fails with a
+`PRIVATE` error even though the image was pushed successfully.
+
+An organization owner must open the package's settings, select **Danger Zone →
+Change visibility → Public**, and rerun the failed job. GitHub does not provide
+an organization setting or API that can perform this one-time visibility
+change, so the workflow deliberately does not bypass the check with registry
+credentials.
+
 ### Interactive Demos
 
 See the [🎬 Demos](#-demos) section above for the full table — every demo is hosted at `https://link-assistant.github.io/human-language/<file>`.

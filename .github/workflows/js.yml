@@ -293,6 +293,7 @@ jobs:
           images: ghcr.io/${{ github.repository_owner }}/human-language
           labels: |
             org.opencontainers.image.version=${{ needs.detect-version-bump.outputs.version }}
+            org.opencontainers.image.source=https://github.com/link-assistant/human-language
       - name: Build and push by digest
         id: build
         uses: docker/build-push-action@v6
@@ -327,6 +328,7 @@ jobs:
       contents: read
       packages: write
     steps:
+      - uses: actions/checkout@v6
       - name: Download digests
         uses: actions/download-artifact@v4
         with:
@@ -359,6 +361,10 @@ jobs:
           docker buildx imagetools inspect --raw "$image" > /tmp/manifest.json
           jq -e 'any(.manifests[]; .platform.os == "linux" and .platform.architecture == "amd64")' /tmp/manifest.json
           jq -e 'any(.manifests[]; .platform.os == "linux" and .platform.architecture == "arm64")' /tmp/manifest.json
+      - name: Verify the GHCR package is anonymously pullable
+        env:
+          GHCR_IMAGE: ghcr.io/link-assistant/human-language
+        run: bash scripts/verify-ghcr-visibility.sh
 
   create-release:
     name: Create GitHub release
