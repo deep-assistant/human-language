@@ -316,6 +316,6 @@ Fresh research gathered June 2026:
 - [Natural language generation system architecture proposal — Meta-Wiki](https://meta.wikimedia.org/wiki/Abstract_Wikipedia/Natural_language_generation_system_architecture_proposal) (6-stage NLG pipeline)
 - [Wikifunctions:Abstract Wikipedia/2025 fragment experiments](https://www.wikifunctions.org/wiki/Wikifunctions:Abstract_Wikipedia/2025_fragment_experiments) (semantic fragments, `Z26039`, UN 6 languages)
 - [Wikifunctions:NLG SIG](https://www.wikifunctions.org/wiki/Wikifunctions:NLG_SIG) (Natural Language Generation Special Interest Group)
-- [Using Wikidata Lexemes and Items to Generate Text from Abstract Representations — Mahir Morshed, 2024 (Semantic Web Journal)](https://content.iospress.com/articles/semantic-web/sw243564) (Ninai/Udiron, constructors, renderers)
+- [Using Wikidata Lexemes and Items to Generate Text from Abstract Representations — Mahir Morshed, 2024 (Semantic Web Journal)](https://www.semantic-web-journal.net/content/using-wikidata-lexemes-and-items-generate-text-abstract-representations-0) (Ninai/Udiron, constructors, renderers)
 - [Abstract Wikipedia/Google.org Fellows evaluation — Meta-Wiki](https://meta.wikimedia.org/wiki/Abstract_Wikipedia/Google.org_Fellows_evaluation) (risk-of-failure assessment)
 - [Wikifunctions status updates (2025)](https://www.wikifunctions.org/wiki/Wikifunctions:Status_updates/2025-06-21)
